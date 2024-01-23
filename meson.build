@@ -4,7 +4,7 @@ project('missingVec', 'cpp',
 
 game_src = [ 'game.cpp' ]   
 executable(
-  'gaame',
+  'game',
   game_src,
   install : true
 )
