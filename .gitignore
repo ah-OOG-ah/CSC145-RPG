@@ -1,3 +1,4 @@
 .cache
 .optbuild
 build
+build-mingw
