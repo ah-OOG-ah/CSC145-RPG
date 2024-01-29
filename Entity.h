@@ -1,7 +1,6 @@
 #pragma once
 
 #include <cstdint>
-
 class Entity {
 
   protected:
@@ -12,8 +11,6 @@ class Entity {
     int64_t staticDef; //Substracts a set amount of damage from a hit
     int64_t percDef; //Reduces a specified percentage of damage from an attack after staticDef removes its amount
     int64_t spd;
-    
-    //Joseph: I want to include an built-in status variable for status effects but should it be a string or an enum?
 
     /*Joseph: Are these x and y variavles for position? I think Tyler just used the position as an example, 
     as position does not make sense in turn-based combat*/
