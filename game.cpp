@@ -42,7 +42,7 @@ bool quitGame() {
 
 int main() {
 
-    Menu pauseMenu(std::vector<MenuEntry>({
+    Menu debugMenu(std::vector<MenuEntry>({
         MenuEntry("Return to Game", &returnToOverworld),
         MenuEntry("Enter Battle", &enterBattle),
         MenuEntry("Manage Inventory", &manageInventory),
@@ -51,5 +51,5 @@ int main() {
         MenuEntry("Quit Game", &quitGame)
     }));
 
-    while (!pauseMenu.display()) {}
+    while (!debugMenu.display()) {}
 }
