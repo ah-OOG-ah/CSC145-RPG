@@ -4,11 +4,11 @@
 #include <vector>
 
 class Menu {
-  
+
   public:
-    const std::vector<MenuEntry> entries;
+    const std::vector<MenuEntry<Menu*>> entries;
 
-    Menu(std::vector<MenuEntry> entries);
+    Menu(std::vector<MenuEntry<Menu*>> entries);
 
-    bool display();
+    void display();
 };

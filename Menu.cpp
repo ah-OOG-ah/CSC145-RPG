@@ -3,9 +3,9 @@
 #include <ostream>
 #include <vector>
 
-Menu::Menu(std::vector<MenuEntry> entries) : entries(entries) {}
+Menu::Menu(std::vector<MenuEntry<Menu*>> entries) : entries(entries) {}
 
-bool Menu::display() {
+void Menu::display() {
 
     for (int i = 0; i < entries.size(); ++i) {
         std::cout << i << ". " << entries.at(i).name << std::endl;
@@ -35,6 +35,6 @@ bool Menu::display() {
         break;
     }
 
-    return this->entries.at(i).action();
+    this->entries.at(i).action(this);
         
 }
