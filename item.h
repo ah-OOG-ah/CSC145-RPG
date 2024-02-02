@@ -6,23 +6,21 @@
 class Item
 {
     protected:
-    std::string itemName;
+    std::string name;
     int64_t amount;
     Item* nextItem;
     Item* prevItem;
-    int64_t amountTitle; //Will determine if item say amount, uses, or nothing when going through inven using a switch statement
-    //Was going to use an enum but not sure what to do with GetAmntTitle()
 
     public:
     //Constructor
-    Item(std::string name, int64_t amnt, int64_t amountDetermine);
+    Item(std::string itemName, int64_t amnt);
 
     //Getters
     std::string GetName();
+    virtual std::string GetAmntText() = 0;
     int64_t GetAmount();
     Item* GetNext();
     Item* GetPrev();
-    int64_t GetAmntTitle();
     //Setters
     void ChangeAmount(int64_t addAmnt);
     void SetNext(Item* next);
@@ -30,5 +28,4 @@ class Item
 
     //Setters I do not think we need
     void SetName(std::string newName);
-    void SetAmountTitle(int64_t newTitle);
 };
