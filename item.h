@@ -9,6 +9,7 @@ class Item
     std::string itemName;
     int64_t amount;
     Item* nextItem;
+    Item* prevItem;
     int64_t amountTitle; //Will determine if item say amount, uses, or nothing when going through inven using a switch statement
     //Was going to use an enum but not sure what to do with GetAmntTitle()
 
@@ -20,10 +21,12 @@ class Item
     std::string GetName();
     int64_t GetAmount();
     Item* GetNext();
+    Item* GetPrev();
     int64_t GetAmntTitle();
     //Setters
     void ChangeAmount(int64_t addAmnt);
     void SetNext(Item* next);
+    void SetPrev(Item* prev);
 
     //Setters I do not think we need
     void SetName(std::string newName);
