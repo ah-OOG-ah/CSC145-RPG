@@ -38,3 +38,22 @@ class AttackItem : public RegularItem
     int64_t GetChance();
 };
 
+class HealItem : public RegularItem
+{
+    protected:
+    int64_t hpAmnt;
+    Status* healedStatus = nullptr;
+
+    public:
+    HealItem(std::string itemName, int64_t amnt, int64_t hp, Status* status) : RegularItem(itemName, amnt)
+    {
+        hpAmnt = hp;
+            healedStatus = status;
+    }
+
+    void SetHpAmnt(int64_t hp);
+    void SetHealedStatus(Status* status);
+
+    int64_t GetHpAmnt();
+    Status* GetHealedStatus();
+};

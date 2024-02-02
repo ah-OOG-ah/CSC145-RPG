@@ -17,7 +17,7 @@
     
     std::string Inventory::GetIndexName() { return index->GetName(); }
     int64_t Inventory::GetIndexAmnt() { return index->GetAmount(); }
-    int64_t Inventory::GetIndexTitle() { return index->GetAmntTitle(); }
+    std::string Inventory::GetIndexText() { return index->GetAmntText(); }
 
     void Inventory::ChangeItemAmnt(int64_t amnt)
     {

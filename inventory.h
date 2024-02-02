@@ -18,7 +18,7 @@ class Inventory
     public:
     std::string GetIndexName();
     int64_t GetIndexAmnt();
-    int64_t GetIndexTitle();
+    std::string GetIndexText();
 
     void ChangeItemAmnt(int64_t amnt); //Only for index
     void ChangeItemAmnt(int64_t amnt, int64_t pos);
