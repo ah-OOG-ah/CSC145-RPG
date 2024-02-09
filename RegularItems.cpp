@@ -35,3 +35,10 @@ HealItem::HealItem(std::string itemName, int64_t amnt, int64_t hp, Status* statu
 
 int64_t HealItem::GetHpAmnt() { return hpAmnt; }
 Status* HealItem::GetHealedStatus() { return healedStatus; }
+
+NonConsumAttackItem::NonConsumAttackItem(std::string itemName, int64_t dmg, Status* effect, int64_t chance) : AttackItem(itemName, 1, dmg, effect, chance)
+{
+    uses = " ";
+}
+
+void NonConsumAttackItem::ChangeAmount(int64_t addAmnt) { return; }

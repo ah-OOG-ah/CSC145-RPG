@@ -48,3 +48,10 @@ class HealItem : public RegularItem
     int64_t GetHpAmnt();
     Status* GetHealedStatus();
 };
+
+class NonConsumAttackItem : public AttackItem
+{
+    public:
+    NonConsumAttackItem(std::string itemName, int64_t dmg, Status* effect, int64_t chance);
+    virtual void ChangeAmount(int64_t addAmnt) override; 
+};

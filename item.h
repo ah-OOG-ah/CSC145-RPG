@@ -22,7 +22,7 @@ class Item
     Item* GetNext();
     Item* GetPrev();
     //Setters
-    void ChangeAmount(int64_t addAmnt);
+    virtual void ChangeAmount(int64_t addAmnt);
     void SetNext(Item* next);
     void SetPrev(Item* prev);
 
