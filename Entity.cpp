@@ -14,3 +14,8 @@ int64_t Entity::getStaticDef() { return staticDef; }
 int64_t Entity::getPercDef() { return percDef; }
 
 int64_t Entity::getSpd() { return spd; }
+
+bool Entity::getFleeing() { return this->isFleeing; }
+
+
+void Entity::setFleeing(bool val) { this->isFleeing = val; }

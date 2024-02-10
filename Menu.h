@@ -1,14 +1,17 @@
 #pragma once
 
-#include "MenuEntry.h"
+#include <string>
 #include <vector>
 
 class Menu {
 
   public:
-    const std::vector<MenuEntry<Menu*>> entries;
+    const std::vector<std::string> entries;
 
-    Menu(std::vector<MenuEntry<Menu*>> entries);
+    Menu(std::vector<std::string> entries);
 
-    void display();
+    virtual void display();
+
+  protected:
+    virtual void dispatch(int64_t i) = 0;
 };

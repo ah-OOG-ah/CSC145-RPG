@@ -1,9 +1,19 @@
 #include "DebugMenu.h"
+#include "Entity.h"
 #include "Menu.h"
+#include "Player.h"
+#include <memory>
+#include "game.h"
+
+
+DebugMenu debugMenu = DebugMenu();
+Player player = Player(10);
+
+std::shared_ptr<Player> getPlayer() {
+    return std::shared_ptr<Player>(&player);
+}
 
 int main() {
-
-    Menu debugMenu = DebugMenu();
 
     debugMenu.display();
 }

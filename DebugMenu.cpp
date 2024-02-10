@@ -1,48 +1,69 @@
 #include "DebugMenu.h"
+#include "Battle.h"
 #include "Menu.h"
 #include <iostream>
+#include <ostream>
+#include <string>
 
 
-void returnToOverworld(Menu* menu) {
+void DebugMenu::returnToOverworld() {
 
     std::cout << "Returning to Overworld..." << std::endl;
-    menu->display();
+    this->display();
 }
 
-void enterBattle(Menu* menu) {
+void DebugMenu::enterBattle() {
 
-    std::cout << "Entering battle!" << std::endl;
-    menu->display();
+    std::cout << "To battle!" << std::endl;
+    Battle battle(std::string("debug_fight"));
+    battle.run();
+    this->display();
 }
 
-void manageInventory(Menu* menu) {
+void DebugMenu::manageInventory() {
 
     std::cout << "Entering inventory..." << std::endl;
-    menu->display();
+    this->display();
 }
 
-void enterShop(Menu* menu) {
+void DebugMenu::enterShop() {
 
     std::cout << "Entering Shop..." << std::endl;
-    menu->display();
+    this->display();
 }
 
-void chat(Menu* menu) {
+void DebugMenu::chat() {
 
     std::cout << "Entering chat menu..." << std::endl;
-    menu->display();
+    this->display();
 }
 
-void quitGame(Menu* menu) {
+void DebugMenu::quitGame() {
 
     std::cout << "Goodbye!" << std::endl;
 }
 
-DebugMenu::DebugMenu() : Menu(std::vector<MenuEntry<Menu*>>({
-        MenuEntry<Menu*>("Return to Game", &returnToOverworld),
-        MenuEntry<Menu*>("Enter Battle", &enterBattle),
-        MenuEntry<Menu*>("Manage Inventory", &manageInventory),
-        MenuEntry<Menu*>("Enter Shop", &enterShop),
-        MenuEntry<Menu*>("Talk to Someone", &chat),
-        MenuEntry<Menu*>("Quit Game", &quitGame)
-    })) {}
+DebugMenu::DebugMenu() : Menu(std::vector<std::string>({
+    "Return to Game",
+    "Enter Battle",
+    "Manage Inventory",
+    "Enter Shop",
+    "Talk to Someone",
+    "Quit Game"
+})) {}
+
+void DebugMenu::dispatch(int64_t i) {
+
+    switch (i) {
+        case 0: this->returnToOverworld(); break;
+        case 1: this->enterBattle(); break;
+        case 2: this->manageInventory(); break;
+        case 3: this->enterShop(); break;
+        case 4: this->chat(); break;
+        //case 5: this->quitGame(); break;
+        default: {
+            std::cout << "The heck-" << std::endl;
+            int* p = nullptr; *p = 0;
+        }
+    }
+}

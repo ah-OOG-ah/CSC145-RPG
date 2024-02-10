@@ -3,9 +3,9 @@
 #include <cstdint>
 #include <string>
 
-class Attack
-{
-    protected:
+class Attack {
+
+  protected:
     std::string attkName;
     int64_t damage;
     
@@ -15,12 +15,8 @@ class Attack
     How we handle the stat boost pointer or variable?
     */
 
-    public:
-    Attack(std::string name, int64_t dmg)
-    {
-        attkName = name;
-        damage = dmg;
-    }
+  public:
+    Attack(std::string name, int64_t dmg);
 
     std::string GetName();
     int64_t GetDamage();
