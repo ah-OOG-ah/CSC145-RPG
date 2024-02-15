@@ -4,56 +4,79 @@
     #include <iostream>
 
 
-    void Inventory::GoToNext() { index = index->GetNext(); }
-    void Inventory::GoToPrev() { index = index->GetPrev(); }
-    void Inventory::GoToStart() { index = start; }
-    void Inventory::GoToEnd()
-    {
-        while(index->GetNext() != nullptr)
+    void Inventory::GoToNext() 
+    { 
+        if(index->GetNext() != nullptr)
         {
-            GoToNext();
+            index = index->GetNext(); 
         }
     }
+    void Inventory::GoToPrev() 
+    { 
+        if(index->GetPrev() != nullptr)
+        {
+        index = index->GetPrev(); 
+        }
+    }
+    void Inventory::GoToStart() { index = start; }
+    void Inventory::GoToEnd() { index = end; }
     
-    std::string Inventory::GetIndexName() { return index->GetName(); }
+    /*std::string Inventory::GetIndexName() { return index->GetName(); }
     int64_t Inventory::GetIndexAmnt() { return index->GetAmount(); }
-    std::string Inventory::GetIndexText() { return index->GetAmntText(); }
+    std::string Inventory::GetIndexText() { return index->GetAmntText(); }*/
+    Item* Inventory::GetIndex() { return index; }
+    Item* Inventory::GetStart() { return start; }
+    Item* Inventory::GetEnd() { return end; }
 
-    void Inventory::ChangeItemAmnt(int64_t amnt)
+
+    void Inventory::ChangeIndexAmnt(int64_t amnt)
     {
         index->ChangeAmount(amnt);
     }
+
     void Inventory::ChangeItemAmnt(int64_t amnt, int64_t pos)
     {
-        GoToStart();
-        for(int i = 0; i < pos; i++)
+        if(pos == 0)
         {
-            if(index->GetNext() != nullptr)
-            {
-                GoToNext();
-            } 
-            else
-            {
-                break;
-            }
+            start->ChangeAmount(amnt);
         }
-        index->ChangeAmount(amnt);
-    }
-    void Inventory::ChangeItemAmnt(int64_t amnt, std::string name)
-    {
-        GoToStart();
-        do
+        else if(pos == (size - 1))
         {
-            if(index->GetName() == name)
-            {
-                index->ChangeAmount(amnt);
-                return;
-            }
-            else if(index->GetNext() != nullptr)
+            end->ChangeAmount(amnt);
+        }
+        else
+        {
+            GoToStart();
+            for(int i = 0; i < pos; i++)
             {
                 GoToNext();
             }
-        } while (index->GetNext() != nullptr);
+            index->ChangeAmount(amnt);
+        }
+    }
+    void Inventory::ChangeItemAmnt(int64_t amnt, std::string searchName)
+    {
+        if(end->GetName() == searchName) //Checks to see if the end's name is equal to the search name
+        {
+            end->SetName(searchName);
+            return;
+        }
+        else
+        {
+            GoToStart();
+            do
+            {
+                if(index->GetName() == searchName)
+                {
+                    index->ChangeAmount(amnt);
+                    return;
+                }
+                else
+                {
+                    GoToNext();
+                }
+            }  while (index->GetNext() != nullptr);
+        }
     }
     void Inventory::InsertItem(Item* newItem, int64_t pos)
     {
@@ -101,6 +124,24 @@
             }
         } while (index->GetNext() != nullptr);
     }
+
+    void Inventory::PushBackItem(Item* newItem)
+    {
+        end->SetNext(newItem);
+        newItem->SetPrev(end);
+        end = newItem;
+    }
+
+    void Inventory::PopBackItem()
+    {
+        GoToEnd();
+        Item* formerEnd = end;
+        GoToPrev();
+        end = index;
+        end->SetNext(nullptr);
+        formerEnd->SetPrev(nullptr);
+    }
+    
     //Made ToString and Print because I want to figure out which one will be more pratical
     std::string Inventory::ToString()
     {
