@@ -23,6 +23,7 @@ class Inventory
     void GoToStart();
     void GoToEnd();
     void GoToPosition(int64_t pos);
+    void GoToName(std::string name);
 
     //Getters
     Item* GetIndex();

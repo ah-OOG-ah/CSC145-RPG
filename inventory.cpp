@@ -36,6 +36,23 @@
             GoToNext();
         }
     }
+
+    void Inventory::GoToName(std::string name)
+    {
+        GoToStart();
+        do
+        {
+            if(name == index->GetName())
+            {
+                break;
+            }
+            else
+            {
+                GoToNext();
+            }
+        } while (index->GetNext() != nullptr);
+        
+    }
     
     /*std::string Inventory::GetIndexName() { return index->GetName(); }
     int64_t Inventory::GetIndexAmnt() { return index->GetAmount(); }
