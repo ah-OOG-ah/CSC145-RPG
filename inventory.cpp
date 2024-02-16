@@ -20,6 +20,13 @@
     }
     void Inventory::GoToStart() { index = start; }
     void Inventory::GoToEnd() { index = end; }
+    void Inventory::GoToPosition(int64_t pos)
+    {
+        for(int i = 0; i < pos; i++)
+        {
+            GoToNext();
+        }
+    }
     
     /*std::string Inventory::GetIndexName() { return index->GetName(); }
     int64_t Inventory::GetIndexAmnt() { return index->GetAmount(); }
@@ -47,10 +54,7 @@
         else
         {
             GoToStart();
-            for(int i = 0; i < pos; i++)
-            {
-                GoToNext();
-            }
+            GoToPosition(pos);
             index->ChangeAmount(amnt);
         }
     }
@@ -80,14 +84,7 @@
     }
     void Inventory::InsertItem(Item* newItem, int64_t pos)
     {
-        for(int i = 0; i < pos; i++)
-        {
-            if(index->GetNext() != nullptr)
-            {
-                GoToNext();
-            }
-            else { break; }
-        }
+        GoToPosition(pos);
         newItem->SetPrev(index);
         (index->GetNext())->SetPrev(newItem);
         newItem->SetNext((index->GetNext()));

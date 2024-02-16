@@ -16,7 +16,7 @@ class Inventory
     void GoToPrev();
     void GoToStart();
     void GoToEnd();
-
+    void GoToPosition(int64_t pos);
     public:
     /*std::string GetIndexName(); //Made these before the GetIndex function. Might remove
     int64_t GetIndexAmnt();
