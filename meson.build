@@ -11,9 +11,10 @@ game_src = [
   'Battle.cpp',
   'BattleMenu.cpp',
   'Player.cpp',
-  'Attack.cpp'
-  'item.cpp'
-  'RegularItems.cpp'
+  'Attack.cpp',
+  'Equipment.cpp',
+  'item.cpp',
+  'RegularItems.cpp',
   'inventory.cpp'
 ]   
 executable(
