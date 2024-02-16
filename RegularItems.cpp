@@ -16,6 +16,11 @@ AttackItem::AttackItem(std::string itemName, int64_t amnt, int64_t dmg, Status* 
     effctChance = chance;
 }
 
+AttackItem::AttackItem(std::string itemName, int64_t amnt, int64_t dmg) : RegularItem(itemName, amnt)
+{
+    damage = dmg;
+}
+
 void AttackItem::SetDamage(int64_t dmg) { damage = dmg; }
 void AttackItem::SetStatus(Status* effect) { status = effect; }
 void AttackItem::SetChance(int64_t chance) { effctChance = chance; }
@@ -28,10 +33,15 @@ void HealItem::SetHpAmnt(int64_t hp) { hpAmnt = hp; }
 void HealItem::SetHealedStatus(Status* status) { healedStatus = status; }
 
 HealItem::HealItem(std::string itemName, int64_t amnt, int64_t hp, Status* status) : RegularItem(itemName, amnt)
-    {
-        hpAmnt = hp;
-        healedStatus = status;
-    }
+{
+    hpAmnt = hp;
+    healedStatus = status;
+}
+
+HealItem::HealItem(std::string itemName, int64_t amnt, int64_t hp) : RegularItem(itemName, amnt)
+{
+    hpAmnt = hp;
+}
 
 int64_t HealItem::GetHpAmnt() { return hpAmnt; }
 Status* HealItem::GetHealedStatus() { return healedStatus; }
