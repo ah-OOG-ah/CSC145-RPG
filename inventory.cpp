@@ -3,6 +3,14 @@
     #include <string>
     #include <iostream>
 
+    Inventory::Inventory() {}
+
+    Inventory::Inventory(Item* firstItem)
+    {
+        index = firstItem;
+        start = firstItem;
+        end = firstItem;
+    }
 
     void Inventory::GoToNext() 
     { 
@@ -120,9 +128,18 @@
 
     void Inventory::PushBackItem(Item* newItem)
     {
-        end->SetNext(newItem);
-        newItem->SetPrev(end);
-        end = newItem;
+        if(index == nullptr)
+        {
+            index = newItem;
+            start = newItem;
+            end = newItem;
+        }
+        else
+        {
+            end->SetNext(newItem);
+            newItem->SetPrev(end);
+            end = newItem;
+        }
         size++;
     }
 
