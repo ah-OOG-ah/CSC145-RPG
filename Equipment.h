@@ -14,3 +14,14 @@ class Equipment : public Item
     Equipment(std::string itemName, int64_t amnt);
     std::string GetAmntText() override;
 };
+
+class Weapon : public Equipment
+{
+    protected:
+    int64_t damage;
+
+    public:
+    Weapon(std::string itemName, int64_t amnt);
+    int64_t GetDamage();
+    void SetDamage(int64_t dmg);
+};
