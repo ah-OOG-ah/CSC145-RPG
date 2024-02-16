@@ -32,7 +32,7 @@ class Inventory
     void PushBackItem(Item* newItem);
     void RemoveItem(int64_t pos);
     void RemoveItem(std::string name);
-    void PopBackItem();
+    Item* PopBackItem();
     //Made ToString and Print because I want to figure out which one will be more pratical
     std::string ToString();
     void PrintInven(); 

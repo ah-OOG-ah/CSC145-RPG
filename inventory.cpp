@@ -22,6 +22,7 @@
     void Inventory::GoToEnd() { index = end; }
     void Inventory::GoToPosition(int64_t pos)
     {
+        GoToStart();
         for(int i = 0; i < pos; i++)
         {
             GoToNext();
@@ -89,20 +90,14 @@
         (index->GetNext())->SetPrev(newItem);
         newItem->SetNext((index->GetNext()));
         index->SetNext(newItem);
+        size++;
     }
     void Inventory::RemoveItem(int64_t pos)
     {
-        GoToStart();
-        for(int i = 0; i < pos; i++)
-        {
-            if(index->GetNext() != nullptr)
-            {
-                GoToNext();
-            }
-            else { break; }
-        }
+        GoToPosition(pos);
         ((index->GetNext())->GetNext())->SetPrev(index);
         index->SetNext(((index->GetNext())->GetNext()));
+        size--;
     }
     void Inventory::RemoveItem(std::string name)
     {
@@ -120,6 +115,7 @@
                 GoToNext();
             }
         } while (index->GetNext() != nullptr);
+        size--;
     }
 
     void Inventory::PushBackItem(Item* newItem)
@@ -127,9 +123,10 @@
         end->SetNext(newItem);
         newItem->SetPrev(end);
         end = newItem;
+        size++;
     }
 
-    void Inventory::PopBackItem()
+    Item* Inventory::PopBackItem()
     {
         GoToEnd();
         Item* formerEnd = end;
@@ -137,6 +134,8 @@
         end = index;
         end->SetNext(nullptr);
         formerEnd->SetPrev(nullptr);
+        size--;
+        return formerEnd;
     }
     
     //Made ToString and Print because I want to figure out which one will be more pratical
@@ -144,16 +143,13 @@
     {
         GoToStart();
         std::string invenString;
-        do
+        for(int i = 0; i < size; i++)
         {
             invenString += index->GetName();
-            /*switch(index->GetAmntTitle())
-            case 1:
-                invenString+= "x" + index->GetAmount();
-                break;
-            case 2:
-                invenString+= "Uses left" + index->GetAmount();*/
-        } while (index->GetNext() != nullptr);
-        
+            invenString += index->GetAmntText();
+            invenString += std::to_string((index->GetAmount()));
+            invenString += "\n";
+            GoToNext();
+        }
     }
     //void Inventory::PrintInven();
