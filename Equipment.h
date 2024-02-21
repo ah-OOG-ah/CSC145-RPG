@@ -21,7 +21,7 @@ class Weapon : public Equipment
     int64_t damage;
 
     public:
-    Weapon(std::string itemName, int64_t amnt);
+    Weapon(std::string itemName, int64_t amnt, int64_t dmg);
     int64_t GetDamage();
     void SetDamage(int64_t dmg);
 };
