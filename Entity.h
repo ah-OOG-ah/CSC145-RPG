@@ -10,9 +10,7 @@ class Entity {
     int64_t percDef = 0; //Reduces a specified percentage of damage from an attack after staticDef removes its amount
     int64_t spd = 10;
     bool isFleeing = false;
-
-    /*Joseph: Are these x and y variavles for position? I think Tyler just used the position as an example, 
-    as position does not make sense in turn-based combat*/
+    bool isAlive = true;
 
   public:
     Entity(int64_t hp);
@@ -23,6 +21,8 @@ class Entity {
     int64_t getPercDef();
     int64_t getSpd();
     bool getFleeing();
+    bool getAlive();
 
     void setFleeing(bool);
+    void setAlive(bool);
 };

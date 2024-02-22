@@ -17,5 +17,9 @@ int64_t Entity::getSpd() { return spd; }
 
 bool Entity::getFleeing() { return this->isFleeing; }
 
+bool Entity::getAlive() { return this->isAlive; }
+
 
 void Entity::setFleeing(bool val) { this->isFleeing = val; }
+
+void Entity::setAlive(bool val) { this->isAlive = val; }
