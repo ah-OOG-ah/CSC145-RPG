@@ -15,10 +15,11 @@ int64_t Entity::getPercDef() { return percDef; }
 
 int64_t Entity::getSpd() { return spd; }
 
+int64_t Entity::getMp() { return mp; }
+
 bool Entity::getFleeing() { return this->isFleeing; }
 
 bool Entity::getAlive() { return this->isAlive; }
-
 
 void Entity::setFleeing(bool val) { this->isFleeing = val; }
 

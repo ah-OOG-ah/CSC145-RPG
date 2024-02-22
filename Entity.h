@@ -8,7 +8,8 @@ class Entity {
     int64_t attk = 10;
     int64_t staticDef = 0; //Substracts a set amount of damage from a hit
     int64_t percDef = 0; //Reduces a specified percentage of damage from an attack after staticDef removes its amount
-    int64_t spd = 10;
+    int64_t spd = 10; //Used to determine turn order
+    int64_t mp; //Used to have a magic points sytem if we want include that
     bool isFleeing = false;
     bool isAlive = true;
 
@@ -20,6 +21,7 @@ class Entity {
     int64_t getStaticDef();
     int64_t getPercDef();
     int64_t getSpd();
+    int64_t getMp();
     bool getFleeing();
     bool getAlive();
 
