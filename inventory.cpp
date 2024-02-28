@@ -14,7 +14,7 @@
     {
         for(int i = 0; i < numElements; i++)
         {
-            if(start[i].GetName() == name)
+            if((*start)[i].GetName() == name)
             {
                 return start[i];
             }
@@ -28,10 +28,10 @@
     void Inventory::SetElement(std::string name, Item* newItem)
     {
         int i = 0;
-        while(start[i].GetName() != name)
+        while((*start)[i].GetName() != name)
         {
             i++;
-            if(num >= numElements)
+            if(i >= numElements)
             {
                 return;
             }
@@ -41,22 +41,28 @@
 
     void Inventory::AddToItem(int64_t amnt,int64_t pos)
     {
-        start[pos].ChangeAmount(amnt);
+        (*start)[pos].ChangeAmount(amnt);
     }
     void Inventory::AddToItem(int64_t amnt, std::string name)
     {
         int i = 0;
-        while(start[i].GetName() != name)
+        while((*start)[i].GetName() != name)
         {
             i++;
-            if(num >= numElements)
+            if(i >= numElements)
             {
                 return;
             }
         }
-        start[i].ChangeAmount(amnt);
+        (*start)[i].ChangeAmount(amnt);
     }
 
 
-    std::string Inventory::ToString();
-    void Inventory::PrintInven(); 
+    std::string Inventory::ToString()
+    {
+
+    }
+    void Inventory::PrintInven()
+    {
+
+    }
