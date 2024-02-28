@@ -60,9 +60,21 @@
 
     std::string Inventory::ToString()
     {
-
+        std::string invenString = "INVENTORY \n";
+        for(int i = 0; i < numElements; i++)
+        {
+            invenString += (*start)[i].GetName();
+            invenString += (*start)[i].GetAmntText();
+            invenString += (*start)[i].GetAmount();
+            invenString += "\n";
+        }
+        return invenString;
     }
     void Inventory::PrintInven()
     {
-
+        std::cout<<"INVENTORY"<<std::endl;
+        for(int i = 0; i < numElements; i++)
+        {
+            std::cout<<(*start)[i].GetName()<<(*start)[i].GetAmntText()<<(*start)[i].GetAmount()<<std::endl;
+        }
     }
