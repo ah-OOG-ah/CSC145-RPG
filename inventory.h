@@ -15,6 +15,8 @@ class Inventory
     //Constructors
     Inventory();
     Inventory(Item*);
+    Inventory(int64_t);
+    Inventory(int64_t, Item*);
 
     Item* GetElement(int64_t);
     Item* GetElement(std::string);

@@ -5,7 +5,9 @@
 
     Inventory::Inventory() { }
     Inventory::Inventory(Item* first) { start[0] = first; }
- 
+    Inventory::Inventory(int64_t itemCap) { numElements = itemCap; }
+    Inventory::Inventory(int64_t itemCap, Item* first) { start[0] = first; numElements = itemCap; }
+
     Item* Inventory::GetElement(int64_t pos)
     {
         return start[pos];
@@ -57,16 +59,18 @@
         (*start)[i].ChangeAmount(amnt);
     }
 
-
     std::string Inventory::ToString()
     {
         std::string invenString = "INVENTORY \n";
         for(int i = 0; i < numElements; i++)
-        {
+        {   
+            if(start[i] != nullptr)
+            {
             invenString += (*start)[i].GetName();
             invenString += (*start)[i].GetAmntText();
             invenString += (*start)[i].GetAmount();
             invenString += "\n";
+            }
         }
         return invenString;
     }
@@ -75,6 +79,9 @@
         std::cout<<"INVENTORY"<<std::endl;
         for(int i = 0; i < numElements; i++)
         {
+            if(start[i] != nullptr)
+            {
             std::cout<<(*start)[i].GetName()<<(*start)[i].GetAmntText()<<(*start)[i].GetAmount()<<std::endl;
+            }
         }
     }
