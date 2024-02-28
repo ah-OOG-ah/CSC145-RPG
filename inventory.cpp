@@ -4,13 +4,13 @@
     #include <iostream>
 
     Inventory::Inventory() { }
-    Inventory(Item* first) { start[0] = first; }
+    Inventory::Inventory(Item* first) { start[0] = first; }
  
-    Item* GetElement(int64_t pos)
+    Item* Inventory::GetElement(int64_t pos)
     {
         return start[pos];
     }
-    Item* GetElement(std::string name)
+    Item* Inventory::GetElement(std::string name)
     {
         for(int i = 0; i < numElements; i++)
         {
@@ -21,11 +21,11 @@
         }
         return nullptr;
     }
-    void SetElement(int64_t pos, Item* newItem)
+    void Inventory::SetElement(int64_t pos, Item* newItem)
     {
         start[pos] = newItem;
     }
-    void SetElement(std::string name, Item* newItem)
+    void Inventory::SetElement(std::string name, Item* newItem)
     {
         int i = 0;
         while(start[i].GetName() != name)
@@ -39,11 +39,11 @@
         start[i] = newItem;
     }
 
-    void AddToItem(int64_t amnt,int64_t pos)
+    void Inventory::AddToItem(int64_t amnt,int64_t pos)
     {
         start[pos].ChangeAmount(amnt);
     }
-    void AddToItem(int64_t amnt, std::string name)
+    void Inventory::AddToItem(int64_t amnt, std::string name)
     {
         int i = 0;
         while(start[i].GetName() != name)
@@ -58,5 +58,5 @@
     }
 
 
-    std::string ToString();
-    void PrintInven(); 
+    std::string Inventory::ToString();
+    void Inventory::PrintInven(); 
