@@ -3,43 +3,26 @@
 #include <cstdint>
 #include <string>
 #include "item.h"
+#include "RegularItems.h"
 
 class Inventory
 {
     protected:
-    Item* index;
-    Item* start;
-    Item* end;
-    int64_t size = 0;
+    int numElements = 30;
+    Item** start = new Item*[numElements];
 
     public:
     //Constructors
     Inventory();
-    Inventory(Item* firstItem);
+    Inventory(Item*);
 
-    //GoToMethods
-    void GoToNext();
-    void GoToPrev();
-    void GoToStart();
-    void GoToEnd();
-    void GoToPosition(int64_t pos);
-    void GoToName(std::string name);
+    Item* GetElement(int64_t);
+    Item* GetElement(std::string);
+    void SetElement(int64_t, Item*);
+    void SetElement(std::string, Item*);
 
-    //Getters
-    Item* GetIndex();
-    Item* GetStart();
-    Item* GetEnd();
-    //Changes amount functions
-    void ChangeIndexAmnt(int64_t amnt); //Only for index
-    void ChangeItemAmnt(int64_t amnt, int64_t pos);
-    void ChangeItemAmnt(int64_t amnt, std::string name);
-
-    //Insertion/Deletion functions
-    void InsertItem(Item* newItem, int64_t pos);
-    void PushBackItem(Item* newItem);
-    void RemoveItem(int64_t pos);
-    void RemoveItem(std::string name);
-    Item* PopBackItem();
+    void AddToItem(int64_t,int64_t);
+    void AddToItem(int64_t, std::string);
 
     //Made ToString and Print because I want to figure out which one will be more pratical
     std::string ToString();
