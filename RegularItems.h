@@ -12,6 +12,7 @@ class RegularItem : public Item
 
     public:
     RegularItem(std::string itemName, int64_t amnt);
+    RegularItem(std::string itemName);
     std::string GetAmntText() override;
 };
 
@@ -20,11 +21,12 @@ class AttackItem : public RegularItem
     protected:
     int64_t damage;
     Status* status = nullptr;
-    int64_t effctChance;
+    int64_t effctChance = 0;
 
     public:
     AttackItem(std::string itemName, int64_t amnt, int64_t dmg, Status* effect, int64_t chance);
     AttackItem(std::string itemName, int64_t amnt, int64_t dmg);
+    AttackItem(std::string itemName, int64_t dmg);
     void SetDamage(int64_t dmg);
     void SetStatus(Status* effect);
     void SetChance(int64_t chance);
@@ -43,6 +45,7 @@ class HealItem : public RegularItem
     public:
     HealItem(std::string itemName, int64_t amnt, int64_t hp, Status* status);
     HealItem(std::string itemName, int64_t amnt, int64_t hp);
+    HealItem(std::string itemName, int64_t hp);
 
     void SetHpAmnt(int64_t hp);
     void SetHealedStatus(Status* status);

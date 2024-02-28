@@ -11,7 +11,7 @@ class Item
 
     public:
     //Constructor
-    Item(int64_t);
+    Item(std::string);
     Item(std::string itemName, int64_t amnt);
 
     //Getters

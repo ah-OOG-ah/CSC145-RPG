@@ -3,7 +3,7 @@
 #include <cstdint>
 #include <string>
 
-    Item::Item(int64_t itemName)
+    Item::Item(std::string itemName)
     { 
         name = itemName;
     }

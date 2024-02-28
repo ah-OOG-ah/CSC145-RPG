@@ -3,6 +3,7 @@
 #include "RegularItems.h"
 
 RegularItem::RegularItem(std::string itemName, int64_t amnt) : Item(itemName, amnt) {}
+RegularItem::RegularItem(std::string itemName) : Item(itemName) { }
 
 std::string RegularItem::GetAmntText()
 {
@@ -17,6 +18,11 @@ AttackItem::AttackItem(std::string itemName, int64_t amnt, int64_t dmg, Status* 
 }
 
 AttackItem::AttackItem(std::string itemName, int64_t amnt, int64_t dmg) : RegularItem(itemName, amnt)
+{
+    damage = dmg;
+}
+
+AttackItem::AttackItem(std::string itemName, int64_t dmg) : RegularItem(itemName)
 {
     damage = dmg;
 }
@@ -39,6 +45,11 @@ HealItem::HealItem(std::string itemName, int64_t amnt, int64_t hp, Status* statu
 }
 
 HealItem::HealItem(std::string itemName, int64_t amnt, int64_t hp) : RegularItem(itemName, amnt)
+{
+    hpAmnt = hp;
+}
+
+HealItem::HealItem(std::string itemName, int64_t hp) : RegularItem(itemName)
 {
     hpAmnt = hp;
 }
