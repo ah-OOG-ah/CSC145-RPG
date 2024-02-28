@@ -1,7 +1,16 @@
 #include "attack.h"
 #include <cstdint>
-#include <string>
 
-std::string Attack::GetName() { return attkName; }
+Attack::Attack(std::string name, int64_t dmg) {
 
-int64_t Attack::GetDamage() { return damage; }
+    this->attkName = name;
+    this->damage = dmg;
+}
+
+std::string Attack::GetName() {
+    return this->attkName;
+}
+
+int64_t Attack::GetDamage() {
+    return this->damage;
+}
