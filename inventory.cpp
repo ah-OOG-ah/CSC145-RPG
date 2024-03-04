@@ -76,12 +76,12 @@
     }
     void Inventory::PrintInven()
     {
-        std::cout<<"INVENTORY"<<std::endl;
-        for(int i = 0; i < numElements; i++)
-        {
-            if(start[i] != nullptr)
-            {
-            std::cout<<(*start)[i].GetName()<<(*start)[i].GetAmntText()<<(*start)[i].GetAmount()<<std::endl;
+        std::cout << "INVENTORY" << std::endl;
+        for (int i = 0; i < numElements; i++) {
+
+            if (start[i] != nullptr) {
+
+                std::cout << start[i]->GetName() << start[i]->GetAmntText() << start[i]->GetAmount() << std::endl;
             }
         }
     }
