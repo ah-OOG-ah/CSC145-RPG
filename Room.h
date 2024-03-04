@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <cstdint>
 
 class Room
 {
@@ -12,5 +13,5 @@ class Room
     std::string GetName();
     std::string GetDesc();
 
-    virtual void GenerateRoom() = 0;
+    virtual void GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3) = 0;
 };
