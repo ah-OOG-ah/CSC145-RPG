@@ -26,7 +26,7 @@ int main() {
     HealItem* potion = new HealItem("Potion", 10, 6);
     AttackItem* spear = new AttackItem("Spear", 1, 20);
     AttackItem* sword = new AttackItem("Sword", 2, 15);
-    HealItem* water = new HealItem("Sword", 10, 20);
+    HealItem* water = new HealItem("Water", 10, 20);
     Inventory inven(rock);
     std::cout<<inven.ToString()<<std::endl;
     inven.SetElement(1, potion);
