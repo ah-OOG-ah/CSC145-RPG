@@ -122,6 +122,31 @@ void HallWay::GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran
                 break;
         }
     }*/
+
+    std::string Shop::GetDialogue(int64_t selection)
+    {
+        switch(selection)
+        {
+            case1:
+                return enterString;
+                break;
+            case 2:
+                return whatAreYouBuying;
+                break;
+            case 3:
+                return bought;
+                break;
+            case 4:
+                return notEnough;
+                break;
+            case 5: 
+                return exitString;
+                break;
+            default:
+                return "Monkey Bob is coming for you";
+                break;
+        }
+    }
     void Shop::GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran4, int64_t ran5)
     {
         //Switches Statement to determine Purchase1-3
@@ -132,10 +157,15 @@ void HallWay::GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran
         switch(ran1)
         {
             case 1:
+                enterString = "Hello me chum, welcome to me shop";
+                whatAreYouBuying = "Which of me fine items would ye be interested in buying today";
+                bought = "Aye! Pleasure doing buisness";
+                notEnough = "Oi! You do not have enough money, lad! Get a job!";
+                exitString = "Take care of yeself, mate!";
                 switch(ran2)
                 {
                     case 1:
-                        merchantName = "Bob";
+                        merchantName = "Grisly Beard";
                         break;
                     case 2:
                         merchantName = "Jerome";
@@ -144,11 +174,16 @@ void HallWay::GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran
                         merchantName = "Jackson";
                         break;
                     default:
-                        merchantName = "Sir Michel";
+                        merchantName = "Hobo Gregor";
                         break;
                 }
                 break;
             case 2:
+                enterString = "Welcome, sir, to my shop!";
+                whatAreYouBuying = "Which item would you be interested in today\?";
+                bought = "Much apprieciated, sir!";
+                notEnough = "It seems you do not have enough money for that item at the moment.";
+                exitString = "Have a blessed day, sire!";
                 switch(ran2)
                 {
                     case 1:
@@ -161,11 +196,16 @@ void HallWay::GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran
                         merchantName = "Sir Jack";
                         break;
                     default:
-                        merchantName = "Bruno";
+                        merchantName = "Sir Michel";
                         break;
                 }
                 break;
             case 3:
+                enterString = "Hello there!";
+                whatAreYouBuying = "Anything you interested in\?";
+                bought = "Oh, Money, you do make the world go round!";
+                notEnough = "Hey, rat! You don\'t seem to have enough money to buy that";
+                exitString = "Be careful. You never know what could be lurking out there";
                 switch(ran2)
                 {
                     case 1:
@@ -183,6 +223,11 @@ void HallWay::GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran
                 }
                 break;
             default:
-                merchantName = "Merchie the Merchant";
+                enterString = "((|)..(|)) \n     -";
+                whatAreYouBuying = "What are you buying\?";
+                bought = "This will make a good offering for the boss";
+                notEnough = "Monkey Bob did not like that";
+                exitString = "Monkey Bob is coming for you";
+                merchantName = "Bob";
         }
     }

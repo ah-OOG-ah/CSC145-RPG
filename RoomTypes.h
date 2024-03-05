@@ -60,10 +60,16 @@ class Shop : public Room
     /*int64_t price1;
     int64_t price2;
     int64_t price3;*/ //Depending on whether we want each item to determine their own price
+    std::string enterString;
+    std::string whatAreYouBuying;
+    std::string bought;
+    std::string notEnough;
+    std::string exitString;
 
     public:
     std::string GetMerchant();
     Item* GetPurchase(int64_t);
     int64_t GetPrice(int64_t);
+    std::string GetDialogue(int64_t);
     void GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran4, int64_t ran5) override;
 };
