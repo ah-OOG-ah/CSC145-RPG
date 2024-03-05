@@ -104,42 +104,33 @@ void HallWay::GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran
                 break;
         }
     }
-    /*int64_t Shop::GetPrice(int64_t selection)
-    {
-        switch(selection)
-        {
-            case 1:
-                return price1;
-                break;
-            case 2:
-                return price2;
-                break;
-            case 3:
-                return price3;
-                break;
-            default:
-                return 0;
-                break;
-        }
-    }*/
 
     std::string Shop::GetDialogue(int64_t selection)
     {
         switch(selection)
         {
-            case1:
+            case 1:
                 return enterString;
                 break;
             case 2:
                 return whatAreYouBuying;
                 break;
             case 3:
-                return bought;
+                return merchantBuying;
                 break;
             case 4:
+                return takeThatFor;
+                break;
+            case 5:
+                return youBought;
+                break;
+            case 6:
+                return theyBought;
+                break;
+            case 7:
                 return notEnough;
                 break;
-            case 5: 
+            case 8: 
                 return exitString;
                 break;
             default:
@@ -151,15 +142,16 @@ void HallWay::GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran
     {
         //Switches Statement to determine Purchase1-3
 
-        //Switch statement to determine dialogue choices
-
         //Multi switch statement to determine merchant's name
         switch(ran1)
         {
             case 1:
                 enterString = "Hello me chum, welcome to me shop";
                 whatAreYouBuying = "Which of me fine items would ye be interested in buying today";
-                bought = "Aye! Pleasure doing buisness";
+                merchantBuying = "What junk do ye have\?";
+                takeThatFor = "I can spare you about... ";
+                youBought = "Aye! Pleasure doing buisness";
+                theyBought = "Thanks for the item!";
                 notEnough = "Oi! You do not have enough money, lad! Get a job!";
                 exitString = "Take care of yeself, mate!";
                 switch(ran2)
@@ -181,7 +173,10 @@ void HallWay::GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran
             case 2:
                 enterString = "Welcome, sir, to my shop!";
                 whatAreYouBuying = "Which item would you be interested in today\?";
-                bought = "Much apprieciated, sir!";
+                merchantBuying = "What would you like me to buy\?";
+                takeThatFor = "I would say that is worth around";
+                youBought = "Much apprieciated, sir!";
+                theyBought = "This is a very fine item, my good sir. Thank you!";
                 notEnough = "It seems you do not have enough money for that item at the moment.";
                 exitString = "Have a blessed day, sire!";
                 switch(ran2)
@@ -203,7 +198,10 @@ void HallWay::GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran
             case 3:
                 enterString = "Hello there!";
                 whatAreYouBuying = "Anything you interested in\?";
-                bought = "Oh, Money, you do make the world go round!";
+                merchantBuying = "What do you have\?";
+                takeThatFor = "I can take that off your hands for";
+                youBought = "Oh, Money, you do make the world go round!";
+                theyBought = "This will make a fine addition to my collection";
                 notEnough = "Hey, rat! You don\'t seem to have enough money to buy that";
                 exitString = "Be careful. You never know what could be lurking out there";
                 switch(ran2)
@@ -225,7 +223,10 @@ void HallWay::GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran
             default:
                 enterString = "((|)..(|)) \n     -";
                 whatAreYouBuying = "What are you buying\?";
-                bought = "This will make a good offering for the boss";
+                merchantBuying = "What items do you have\?";
+                takeThatFor = "I can make a transactional purchase for that item which will gain you approximately";
+                youBought = "This will make a good offering for the boss";
+                theyBought = "Monkey Bob is happy you are ridding yourself of your items. It makes you easier to kill.";
                 notEnough = "Monkey Bob did not like that";
                 exitString = "Monkey Bob is coming for you";
                 merchantName = "Bob";
