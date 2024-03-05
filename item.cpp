@@ -15,6 +15,7 @@
 
     std::string Item::GetName() { return name; }
     int64_t Item::GetAmount() { return amount; }
+    int64_t Item::GetPrice() { return price; }
 
 
     void Item::ChangeAmount(int64_t addAmnt) { amount += addAmnt; }
