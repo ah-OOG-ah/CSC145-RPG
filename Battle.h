@@ -10,12 +10,17 @@
 #include <vector>
 
 
-class Battle : public Scene {
+class Battle : public Scene, public Menu {
 
   private:
     std::vector<Enemy> enemy;
     std::shared_ptr<Player> player;
-    BattleMenu battleMenu;
+
+    void attack();
+    void escape();
+
+  protected:
+    virtual void dispatch(int64_t i) override;
 
   public:
     Battle(std::string);
