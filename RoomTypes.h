@@ -3,6 +3,7 @@
 #include <string>
 #include "item.h"
 #include "Room.h"
+#include "ShopMenu.h"
 #include <cstdint>
 
 class SafeRoom : public Room
@@ -83,7 +84,7 @@ class Shop : public Room
 {
     protected:
     std::string mapDisplay = "S";
-    std::string merchantName;
+    /*std::string merchantName;
     Item* purchase1 = nullptr;
     Item* purchase2 = nullptr;
     Item* purchase3 = nullptr;
@@ -94,9 +95,10 @@ class Shop : public Room
     std::string youBought; //Dialogue index of 5; Used after players buys an item
     std::string theyBought; //Dialogue index of 6; Used after merchant buys an item
     std::string notEnough; //Dialogue index of 7; Used when player does not have enough money to buy an item
-    std::string exitString; //Dialogue index of 8; Used when player leaves the shop
+    std::string exitString; //Dialogue index of 8; Used when player leaves the shop*/
 
     public:
+    ShopMenu shop;
     /*
     Name: GetMerchant
     Return type: string
@@ -119,4 +121,6 @@ class Shop : public Room
     */
     std::string GetDialogue(int64_t);
     void GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran4, int64_t ran5) override;
+
+    
 };

@@ -85,61 +85,20 @@ void HallWay::GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran
     }
 }
 
-    std::string Shop::GetMerchant() { return merchantName; }
-    Item* Shop::GetPurchase(int64_t selection) 
-    {
-        switch(selection)
-        {
-            case 1:
-                return purchase1;
-                break;
-            case 2:
-                return purchase2;
-                break;
-            case 3:
-                return purchase3;
-                break;
-            default:
-                return nullptr;
-                break;
-        }
-    }
-
-    std::string Shop::GetDialogue(int64_t selection)
-    {
-        switch(selection)
-        {
-            case 1:
-                return enterString;
-                break;
-            case 2:
-                return whatAreYouBuying;
-                break;
-            case 3:
-                return merchantBuying;
-                break;
-            case 4:
-                return takeThatFor;
-                break;
-            case 5:
-                return youBought;
-                break;
-            case 6:
-                return theyBought;
-                break;
-            case 7:
-                return notEnough;
-                break;
-            case 8: 
-                return exitString;
-                break;
-            default:
-                return "Monkey Bob is coming for you";
-                break;
-        }
-    }
     void Shop::GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran4, int64_t ran5)
     {
+        std::string merchantName;
+        std::string enterString;
+        std::string whatAreYouBuying;
+        std::string merchantBuying;
+        std::string takeThatFor;
+        std::string youBought;
+        std::string theyBought;
+        std::string notEnough;
+        std::string exitString;
+        Item* purchase1 = nullptr;
+        Item* purchase2 = nullptr;
+        Item* purchase3 = nullptr;
         //Switches Statement to determine Purchase1-3
 
         //Multi switch statement to determine merchant's name
@@ -229,6 +188,7 @@ void HallWay::GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran
                 theyBought = "Monkey Bob is happy you are ridding yourself of your items. It makes you easier to kill.";
                 notEnough = "Monkey Bob did not like that";
                 exitString = "Monkey Bob is coming for you";
-                merchantName = "Bob";
+                merchantName = "Merchant Bob";
         }
+        std::vector<std::string> entries{enterString, whatAreYouBuying, merchantBuying, takeThatFor, youBought, theyBought, notEnough, exitString};
     }
