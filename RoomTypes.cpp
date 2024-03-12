@@ -118,6 +118,7 @@ void HallWay::GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran
         std::string youBought;
         std::string theyBought;
         std::string notEnough;
+        std::string invalid;
         std::string exitString;
         //Switches Statement to determine Purchase1-3
 
@@ -133,6 +134,7 @@ void HallWay::GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran
                 youBought = "Aye! Pleasure doing buisness";
                 theyBought = "Thanks for the item!";
                 notEnough = "Oi! You do not have enough money, lad! Get a job!";
+                invalid = "Oi! What do ye want \?";
                 exitString = "Take care of yeself, mate!";
                 switch(ran2)
                 {
@@ -159,6 +161,7 @@ void HallWay::GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran
                 youBought = "Much apprieciated, sir!";
                 theyBought = "This is a very fine item, my good sir. Thank you!";
                 notEnough = "It seems you do not have enough money for that item at the moment.";
+                invalid = "Excuse me \? What was that, sir \?";
                 exitString = "Have a blessed day, sire!";
                 switch(ran2)
                 {
@@ -185,6 +188,7 @@ void HallWay::GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran
                 youBought = "Oh, Money, you do make the world go round!";
                 theyBought = "This will make a fine addition to my collection";
                 notEnough = "Hey, rat! You don\'t seem to have enough money to buy that";
+                invalid = "Speak up, kid, I can\'t hear you.";
                 exitString = "Be careful. You never know what could be lurking out there";
                 switch(ran2)
                 {
@@ -211,8 +215,9 @@ void HallWay::GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran
                 youBought = "This will make a good offering for the boss";
                 theyBought = "Monkey Bob is happy you are ridding yourself of your items. It makes you easier to kill.";
                 notEnough = "Monkey Bob did not like that";
+                invalid = "Monkey Bob really did not like that";
                 exitString = "Monkey Bob is coming for you";
                 merchantName = "Merchant Bob";
         }
-        entries = {enterString, whatAreYouBuying, merchantBuying, takeThatFor, youBought, theyBought, notEnough, exitString};
+        entries = {enterString, whatAreYouBuying, merchantBuying, takeThatFor, youBought, theyBought, notEnough, invalid, exitString};
     }

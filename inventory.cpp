@@ -60,6 +60,11 @@
         (*start)[i].ChangeAmount(amnt);
     }
 
+    /*void Inventory::PushBack(Item* newItem)
+    {
+        start[numElements - 1];
+    }*/
+
     void Inventory::AddGold(int64_t amnt) { gold+=amnt; }
 
     std::string Inventory::ToString()

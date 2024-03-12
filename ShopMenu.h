@@ -30,5 +30,6 @@ class ShopMenu : public Menu {
     youBought; //Dialogue index of 5; Used after players buys an item
     theyBought; //Dialogue index of 6; Used after merchant buys an item
     notEnough; //Dialogue index of 7; Used when player does not have enough money to buy an item
-    exitString; //Dialogue index of 8; Used when player leaves the shop*/
+    invalid; //Dialogue index of 8; Used when player inputs an invalid input
+    exitString; //Dialogue index of 9; Used when player leaves the shop*/
 };

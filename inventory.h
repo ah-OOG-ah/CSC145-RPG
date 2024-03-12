@@ -22,6 +22,7 @@ class Inventory
     Item* GetElement(int64_t);
     Item* GetElement(std::string);
     int64_t GetGold();
+    void PushBack(Item*);
     void SetElement(int64_t, Item*);
     void SetElement(std::string, Item*);
 
