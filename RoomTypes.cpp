@@ -111,6 +111,7 @@ void HallWay::GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran
     void Shop::GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran4, int64_t ran5)
     {
         std::string enterString;
+        std::string buyOrSell;
         std::string whatAreYouBuying;
         std::string merchantBuying;
         std::string takeThatFor;
@@ -125,6 +126,7 @@ void HallWay::GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran
         {
             case 1:
                 enterString = "Hello me chum, welcome to me shop";
+                buyOrSell = "Ye buying or ye selling\?";
                 whatAreYouBuying = "Which of me fine items would ye be interested in buying today";
                 merchantBuying = "What junk do ye have\?";
                 takeThatFor = "I can spare you about... ";
@@ -150,6 +152,7 @@ void HallWay::GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran
                 break;
             case 2:
                 enterString = "Welcome, sir, to my shop!";
+                buyOrSell = "Are you buying items or selling them, sir \?";
                 whatAreYouBuying = "Which item would you be interested in today\?";
                 merchantBuying = "What would you like me to buy\?";
                 takeThatFor = "I would say that is worth around";
@@ -175,6 +178,7 @@ void HallWay::GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran
                 break;
             case 3:
                 enterString = "Hello there!";
+                buyOrSell = "What do you want\?";
                 whatAreYouBuying = "Anything you interested in\?";
                 merchantBuying = "What do you have\?";
                 takeThatFor = "I can take that off your hands for";
@@ -200,6 +204,7 @@ void HallWay::GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran
                 break;
             default:
                 enterString = "((|)..(|)) \n     -";
+                buyOrSell = "Ooh ooh, ah ah";
                 whatAreYouBuying = "What are you buying\?";
                 merchantBuying = "What items do you have\?";
                 takeThatFor = "I can make a transactional purchase for that item which will gain you approximately";

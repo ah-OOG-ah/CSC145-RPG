@@ -19,9 +19,11 @@ class ShopMenu : public Menu {
     Item* purchase1 = nullptr;
     Item* purchase2 = nullptr;
     Item* purchase3 = nullptr;
+    Item* GetPurchase(int64_t);
 
     /*
-    enterString; //Dialogue index of 1; Used when player enters shop
+    enterString; //Dialogue index of 0; Used when player enters shop
+    buyOrSell; Dialogue index of 1; Used when player is asked whether they want to buy or sell
     whatAreYouBuying; //Dialogue index of 2; Used when player are returned to buying menu
     merchantBuying; //Dialogue index of 3; Used when player asks to sell
     takeThatFor; //Dialogue index of 4; Used when merchant says how much item is worth
