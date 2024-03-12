@@ -23,6 +23,7 @@
         }
         return nullptr;
     }
+    int64_t Inventory::GetGold() { return gold; }
     void Inventory::SetElement(int64_t pos, Item* newItem)
     {
         start[pos] = newItem;
@@ -59,9 +60,12 @@
         (*start)[i].ChangeAmount(amnt);
     }
 
+    void Inventory::AddGold(int64_t amnt) { gold+=amnt; }
+
     std::string Inventory::ToString()
     {
         std::string invenString = "INVENTORY \n";
+        invenString += "GOLD" + std::to_string(gold) + "\n";
         for(int i = 0; i < numElements; i++)
         {   
             if(start[i] != nullptr)

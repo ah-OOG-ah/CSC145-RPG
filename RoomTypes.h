@@ -5,6 +5,7 @@
 #include "Room.h"
 #include "ShopMenu.h"
 #include <cstdint>
+#include <vector>
 
 class SafeRoom : public Room
 {
@@ -84,18 +85,20 @@ class Shop : public Room
 {
     protected:
     std::string mapDisplay = "S";
-    /*std::string merchantName;
+    std::string merchantName;
     Item* purchase1 = nullptr;
     Item* purchase2 = nullptr;
     Item* purchase3 = nullptr;
-    std::string enterString; //Dialogue index of 1; Used when player enters shop
-    std::string whatAreYouBuying; //Dialogue index of 2; Used when player are returned to buying menu
-    std::string merchantBuying; //Dialogue index of 3; Used when player asks to sell
-    std::string takeThatFor; //Dialogue index of 4; Used when merchant says how much item is worth
-    std::string youBought; //Dialogue index of 5; Used after players buys an item
-    std::string theyBought; //Dialogue index of 6; Used after merchant buys an item
-    std::string notEnough; //Dialogue index of 7; Used when player does not have enough money to buy an item
-    std::string exitString; //Dialogue index of 8; Used when player leaves the shop*/
+    std::vector<std::string> entries;
+    /* 
+    enterString; //Dialogue index of 1; Used when player enters shop
+    whatAreYouBuying; //Dialogue index of 2; Used when player are returned to buying menu
+    merchantBuying; //Dialogue index of 3; Used when player asks to sell
+    takeThatFor; //Dialogue index of 4; Used when merchant says how much item is worth
+    youBought; //Dialogue index of 5; Used after players buys an item
+    theyBought; //Dialogue index of 6; Used after merchant buys an item
+    notEnough; //Dialogue index of 7; Used when player does not have enough money to buy an item
+    exitString; //Dialogue index of 8; Used when player leaves the shop*/
 
     public:
     ShopMenu shop;

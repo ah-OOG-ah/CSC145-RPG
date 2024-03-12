@@ -11,10 +11,11 @@ class ShopMenu : public Menu {
     ShopMenu(std::string merchant, std::vector<std::string> entries, Item* stock1, Item* stock2, Item* stock3);
 
   protected:
+    void display() override;
     virtual void dispatch(int64_t i) override;
 
   private:
-   std::string merchantName;
+    std::string merchantName;
     Item* purchase1 = nullptr;
     Item* purchase2 = nullptr;
     Item* purchase3 = nullptr;
