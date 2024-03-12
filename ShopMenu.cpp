@@ -38,8 +38,8 @@ void ShopMenu::display()
 {
     std::cout<<entries[0]<<std::endl;
     
-    int64_t choice;
-    while(choice > 0 && choice <=2)
+    int64_t choice = 0;
+    while(choice != 3)
     {
         std::cout<<entries[1]<<std::endl;
         std::cout<<"1. I want to buy"<<std::endl;
@@ -63,6 +63,15 @@ void ShopMenu::display()
                 } while (itemChoice != 4);
                 break;
             case 2:
+                std::cout << entries[3] << std::endl;
+                //Inventory while loop to display
+                //Actual selling
+                std:: cout << entries[6] << std::endl;
+                break;
+            case 3:
+                break;
+            default:
+                std::cout << entries[8] << std::endl;
         }
     }
     std::cout<<entries[9]<<std::endl;
@@ -73,16 +82,22 @@ void ShopMenu::dispatch(int64_t choice)
     switch(choice)
     {
         case 1:
+            //if Gold is not enough
+            //else {
             //Push back Purchase1
             //Subtract price of Purchase1 from Inventory's Gold
             std::cout<< entries[5] << std::endl;
             break;
         case 2:
+            //if Gold is not enough
+            //else {
             //Push back Purchase2
             //Subtract price of Purchase2 from Inventory's Gold
             std::cout<< entries[5] << std::endl;
             break;
         case 3:
+            //if Gold is not enough
+            //else {
             //Push back Purchase3
             //Subtract price of Purchase3 from Inventory's Gold
             std::cout<< entries[5] << std::endl;
