@@ -15,6 +15,30 @@ ShopMenu::ShopMenu(std::string merchant, std::vector<std::string> entries, Item*
     purchase3 = stock3;
 }
 
+void ShopMenu::Buy()
+{
+    int64_t itemChoice = 0;
+    do
+    {    
+        std::cout << merchantName << ": " <<entries[2]<<std::endl;
+        for(int i = 1; i <= 3; i++)
+        {
+            std::cout<< i << ". "<< GetPurchase(i)->GetName() << "x" << GetPurchase(i)->GetAmount() << " Price: " << GetPurchase(i)->GetPrice() << "Gold" <<std::endl;
+        }
+        std::cout << "4. None of it " << std::endl;
+        std::getline(std::cin, itemChoice);
+        dispatch(itemChoice);
+    } while (itemChoice != 4); 
+}
+
+void ShopMenu::Sell()
+{
+    std::cout << merchantName<< ": " << entries[3] << std::endl;
+    //Inventory while loop to display
+    //Actual selling
+    std::cout << merchantName<< ": " << entries[6] << std::endl;
+}
+
 Item* ShopMenu::GetPurchase(int64_t selection)
 {
     switch(selection)
@@ -36,12 +60,12 @@ Item* ShopMenu::GetPurchase(int64_t selection)
 
 void ShopMenu::display()
 {
-    std::cout<<entries[0]<<std::endl;
+    std::cout << merchantName<< ": " << entries[0] <<std::endl;
     
     int64_t choice = 0;
     while(choice != 3)
     {
-        std::cout<<entries[1]<<std::endl;
+        std::cout << merchantName<< ": " << entries[1] <<std::endl;
         std::cout<<"1. I want to buy"<<std::endl;
         std::cout<<"2. I want to sell"<<std::endl;
         std::cout<<"3. I was just leaving"<<std::endl;
@@ -49,32 +73,18 @@ void ShopMenu::display()
         switch(choice)
         {
             case 1:
-                int64_t itemChoice = 0;
-                do
-                {    
-                std::cout<<entries[2]<<std::endl;
-                    for(int i = 1; i <= 3; i++)
-                    {
-                        std::cout<< i << ". "<< GetPurchase(i)->GetName() << "x" << GetPurchase(i)->GetAmount() << " Price: " << GetPurchase(i)->GetPrice() << "Gold" <<std::endl;
-                    }
-                    std::cout << "4. None of it " << std::endl;
-                    std::getline(std::cin, itemChoice);
-                    dispatch(itemChoice);
-                } while (itemChoice != 4);
+                Buy();
                 break;
             case 2:
-                std::cout << entries[3] << std::endl;
-                //Inventory while loop to display
-                //Actual selling
-                std:: cout << entries[6] << std::endl;
+                Sell();
                 break;
             case 3:
                 break;
             default:
-                std::cout << entries[8] << std::endl;
+                std::cout << merchantName<< ": " << << entries[8] << std::endl;
         }
     }
-    std::cout<<entries[9]<<std::endl;
+    std::cout << merchantName<< ": " << entries[9] <<std::endl;
 }
 
 void ShopMenu::dispatch(int64_t choice)
@@ -86,26 +96,26 @@ void ShopMenu::dispatch(int64_t choice)
             //else {
             //Push back Purchase1
             //Subtract price of Purchase1 from Inventory's Gold
-            std::cout<< entries[5] << std::endl;
+            std::cout << merchantName<< ": " << entries[5] << std::endl;
             break;
         case 2:
             //if Gold is not enough
             //else {
             //Push back Purchase2
             //Subtract price of Purchase2 from Inventory's Gold
-            std::cout<< entries[5] << std::endl;
+            std::cout << merchantName<< ": " << entries[5] << std::endl;
             break;
         case 3:
             //if Gold is not enough
             //else {
             //Push back Purchase3
             //Subtract price of Purchase3 from Inventory's Gold
-            std::cout<< entries[5] << std::endl;
+            std::cout << merchantName<< ": " << entries[5] << std::endl;
             break;
         case 4:
             break;
         default:
-            std::cout<< entries[8] << std::endl;
+            std::cout << merchantName<< ": " << entries[8] << std::endl;
             break;
     }
 }

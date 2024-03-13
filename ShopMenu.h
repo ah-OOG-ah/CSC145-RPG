@@ -20,6 +20,8 @@ class ShopMenu : public Menu {
     Item* purchase2 = nullptr;
     Item* purchase3 = nullptr;
     Item* GetPurchase(int64_t);
+    void Buy();
+    void Sell();
 
     /*
     enterString; //Dialogue index of 0; Used when player enters shop
