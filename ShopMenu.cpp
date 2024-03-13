@@ -22,6 +22,7 @@ void ShopMenu::Buy()
     do
     {    
         std::cout << merchantName << ": " <<entries[2]<<std::endl;
+        std::cout << "GOLD" << player.playerInven.GetGold() << std::endl;
         for(int i = 1; i <= 3; i++)
         {
             std::cout<< i << ". "<< GetPurchase(i)->GetName() << "x" << GetPurchase(i)->GetAmount() << " Price: " << GetPurchase(i)->GetPrice() << "Gold" <<std::endl;
@@ -52,6 +53,7 @@ void ShopMenu::Sell()
             std::cout << merchantName<< ": " << entries[10] << std::endl;
         }
         }while(amnt <= player.playerInven.GetElement(choice)->GetAmount());
+        std::cout << merchantName<< ": " << entries[4] << (amnt * player.playerInven.GetElement(choice)->GetAmount()) << " Gold" << std::endl;
         player.playerInven.AddGold(amnt * player.playerInven.GetElement(choice)->GetAmount());
         player.playerInven.GetElement(choice)->ChangeAmount( -1 * amnt);
         std::cout << merchantName<< ": " << entries[6] << std::endl;
@@ -90,6 +92,7 @@ void ShopMenu::display()
     while(choice != 3)
     {
         std::cout << merchantName<< ": " << entries[1] <<std::endl;
+        std::cout << "GOLD" << player.playerInven.GetGold() << std::endl;
         std::cout<<"1. I want to buy"<<std::endl;
         std::cout<<"2. I want to sell"<<std::endl;
         std::cout<<"3. I was just leaving"<<std::endl;

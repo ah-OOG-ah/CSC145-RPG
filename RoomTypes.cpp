@@ -133,7 +133,7 @@ void HallWay::GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran
                 buyOrSell = "Ye buying or ye selling\?";
                 whatAreYouBuying = "Which of me fine items would ye be interested in buying today";
                 merchantBuying = "What junk do ye have\?";
-                takeThatFor = "I can spare you about... ";
+                takeThatFor = "For that, I can spare you about... ";
                 youBought = "Aye! Pleasure doing buisness";
                 theyBought = "Thanks for the item!";
                 notEnough = "Oi! You do not have enough money, lad! Get a job!";
@@ -163,7 +163,7 @@ void HallWay::GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran
                 buyOrSell = "Are you buying items or selling them, sir \?";
                 whatAreYouBuying = "Which item would you be interested in today\?";
                 merchantBuying = "What would you like me to buy\?";
-                takeThatFor = "I would say that is worth around";
+                takeThatFor = "That will give about... ";
                 youBought = "Much apprieciated, sir!";
                 theyBought = "This is a very fine item, my good sir. Thank you!";
                 notEnough = "It seems you do not have enough money for that item at the moment.";
@@ -193,7 +193,7 @@ void HallWay::GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran
                 buyOrSell = "What do you want\?";
                 whatAreYouBuying = "Anything you interested in\?";
                 merchantBuying = "What do you have\?";
-                takeThatFor = "I can take that off your hands for";
+                takeThatFor = "I can take that off your hands for ";
                 youBought = "Oh, Money, you do make the world go round!";
                 theyBought = "This will make a fine addition to my collection";
                 notEnough = "Hey, rat! You don\'t seem to have enough money to buy that";
@@ -223,7 +223,7 @@ void HallWay::GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran
                 buyOrSell = "Ooh ooh, ah ah";
                 whatAreYouBuying = "What are you buying\?";
                 merchantBuying = "What items do you have\?";
-                takeThatFor = "I can make a transactional purchase for that item which will gain you approximately";
+                takeThatFor = "I can make a transactional purchase for that item which will gain you approximately ";
                 youBought = "This will make a good offering for the boss";
                 theyBought = "Monkey Bob is happy you are ridding yourself of your items. It makes you easier to kill.";
                 notEnough = "Monkey Bob did not like that";
