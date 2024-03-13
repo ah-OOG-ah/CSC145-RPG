@@ -81,7 +81,7 @@ void ShopMenu::display()
             case 3:
                 break;
             default:
-                std::cout << merchantName<< ": " << << entries[8] << std::endl;
+                std::cout << merchantName<< ": " << entries[8] << std::endl;
         }
     }
     std::cout << merchantName<< ": " << entries[9] <<std::endl;
