@@ -34,10 +34,33 @@ void ShopMenu::Buy()
 
 void ShopMenu::Sell()
 {
+    std::string choice;
+    do
+    {
     std::cout << merchantName<< ": " << entries[3] << std::endl;
-    //Inventory while loop to display
-    //Actual selling
-    std::cout << merchantName<< ": " << entries[6] << std::endl;
+    std::cout << "Enter \"Nothing\" or \"Exit\" to exit this menu" << std::endl;
+    player.playerInven.PrintInven();
+    std::getline(std::cin, choice);
+    if(player.playerInven.GetElement(choice) != nullptr)
+    {
+        int64_t amnt = 0;
+        do{
+        std::cout << merchantName<< ": " << "How many are you selling \?" << std::endl;
+        std::cin>>amnt;
+        if(amnt > player.playerInven.GetElement(choice)->GetAmount())
+        {
+            std::cout << merchantName<< ": " << entries[8] << std::endl;
+        }
+        }while(amnt <= player.playerInven.GetElement(choice)->GetAmount());
+        player.playerInven.AddGold(amnt * player.playerInven.GetElement(choice)->GetAmount());
+        player.playerInven.GetElement(choice)->ChangeAmount( -1 * amnt);
+        std::cout << merchantName<< ": " << entries[6] << std::endl;
+    }
+    else
+    {
+        std::cout << merchantName<< ": " << entries[8] << std::endl;
+    }
+    } while(choice != "Nothing" || choice != "nothing" || choice != "NOTHING" || choice != "Exit" || choice != "exit" || choice != "EXIT");
 }
 
 Item* ShopMenu::GetPurchase(int64_t selection)

@@ -91,6 +91,7 @@
     void Inventory::PrintInven()
     {
         std::cout << "INVENTORY" << std::endl;
+        std::cout << "GOLD " << std::to_string(gold) << std::endl;
         for (int i = 0; i < numElements; i++) {
 
             if (start[i] != nullptr) {

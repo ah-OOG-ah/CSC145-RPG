@@ -9,7 +9,7 @@ std::string Room::GetMapDisplay()
 { 
     if(isExplored == false)
     {
-        return "\?"
+        return "\?";
     }
     else{
     return mapDisplay; }
