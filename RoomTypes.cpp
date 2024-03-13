@@ -140,6 +140,7 @@ void HallWay::GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran
                 invalid = "Oi! What was that \?";
                 youHaveNotEnough = "Oi! What do ye take me for\? Ye are trying to sell things ye do not have";
                 merchantHaveNotEnough = "Sorry, lad, I do not have enough of that";
+                amountSelling = "How many of ye fine items will ye be selling to me\?";
                 exitString = "Take care of yeself, mate!";
                 switch(ran2)
                 {
@@ -169,6 +170,7 @@ void HallWay::GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran
                 invalid = "Excuse me \? What was that, sir \?";
                 youHaveNotEnough = "I\'m sorry, sir, but you seems you do not have that amount to sell";
                 merchantHaveNotEnough = "Sir, I am afraid that I do not that amount to give to you";
+                amountSelling = "How many items will you be selling today, sir\?";
                 exitString = "Have a blessed day, sire!";
                 switch(ran2)
                 {
@@ -198,6 +200,7 @@ void HallWay::GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran
                 invalid = "Speak up, kid, I can\'t hear you.";
                 youHaveNotEnough = "Enough jokes, kid. If you want to do buisness at least try to be serious";
                 merchantHaveNotEnough = "Can you please make a reasonable request\?";
+                amountSelling = "How many would you like me take off your hands\?";
                 exitString = "Be careful. You never know what could be lurking out there";
                 switch(ran2)
                 {
@@ -227,8 +230,9 @@ void HallWay::GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran
                 invalid = "Monkey Bob really did not like that";
                 youHaveNotEnough = "Monkey Bob wants to steal all you have";
                 merchantHaveNotEnough = "Monkey Bob has not given me that amount of items";
+                amountSelling = "How many items will you be handing over to Monkey Bob, your primate overlord\?";
                 exitString = "Monkey Bob is coming for you";
                 merchantName = "Merchant Bob";
         }
-        entries = {enterString, whatAreYouBuying, merchantBuying, takeThatFor, youBought, theyBought, notEnough, invalid, youHaveNotEnough, merchantHaveNotEnough, exitString};
+        entries = {enterString, whatAreYouBuying, merchantBuying, takeThatFor, youBought, theyBought, notEnough, invalid, youHaveNotEnough, merchantHaveNotEnough, amountSelling,exitString};
     }

@@ -45,11 +45,11 @@ void ShopMenu::Sell()
     {
         int64_t amnt = 0;
         do{
-        std::cout << merchantName<< ": " << "How many are you selling \?" << std::endl;
+        std::cout << merchantName<< ": " << entries[11] << std::endl;
         std::cin>>amnt;
-        if(amnt > player.playerInven.GetElement(choice)->GetAmount())
+        if(amnt > player.playerInven.GetElement(choice)->GetAmount() || amnt <= 0)
         {
-            std::cout << merchantName<< ": " << entries[8] << std::endl;
+            std::cout << merchantName<< ": " << entries[10] << std::endl;
         }
         }while(amnt <= player.playerInven.GetElement(choice)->GetAmount());
         player.playerInven.AddGold(amnt * player.playerInven.GetElement(choice)->GetAmount());
@@ -108,7 +108,7 @@ void ShopMenu::display()
                 std::cout << merchantName<< ": " << entries[8] << std::endl;
         }
     }
-    std::cout << merchantName<< ": " << entries[11] <<std::endl;
+    std::cout << merchantName<< ": " << entries[12] <<std::endl;
 }
 
 void ShopMenu::dispatch(int64_t choice)
