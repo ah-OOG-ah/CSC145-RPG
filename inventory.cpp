@@ -60,10 +60,15 @@
         (*start)[i].ChangeAmount(amnt);
     }
 
-    /*void Inventory::PushBack(Item* newItem)
+    void Inventory::PushBack(Item* newItem)
     {
-        start[numElements - 1];
-    }*/
+        int i = 0;
+        do
+        {
+            i++;
+        } while (start[i] != nullptr);
+        start[i] = newItem;
+    }
 
     void Inventory::AddGold(int64_t amnt) { gold+=amnt; }
 

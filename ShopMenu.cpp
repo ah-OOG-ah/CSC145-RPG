@@ -3,9 +3,10 @@
 #include <string>
 #include <iostream>
 #include <ostream>
-#include <istream>
 #include <vector>
 #include "inventory.h"
+#include "game.cpp"
+
 
 ShopMenu::ShopMenu(std::string merchant, std::vector<std::string> entries, Item* stock1, Item* stock2, Item* stock3) : Menu(entries)
 {
@@ -26,7 +27,7 @@ void ShopMenu::Buy()
             std::cout<< i << ". "<< GetPurchase(i)->GetName() << "x" << GetPurchase(i)->GetAmount() << " Price: " << GetPurchase(i)->GetPrice() << "Gold" <<std::endl;
         }
         std::cout << "4. None of it " << std::endl;
-        std::getline(std::cin, itemChoice);
+        std::cin>>itemChoice;
         dispatch(itemChoice);
     } while (itemChoice != 4); 
 }
@@ -69,7 +70,7 @@ void ShopMenu::display()
         std::cout<<"1. I want to buy"<<std::endl;
         std::cout<<"2. I want to sell"<<std::endl;
         std::cout<<"3. I was just leaving"<<std::endl;
-        std::getline(std::cin, choice);
+        std::cin>>choice;
         switch(choice)
         {
             case 1:
@@ -92,25 +93,40 @@ void ShopMenu::dispatch(int64_t choice)
     switch(choice)
     {
         case 1:
-            //if Gold is not enough
-            //else {
-            //Push back Purchase1
-            //Subtract price of Purchase1 from Inventory's Gold
-            std::cout << merchantName<< ": " << entries[5] << std::endl;
+            if(player.playerInven.GetGold() < purchase1->GetPrice())
+            {
+                std::cout << merchantName<< ": " << entries[7] <<std::endl;
+                return;
+            }
+            else {
+                player.playerInven.PushBack(purchase1);
+                player.playerInven.AddGold(-1 * purchase1->GetPrice());
+                std::cout << merchantName<< ": " << entries[5] << std::endl;
+            }
             break;
         case 2:
-            //if Gold is not enough
-            //else {
-            //Push back Purchase2
-            //Subtract price of Purchase2 from Inventory's Gold
-            std::cout << merchantName<< ": " << entries[5] << std::endl;
+            if(player.playerInven.GetGold() < purchase2->GetPrice())
+            {
+                std::cout << merchantName<< ": " << entries[7] <<std::endl;
+                return;
+            }
+            else {
+                player.playerInven.PushBack(purchase2);
+                player.playerInven.AddGold(-1 * purchase2->GetPrice());
+                std::cout << merchantName<< ": " << entries[5] << std::endl;
+            }
             break;
         case 3:
-            //if Gold is not enough
-            //else {
-            //Push back Purchase3
-            //Subtract price of Purchase3 from Inventory's Gold
-            std::cout << merchantName<< ": " << entries[5] << std::endl;
+            if(player.playerInven.GetGold() < purchase3->GetPrice())
+            {
+                std::cout << merchantName<< ": " << entries[7] <<std::endl;
+                return;
+            }
+            else {
+                player.playerInven.PushBack(purchase3);
+                player.playerInven.AddGold(-1 * purchase3->GetPrice());
+                std::cout << merchantName<< ": " << entries[5] << std::endl;
+            }
             break;
         case 4:
             break;
