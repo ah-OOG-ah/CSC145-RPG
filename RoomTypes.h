@@ -103,7 +103,6 @@ class Shop : public Room
     exitString; //Dialogue index of 9; Used when player leaves the shop*/
 
     public:
-    ShopMenu shop;
     /*
     Name: GetMerchant
     Return type: string
