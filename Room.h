@@ -9,6 +9,9 @@ class Room
     std::string roomName;
     std::string description;
     std::string mapDisplay = " ";
+    bool isExplored = false;
+    bool isEntrance = false;
+    bool isExit = false;
 
     public:
     /*
