@@ -53,9 +53,11 @@ void ShopMenu::Sell()
             std::cout << merchantName<< ": " << entries[10] << std::endl;
         }
         }while(amnt <= player.playerInven.GetElement(choice)->GetAmount());
-        std::cout << merchantName<< ": " << entries[4] << (amnt * player.playerInven.GetElement(choice)->GetAmount()) << " Gold" << std::endl;
-        player.playerInven.AddGold(amnt * player.playerInven.GetElement(choice)->GetAmount());
+        int64_t total = amnt * player.playerInven.GetElement(choice)->GetPrice();
+        //std::cout << merchantName<< ": " << entries[4] << (amnt * player.playerInven.GetElement(choice)->GetAmount()) << " Gold" << std::endl;
+        player.playerInven.AddGold(total);
         player.playerInven.GetElement(choice)->ChangeAmount( -1 * amnt);
+        std::cout << total << "Gold added to Inventory" << std::endl;
         std::cout << merchantName<< ": " << entries[6] << std::endl;
     }
     else
@@ -127,6 +129,8 @@ void ShopMenu::dispatch(int64_t choice)
             else {
                 player.playerInven.PushBack(purchase1);
                 player.playerInven.AddGold(-1 * purchase1->GetPrice());
+                std::cout << purchase1->GetName() << " Added to Inventory" << std::endl;
+                std::cout << purchase1->GetPrice() << " Given to " << merchantName << std::endl;
                 std::cout << merchantName<< ": " << entries[5] << std::endl;
             }
             break;
@@ -139,6 +143,8 @@ void ShopMenu::dispatch(int64_t choice)
             else {
                 player.playerInven.PushBack(purchase2);
                 player.playerInven.AddGold(-1 * purchase2->GetPrice());
+                std::cout << purchase1->GetName() << " Added to Inventory" << std::endl;
+                std::cout << purchase1->GetPrice() << " Given to " << merchantName << std::endl;
                 std::cout << merchantName<< ": " << entries[5] << std::endl;
             }
             break;
@@ -151,6 +157,8 @@ void ShopMenu::dispatch(int64_t choice)
             else {
                 player.playerInven.PushBack(purchase3);
                 player.playerInven.AddGold(-1 * purchase3->GetPrice());
+                std::cout << purchase1->GetName() << " Added to Inventory" << std::endl;
+                std::cout << purchase1->GetPrice() << " Given to " << merchantName << std::endl;
                 std::cout << merchantName<< ": " << entries[5] << std::endl;
             }
             break;
