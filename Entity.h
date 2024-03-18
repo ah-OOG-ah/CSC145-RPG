@@ -29,7 +29,7 @@ class Entity {
     void setFleeing(bool);
 
     // Applies this entitiy's attack to the passed entity
-    void attack(Entity* enemy);
+    void attackEntity(Entity* enemy);
 
     std::string toString();
 };

@@ -1,5 +1,4 @@
 #include "Player.h"
-#include "attack.h"
 #include <cstdint>
 
 Player::Player(int64_t hp) : Entity(hp) {}

@@ -1,9 +1,10 @@
-#include <cstdint>
 #include <string>
+#include <utility>
 #include "RegularItems.h"
 
-RegularItem::RegularItem(std::string itemName, int64_t amnt) : Item(itemName, amnt) {}
-RegularItem::RegularItem(std::string itemName) : Item(itemName) { }
+RegularItem::RegularItem(std::string itemName, int64_t amnt, int64_t price) : Item(std::move(itemName), amnt, price) {}
+RegularItem::RegularItem(std::string itemName, int64_t amnt) : Item(std::move(itemName), amnt) {}
+RegularItem::RegularItem(std::string itemName) : Item(std::move(itemName)) { }
 
 std::string RegularItem::GetAmntText()
 {
@@ -47,11 +48,6 @@ HealItem::HealItem(std::string itemName, int64_t amnt, int64_t hp, int64_t price
 {
     hpAmnt = hp;
     healedStatus = status;
-}
-
-HealItem::HealItem(std::string itemName, int64_t amnt, int64_t hp, int64_t price) : RegularItem(itemName, amnt, price)
-{
-    hpAmnt = hp;
 }
 
 HealItem::HealItem(std::string itemName, int64_t amnt, int64_t hp, int64_t price) : RegularItem(itemName, amnt, price)

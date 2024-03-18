@@ -24,7 +24,7 @@ bool Entity::getAlive() { return this->hp > 0; }
 
 void Entity::setFleeing(bool val) { this->isFleeing = val; }
 
-void Entity::attack(Entity* enemy) {
+void Entity::attackEntity(Entity* enemy) {
     enemy->hp -= this->getAttk();
 }
 

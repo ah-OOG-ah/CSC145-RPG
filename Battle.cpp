@@ -4,17 +4,18 @@
 #include "Scene.h"
 #include "game.h"
 #include <string>
+#include <utility>
 #include <vector>
 #include <iostream>
 
-Battle::Battle(std::string name) : Scene(name), Menu(std::vector<std::string>({
+Battle::Battle(std::string name) : Scene(std::move(name)), Menu(std::vector<std::string>({
     "Attack",
     "Escape"
 })) {
 
     this->player = getPlayer();
     this->enemy = std::vector<Enemy>();
-    this->enemy.push_back(Enemy(10));
+    this->enemy.emplace_back(10);
 }
 
 /*
@@ -45,7 +46,7 @@ void Battle::run() {
 
 void Battle::attack() {
 
-    player->attack(&enemy.at(0));
+    player->attackEntity(&enemy.at(0));
     std::erase_if(enemy, [](Enemy e){ return !e.getAlive(); });
 }
 
