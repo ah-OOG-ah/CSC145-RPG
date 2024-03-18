@@ -1,6 +1,8 @@
 #pragma once
 
 #include <cstdint>
+#include <string>
+
 class Entity {
 
   protected:
@@ -11,7 +13,6 @@ class Entity {
     int64_t spd = 10; //Used to determine turn order
     int64_t mp; //Used to have a magic points sytem if we want include that
     bool isFleeing = false;
-    bool isAlive = true;
 
   public:
     Entity(int64_t hp);
@@ -26,5 +27,9 @@ class Entity {
     bool getAlive();
 
     void setFleeing(bool);
-    void setAlive(bool);
+
+    // Applies this entitiy's attack to the passed entity
+    void attackEntity(Entity* enemy);
+
+    std::string toString();
 };
