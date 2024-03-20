@@ -18,11 +18,12 @@ class Battle : public Scene, public Menu {
 
     void attack();
     void escape();
+    void displayEnemies();
 
   protected:
-    virtual void dispatch(int64_t i) override;
+    void dispatch(int64_t i) override;
 
   public:
-    Battle(std::string);
-    virtual void run() override;
+    explicit Battle(std::string);
+    void run() override;
 };

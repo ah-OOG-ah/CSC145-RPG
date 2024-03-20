@@ -29,5 +29,7 @@ void Entity::attackEntity(Entity* enemy) {
 }
 
 std::string Entity::toString() {
-    return "{hp: " + std::to_string(this->hp) + ", atk: " + std::to_string(this->attk) + "}";
+    if (this->hp > 0)
+        return "{hp: " + std::to_string(this->hp) + ", atk: " + std::to_string(this->attk) + "}";
+    return "{DEAD, atk: " + std::to_string(this->attk) + "}";
 }

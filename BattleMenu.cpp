@@ -9,7 +9,6 @@
 
 void BattleMenu::attack() {
     
-    
 }
 
 void BattleMenu::escape() {

@@ -28,9 +28,9 @@ void Battle::run() {
 
     while (true) {
 
+        // Display
+        this->displayEnemies();
         this->display();
-        for (Enemy e : enemy)
-            std::cout << e.toString() << std::endl;
 
         if (this->player->getFleeing() || this->player->getHp() < 1) {
             this->player->setFleeing(false);
@@ -44,9 +44,16 @@ void Battle::run() {
     }
 }
 
+void Battle::displayEnemies() {
+
+    for (Enemy e : this->enemy)
+        std::cout << e.toString() << std::endl;
+}
+
 void Battle::attack() {
 
     player->attackEntity(&enemy.at(0));
+    this->displayEnemies();
     std::erase_if(enemy, [](Enemy e){ return !e.getAlive(); });
 }
 
