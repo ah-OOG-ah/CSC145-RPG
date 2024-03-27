@@ -13,7 +13,7 @@ class BattleMenu : public Menu {
     std::shared_ptr<Entity> player;
 
   protected:
-    virtual void dispatch(int64_t i) override;
+    void dispatch(int64_t i) override;
 
   private:
     void attack();

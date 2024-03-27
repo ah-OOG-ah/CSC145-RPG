@@ -1,5 +1,5 @@
 #include "Battle.h"
-#include "BattleMenu.h"
+#include "Menu/BattleMenu.h"
 #include "Enemy.h"
 #include "Scene.h"
 #include "game.h"

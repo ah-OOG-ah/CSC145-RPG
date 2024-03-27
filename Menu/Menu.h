@@ -8,7 +8,7 @@ class Menu {
   public:
     const std::vector<std::string> entries;
 
-    Menu(std::vector<std::string> entries);
+    explicit Menu(std::vector<std::string> entries);
 
     virtual void display();
 

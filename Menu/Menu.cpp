@@ -2,13 +2,14 @@
 #include <iostream>
 #include <ostream>
 #include <string>
+#include <utility>
 #include <vector>
 
-Menu::Menu(std::vector<std::string> entries) : entries(entries) {}
+Menu::Menu(std::vector<std::string> entries) : entries(std::move(entries)) {}
 
 void Menu::display() {
 
-    for (int i = 0; i < entries.size(); ++i) {
+    for (size_t i = 0; i < entries.size(); ++i) {
         std::cout << i << ". " << this->entries.at(i) << std::endl;
     }
 
@@ -21,7 +22,7 @@ void Menu::display() {
 
         try {
             i = std::stoi(choice);
-        } catch (std::invalid_argument) {
+        } catch (std::invalid_argument const& ex) {
 
             i = -1;
             std::cout << "Not a number" << std::endl;
@@ -37,5 +38,4 @@ void Menu::display() {
     }
 
     this->dispatch(i);
-        
 }

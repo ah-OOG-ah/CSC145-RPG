@@ -29,8 +29,7 @@ void BattleMenu::dispatch(int64_t i) {
         case 0: this->attack(); break;
         case 1: this->escape(); break;
         default: {
-            std::cout << "The heck-";
-            int* p = nullptr; *p = 0;
+            printExit();
         }
     }
 }
