@@ -3,6 +3,7 @@
 #include "item.h"
 #include "Room.h"
 #include <cstdint>
+#include "ShopMenu.h"
 
 void SafeRoom::GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran4, int64_t ran5)
 {
@@ -236,3 +237,9 @@ void HallWay::GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran
         }
         entries = {enterString, whatAreYouBuying, merchantBuying, takeThatFor, youBought, theyBought, notEnough, invalid, youHaveNotEnough, merchantHaveNotEnough, amountSelling,exitString};
     }
+
+void Shop::GoToShop()
+{
+    ShopMenu shopMenu(merchantName, entries, purchase1, purchase2, purchase3);
+    shopMenu.display();
+}

@@ -127,6 +127,7 @@ class Shop : public Room
     Use: Takes in an integer and gives the correspong dialogue members based on the number given
     */
     std::string GetDialogue(int64_t);
+    void GoToShop();
     void GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran4, int64_t ran5) override;
 
     
