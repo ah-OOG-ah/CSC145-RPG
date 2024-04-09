@@ -113,7 +113,8 @@
         {
             if(tools[i] != nullptr)
             {
-                std::cout << tools[i]->GetName() << std::endl;
+                std::cout << tools[i]->GetName() << "Durability: " << tools[i]->GetDurab() << "  ";
+                std::cout << "Price: " << tools[i]->GetPrice() << std::endl; 
             }
         }
         std::cout << "ITEMS" << std::endl;
