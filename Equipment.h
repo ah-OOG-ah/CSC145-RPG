@@ -37,3 +37,17 @@ class Armor : public Equipment
     void SetPercDef(int64_t);
     void SetStaticDef(int64_t);
 };
+
+class SpeicalArmor : public Armor
+{
+    protected:
+    int64_t dmgMultiplier; //Increases damage dealt when worn
+    //Status placeholder
+
+    public:
+    SpeicalArmor(std::string itemName, int64_t durab, int64_t pDef, int64_t sDef, int64_t dmg, int64_t price);
+    int64_t GetDamage();
+    void SetDamage(int64_t);
+
+    //Status effect placeholders
+};

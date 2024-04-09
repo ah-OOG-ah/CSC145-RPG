@@ -28,6 +28,13 @@ Armor::Armor(std::string itemName, int64_t durab, int64_t pDef, int64_t sDef, in
     staticDef = sDef;
 }
 int64_t Armor::GetPercDef() { return percDef; }
-int64_t GetStaticDef() { return staticDef; }
-void SetPercDef(int64_t def) { percDef = def; }
-void SetStaticDef(int64_t def) { staticDef = def; }
+int64_t Armor::GetStaticDef() { return staticDef; }
+void Armor::SetPercDef(int64_t def) { percDef = def; }
+void Armor::SetStaticDef(int64_t def) { staticDef = def; }
+
+SpecialArmor::SpeicalArmor(std::string itemName, int64_t durab, int64_t pDef, int64_t sDef, int64_t dmg, int64_t price) : Armor(itemName, durab, pDef, sDef, price)
+{
+    dmgMultiplier = dmg;
+}
+int64_t SpecialArmor::GetDamage() { return dmgMultiplier; }
+void SpecialArmor::SetDamage(int64_t dmg) { dmgMultiplier = dmg; }
