@@ -11,7 +11,6 @@ game_src = [
   'Battle.cpp',
   'BattleMenu.cpp',
   'Player.cpp',
-  'Attack.cpp',
   'RegularItems.cpp',
   'inventory.cpp',
   'Status.cpp',

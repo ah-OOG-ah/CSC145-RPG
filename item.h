@@ -19,8 +19,8 @@ class Item
     //Getters
     std::string GetName();
     virtual std::string GetAmntText() = 0;
-    int64_t GetAmount();
-    int64_t GetPrice();
+    int64_t GetAmount() const;
+    int64_t GetPrice() const;
     //Setters
     virtual void ChangeAmount(int64_t addAmnt);
 

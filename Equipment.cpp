@@ -1,4 +1,3 @@
-#include <cstdint>
 #include <string>
 #include "Equipment.h"
 

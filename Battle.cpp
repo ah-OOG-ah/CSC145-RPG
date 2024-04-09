@@ -4,13 +4,18 @@
 #include "Scene.h"
 #include "game.h"
 #include <string>
+#include <utility>
 #include <vector>
+#include <iostream>
 
-Battle::Battle(std::string name) : Scene(name), battleMenu(BattleMenu()) {
+Battle::Battle(std::string name) : Scene(std::move(name)), Menu(std::vector<std::string>({
+    "Attack",
+    "Escape"
+})) {
 
     this->player = getPlayer();
     this->enemy = std::vector<Enemy>();
-    this->enemy.push_back(Enemy(10));
+    this->enemy.emplace_back(10);
 }
 
 /*
@@ -23,10 +28,40 @@ void Battle::run() {
 
     while (true) {
 
-        this->battleMenu.display();
+        this->display();
+        for (Enemy e : enemy)
+            std::cout << e.toString() << std::endl;
 
-        if (this->player->getFleeing() || this->player->getHp() < 1 || this->enemy.empty()) {
+        if (this->player->getFleeing() || this->player->getHp() < 1) {
+            this->player->setFleeing(false);
+            std::cout << "You have been defeated." << std::endl;
+            // TODO: monkey bob reference?
             break;
+        } else if (enemy.empty()) {
+            std::cout << "Victory!" << std::endl;
+            break;
+        }
+    }
+}
+
+void Battle::attack() {
+
+    player->attackEntity(&enemy.at(0));
+    std::erase_if(enemy, [](Enemy e){ return !e.getAlive(); });
+}
+
+void Battle::escape() {
+
+    this->player->setFleeing(true);
+}
+
+void Battle::dispatch(int64_t i) {
+    switch (i) {
+        case 0: this->attack(); break;
+        case 1: this->escape(); break;
+        default: {
+            std::cout << "The heck-";
+            int* p = nullptr; *p = 0;
         }
     }
 }
