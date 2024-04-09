@@ -6,7 +6,7 @@ Equipment(std::string itemName, int64_t durab, int64_t price) : Item(itemName, p
 
 std::string Equipment::GetAmntText()
 {
-    return "Durability: ";
+    return "";
 }
 
 Weapon::Weapon(std::string itemName, int64_t amnt, int64_t dmg) : Equipment(itemName, amnt)

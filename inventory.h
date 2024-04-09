@@ -38,6 +38,5 @@ class Inventory
     void AddGold(int64_t);
 
     //Made ToString and Print because I want to figure out which one will be more pratical
-    std::string ToString();
     void PrintInven(); 
 };

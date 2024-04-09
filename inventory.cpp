@@ -90,31 +90,25 @@
 
     void Inventory::AddGold(int64_t amnt) { gold+=amnt; }
 
-    std::string Inventory::ToString()
-    {
-        std::string invenString = "INVENTORY \n";
-        invenString += "GOLD" + std::to_string(gold) + "\n";
-        for(int i = 0; i < numElements; i++)
-        {   
-            if(start[i] != nullptr)
-            {
-            invenString += (*start)[i].GetName();
-            invenString += (*start)[i].GetAmntText();
-            invenString += (*start)[i].GetAmount();
-            invenString += "\n";
-            }
-        }
-        return invenString;
-    }
     void Inventory::PrintInven()
     {
         std::cout << "INVENTORY" << std::endl;
-        std::cout << "GOLD " << std::to_string(gold) << std::endl;
+        std::cout << "GOLD" << std::to_string(gold) << std::endl;
+        std::cout << "EQUIPMENT" << std::endl;
+        for(int i = 0; i < numEquips; i++)
+        {
+            if(tools[i] != nullptr)
+            {
+                std::cout << tools[i]->GetName() << std::endl;
+            }
+        }
+        std::cout << "ITEMS" << std::endl;
         for (int i = 0; i < numElements; i++) {
 
             if (start[i] != nullptr) {
 
-                std::cout << start[i]->GetName() << start[i]->GetAmntText() << start[i]->GetAmount() << std::endl;
+                std::cout << start[i]->GetName() << start[i]->GetAmntText() << start[i]->GetAmount() << "  ";
+                std::cout <<"Price "<< start[i]->GetPrice() << std::endl;
             }
         }
     }

@@ -12,7 +12,10 @@ class Equipment : public Item
     public:
     Equipment();
     Equipment(std::string itemName, int64_t durab, int64_t price);
-    std::string GetAmntText() override;
+    int64_t GetDurab();
+    void SetDurab(int64_t);
+    void ChangeAmount(int64_t) override;
+    std::string GetAmntText() override; //Vestigal
 };
 
 class Weapon : public Equipment
