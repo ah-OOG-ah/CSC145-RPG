@@ -12,9 +12,8 @@ class Item
 
     public:
     //Constructor
-    Item(std::string);
-    Item(std::string itemName, int64_t amnt);
-    Item(std::string itemName, int64_t amnt, int64_t price);
+    Item(std::string itemName,int64_t price, int64_t amnt);
+    Item(std::string itemName, int64_t price);
 
     //Getters
     std::string GetName();

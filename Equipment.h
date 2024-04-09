@@ -8,7 +8,6 @@
 class Equipment : public Item
 {
     public:
-    Equipment(std::string itemName, int64_t durab);
     Equipment(std::string itemName, int64_t durab, int64_t price);
     std::string GetAmntText() override;
 };
@@ -16,10 +15,9 @@ class Equipment : public Item
 class Weapon : public Equipment
 {
     protected:
-    int64_t damage;
+    int64_t dmgMultiplier;
 
     public:
-    Weapon(std::string itemName, int64_t amnt, int64_t dmg);
     Weapon(std::string itemName, int64_t durab, int64_t dmg, int64_t price);
     int64_t GetDamage();
     void SetDamage(int64_t dmg);

@@ -1,8 +1,7 @@
 #include <string>
 #include "Equipment.h"
 
-Equipment::Equipment(std::string itemName, int64_t durab) : Item(itemName, durab) { }
-Equipment::Equipment(std::string itemName, int64_t durab, int64_t price) : Item(itemName, durab, price) { }
+Equipment(std::string itemName, int64_t durab, int64_t price) : 
 
 std::string Equipment::GetAmntText()
 {
@@ -11,14 +10,14 @@ std::string Equipment::GetAmntText()
 
 Weapon::Weapon(std::string itemName, int64_t amnt, int64_t dmg) : Equipment(itemName, amnt)
 {
-    damage = dmg;
+    dmgMultiplier = dmg;
 }
 
 Weapon::Weapon(std::string itemName, int64_t amnt, int64_t dmg, int64_t price) : Equipment(itemName, amnt, price)
 {
-    damage = dmg;
+    dmgMultiplier = dmg;
 }
 
-int64_t GetDamage();
+int64_t Weapon::GetDamage() { return dmgMultiplier; };
 
-void SetDamage(int64_t dmg);
+void Weapon::SetDamage(int64_t dmg) { dmgMultiplier = dmg; };
