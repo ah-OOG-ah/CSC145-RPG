@@ -2,13 +2,14 @@
 
 #include "Menu.h"
 #include "item.h"
+#include "Equipment.h"
 #include <cstdint>
 #include <string>
 
 class ShopMenu : public Menu {
 
   public:
-    ShopMenu(std::string merchant, std::vector<std::string> entries, Item* stock1, Item* stock2, Item* stock3);
+    ShopMenu(std::string merchant, std::vector<std::string> entries, Item* stock1, Item* stock2, Item* stock3, Equipment* equip1);
 
   protected:
     void display() override;
@@ -19,7 +20,9 @@ class ShopMenu : public Menu {
     Item* purchase1 = nullptr;
     Item* purchase2 = nullptr;
     Item* purchase3 = nullptr;
+    Equipment* equip1 = nullptr;
     Item* GetPurchase(int64_t);
+
     void Buy();
     void Sell();
 

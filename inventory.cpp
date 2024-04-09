@@ -40,6 +40,8 @@
     void Inventory::SetItem(int64_t pos, Item* newItem)
     {
         start[pos] = newItem;
+        if(newItem != nullptr) { usedElements++; } //Used to handle case when someone tries to use set item to remove an item
+        else{ usedElements--; }
     }
     void Inventory::SetItem(std::string name, Item* newItem)
     {
@@ -53,6 +55,8 @@
             }
         }
         start[i] = newItem;
+        if(newItem != nullptr) { usedElements++; } //Used to handle case when someone tries to use set item to remove an item
+        else{ usedElements--; }
     }
 
     void Inventory::AddEquip(int64_t pos, Equipment* tool)
@@ -62,21 +66,20 @@
             return;
         }
         tools[pos] = tool;
+        if(tool != nullptr) { usedEquips++; } //Used to handle case when someone tries to use set item to remove an item
+        else{ usedEquips--; }
     }
 
     void Inventory::PushBackEquip(Equipment* newTool)
     {
-        int i = 0;
-        do
-        {
-            i++;
-        } while (tools[i] != nullptr);
-        tools[i] = newTool;
+        if(usedEquips = numEquips) { return; }
+        tools[usedEquips] = newTool;
     }
 
     void Inventory::AddToItem(int64_t amnt,int64_t pos)
     {
         (*start)[pos].ChangeAmount(amnt);
+
     }
     void Inventory::AddToItem(int64_t amnt, std::string name)
     {
@@ -94,12 +97,8 @@
 
     void Inventory::PushBack(Item* newItem)
     {
-        int i = 0;
-        do
-        {
-            i++;
-        } while (start[i] != nullptr);
-        start[i] = newItem;
+        if(usedElements = numElements) { return; }
+        start[usedElements] = newItem;
     }
 
     void Inventory::AddGold(int64_t amnt) { gold+=amnt; }

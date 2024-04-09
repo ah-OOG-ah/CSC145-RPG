@@ -11,7 +11,9 @@ class Inventory
     protected:
     int64_t gold = 0;
     int numElements = 30;
+    int usedElements = 0;
     int numEquips = 10;
+    int usedEquips = 0;
     Item** start = new Item*[numElements];
     Equipment** tools = new Equipment*[numEquips];
 
@@ -30,7 +32,7 @@ class Inventory
     void PushBack(Item*);
     void SetItem(int64_t, Item*);
     void SetItem(std::string, Item*);
-    void AddEquip(int64_t, Equipment*); //Used when inventory has no more equipment slots
+    void AddEquip(int64_t, Equipment*);
     void PushBackEquip(Equipment*); //Used when there is an open spot in inventory for equipment
     
 

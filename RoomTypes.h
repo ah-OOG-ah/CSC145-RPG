@@ -89,6 +89,9 @@ class Shop : public Room
     Item* purchase1 = nullptr;
     Item* purchase2 = nullptr;
     Item* purchase3 = nullptr;
+
+    Equipment* equip1 = nullptr;
+
     std::vector<std::string> entries;
     /*
     enterString; Dialogue index of 0; Used when player enters shop
