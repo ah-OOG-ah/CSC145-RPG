@@ -20,13 +20,13 @@ Weapon goldSword("Gold Sword", 5, 50, 100);
 Weapon whip("Orphan Whip", 30, 5, 20);
 
 //Armor(Name, durability, percentageDef, staticDef, price)
-Armor steelArmor("Steel Armor", 50, 12, 12, 30);
+Armor steelArmor("Steel Armor", 50, 12, 20, 30);
 Armor chainMeal("Chain Armor", 35, 20, 8, 25);
 Armor rockArmor("Armor Made Of Rocks", 30, 5, 50, 20);
 Armor goldArmor("Gold Armor", 15, 5, 5, 120);
 Armor toughVest("Tough Vest", 75, 10, 5, 25);
 
 //Special Armor(Name, durability, percentageDef, staticDef, damageMultiplier, price)
-SpeicalArmor baboonArmor("Baboon Armor", 50, 5, 5, 10, 50);
+SpeicalArmor baboonArmor("Baboon Armor", 50, 5, 5, 25, 50);
 SpecialArmor armyVest("Marine Vest", 50, 10, 10, 5, 40);
-SpeicalArmor 
+SpeicalArmor monkeyBobArmor("Monkey Bob's Armor", 100, 25, 25, 35, 350);
