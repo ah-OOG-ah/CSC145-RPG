@@ -4,6 +4,7 @@
 #include <string>
 #include <utility>
 
+Item::Item() { }
 Item::Item(std::string itemName, int64_t price, int64_t amnt) : name(std::move(itemName)), amount(amnt), price(price) { }
 Item::Item(std::string itemName, int64_t price) : name(std::move(itemName)), price(price) { }
 

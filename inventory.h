@@ -4,13 +4,16 @@
 #include <string>
 #include "item.h"
 #include "RegularItems.h"
+#include "Equipment.h"
 
 class Inventory
 {
     protected:
     int64_t gold = 0;
     int numElements = 30;
+    int numEquips = 10;
     Item** start = new Item*[numElements];
+    Equipment** tools = new Equipment*[numEquips];
 
     public:
     //Constructors
@@ -19,12 +22,16 @@ class Inventory
     Inventory(int64_t);
     Inventory(int64_t, Item*);
 
-    Item* GetElement(int64_t);
-    Item* GetElement(std::string);
+    Item* GetItem(int64_t);
+    Item* GetItem(std::string);
     int64_t GetGold();
+    Equipment* GetEquip(int64_t);
+    Equipment* GetEquip(std::string);
     void PushBack(Item*);
-    void SetElement(int64_t, Item*);
-    void SetElement(std::string, Item*);
+    void SetItem(int64_t, Item*);
+    void SetItem(std::string, Item*);
+    void SetEquip(int64_t, Equipment*);
+    
 
     void AddToItem(int64_t,int64_t);
     void AddToItem(int64_t, std::string);

@@ -4,6 +4,7 @@
 #include "Room.h"
 #include <cstdint>
 #include "ShopMenu.h"
+#include "itemlist.h"
 
 void SafeRoom::GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran4, int64_t ran5)
 {
@@ -124,7 +125,28 @@ void HallWay::GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran
         std::string merchantHaveNotEnough;
         std::string amountSelling;
         std::string exitString;
-        //Switches Statement to determine Purchase1-3
+        switch(ran3)
+        {
+            case 1:
+            switch(ran4)
+            {
+                case 1:
+                    purchase1 = new AttackItem(dart);
+                    purchase1->ChangeAmount(3);
+                    break;
+                case 2:
+                    purchase1 = new HealItem(cookie);
+                    purchase1->ChangeAmount(5);
+                    break;
+                case 3:
+                    purchase1 = new Weapon(spear);
+                    purchase1->ChangeAmount(2);
+                    break;
+                case 4:
+                    purchase1 = new Weapon(hammer);
+                    break;
+            }
+        }
 
         //Multi switch statement to determine merchant's name
         switch(ran1)

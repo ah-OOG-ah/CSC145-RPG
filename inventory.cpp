@@ -8,11 +8,11 @@
     Inventory::Inventory(int64_t itemCap) { numElements = itemCap; }
     Inventory::Inventory(int64_t itemCap, Item* first) { start[0] = first; numElements = itemCap; }
 
-    Item* Inventory::GetElement(int64_t pos)
+    Item* Inventory::GetItem(int64_t pos)
     {
         return start[pos];
     }
-    Item* Inventory::GetElement(std::string name)
+    Item* Inventory::GetItem(std::string name)
     {
         for(int i = 0; i < numElements; i++)
         {
@@ -24,11 +24,24 @@
         return nullptr;
     }
     int64_t Inventory::GetGold() { return gold; }
-    void Inventory::SetElement(int64_t pos, Item* newItem)
+    Equipment* Inventory::GetEquip(int64_t pos) { return tools[pos]; }
+    Equipment* Inventory::GetEquip(std::string name){
+        for(int i = 0; i < numEquips; i++)
+        {
+            if((*tools)[i].GetName() == name)
+            {
+                return tools[i];
+            }
+        }
+        return nullptr;
+    }
+
+
+    void Inventory::SetItem(int64_t pos, Item* newItem)
     {
         start[pos] = newItem;
     }
-    void Inventory::SetElement(std::string name, Item* newItem)
+    void Inventory::SetItem(std::string name, Item* newItem)
     {
         int i = 0;
         while((*start)[i].GetName() != name)
@@ -40,6 +53,11 @@
             }
         }
         start[i] = newItem;
+    }
+
+    void Inventory::SetEquip(int64_t pos, Equipment* tool)
+    {
+        tools[pos] = tool;
     }
 
     void Inventory::AddToItem(int64_t amnt,int64_t pos)

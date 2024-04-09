@@ -12,6 +12,7 @@ class Item
 
     public:
     //Constructor
+    Item() { }
     Item(std::string itemName,int64_t price, int64_t amnt);
     Item(std::string itemName, int64_t price);
 

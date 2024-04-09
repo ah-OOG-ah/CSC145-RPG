@@ -1,6 +1,7 @@
 #include <string>
 #include "Equipment.h"
 
+Equipment::Equipment() { }
 Equipment(std::string itemName, int64_t durab, int64_t price) : Item(itemName, price, durab) {}
 
 std::string Equipment::GetAmntText()

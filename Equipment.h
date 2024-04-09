@@ -7,7 +7,10 @@
 
 class Equipment : public Item
 {
+    protected:
+    int64_t durability;
     public:
+    Equipment();
     Equipment(std::string itemName, int64_t durab, int64_t price);
     std::string GetAmntText() override;
 };
