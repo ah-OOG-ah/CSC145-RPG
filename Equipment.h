@@ -14,7 +14,7 @@ class Equipment : public Item
     Equipment(std::string itemName, int64_t durab, int64_t price);
     int64_t GetDurab();
     void SetDurab(int64_t);
-    void ChangeAmount(int64_t) override;
+    void ChangeAmount(int64_t) override; //Makes it so it amount can not change besides one and zero
     std::string GetAmntText() override; //Vestigal
 };
 

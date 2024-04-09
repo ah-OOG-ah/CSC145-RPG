@@ -55,9 +55,23 @@
         start[i] = newItem;
     }
 
-    void Inventory::SetEquip(int64_t pos, Equipment* tool)
+    void Inventory::AddEquip(int64_t pos, Equipment* tool)
     {
+        if(pos < 0 || pos > numEquips)
+        {
+            return;
+        }
         tools[pos] = tool;
+    }
+
+    void Inventory::PushBackEquip(Equipment* newTool)
+    {
+        int i = 0;
+        do
+        {
+            i++;
+        } while (tools[i] != nullptr);
+        tools[i] = newTool;
     }
 
     void Inventory::AddToItem(int64_t amnt,int64_t pos)

@@ -4,6 +4,20 @@
 Equipment::Equipment() { }
 Equipment(std::string itemName, int64_t durab, int64_t price) : Item(itemName, price, durab) {}
 
+int64_t GetDurab() { return durability; }
+void SetDurab(int64_t durab) { durability = durab; }
+void ChangeAmount(int64_t amnt)
+{
+    if(amnt > 0)
+    {
+        amount = 1;
+    }
+    else
+    {
+        amount = 0;
+    }
+}
+
 std::string Equipment::GetAmntText()
 {
     return "";

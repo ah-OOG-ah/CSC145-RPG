@@ -30,7 +30,8 @@ class Inventory
     void PushBack(Item*);
     void SetItem(int64_t, Item*);
     void SetItem(std::string, Item*);
-    void SetEquip(int64_t, Equipment*);
+    void AddEquip(int64_t, Equipment*); //Used when inventory has no more equipment slots
+    void PushBackEquip(Equipment*); //Used when there is an open spot in inventory for equipment
     
 
     void AddToItem(int64_t,int64_t);
