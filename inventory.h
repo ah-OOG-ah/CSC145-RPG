@@ -17,6 +17,7 @@ class Inventory
     Item** start = new Item*[numElements];
     Equipment** tools = new Equipment*[numEquips];
 
+    
     public:
     //Constructors
     Inventory();

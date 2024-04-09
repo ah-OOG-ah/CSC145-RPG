@@ -74,6 +74,7 @@
     {
         if(usedEquips = numEquips) { return; }
         tools[usedEquips] = newTool;
+        usedEquips++;
     }
 
     void Inventory::AddToItem(int64_t amnt,int64_t pos)
@@ -99,6 +100,7 @@
     {
         if(usedElements = numElements) { return; }
         start[usedElements] = newItem;
+        usedElements++;
     }
 
     void Inventory::AddGold(int64_t amnt) { gold+=amnt; }

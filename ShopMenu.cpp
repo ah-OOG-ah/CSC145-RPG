@@ -186,7 +186,7 @@ void ShopMenu::dispatch(int64_t choice)
                 return;
             }
             else {
-                player.playerInven.PushBack(purchase1);
+                player.playerInven.PushBack(1);
                 player.playerInven.AddGold(-1 * purchase1->GetPrice());
                 std::cout << purchase1->GetName() << " Added to Inventory" << std::endl;
                 std::cout << purchase1->GetPrice() << " Given to " << merchantName << std::endl;
