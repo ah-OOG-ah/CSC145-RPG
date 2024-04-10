@@ -105,7 +105,9 @@ class Shop : public Room
     invalid; Dialogue index of 8; Used when player inputs an invalid input
     youHaveNotEnough; Dialogue index of 9; Used when player tries to sell more than they have
     merchantHaveNotEnough; Dialogue index of 10; Used when player tries to buy than the merchant has
-    exitString; Dialogue index of 11; Used when player leaves the shop
+    amountSelling; Dialogue index of 11; Used when player is trying to sell
+    exitString; Dialogue index of 12; Used when player leaves the shop
+    giveBack; Dialogue index of 13; Used when player buys when inventory is full and they do not replace any items in inventory
     */ 
 
     public:

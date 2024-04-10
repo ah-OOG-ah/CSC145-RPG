@@ -125,6 +125,7 @@ void HallWay::GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran
         std::string merchantHaveNotEnough;
         std::string amountSelling;
         std::string exitString;
+        std::string giveBack;
         switch(ran3)
         {
             case 1:
@@ -152,19 +153,20 @@ void HallWay::GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran
         switch(ran1)
         {
             case 1:
-                enterString = "Hello me chum, welcome to me shop";
+                enterString = "Hello me chum, welcome to me shop.";
                 buyOrSell = "Ye buying or ye selling\?";
                 whatAreYouBuying = "Which of me fine items would ye be interested in buying today";
                 merchantBuying = "What junk do ye have\?";
                 takeThatFor = "For that, I can spare you about... ";
-                youBought = "Aye! Pleasure doing buisness";
+                youBought = "Aye! Pleasure doing buisness.";
                 theyBought = "Thanks for the item!";
                 notEnough = "Oi! You do not have enough money, lad! Get a job!";
                 invalid = "Oi! What was that \?";
-                youHaveNotEnough = "Oi! What do ye take me for\? Ye are trying to sell things ye do not have";
-                merchantHaveNotEnough = "Sorry, lad, I do not have enough of that";
+                youHaveNotEnough = "Oi! What do ye take me for\? Ye are trying to sell things ye do not have.";
+                merchantHaveNotEnough = "Sorry, lad, I do not have enough of that.";
                 amountSelling = "How many of ye fine items will ye be selling to me\?";
                 exitString = "Take care of yeself, mate!";
+                giveBack = "Oi! I am always here when you have more room.";
                 switch(ran2)
                 {
                     case 1:
@@ -183,18 +185,19 @@ void HallWay::GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran
                 break;
             case 2:
                 enterString = "Welcome, sir, to my shop!";
-                buyOrSell = "Are you buying items or selling them, sir \?";
+                buyOrSell = "Are you buying items or selling them, sir\?";
                 whatAreYouBuying = "Which item would you be interested in today\?";
                 merchantBuying = "What would you like me to buy\?";
                 takeThatFor = "That will give about... ";
                 youBought = "Much apprieciated, sir!";
                 theyBought = "This is a very fine item, my good sir. Thank you!";
                 notEnough = "It seems you do not have enough money for that item at the moment.";
-                invalid = "Excuse me \? What was that, sir \?";
-                youHaveNotEnough = "I\'m sorry, sir, but you seems you do not have that amount to sell";
-                merchantHaveNotEnough = "Sir, I am afraid that I do not that amount to give to you";
+                invalid = "Excuse me \? What was that, sir\?";
+                youHaveNotEnough = "I\'m sorry, sir, but you seems you do not have that amount to sell.";
+                merchantHaveNotEnough = "Sir, I am afraid that I do not that amount to give to you.";
                 amountSelling = "How many items will you be selling today, sir\?";
                 exitString = "Have a blessed day, sire!";
+                giveBack = "I am sorry for your lack of space, sir.";
                 switch(ran2)
                 {
                     case 1:
@@ -224,7 +227,8 @@ void HallWay::GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran
                 youHaveNotEnough = "Enough jokes, kid. If you want to do buisness at least try to be serious";
                 merchantHaveNotEnough = "Can you please make a reasonable request\?";
                 amountSelling = "How many would you like me take off your hands\?";
-                exitString = "Be careful. You never know what could be lurking out there";
+                exitString = "Be careful. You never know what could be lurking out there.";
+                giveBack = "Bit off more than you can chew, huh\?";
                 switch(ran2)
                 {
                     case 1:
@@ -255,9 +259,10 @@ void HallWay::GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran
                 merchantHaveNotEnough = "Monkey Bob has not given me that amount of items";
                 amountSelling = "How many items will you be handing over to Monkey Bob, your primate overlord\?";
                 exitString = "Monkey Bob is coming for you";
+                giveBack = "Monkey Bob delights in your lack of space.";
                 merchantName = "Merchant Bob";
         }
-        entries = {enterString, whatAreYouBuying, merchantBuying, takeThatFor, youBought, theyBought, notEnough, invalid, youHaveNotEnough, merchantHaveNotEnough, amountSelling,exitString};
+        entries = {enterString, whatAreYouBuying, merchantBuying, takeThatFor, youBought, theyBought, notEnough, invalid, youHaveNotEnough, merchantHaveNotEnough, amountSelling, exitString, giveBack};
     }
 
 void Shop::GoToShop()

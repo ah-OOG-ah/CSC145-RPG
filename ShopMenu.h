@@ -10,9 +10,8 @@ class ShopMenu : public Menu {
 
   public:
     ShopMenu(std::string merchant, std::vector<std::string> entries, Item* stock1, Item* stock2, Item* stock3, Equipment* equip1);
-
+   void display() override;
   protected:
-    void display() override;
     virtual void dispatch(int64_t i) override;
 
   private:
@@ -40,5 +39,6 @@ class ShopMenu : public Menu {
     merchantHaveNotEnough; Dialogue index of 10; Used when player tries to buy than the merchant has
     amountSelling; Dialogue index of 11; Used when player is trying to sell
     exitString; Dialogue index of 12; Used when player leaves the shop
+    giveBack; Dialogue index of 13; Used when player buys when inventory is full and they do not replace any items in inventory
     */ 
 };
