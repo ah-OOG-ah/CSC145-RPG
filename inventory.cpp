@@ -36,7 +36,18 @@
 
     bool Inventory::ReplaceItem(Item* newItem)
     {
-        
+        std::cout << "Your INVENTORY is full. Please select item to replace" << std::endl << std::endl;
+        std::cout << "Please input the number for the item you want to replace with the "<< newItem->GetName() << std::endl;
+        std::cout << "Input a number outside of the range such as 0 if you do not wish to replace any items" << std::endl;
+        PrintItems();
+        int choice = 0;
+        std::cin>>choice; //Choice will substracted by one to account for the fact that array starts as zero but inventory numbers at 1
+        if(choice > 0 && choice <= numElements)
+        {
+            std::cout << start[choice - 1]->GetName() << " was replaced by " << newItem->GetName() << std::endl;
+            start[choice - 1] = newItem;
+            return true;
+        }
     }
 
     bool Inventory::AddItem(Item* newItem)
@@ -48,7 +59,7 @@
         }
         for(int i = 0; i < numElements; i++)
         {
-            if(start[i]->GetName() == newItem->GetName())
+            if(start[i]->GetName() == newItem->GetName() && start[i]->isStackable())
             {
                 start[i]->ChangeAmount(newItem->GetAmount());
                 usedElements++;
@@ -113,10 +124,19 @@
 
     void Inventory::AddGold(int64_t amnt) { gold+=amnt; }
 
-    void Inventory::PrintInven()
+    void Inventory::PrintItems()
     {
-        std::cout << "INVENTORY" << std::endl;
-        std::cout << "GOLD" << std::to_string(gold) << std::endl;
+        std::cout << "ITEMS" << std::endl;
+        for (int i = 0; i < numElements; i++) {
+
+            if (start[i] != nullptr) {
+                std::cout << start[i]->GetName() << start[i]->GetAmntText() << start[i]->GetAmount() << "  ";
+                std::cout <<"Price "<< start[i]->GetPrice() << std::endl;
+            }
+        }
+    }
+    void Inventory::PrintEquip()
+    {
         std::cout << "EQUIPMENT" << std::endl;
         for(int i = 0; i < numEquips; i++)
         {
@@ -126,13 +146,37 @@
                 std::cout << "Price: " << tools[i]->GetPrice() << std::endl; 
             }
         }
+    }
+    void Inventory::PrintItems(int dummy)
+    {
         std::cout << "ITEMS" << std::endl;
         for (int i = 0; i < numElements; i++) {
 
             if (start[i] != nullptr) {
-
+                std::cout<< i + 1 <<". ";
                 std::cout << start[i]->GetName() << start[i]->GetAmntText() << start[i]->GetAmount() << "  ";
                 std::cout <<"Price "<< start[i]->GetPrice() << std::endl;
             }
         }
+    }
+    void Inventory::PrintEquip(int dummy)
+    {
+        std::cout << "EQUIPMENT" << std::endl;
+        for(int i = 0; i < numEquips; i++)
+        {
+            if(tools[i] != nullptr)
+            {
+                std::cout<< i + 1 <<". ";
+                std::cout << tools[i]->GetName() << "Durability: " << tools[i]->GetDurab() << "  ";
+                std::cout << "Price: " << tools[i]->GetPrice() << std::endl; 
+            }
+        }
+    }
+
+    void Inventory::PrintInven()
+    {
+        std::cout << "INVENTORY" << std::endl;
+        std::cout << "GOLD" << std::to_string(gold) << std::endl;
+        PrintEquip();
+        PrintItems();
     }

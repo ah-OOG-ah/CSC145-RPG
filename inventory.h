@@ -19,6 +19,10 @@ class Inventory
 
     bool ReplaceItem(Item*); //Private function called by AddItem when inventory is full. True if item is replaced, else false
     bool ReplaceEquip(Equipment*); //Private function called by AddEquip when inventory is full. True if item is replaced, else false
+    void PrintItems(); //Called by PrintInven
+    void PrintEquip(); //Called by PrintInven
+    void PrintItems(int); //Called by functions that need inventory to print with numbers. Integer value is meaningless.
+    void PrintEquip(int); //Called by functions that need inventory to print with numbers. Integer value is meaningless.
     public:
     //Constructors
     Inventory();
