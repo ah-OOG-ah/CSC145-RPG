@@ -39,14 +39,19 @@
         std::cout << "Your INVENTORY is full. Please select item to replace" << std::endl << std::endl;
         std::cout << "Please input the number for the item you want to replace with the "<< newItem->GetName() << std::endl;
         std::cout << "Input a number outside of the range such as 0 if you do not wish to replace any items" << std::endl;
-        PrintItems();
+        PrintItems(1); //Used to print items with numbers by them
         int choice = 0;
         std::cin>>choice; //Choice will substracted by one to account for the fact that array starts as zero but inventory numbers at 1
-        if(choice > 0 && choice <= numElements)
+        if(choice > 0 && choice <= usedElements)
         {
             std::cout << start[choice - 1]->GetName() << " was replaced by " << newItem->GetName() << std::endl;
             start[choice - 1] = newItem;
             return true;
+        }
+        else
+        {
+            std::cout << newItem->GetName() <<" was not added to inventory" << std::endl;
+            return false;
         }
     }
 
@@ -75,26 +80,25 @@
         return false; //Should never be called
     }
 
-    void Inventory::SetItem(int64_t pos, Item* newItem)
+    bool Inventory::ReplaceEquip(Equipment* newEquip)
     {
-        start[pos] = newItem;
-        if(newItem != nullptr) { usedElements++; } //Used to handle case when someone tries to use set item to remove an item
-        else{ usedElements--; }
-    }
-    void Inventory::SetItem(std::string name, Item* newItem)
-    {
-        int i = 0;
-        while((*start)[i].GetName() != name)
+        std::cout << "Your INVENTORY is full. Please select equipment to replace" << std::endl << std::endl;
+        std::cout << "Please input the number for the equipment you want to replace with the "<< newEquip->GetName() << std::endl;
+        std::cout << "Input a number outside of the range such as 0 if you do not wish to replace any items" << std::endl;
+        PrintEquip(1); //Used to print items with numbers by them
+        int choice = 0;
+        std::cin>>choice; //Choice will substracted by one to account for the fact that array starts as zero but inventory numbers at 1
+        if(choice > 0 && choice <= usedEquips)
         {
-            i++;
-            if(i >= numElements)
-            {
-                return;
-            }
+            std::cout << tools[choice - 1]->GetName() << " was replaced by " << newEquip->GetName() << std::endl;
+            tools[choice - 1] = newEquip;
+            return true;
         }
-        start[i] = newItem;
-        if(newItem != nullptr) { usedElements++; } //Used to handle case when someone tries to use set item to remove an item
-        else{ usedElements--; }
+        else
+        {
+            std::cout << newEquip->GetName() <<" was not added to inventory" << std::endl;
+            return false;
+        }
     }
 
     void Inventory::AddEquip(int64_t pos, Equipment* tool)
@@ -106,20 +110,6 @@
         tools[pos] = tool;
         if(tool != nullptr) { usedEquips++; } //Used to handle case when someone tries to use set item to remove an item
         else{ usedEquips--; }
-    }
-
-    void Inventory::PushBackEquip(Equipment* newTool)
-    {
-        if(usedEquips = numEquips) { return; }
-        tools[usedEquips] = newTool;
-        usedEquips++;
-    }
-
-    void Inventory::PushBack(Item* newItem)
-    {
-        if(usedElements = numElements) { return; }
-        start[usedElements] = newItem;
-        usedElements++;
     }
 
     void Inventory::AddGold(int64_t amnt) { gold+=amnt; }
@@ -180,3 +170,41 @@
         PrintEquip();
         PrintItems();
     }
+
+/*
+void Inventory::SetItem(int64_t pos, Item* newItem)
+    {
+        start[pos] = newItem;
+        if(newItem != nullptr) { usedElements++; } //Used to handle case when someone tries to use set item to remove an item
+        else{ usedElements--; }
+    }
+    void Inventory::SetItem(std::string name, Item* newItem)
+    {
+        int i = 0;
+        while((*start)[i].GetName() != name)
+        {
+            i++;
+            if(i >= numElements)
+            {
+                return;
+            }
+        }
+        start[i] = newItem;
+        if(newItem != nullptr) { usedElements++; } //Used to handle case when someone tries to use set item to remove an item
+        else{ usedElements--; }
+    }
+
+    void Inventory::PushBackEquip(Equipment* newTool)
+    {
+        if(usedEquips = numEquips) { return; }
+        tools[usedEquips] = newTool;
+        usedEquips++;
+    }
+
+    void Inventory::PushBack(Item* newItem)
+    {
+        if(usedElements = numElements) { return; }
+        start[usedElements] = newItem;
+        usedElements++;
+    }
+*/
