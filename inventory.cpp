@@ -4,9 +4,7 @@
     #include <iostream>
 
     Inventory::Inventory() { }
-    Inventory::Inventory(Item* first) { start[0] = first; }
     Inventory::Inventory(int64_t itemCap) { numElements = itemCap; }
-    Inventory::Inventory(int64_t itemCap, Item* first) { start[0] = first; numElements = itemCap; }
 
     Item* Inventory::GetItem(int64_t pos)
     {
@@ -36,6 +34,31 @@
         return nullptr;
     }
 
+
+    bool Inventory::AddItem(Item* newItem)
+    {
+        if(newItem == nullptr) { return false; }
+        if(usedElements == numElements)
+        {
+            return ReplaceItem(newItem);
+        }
+        for(int i = 0; i < numElements; i++)
+        {
+            if(start[i]->GetName() == newItem->GetName())
+            {
+                start[i]->ChangeAmount(newItem->GetAmount());
+                usedElements++;
+                return true;
+            }
+            else if(start[i] == nullptr)
+            {
+                start[i] = newItem;
+                usedElements++;
+                return true;
+            }
+        }
+        return false; //Should never be called
+    }
 
     void Inventory::SetItem(int64_t pos, Item* newItem)
     {
@@ -75,25 +98,6 @@
         if(usedEquips = numEquips) { return; }
         tools[usedEquips] = newTool;
         usedEquips++;
-    }
-
-    void Inventory::AddToItem(int64_t amnt,int64_t pos)
-    {
-        (*start)[pos].ChangeAmount(amnt);
-
-    }
-    void Inventory::AddToItem(int64_t amnt, std::string name)
-    {
-        int i = 0;
-        while((*start)[i].GetName() != name)
-        {
-            i++;
-            if(i >= numElements)
-            {
-                return;
-            }
-        }
-        (*start)[i].ChangeAmount(amnt);
     }
 
     void Inventory::PushBack(Item* newItem)
