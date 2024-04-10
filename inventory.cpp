@@ -101,15 +101,23 @@
         }
     }
 
-    void Inventory::AddEquip(int64_t pos, Equipment* tool)
+    bool Inventory::AddEquip(Equipment* tool)
     {
-        if(pos < 0 || pos > numEquips)
+        if(tool == nullptr) { return false; }
+        if(usedEquips == numEquips)
         {
-            return;
+            return ReplaceEquip(tool);
         }
-        tools[pos] = tool;
-        if(tool != nullptr) { usedEquips++; } //Used to handle case when someone tries to use set item to remove an item
-        else{ usedEquips--; }
+        for(int i = 0; i < numEquips; i++)
+        {
+            if(tools[i] == nullptr)
+            {
+                tools[i] = tool;
+                usedElements++;
+                return true;
+            }
+        }
+        return false; //Should never be called
     }
 
     void Inventory::AddGold(int64_t amnt) { gold+=amnt; }
