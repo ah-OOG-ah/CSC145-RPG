@@ -53,6 +53,7 @@ class HealItem : public RegularItem
 class NonConsumAttackItem : public AttackItem
 {
     public:
+    //stackable is set to false
     NonConsumAttackItem(std::string itemName, int64_t dmg, int64_t price, Status* effect, int64_t chance);
     NonConsumAttackItem(std::string itemName, int64_t dmg, int64_t price);
     virtual void ChangeAmount(int64_t addAmnt) override; 

@@ -48,9 +48,11 @@ void HealItem::SetHealedStatus(Status* status) { healedStatus = status; }
 int64_t HealItem::GetHpAmnt() { return hpAmnt; }
 Status* HealItem::GetHealedStatus() { return healedStatus; }
 
-NonConsumAttackItem::NonConsumAttackItem(std::string itemName, int64_t dmg, int64_t price, Status* effect, int64_t chance) : AttackItem(itemName, dmg, price, effect, chance) {}
+NonConsumAttackItem::NonConsumAttackItem(std::string itemName, int64_t dmg, int64_t price, Status* effect, int64_t chance) : AttackItem(itemName, dmg, price, effect, chance) 
+{ stackable = false; }
 
-NonConsumAttackItem::NonConsumAttackItem(std::string itemName, int64_t dmg, int64_t price) : AttackItem(itemName, dmg, price) {}
+NonConsumAttackItem::NonConsumAttackItem(std::string itemName, int64_t dmg, int64_t price) : AttackItem(itemName, dmg, price) 
+{ stackable = false; }
 
 void NonConsumAttackItem::ChangeAmount(int64_t addAmnt) { return; }
 

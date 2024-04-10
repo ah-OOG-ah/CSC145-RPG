@@ -9,6 +9,7 @@ class Item
     std::string name;
     int64_t amount = 0;
     int64_t price = 0;
+    bool stackable = true;
 
     public:
     //Constructor
@@ -21,6 +22,7 @@ class Item
     virtual std::string GetAmntText() = 0;
     int64_t GetAmount() const;
     int64_t GetPrice() const;
+    bool isStackable() { return stackable; }
     //Setters
     virtual void ChangeAmount(int64_t addAmnt);
 

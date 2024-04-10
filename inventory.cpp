@@ -34,6 +34,10 @@
         return nullptr;
     }
 
+    bool Inventory::ReplaceItem(Item* newItem)
+    {
+        
+    }
 
     bool Inventory::AddItem(Item* newItem)
     {
