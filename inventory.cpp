@@ -40,7 +40,7 @@
         std::cout << "Please input the number for the item you want to replace with the "<< newItem->GetName() << std::endl;
         std::cout << "Input a number outside of the range such as 0 if you do not wish to replace any items" << std::endl;
         PrintItems(1); //Used to print items with numbers by them
-        int choice = 0;
+        int64_t choice = 0;
         std::cin>>choice; //Choice will substracted by one to account for the fact that array starts as zero but inventory numbers at 1
         if(choice > 0 && choice <= usedElements)
         {
@@ -86,7 +86,7 @@
         std::cout << "Please input the number for the equipment you want to replace with the "<< newEquip->GetName() << std::endl;
         std::cout << "Input a number outside of the range such as 0 if you do not wish to replace any items" << std::endl;
         PrintEquip(1); //Used to print items with numbers by them
-        int choice = 0;
+        int64_t choice = 0;
         std::cin>>choice; //Choice will substracted by one to account for the fact that array starts as zero but inventory numbers at 1
         if(choice > 0 && choice <= usedEquips)
         {
@@ -120,7 +120,38 @@
         return false; //Should never be called
     }
 
+    void Inventory::RemoveItem(int64_t pos, int64_t amnt)
+    {
+        if(amnt == 0 || amnt == start[pos]->GetAmount())
+        {
+            start[pos] = nullptr;
+            usedElements--;
+            for(int i = pos; i < numElements - 1; i++)
+            {
+                start[i] = start[i + 1];
+            }
+        }
+        else
+        {
+            start[pos]->ChangeAmount(-1 * amnt);
+        }
+    }
+    void Inventory::RemoveEquipment(int64_t pos)
+    {
+        tools[pos] = nullptr;
+        usedElements--;
+        for(int i = pos; i < numEquips - 1; i++)
+        {
+            tools[i] = tools[i + 1];
+        }
+    }
+
     void Inventory::AddGold(int64_t amnt) { gold+=amnt; }
+
+    int64_t Inventory::GetNumElements() { return numElements; }
+    int64_t Inventory::GetNumEquips() { return numEquips; }
+    int64_t Inventory::GetUsedElements() { return usedElements; }
+    int64_t Inventory::GetUsedEquips() { return usedEquips; }
 
     void Inventory::PrintItems()
     {

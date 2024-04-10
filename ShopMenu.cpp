@@ -19,7 +19,7 @@
     notEnough; Dialogue index of 7; Used when player does not have enough money to buy an item
     invalid; Dialogue index of 8; Used when player inputs an invalid input
     youHaveNotEnough; Dialogue index of 9; Used when player tries to sell more than they have
-    merchantHaveNotEnough; Dialogue index of 10; Used when player tries to buy than the merchant has
+    merchantHaveNotEnough; Dialogue index of 10; Used when player tries to buy more than the merchant has
     amountSelling; Dialogue index of 11; Used when player is trying to sell
     exitString; Dialogue index of 12; Used when player leaves the shop
     giveBack; Dialogue index of 13; Used when player buys when inventory is full and they do not replace any items in inventory
@@ -52,9 +52,60 @@ void ShopMenu::Buy()
     } while (itemChoice != 5); 
 }
 
+void ShopMenu::SellEquipment()
+{
+        std::cout << merchantName<< ": " << entries[3] << std::endl;
+        std::cout << "Please input the number for the item you want to sell. Enter 0 to exit" << std::endl;
+        player.playerInven.PrintEquip(1); //Used to print items with numbers by them
+        int64_t choice = 0;
+        std::cin>>choice; //Choice will substracted by one to account for the fact that array starts as zero but inventory numbers at 1
+        if(choice > 0 && choice <= player.playerInven.GetUsedEquips())
+        {
+            std::cout << merchantName<< ": " << entries[4] << std::endl;
+            std::cout<< "Sell\?" << std::endl;
+            std::string sellChoice;
+            std::getline(std::cin, sellChoice);
+            if(sellChoice == "Yes" || sellChoice == "yes"  || sellChoice == "YES" || sellChoice == "Y" || sellChoice == "Y")
+            {
+                player.playerInven.AddGold(player.playerInven.GetEquip(choice)->GetPrice());
+                player.playerInven.RemoveEquipment(choice);
+                std::cout << merchantName<< ": " << entries[6] << std::endl;
+            }
+            else
+            {
+                std::cout << merchantName<< ": " << entries[13] << std::endl;
+            }
+        }
+        else
+        {
+            //std::cout << newEquip->GetName() <<" was not added to inventory" << std::endl;
+            
+        }
+}
+
 void ShopMenu::Sell()
 {
-    
+    bool valid = false;
+    while(!false)
+    {
+        std::cout<<"Sell items or equipment\?"<<std::endl;
+        std::string choice;
+        std::getline(std::cin, choice);
+        if(choice == "items" || choice == "Items" || choice == "ITEMS")
+        {
+            SellItem();
+            valid = true;
+        }
+        else if(choice == "equipment" || choice == "Equipment" || choice == "EQUIPMENT")
+        {
+            SellEquipment();
+            valid = true;
+        }
+        else
+        {
+            std::cout << "Try again" << std::endl;
+        }
+    }
 }
 
 Item* ShopMenu::GetPurchase(int64_t selection)
@@ -242,4 +293,12 @@ std::string choice;
         std::cout << merchantName<< ": " << entries[8] << std::endl;
     }
     } while(choice != "Nothing" || choice != "nothing" || choice != "NOTHING" || choice != "Exit" || choice != "exit" || choice != "EXIT");
+
+
+    int64_t amnt = 0;
+            while(amnt > 0)
+            {
+                std::cin>>amnt;
+                if(amnt < 0 || amnt > player.playerInven.GetEquip(choice -1))
+            }
 */

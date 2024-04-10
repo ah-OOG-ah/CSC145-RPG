@@ -24,7 +24,8 @@ class ShopMenu : public Menu {
 
     void Buy();
     void Sell();
-
+    void SellItem(); //Called by Sell()
+    void SellEquipment(); //Called by Sell()
     /*
     enterString; Dialogue index of 0; Used when player enters shop
     buyOrSell; Dialogue index of 1; Used when player is asked whether they want to buy or sell
