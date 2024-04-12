@@ -10,19 +10,23 @@ class Item
     int64_t amount = 0;
     int64_t price = 0;
     bool stackable = true;
+    bool equipable = false;
+    std::string description;
 
     public:
     //Constructor
     Item() { }
-    Item(std::string itemName,int64_t price, int64_t amnt);
-    Item(std::string itemName, int64_t price);
+    Item(std::string itemName,int64_t price, int64_t amnt, std::string desc);
+    Item(std::string itemName, int64_t price, std::string desc);
 
     //Getters
     std::string GetName();
     virtual std::string GetAmntText() = 0;
+    std::string GetDesc();
     int64_t GetAmount() const;
     int64_t GetPrice() const;
-    bool isStackable() { return stackable; }
+    bool isStackable();
+    bool isEquipment();
     //Setters
     virtual void ChangeAmount(int64_t addAmnt);
 

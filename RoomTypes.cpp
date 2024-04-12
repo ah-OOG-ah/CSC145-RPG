@@ -267,6 +267,6 @@ void HallWay::GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran
 
 void Shop::GoToShop()
 {
-    ShopMenu shopMenu(merchantName, entries, purchase1, purchase2, purchase3, equip1);
+    ShopMenu shopMenu(merchantName, entries, purchase1, purchase2, purchase3);
     shopMenu.display();
 }

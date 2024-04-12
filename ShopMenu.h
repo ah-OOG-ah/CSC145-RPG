@@ -9,7 +9,7 @@
 class ShopMenu : public Menu {
 
   public:
-    ShopMenu(std::string merchant, std::vector<std::string> entries, Item* stock1, Item* stock2, Item* stock3, Equipment* equip1);
+    ShopMenu(std::string merchant, std::vector<std::string> entries, Item* stock1, Item* stock2, Item* stock3);
    void display() override;
   protected:
     virtual void dispatch(int64_t i) override;
@@ -19,13 +19,10 @@ class ShopMenu : public Menu {
     Item* purchase1 = nullptr;
     Item* purchase2 = nullptr;
     Item* purchase3 = nullptr;
-    Equipment* equip1 = nullptr;
     Item* GetPurchase(int64_t);
 
     void Buy();
     void Sell();
-    void SellItem(); //Called by Sell()
-    void SellEquipment(); //Called by Sell()
     /*
     enterString; Dialogue index of 0; Used when player enters shop
     buyOrSell; Dialogue index of 1; Used when player is asked whether they want to buy or sell

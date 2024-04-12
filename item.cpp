@@ -5,12 +5,15 @@
 #include <utility>
 
 Item::Item() { }
-Item::Item(std::string itemName, int64_t price, int64_t amnt) : name(std::move(itemName)), amount(amnt), price(price) { }
-Item::Item(std::string itemName, int64_t price) : name(std::move(itemName)), price(price) { }
+Item::Item(std::string itemName, int64_t price, int64_t amnt, std::string desc) : name(std::move(itemName)), amount(amnt), price(price), description(std::move(desc)) { }
+Item::Item(std::string itemName, int64_t price, std::string desc) : name(std::move(itemName)), price(price), description(std::move(desc)){ }
 
 std::string Item::GetName() { return name; }
+std::string Item::GetDesc() { return description; }
 int64_t Item::GetAmount() const { return amount; }
 int64_t Item::GetPrice() const { return price; }
+bool Item::isStackable() { return stackable; }
+bool Item::isEquipment() { return equipable; }
 
 
 void Item::ChangeAmount(int64_t addAmnt) { amount += addAmnt; }

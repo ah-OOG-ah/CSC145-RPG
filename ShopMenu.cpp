@@ -25,13 +25,12 @@
     giveBack; Dialogue index of 13; Used when player buys when inventory is full and they do not replace any items in inventory
     */ 
 
-ShopMenu::ShopMenu(std::string merchant, std::vector<std::string> entries, Item* stock1, Item* stock2, Item* stock3, Equipment* equipStock1) : Menu(entries)
+ShopMenu::ShopMenu(std::string merchant, std::vector<std::string> entries, Item* stock1, Item* stock2, Item* stock3) : Menu(entries)
 {
     merchantName = merchant;
     purchase1 = stock1;
     purchase2 = stock2;
     purchase3 = stock3;
-    equip1 = equipStock1;
 }
 
 void ShopMenu::Buy()
@@ -45,30 +44,36 @@ void ShopMenu::Buy()
         {
             std::cout<< i << ". " << GetPurchase(i)->GetName() << "x" << GetPurchase(i)->GetAmount() << "   Price: " << GetPurchase(i)->GetPrice() << std::endl;
         }
-        std::cout <<"4. " << equip1->GetName() << "   Price: " << equip1->GetPrice() << std::endl;
-        std::cout << "5. None of it " << std::endl;
+        std::cout << "4. None of it " << std::endl;
         std::cin>>itemChoice;
         dispatch(itemChoice);
-    } while (itemChoice != 5); 
+    } while (itemChoice != 4); 
 }
 
-void ShopMenu::SellEquipment()
+void ShopMenu::Sell()
 {
-        std::cout << merchantName<< ": " << entries[3] << std::endl;
+    std::cout << merchantName<< ": " << entries[3] << std::endl;
         std::cout << "Please input the number for the item you want to sell. Enter 0 to exit" << std::endl;
-        player.playerInven.PrintEquip(1); //Used to print items with numbers by them
+        player.playerInven.PrintItems(1); //Used to print items with numbers by them
         int64_t choice = 0;
         std::cin>>choice; //Choice will substracted by one to account for the fact that array starts as zero but inventory numbers at 1
-        if(choice > 0 && choice <= player.playerInven.GetUsedEquips())
+        if(choice > 0 && choice <= player.playerInven.GetUsedElements())
         {
-            std::cout << merchantName<< ": " << entries[4] << std::endl;
+            int64_t sellAmnt = 1;
+            if(player.playerInven.GetItem(choice)->isStackable())
+            {
+                std::cout << "How many are you selling\?" << std::endl;
+                std::cin>>sellAmnt;
+            }
+            std::cout << merchantName<< ": " << entries[4] << " ";
+            std::cout << ((player.playerInven.GetItem(choice)->GetPrice()) * sellAmnt)/(.8) << std::endl;
             std::cout<< "Sell\?" << std::endl;
             std::string sellChoice;
             std::getline(std::cin, sellChoice);
             if(sellChoice == "Yes" || sellChoice == "yes"  || sellChoice == "YES" || sellChoice == "Y" || sellChoice == "Y")
             {
-                player.playerInven.AddGold(player.playerInven.GetEquip(choice)->GetPrice());
-                player.playerInven.RemoveEquipment(choice);
+                player.playerInven.AddGold(player.playerInven.GetItem(choice)->GetPrice() * sellAmnt * .8);
+                player.playerInven.RemoveItem(choice, -1*sellAmnt);
                 std::cout << merchantName<< ": " << entries[6] << std::endl;
             }
             else
@@ -81,31 +86,6 @@ void ShopMenu::SellEquipment()
             //std::cout << newEquip->GetName() <<" was not added to inventory" << std::endl;
             
         }
-}
-
-void ShopMenu::Sell()
-{
-    bool valid = false;
-    while(!false)
-    {
-        std::cout<<"Sell items or equipment\?"<<std::endl;
-        std::string choice;
-        std::getline(std::cin, choice);
-        if(choice == "items" || choice == "Items" || choice == "ITEMS")
-        {
-            SellItem();
-            valid = true;
-        }
-        else if(choice == "equipment" || choice == "Equipment" || choice == "EQUIPMENT")
-        {
-            SellEquipment();
-            valid = true;
-        }
-        else
-        {
-            std::cout << "Try again" << std::endl;
-        }
-    }
 }
 
 Item* ShopMenu::GetPurchase(int64_t selection)
@@ -231,29 +211,6 @@ void ShopMenu::dispatch(int64_t choice)
             }
             break;
         case 4:
-            if(player.playerInven.GetGold() < equip1->GetPrice())
-            {
-                std::cout << merchantName<< ": " << entries[7] <<std::endl;
-                return;
-            }
-            else 
-            {
-                Equipment* newEquip(equip1);
-                if(player.playerInven.AddItem(newEquip))
-                {
-                    player.playerInven.AddGold(-1 * equip1->GetPrice());
-                    equip1->ChangeAmount(-1);
-                    std::cout << equip1->GetName() << " Added to Inventory" << std::endl;
-                    std::cout << equip1->GetPrice() << " Given to " << merchantName << std::endl;
-                    std::cout << merchantName<< ": " << entries[5] << std::endl;
-                }
-                else //Player replaced no item with purchased item when inventory full
-                {
-                    std::cout << merchantName<< ": " << entries[13] << std::endl;
-                }
-            }
-            break;
-        case 5:
             break;
         default:
             std::cout << merchantName<< ": " << entries[8] << std::endl;

@@ -54,6 +54,10 @@ NonConsumAttackItem::NonConsumAttackItem(std::string itemName, int64_t dmg, int6
 NonConsumAttackItem::NonConsumAttackItem(std::string itemName, int64_t dmg, int64_t price) : AttackItem(itemName, dmg, price) 
 { stackable = false; }
 
-void NonConsumAttackItem::ChangeAmount(int64_t addAmnt) { return; }
+void NonConsumAttackItem::ChangeAmount(int64_t addAmnt) 
+{ 
+    if(addAmnt >= 1) { return; }; 
+    else { amnt = 0; }
+}
 
 std::string NonConsumAttackItem::GetAmntText() { return " "; }
