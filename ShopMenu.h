@@ -34,9 +34,11 @@ class ShopMenu : public Menu {
     notEnough; Dialogue index of 7; Used when player does not have enough money to buy an item
     invalid; Dialogue index of 8; Used when player inputs an invalid input
     youHaveNotEnough; Dialogue index of 9; Used when player tries to sell more than they have
-    merchantHaveNotEnough; Dialogue index of 10; Used when player tries to buy than the merchant has
+    merchantHaveNotEnough; Dialogue index of 10; Used when player tries to buy more than the merchant has
     amountSelling; Dialogue index of 11; Used when player is trying to sell
     exitString; Dialogue index of 12; Used when player leaves the shop
     giveBack; Dialogue index of 13; Used when player buys when inventory is full and they do not replace any items in inventory
+    failedSale; Dialogue index of 14; Used when player says no to buying item
+    howMany; Dialogue index of 15; Used to ask player how many of item they are buying
     */ 
 };

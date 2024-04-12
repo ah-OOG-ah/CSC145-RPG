@@ -126,6 +126,8 @@ void HallWay::GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran
         std::string amountSelling;
         std::string exitString;
         std::string giveBack;
+        std::string failedSale;
+        std::string howMany;
         switch(ran3)
         {
             case 1:
@@ -167,6 +169,8 @@ void HallWay::GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran
                 amountSelling = "How many of ye fine items will ye be selling to me\?";
                 exitString = "Take care of yeself, mate!";
                 giveBack = "Oi! I am always here when you have more room.";
+                failedSale = "Well if you ever change yer mind come and have a talk.";
+                howMany = "How many of ye fine items will you be selling to me today\?";
                 switch(ran2)
                 {
                     case 1:
@@ -198,6 +202,7 @@ void HallWay::GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran
                 amountSelling = "How many items will you be selling today, sir\?";
                 exitString = "Have a blessed day, sire!";
                 giveBack = "I am sorry for your lack of space, sir.";
+                failedSale = "If you ever need to part with your items in the future, sir, I will be right here.";
                 switch(ran2)
                 {
                     case 1:
@@ -229,6 +234,8 @@ void HallWay::GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran
                 amountSelling = "How many would you like me take off your hands\?";
                 exitString = "Be careful. You never know what could be lurking out there.";
                 giveBack = "Bit off more than you can chew, huh\?";
+                failedSale = "Do you feel an overbearing need to waste my time or what\?";
+                howMany = "How many are you selling\?";
                 switch(ran2)
                 {
                     case 1:
@@ -260,9 +267,11 @@ void HallWay::GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran
                 amountSelling = "How many items will you be handing over to Monkey Bob, your primate overlord\?";
                 exitString = "Monkey Bob is coming for you";
                 giveBack = "Monkey Bob delights in your lack of space.";
+                failedSale = "Your items will be Monkey Bob's in due time";
+                howMany = "How many of your items will you tribute to the Casear that is Monkey Bob\?";
                 merchantName = "Merchant Bob";
         }
-        entries = {enterString, whatAreYouBuying, merchantBuying, takeThatFor, youBought, theyBought, notEnough, invalid, youHaveNotEnough, merchantHaveNotEnough, amountSelling, exitString, giveBack};
+        entries = {enterString, whatAreYouBuying, merchantBuying, takeThatFor, youBought, theyBought, notEnough, invalid, youHaveNotEnough, merchantHaveNotEnough, amountSelling, exitString, giveBack, failedSale, howMany};
     }
 
 void Shop::GoToShop()

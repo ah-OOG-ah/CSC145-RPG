@@ -23,6 +23,8 @@
     amountSelling; Dialogue index of 11; Used when player is trying to sell
     exitString; Dialogue index of 12; Used when player leaves the shop
     giveBack; Dialogue index of 13; Used when player buys when inventory is full and they do not replace any items in inventory
+    failedSale; Dialogue index of 14; Used when player says no to buying item
+    howMany; Dialogue index of 15; Used to ask player how many of item they are buying
     */ 
 
 ShopMenu::ShopMenu(std::string merchant, std::vector<std::string> entries, Item* stock1, Item* stock2, Item* stock3) : Menu(entries)
@@ -42,7 +44,12 @@ void ShopMenu::Buy()
         std::cout << "GOLD" << player.playerInven.GetGold() << std::endl;
         for(int i = 1; i <= 3; i++)
         {
-            std::cout<< i << ". " << GetPurchase(i)->GetName() << "x" << GetPurchase(i)->GetAmount() << "   Price: " << GetPurchase(i)->GetPrice() << std::endl;
+            std::cout<< i << ". " << GetPurchase(i)->GetName() << "x" << GetPurchase(i)->GetAmount();
+            if(GetPurchase(i)->isEquipment())
+            {
+                std::cout<<" EQUIPMENT";
+            }
+            std::cout<<"   Price: " << GetPurchase(i)->GetPrice() << std::endl;
         }
         std::cout << "4. None of it " << std::endl;
         std::cin>>itemChoice;
@@ -62,7 +69,7 @@ void ShopMenu::Sell()
             int64_t sellAmnt = 1;
             if(player.playerInven.GetItem(choice)->isStackable())
             {
-                std::cout << "How many are you selling\?" << std::endl;
+                std::cout << merchantName<< ": " << entries[15] << " ";
                 std::cin>>sellAmnt;
             }
             std::cout << merchantName<< ": " << entries[4] << " ";
@@ -78,13 +85,8 @@ void ShopMenu::Sell()
             }
             else
             {
-                std::cout << merchantName<< ": " << entries[13] << std::endl;
+                std::cout << merchantName<< ": " << entries[14] << std::endl;
             }
-        }
-        else
-        {
-            //std::cout << newEquip->GetName() <<" was not added to inventory" << std::endl;
-            
         }
 }
 
@@ -158,7 +160,7 @@ void ShopMenu::dispatch(int64_t choice)
                     std::cout << purchase1->GetPrice() << " Given to " << merchantName << std::endl;
                     std::cout << merchantName<< ": " << entries[5] << std::endl;
                 }
-                else //Player replaced no item with purchased item when inventory full
+                else
                 {
                     std::cout << merchantName<< ": " << entries[13] << std::endl;
                 }

@@ -27,7 +27,7 @@
     {
         std::cout << "Your INVENTORY is full. Please select item to replace" << std::endl << std::endl;
         std::cout << "Please input the number for the item you want to replace with the "<< newItem->GetName() << std::endl;
-        std::cout << "Input a number outside of the range such as 0 if you do not wish to replace any items" << std::endl;
+        std::cout << "Input a number outside of the range if you do not wish to replace any items" << std::endl;
         PrintItems(1); //Used to print items with numbers by them
         int64_t choice = 0;
         std::cin>>choice; //Choice will substracted by one to account for the fact that array starts as zero but inventory numbers at 1
