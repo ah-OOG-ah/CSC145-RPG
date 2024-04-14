@@ -12,14 +12,13 @@ class RegularItem : public Item {
     std::string GetAmntText() override;
 };
 
-class AttackItem : public RegularItem
-{
-    protected:
+class AttackItem : public RegularItem {
+  protected:
     int64_t damage;
     Status* status = nullptr;
     int64_t effectChance = 0;
 
-    public:
+  public:
     AttackItem(std::string itemName, int64_t dmg, int64_t price, Status* effect, int64_t chance);
     AttackItem(std::string itemName, int64_t dmg, int64_t price, int64_t amnt);
     AttackItem(std::string itemName, int64_t dmg, int64_t price);
@@ -27,9 +26,9 @@ class AttackItem : public RegularItem
     void SetStatus(Status* effect);
     void SetChance(int64_t chance);
 
-    int64_t GetDamage();
+    [[nodiscard]] int64_t GetDamage() const;
     Status* GetStatus();
-    int64_t GetChance();
+    [[nodiscard]] int64_t GetChance() const;
 };
 
 class HealItem : public RegularItem
@@ -45,16 +44,14 @@ class HealItem : public RegularItem
     void SetHpAmnt(int64_t hp);
     void SetHealedStatus(Status* status);
 
-    int64_t GetHpAmnt();
+    [[nodiscard]] int64_t GetHpAmnt() const;
     Status* GetHealedStatus();
 };
 
-class NonConsumAttackItem : public AttackItem
-{
-    public:
+class NonConsumAttackItem : public AttackItem {
+  public:
     //stackable is set to false
     NonConsumAttackItem(std::string itemName, int64_t dmg, int64_t price, Status* effect, int64_t chance);
     NonConsumAttackItem(std::string itemName, int64_t dmg, int64_t price);
-    virtual void ChangeAmount(int64_t addAmnt) override; 
     std::string GetAmntText() override;
 };
