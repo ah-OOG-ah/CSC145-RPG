@@ -2,9 +2,10 @@
 #include <iostream>
 #include <ostream>
 #include <string>
+#include <utility>
 #include <vector>
 
-Menu::Menu(std::vector<std::string> entries) : entries(entries) {}
+Menu::Menu(std::vector<std::string> entries) : entries(std::move(entries)) {}
 
 void Menu::display() {
 

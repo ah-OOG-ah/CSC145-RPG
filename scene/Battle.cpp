@@ -1,7 +1,7 @@
 #include "Battle.h"
 #include "BattleMenu.h"
 #include "Enemy.h"
-#include "Scene.h"
+#include "scene/Scene.h"
 #include "game.h"
 #include <string>
 #include <utility>
@@ -18,19 +18,20 @@ Battle::Battle(std::string name) : Scene(std::move(name)), Menu(std::vector<std:
     this->enemy.emplace_back(10);
 }
 
-/*
-First, the player should get the Battle menu
-Then, the player acts
-Then, the enemy acts
-Then, the battle checks if a side is dead; repeat
-*/
+/**
+ * First, the player should get the Battle menu
+ * Then, the player acts
+ * Then, the enemy acts
+ * Then, the battle checks if a side is dead; repeat
+ */
 void Battle::run() {
 
     while (true) {
 
+        std::cout << "\nYou see the enemy: " << std::endl;
+        this->listEnemies();
+
         this->display();
-        for (Enemy e : enemy)
-            std::cout << e.toString() << std::endl;
 
         if (this->player->getFleeing() || this->player->getCurrentHp() < 1) {
             this->player->setFleeing(false);
@@ -44,9 +45,15 @@ void Battle::run() {
     }
 }
 
+void Battle::listEnemies() {
+    for (Enemy e : enemy)
+        std::cout << e.toString() << std::endl;
+}
+
 void Battle::attack() {
 
     player->attackEntity(&enemy.at(0));
+    this->listEnemies();
     std::erase_if(enemy, [](Enemy e){ return !e.getAlive(); });
 }
 
