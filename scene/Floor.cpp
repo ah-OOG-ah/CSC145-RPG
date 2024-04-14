@@ -1,4 +1,5 @@
 #include "Floor.h"
+#include "RoomTypes.h"
 
 #include <utility>
 #include <iostream>
@@ -11,5 +12,9 @@ void Floor::run() {
 
     // Generate rooms
     // For now, every room is a battle
+    for (int64_t i = 0; i < size * size; ++i) {
+        rooms.push_back(std::make_shared<BattleRoom>());
+    }
+
     std::cout << "TODO: implement floor" << std::endl;
 }

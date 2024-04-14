@@ -7,11 +7,10 @@
 #include <cstdint>
 #include <vector>
 
-class SafeRoom : public Room
-{
-    protected:
+class SafeRoom : public Room {
+  protected:
     std::string mapDisplay = "M"; // "M" for Main 
-    public:
+  public:
     /*
     Name: GenerateRoom
     Return type: void
@@ -21,14 +20,15 @@ class SafeRoom : public Room
     void GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran4, int64_t ran5) override;
 };
 
-class BattleRoom : public Room
-{
-    protected:
+class BattleRoom : public Room {
+  protected:
     //SpawnTable
     std::string mapDisplay = "B";
     Item* treasure = nullptr;
 
-    public: 
+  public:
+    BattleRoom();
+
     /*
     Name: GetTreasure
     Return type: Item pointer

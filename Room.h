@@ -13,6 +13,8 @@ class Room {
     bool isExit = false;
 
   public:
+    Room(std::string name);
+    Room(std::string name, std::string description);
     virtual ~Room();
 
     /*

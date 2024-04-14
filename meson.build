@@ -20,10 +20,12 @@ game_src = [
   'Menu.cpp',
   'Player.cpp',
   'Room.cpp',
+  'RoomTypes.cpp',
   'scene/Battle.cpp',
   'scene/Floor.cpp',
   'scene/Scene.cpp',
   'scene/Tower.cpp',
+  'ShopMenu.cpp',
   'Status.cpp',
   'statustypes.cpp'
 ]
