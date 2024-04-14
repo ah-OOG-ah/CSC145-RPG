@@ -60,10 +60,9 @@ void DebugMenu::dispatch(int64_t i) {
         case 2: this->manageInventory(); break;
         case 3: this->enterShop(); break;
         case 4: this->chat(); break;
-        //case 5: this->quitGame(); break;
+        case 5: this->quitGame(); break;
         default: {
-            std::cout << "The heck-" << std::endl;
-            int* p = nullptr; *p = 0;
+            std::cout << "Unexpected state! Things may break!" << std::endl;
         }
     }
 }

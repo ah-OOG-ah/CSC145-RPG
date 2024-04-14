@@ -1,6 +1,6 @@
 #include "RoomTypes.h"
 #include <string>
-#include "item.h"
+#include "Item.h"
 #include "Room.h"
 #include <cstdint>
 #include "ShopMenu.h"

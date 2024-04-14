@@ -1,4 +1,4 @@
-#include "item.h"
+#include "Item.h"
 #include "RegularItems.h"
 
 int numElements = 30;
