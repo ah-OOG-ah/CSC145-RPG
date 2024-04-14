@@ -1,5 +1,5 @@
 #include "DebugMenu.h"
-#include "Battle.h"
+#include "scene/Battle.h"
 #include "Menu.h"
 #include <iostream>
 #include <ostream>

@@ -5,11 +5,13 @@
 #include "Entity.h"
 #include "Menu.h"
 #include "Player.h"
-#include "Scene.h"
+#include "scene/Scene.h"
 #include <memory>
 #include <vector>
 
-
+/**
+ * This scene is entered for combat.
+ */
 class Battle : public Scene, public Menu {
 
   private:
@@ -18,6 +20,7 @@ class Battle : public Scene, public Menu {
 
     void attack();
     void escape();
+    void listEnemies();
 
   protected:
     void dispatch(int64_t i) override;

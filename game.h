@@ -2,7 +2,7 @@
 
 #include "Entity.h"
 #include "Player.h"
-#include "Scene.h"
+#include "scene/Scene.h"
 #include <memory>
 
 std::shared_ptr<Player> getPlayer();

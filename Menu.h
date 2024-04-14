@@ -2,13 +2,16 @@
 
 #include <string>
 #include <vector>
-
+/**
+ * A standard menu interface. Scenes or other classes with a run loop/run method may use it to display a menu.
+ * dispatch() converts menu entry numbers to function calls.
+ */
 class Menu {
 
   public:
     const std::vector<std::string> entries;
 
-    Menu(std::vector<std::string> entries);
+    explicit Menu(std::vector<std::string> entries);
 
     virtual void display();
 
