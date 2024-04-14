@@ -5,6 +5,7 @@
 #include <memory>
 #include <random>
 #include "game.h"
+#include "scene/Tower.h"
 
 DebugMenu debugMenu = DebugMenu();
 Player player = Player(10);
@@ -33,6 +34,8 @@ std::shared_ptr<Player> getPlayer() {
 
 int main() {
     initRng();
+
+    Tower tower(std::string());
 
     debugMenu.display();
 }

@@ -3,9 +3,8 @@
 #include <string>
 #include <cstdint>
 
-class Room
-{
-    protected:
+class Room {
+  protected:
     std::string roomName;
     std::string description;
     std::string mapDisplay = " ";
@@ -13,28 +12,30 @@ class Room
     bool isEntrance = false;
     bool isExit = false;
 
-    public:
+  public:
+    virtual ~Room() = 0;
+
     /*
     Name: GetName
     Return type: string
     Arguments: None
     Use: Returns the roomName member variable
     */
-    std::string GetName();
+    [[nodiscard]] std::string GetName() const;
     /*
     Name: GetDesc
     Return type: string
     Arguments: None
     Use: Returns the description member variable
     */
-    std::string GetDesc();
+    [[nodiscard]] std::string GetDesc() const;
     /*
     Name: GetMapDisplay
     Return type: string
     Arguments: None
     Use: Returns the mapDisplay memberVariable
     */
-    std::string GetMapDisplay();
+    [[nodiscard]] std::string GetMapDisplay() const;
 
     /*
     Name: GenerateRoom
