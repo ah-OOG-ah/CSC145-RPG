@@ -21,9 +21,9 @@ game_src = [
   'Player.cpp',
   'scene/Battle.cpp',
   'scene/Scene.cpp',
+  'scene/Tower.cpp',
   'Status.cpp',
-  'statustypes.cpp',
-  'Tower.cpp'
+  'statustypes.cpp'
 ]
 
 executable(
