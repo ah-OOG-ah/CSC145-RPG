@@ -7,23 +7,25 @@ includes = [
 ]
 
 game_src = [
-  'Entity.cpp', 
+  'BattleMenu.cpp',
+  'DebugMenu.cpp',
   'Enemy.cpp',
   'enemyai.cpp',
+  'Entity.cpp',
   'game.cpp',
-  'Menu.cpp',
-  'DebugMenu.cpp',
-  'scene/Scene.cpp',
-  'scene/Battle.cpp',
-  'BattleMenu.cpp',
-  'Player.cpp',
-  'item/RegularItems.cpp',
   'inventory.cpp',
+  'item/Equipment.cpp',
+  'item/Item.cpp',
+  'item/RegularItems.cpp',
+  'Menu.cpp',
+  'Player.cpp',
+  'scene/Battle.cpp',
+  'scene/Scene.cpp',
   'Status.cpp',
   'statustypes.cpp',
-  'item/Item.cpp',
-  'item/Equipment.cpp'
+  'Tower.cpp'
 ]
+
 executable(
   'game',
   game_src,
