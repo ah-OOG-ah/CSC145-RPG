@@ -35,7 +35,8 @@ std::shared_ptr<Player> getPlayer() {
 int main() {
     initRng();
 
-    Tower tower(std::string());
+    Tower tower("The Tower of Ycauiw Ccc");
+    tower.run();
 
     debugMenu.display();
 }

@@ -13,7 +13,7 @@ class Room {
     bool isExit = false;
 
   public:
-    virtual ~Room() = 0;
+    virtual ~Room();
 
     /*
     Name: GetName
