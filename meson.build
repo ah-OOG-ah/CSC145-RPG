@@ -20,6 +20,7 @@ game_src = [
   'Menu.cpp',
   'Player.cpp',
   'scene/Battle.cpp',
+  'scene/Floor.cpp',
   'scene/Scene.cpp',
   'scene/Tower.cpp',
   'Status.cpp',
