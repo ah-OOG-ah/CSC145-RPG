@@ -1,8 +1,10 @@
 #pragma once
 
-#include "item.h"
+#include "Item.h"
 #include "RegularItems.h"
 #include "Equipment.h"
+
+
 #include "statustypes.h"
 //AttackIem(Name, damage, price, canSpread, description)
 //AttackItem(Name, damage, price, effect, chance, canSpread, description);

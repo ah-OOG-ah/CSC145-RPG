@@ -8,12 +8,12 @@ Menu::Menu(std::vector<std::string> entries) : entries(entries) {}
 
 void Menu::display() {
 
-    for (int i = 0; i < entries.size(); ++i) {
+    for (size_t i = 0; i < entries.size(); ++i) {
         std::cout << i << ". " << this->entries.at(i) << std::endl;
     }
 
     std::string choice;
-    int i;
+    size_t i = -1;
     
     while (true) {
 
@@ -21,14 +21,12 @@ void Menu::display() {
 
         try {
             i = std::stoi(choice);
-        } catch (std::invalid_argument) {
-
-            i = -1;
+        } catch (std::invalid_argument&) {
             std::cout << "Not a number" << std::endl;
             continue;
         }
 
-        if (!(0 <= i && i < this->entries.size())) {
+        if (i >= this->entries.size()) {
             std::cout << "Invalid option" << std::endl;
             continue;
         }

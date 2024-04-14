@@ -9,7 +9,7 @@ class DebugMenu : public Menu {
     DebugMenu();
 
   protected:
-    virtual void dispatch(int64_t i) override;
+    void dispatch(int64_t i) override;
 
   private:
     void returnToOverworld();

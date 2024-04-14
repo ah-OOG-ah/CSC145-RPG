@@ -1,7 +1,8 @@
 #pragma once
 
 #include "Menu.h"
-#include "item.h"
+#include "Item.h"
+#include "Equipment.h"
 #include <cstdint>
 #include <string>
 

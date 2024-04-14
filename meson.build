@@ -2,9 +2,14 @@ project('CSC145-RPG', 'cpp',
   version : '0.1',
   default_options : ['warning_level=3', 'cpp_std=c++20'])
 
-game_src = [ 
+includes = [
+  'item'
+]
+
+game_src = [
   'Entity.cpp', 
   'Enemy.cpp',
+  'enemyai.cpp',
   'game.cpp',
   'Menu.cpp',
   'DebugMenu.cpp',
@@ -12,16 +17,16 @@ game_src = [
   'Battle.cpp',
   'BattleMenu.cpp',
   'Player.cpp',
-  'item.cpp',
   'RegularItems.cpp',
   'inventory.cpp',
   'Status.cpp',
-  'Equipment.cpp',
   'statustypes.cpp',
-  'enemyai.cpp'
-]   
+  'item/Item.cpp',
+  'Equipment.cpp'
+]
 executable(
   'game',
   game_src,
+  include_directories : includes,
   install : true
 )
