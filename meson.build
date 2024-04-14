@@ -17,12 +17,12 @@ game_src = [
   'Battle.cpp',
   'BattleMenu.cpp',
   'Player.cpp',
-  'RegularItems.cpp',
+  'item/RegularItems.cpp',
   'inventory.cpp',
   'Status.cpp',
   'statustypes.cpp',
   'item/Item.cpp',
-  'Equipment.cpp'
+  'item/Equipment.cpp'
 ]
 executable(
   'game',
