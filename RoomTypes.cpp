@@ -1,9 +1,8 @@
 #include "RoomTypes.h"
 #include <string>
 #include "Item.h"
-#include "Room.h"
-#include <cstdint>
 #include "ShopMenu.h"
+#include "game.h"
 #include "itemlist.h"
 
 void SafeRoom::GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran4, int64_t ran5)
@@ -87,9 +86,9 @@ void HallWay::GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran
     }
 }
 
-    std::string Shop::GetMerchant() { return merchantName; }
+std::string Shop::GetMerchant() { return merchantName; }
 
-    Item* Shop::GetPurchase(int64_t selection) 
+Item* Shop::GetPurchase(int64_t selection)
     {
         switch(selection)
         {
@@ -108,9 +107,9 @@ void HallWay::GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran
         }
     }
 
-    std::string Shop::GetDialogue(int64_t i) { return entries[i]; }
+std::string Shop::GetDialogue(int64_t i) { return entries[i]; }
 
-    void Shop::GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran4, int64_t ran5)
+void Shop::GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran4, int64_t ran5)
     {
         std::string enterString;
         std::string buyOrSell;
@@ -278,4 +277,26 @@ void Shop::GoToShop()
 {
     ShopMenu shopMenu(merchantName, entries, purchase1, purchase2, purchase3);
     shopMenu.display();
+}
+
+BattleRoom::BattleRoom() : Room("Battle") {
+    auto rand = std::abs(getRand()) % 4;
+
+    switch (rand) {
+        case 0:
+            description = "You enter a dark room with a broken chain dangling from the ceiling";
+            break;
+        case 1:
+            description = "You enter a damp room covered in moss. A crumbling heap of stone is in the center";
+            break;
+        case 2:
+            description = "You enter a room covered in cobwebs. Nothing appears.. nothing standing, at least.";
+            break;
+        default:
+            description = "You enter a room with a mop. Not much to look at";
+            break;
+    }
+    //Switch statement for spawn table
+
+    //Switch statement for treasure
 }
