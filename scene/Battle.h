@@ -1,6 +1,5 @@
 #pragma once
 
-#include "BattleMenu.h"
 #include "Enemy.h"
 #include "Entity.h"
 #include "Menu.h"

@@ -11,4 +11,9 @@ class Tower : public Scene {
 
   private:
     std::vector<Floor> floors;
+
+  public:
+    explicit Tower(std::string name);
+
+    void run() override;
 };

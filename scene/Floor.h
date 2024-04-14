@@ -16,4 +16,7 @@ class Floor {
     std::vector<Room> rooms;
 
     [[nodiscard]] size_t index(int64_t x, int64_t y) const;
+
+  public:
+    explicit Floor(int64_t level);
 };

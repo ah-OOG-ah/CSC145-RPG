@@ -1,16 +1,8 @@
 #include <string>
 #include "Room.h"
 
-std::string Room::GetName() { return roomName; }
+std::string Room::GetName() const { return roomName; }
 
-std::string Room::GetDesc() { return description; }
+std::string Room::GetDesc() const { return description; }
 
-std::string Room::GetMapDisplay() 
-{ 
-    if(isExplored == false)
-    {
-        return "\?";
-    }
-    else{
-    return mapDisplay; }
-}
+std::string Room::GetMapDisplay() const { return isExplored ? mapDisplay : "\?"; }
