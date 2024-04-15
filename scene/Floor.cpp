@@ -13,7 +13,7 @@ void Floor::run() {
     // Generate rooms
     // For now, every room is a battle
     for (int64_t i = 0; i < size * size; ++i) {
-        rooms.push_back(std::make_shared<BattleRoom>());
+        rooms.push_back(BattleRoom());
     }
 
     std::cout << "TODO: implement floor" << std::endl;
