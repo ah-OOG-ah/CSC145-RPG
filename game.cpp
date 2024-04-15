@@ -14,13 +14,13 @@ std::shared_ptr<Scene> scene;
 typedef std::mt19937 RNG;
 RNG rng; // NOLINT(*-msc51-cpp)
 std::random_device sysrng;
-std::uniform_int_distribution<int64_t> all_dist;
+std::uniform_int_distribution<uint64_t> all_dist;
 
 void initRng() {
     rng.seed(all_dist(sysrng));
 }
 
-int64_t getRand() {
+uint64_t getRand() {
     return all_dist(rng);
 }
 

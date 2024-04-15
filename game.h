@@ -9,4 +9,4 @@ std::shared_ptr<Player> getPlayer();
 
 std::shared_ptr<Scene> getScene();
 
-int64_t getRand();
+uint64_t getRand();

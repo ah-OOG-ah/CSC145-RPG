@@ -4,6 +4,7 @@ project('CSC145-RPG', 'cpp',
 
 includes = [
   'item'
+#  'item/rooms',
 ]
 
 game_src = [
@@ -19,10 +20,10 @@ game_src = [
   'item/RegularItems.cpp',
   'Menu.cpp',
   'Player.cpp',
-  'Room.cpp',
-  'RoomTypes.cpp',
   'scene/Battle.cpp',
   'scene/Floor.cpp',
+  'scene/rooms/Room.cpp',
+  'scene/rooms/RoomTypes.cpp',
   'scene/Scene.cpp',
   'scene/Tower.cpp',
   'ShopMenu.cpp',

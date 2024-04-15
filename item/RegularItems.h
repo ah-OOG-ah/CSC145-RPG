@@ -9,11 +9,6 @@ class RegularItem : public Item {
   public:
     RegularItem(std::string itemName, int64_t price, int64_t amnt);
     RegularItem(std::string itemName, int64_t price);
-    //Constructors with descriptions
-    RegularItem(std::string itemName, int64_t price, int64_t amnt, std::string desc);
-    RegularItem(std::string itemName, int64_t price, std::string desc);
-    RegularItem(RegularItem* r);
-
     std::string GetAmntText() override;
 };
 
@@ -25,14 +20,9 @@ class AttackItem : public RegularItem {
     bool spreadDamage = false;
 
   public:
-    AttackItem(std::string itemName, int64_t dmg, int64_t price, Status* effect, int64_t chance, bool spread);
-    AttackItem(std::string itemName, int64_t dmg, int64_t price, int64_t amnt, bool spread);
-    AttackItem(std::string itemName, int64_t dmg, int64_t price, bool spread);
-    //Constructors with descriptions
-    AttackItem(std::string itemName, int64_t dmg, int64_t price, Status* effect, int64_t chance, bool spread, std::string desc);
-    AttackItem(std::string itemName, int64_t dmg, int64_t price, int64_t amnt, bool spread, std::string desc);
-    AttackItem(std::string itemName, int64_t dmg, int64_t price, bool spread, std::string desc);
-    AttackItem(AttackItem* at);
+    AttackItem(std::string itemName, int64_t dmg, int64_t price, Status* effect, int64_t chance);
+    AttackItem(std::string itemName, int64_t dmg, int64_t price, int64_t amnt);
+    AttackItem(std::string itemName, int64_t dmg, int64_t price);
 
     void SetDamage(int64_t dmg);
     void SetStatus(Status* effect);
@@ -57,17 +47,13 @@ class HealItem : public RegularItem
     public:
     HealItem(std::string itemName, int64_t hp, int64_t price);
     HealItem(std::string itemName, int64_t hp, int64_t price, int64_t amnt);
-    //Constructors with descriptions
-    HealItem(std::string itemName, int64_t hp, int64_t price, std::string desc);
-    HealItem(std::string itemName, int64_t hp, int64_t price, int64_t amnt, std::string desc);
-    HealItem(std::string itemName, int64_t hp, int64_t price, Status* effect, std::string desc);
-    HealItem(HealItem* ht);
+
     void SetHpAmnt(int64_t hp);
     void SetHealedStatus(Status* status);
 
     [[nodiscard]] int64_t GetHpAmnt() const;
     Status* GetHealedStatus();
-  
+
     void display() override;
 
     void Use(Entity* user , std::vector< Entity* > opponents) override;

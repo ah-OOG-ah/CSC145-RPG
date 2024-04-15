@@ -3,7 +3,7 @@
 #include <cstdint>
 #include <vector>
 #include <memory>
-#include "Room.h"
+#include "scene/rooms/Room.h"
 #include "Scene.h"
 
 
