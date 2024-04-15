@@ -1,5 +1,5 @@
 #include "Floor.h"
-#include "scene/rooms/RoomTypes.h"
+#include "scene/rooms/BattleRoom.h"
 
 #include <utility>
 #include <iostream>

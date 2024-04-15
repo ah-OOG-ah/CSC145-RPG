@@ -7,67 +7,8 @@
 #include <cstdint>
 #include <vector>
 
-class SafeRoom : public Room {
-  protected:
-    std::string mapDisplay = "M"; // "M" for Main 
-  public:
-    explicit SafeRoom(std::string name);
-};
 
-class BattleRoom : public Room {
-  protected:
-    //SpawnTable
-    std::string mapDisplay = "B";
-    Item* treasure = nullptr;
-
-  public:
-    BattleRoom();
-
-    /*
-    Name: GetTreasure
-    Return type: Item pointer
-    Arguments: None
-    Use: Returns the "treasure" Item pointer
-    */
-    Item* GetTreasure();
-};
-
-class TreasureRoom : public Room {
-  protected:
-    //SpawnTable
-    std::string mapDisplay = "T";
-    Item* treasure = nullptr;
-    Item* treasure2 = nullptr;
-
-  public:
-    explicit TreasureRoom(std::string name);
-
-    /*
-    Name: GetTreasure
-    Return type: Item pointer
-    Arguments: None
-    Use: Returns the "treasure" Item pointer
-    */
-    Item* GetTreasure();
-    /*
-    Name: GetTreasure
-    Return type: Item pointer
-    Arguments: None
-    Use: Returns the "treasure2" Item pointer
-    */
-    Item* GetTreasure2();
-};
-
-
-class HallWay : public Room {
-  protected:
-    std::string mapDisplay = "-";
-
-  public:
-    explicit HallWay(std::string name);
-};
-
-class Shop : public Room {
+class ShopRoom : public Room {
   protected:
     std::string mapDisplay = "S";
     std::string merchantName;
@@ -96,7 +37,7 @@ class Shop : public Room {
     */ 
 
   public:
-    explicit Shop(std::string name);
+    explicit ShopRoom(std::string name);
 
     /*
     Name: GetMerchant
