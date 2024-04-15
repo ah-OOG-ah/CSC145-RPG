@@ -2,8 +2,9 @@
 
 #include <cstdint>
 #include <string>
+#include "Menu.h"
 
-class Item {
+class Item : public Menu{
   protected:
     std::string name;
     int64_t amount = 1;
@@ -11,7 +12,7 @@ class Item {
     bool stackable = true;
     bool equipable = false;
     std::string description;
-
+    void dispatch(int64_t i) override;
   public:
     //Constructor
     Item(std::string itemName, int64_t price, int64_t amnt, std::string desc);
@@ -25,6 +26,8 @@ class Item {
     [[nodiscard]] int64_t GetPrice() const;
     [[nodiscard]] bool isStackable() const;
     [[nodiscard]] bool isEquipment() const;
+
+    void display() override;
 
     //Setters
     virtual void ChangeAmount(int64_t addAmnt);

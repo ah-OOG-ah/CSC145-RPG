@@ -1,5 +1,6 @@
 #include "item.h"
 
+#include <iostream>
 #include <cstdint>
 #include <string>
 #include <utility>
@@ -7,7 +8,7 @@
 Item::Item(std::string itemName, int64_t price, std::string desc)
         : Item(std::move(itemName), price, 1, std::move(desc)) { }
 Item::Item(std::string itemName, int64_t price, int64_t amnt, std::string desc)
-: name(std::move(itemName)), amount(amnt), price(price), description(std::move(desc)) { }
+: name(std::move(itemName)), amount(amnt), price(price), description(std::move(desc)), Menu(std::vector<std::string>({itemName,  desc})) { }
 
 std::string Item::GetName() { return name; }
 std::string Item::GetDesc() { return description; }
@@ -16,6 +17,21 @@ int64_t Item::GetPrice() const { return price; }
 bool Item::isStackable() const { return stackable; }
 bool Item::isEquipment() const { return equipable; }
 
+void Item::display()
+{
+    std::cout << entries[0] << std::endl;
+    std::cout << this->GetPrice() << std::endl;
+    std::cout << entries[1] << std::endl;
+    std::cout << "Enter any key to exit " << std::endl;
+    std::string choice;
+    std::getline(std::cin, choice);
+    return;
+}
+
+void Item::dispatch(int64_t i)
+{
+    return;
+}
 
 void Item::ChangeAmount(int64_t addAmnt) {
     amount += addAmnt;

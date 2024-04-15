@@ -107,7 +107,12 @@
             if (start[i] != nullptr) {
                 std::cout<< i + 1 <<". ";
                 std::cout << start[i]->GetName() << start[i]->GetAmntText() << start[i]->GetAmount() << "  ";
-                std::cout <<"Price "<< start[i]->GetPrice() << std::endl;
+                std::cout <<"Price "<< start[i]->GetPrice();
+                /*if(start[i]->isEquipment())
+                {
+                    std::cout << start[i]->GetDurab();
+                }*/
+                std::cout << std::endl;
             }
         }
     }
@@ -116,8 +121,10 @@
     {
         std::cout << "INVENTORY" << std::endl;
         std::cout << "GOLD" << std::to_string(gold) << std::endl;
-        PrintItems();
+        PrintItems(1);
     }
+
+
 
 /*
 void Inventory::SetItem(int64_t pos, Item* newItem)
