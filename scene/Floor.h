@@ -15,7 +15,7 @@ class Floor : public Scene {
   private:
     const int64_t level;
     const int64_t size; // All levels are square, this is the side length
-    std::vector<Room> rooms;
+    std::vector<std::shared_ptr<Room>> rooms;
 
     [[nodiscard]] size_t index(int64_t x, int64_t y) const;
 

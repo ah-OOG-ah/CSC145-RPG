@@ -16,7 +16,7 @@ void Floor::run() {
 
     // Generate rooms
     // First one is safe
-    rooms.push_back(SafeRoom(movement));
+    rooms.push_back(std::make_shared<SafeRoom>(movement));
 
     // For now, every room is a battle
     for (int64_t i = 1; i < size * size; ++i) {
