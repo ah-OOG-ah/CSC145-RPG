@@ -15,7 +15,7 @@ class Inventory
     Item** start = new Item*[numElements];
 
     public:
-    bool ReplaceItem(Item*); //Private function called by AddItem when inventory is full. True if item is replaced, else false
+    bool ReplaceItem(Item*); //function called by AddItem when inventory is full. True if item is replaced, else false
     //Constructors
     Inventory();
     Inventory(int64_t);
@@ -33,5 +33,4 @@ class Inventory
     void PrintItems(); //Called by PrintInven
     void PrintItems(int); //Called by functions that need inventory to print with numbers. Integer value is meaningless.
     void PrintInven(); 
-
 };
