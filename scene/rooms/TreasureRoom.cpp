@@ -5,7 +5,7 @@
 Item* TreasureRoom::GetTreasure() { return treasure; }
 Item* TreasureRoom::GetTreasure2() { return treasure2; }
 
-TreasureRoom::TreasureRoom(std::string name) : Room(std::move(name)) {
+TreasureRoom::TreasureRoom(std::shared_ptr<Movement> m) : Room("Treasure", std::move(m)) {
     switch (getRand() % 4) {
         case 0:
             description = "You enter a blank room with a small lantern hanging form the ceiling in the center";

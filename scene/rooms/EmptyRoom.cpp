@@ -2,7 +2,7 @@
 #include "game.h"
 
 
-EmptyRoom::EmptyRoom(std::string name) : Room(std::move(name)) {
+EmptyRoom::EmptyRoom(std::shared_ptr<Movement> m) : Room("Empty", std::move(m)) {
     switch (getRand() % 4) {
         case 1:
             description = "You enter a blank room with a small lantern hanging form the ceiling in the center";

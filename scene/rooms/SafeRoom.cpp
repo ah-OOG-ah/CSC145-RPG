@@ -1,8 +1,10 @@
 #include "SafeRoom.h"
+
+#include <utility>
 #include "game.h"
 
 
-SafeRoom::SafeRoom(std::string name) : Room(std::move(name)) {
+SafeRoom::SafeRoom(std::shared_ptr<Movement> m) : Room("Safe", std::move(m)) {
     switch (getRand() % 4) {
         case 0:
             description = "You enter a blank room with a small lantern hanging form the ceiling in the center";
