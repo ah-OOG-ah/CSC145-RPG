@@ -1,4 +1,4 @@
-#include "RoomTypes.h"
+#include "ShopRoom.h"
 #include <string>
 #include <utility>
 #include "Item.h"
@@ -6,70 +6,10 @@
 #include "game.h"
 #include "itemlist.h"
 
-SafeRoom::SafeRoom(std::string name) : Room(std::move(name)) {
-    switch (getRand() % 4) {
-        case 0:
-            description = "You enter a blank room with a small lantern hanging form the ceiling in the center";
-            break;
-        case 1:
-            description = "You enter a peaceful room covered in moss. A small fountain is in the center";
-            break;
-        case 2:
-            description = "You enter a room covered in cobwebs. No enemies seem to be near... nor anything alive";
-            break;
-        default:
-            description = "You enter a room with a mop. Not much to look at";
-            break;
-    }
-}
 
-Item* BattleRoom::GetTreasure() { return treasure; }
+std::string ShopRoom::GetMerchant() const { return merchantName; }
 
-Item* TreasureRoom::GetTreasure() { return treasure; }
-Item* TreasureRoom::GetTreasure2() { return treasure2; }
-
-TreasureRoom::TreasureRoom(std::string name) : Room(std::move(name)) {
-    switch (getRand() % 4) {
-        case 0:
-          description = "You enter a blank room with a small lantern hanging form the ceiling in the center";
-            break;
-        case 1:
-            description = "You enter a peaceful room covered in moss. A small fountain is in the center";
-            break;
-        case 2:
-            description = "You enter a room covered in cobwebs. No enemies seem to be near... nor anything alive";
-            break;
-        default:
-            description = "You enter a room with a mop. Not much to look at";
-            break;
-    }
-    //Switch statement for spawn table
-
-    //Switch statement for treasure 
-
-    //Switch statement for treasure2
-}
-
-HallWay::HallWay(std::string name) : Room(std::move(name)) {
-    switch (getRand() % 4) {
-        case 1:
-            description = "You enter a blank room with a small lantern hanging form the ceiling in the center";
-            break;
-        case 2:
-            description = "You enter a peaceful room covered in moss. A small fountain is in the center";
-            break;
-        case 3:
-            description = "You enter a room covered in cobwebs. No enemies seem to be near... nor anything alive";
-            break;
-        default:
-            description = "You enter a room with a mop. Not much to look at";
-            break;
-    }
-}
-
-std::string Shop::GetMerchant() const { return merchantName; }
-
-Item* Shop::GetPurchase(int64_t selection) {
+Item* ShopRoom::GetPurchase(int64_t selection) {
     switch(selection) {
         case 1:
             return purchase1;
@@ -82,9 +22,9 @@ Item* Shop::GetPurchase(int64_t selection) {
     }
 }
 
-std::string Shop::GetDialogue(int64_t i) { return entries[i]; }
+std::string ShopRoom::GetDialogue(int64_t i) { return entries[i]; }
 
-Shop::Shop(std::string name) : Room(std::move(name)) {
+ShopRoom::ShopRoom(std::string name) : Room(std::move(name)) {
     std::string enterString;
     std::string buyOrSell;
     std::string whatAreYouBuying;
@@ -241,30 +181,7 @@ Shop::Shop(std::string name) : Room(std::move(name)) {
     entries = {enterString, buyOrSell, whatAreYouBuying, merchantBuying, takeThatFor, youBought, theyBought, notEnough, invalid, youHaveNotEnough, merchantHaveNotEnough, amountSelling, exitString, giveBack, failedSale, howMany};
 }
 
-void Shop::GoToShop()
-{
+void ShopRoom::GoToShop() {
     ShopMenu shopMenu(merchantName, entries, purchase1, purchase2, purchase3);
     shopMenu.display();
-}
-
-BattleRoom::BattleRoom() : Room("Battle") {
-    auto rand = getRand() % 4;
-
-    switch (rand) {
-        case 0:
-            description = "You enter a dark room with a broken chain dangling from the ceiling";
-            break;
-        case 1:
-            description = "You enter a damp room covered in moss. A crumbling heap of stone is in the center";
-            break;
-        case 2:
-            description = "You enter a room covered in cobwebs. Nothing appears.. nothing standing, at least.";
-            break;
-        default:
-            description = "You enter a room with a mop. Not much to look at";
-            break;
-    }
-    //Switch statement for spawn table
-
-    //Switch statement for treasure
 }
