@@ -1,0 +1,16 @@
+shop.pirate.enter=Hello me chum, welcome to me shop.
+shop.pirate.buyOrSell=Ye buying or ye selling?
+shop.pirate.whatAreYouBuying=Which of me fine items would ye be interested in buying today
+shop.pirate.merchantBuying=What junk do ye have?
+shop.pirate.takeThatFor=For that, I can spare you about...
+shop.pirate.youBought=Aye! Pleasure doing buisness.
+shop.pirate.merchantBought=Thanks for the item!
+shop.pirate.notEnough=Oi! You don't have enough money, lad! Get a job!
+shop.pirate.invalid=Oi! What was that?
+shop.pirate.youHaveNotEnough=Oi! What do ye take me for? Ye are trying to sell things ye do not have.
+shop.pirate.merchantHaveNotEnough=Sorry, lad, I do not have enough of that.
+shop.pirate.amountSelling=How many of ye fine items will ye be selling to me?
+shop.pirate.exitString=Take care of yeself, mate!
+shop.pirate.giveBack=Oi! I am always here when you have more room.
+shop.pirate.failedSale=Well if you ever change yer mind come and have a talk.
+shop.pirate.howMany=How many of ye fine items will you be selling to me today?

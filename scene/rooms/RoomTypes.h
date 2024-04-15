@@ -11,13 +11,7 @@ class SafeRoom : public Room {
   protected:
     std::string mapDisplay = "M"; // "M" for Main 
   public:
-    /*
-    Name: GenerateRoom
-    Return type: void
-    Arguments: 5 int64_t integers
-    Use: Only uses the first integer passed in. It uses it in a switch statement to determine the description of the room
-    */
-    void GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran4, int64_t ran5) override;
+    explicit SafeRoom(std::string name);
 };
 
 class BattleRoom : public Room {
@@ -36,24 +30,18 @@ class BattleRoom : public Room {
     Use: Returns the "treasure" Item pointer
     */
     Item* GetTreasure();
-    /*
-    Name: GenerateRoom
-    Return type: void
-    Arguments: 5 int64_t integers
-    Use: FULL IMPLEMENTATION DETAILS ON THE WAY
-    */
-    void GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran4, int64_t ran5) override;
 };
 
-class TreasureRoom : public Room
-{   
-    protected:
+class TreasureRoom : public Room {
+  protected:
     //SpawnTable
     std::string mapDisplay = "T";
     Item* treasure = nullptr;
     Item* treasure2 = nullptr;
 
-    public:
+  public:
+    explicit TreasureRoom(std::string name);
+
     /*
     Name: GetTreasure
     Return type: Item pointer
@@ -68,22 +56,19 @@ class TreasureRoom : public Room
     Use: Returns the "treasure2" Item pointer
     */
     Item* GetTreasure2();
-    void GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran4, int64_t ran5) override;
 };
 
 
-class HallWay : public Room
-{   
-    protected:
+class HallWay : public Room {
+  protected:
     std::string mapDisplay = "-";
 
-    public:
-    void GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran4, int64_t ran5) override;
+  public:
+    explicit HallWay(std::string name);
 };
 
-class Shop : public Room
-{
-    protected:
+class Shop : public Room {
+  protected:
     std::string mapDisplay = "S";
     std::string merchantName;
     Item* purchase1 = nullptr;
@@ -110,14 +95,16 @@ class Shop : public Room
     howMany; Dialogue index of 15; Used to ask player how many of item they are buying
     */ 
 
-    public:
+  public:
+    explicit Shop(std::string name);
+
     /*
     Name: GetMerchant
     Return type: string
     Arguments: None
     Use: returns the "merchant" string
     */
-    std::string GetMerchant();
+    [[nodiscard]] std::string GetMerchant() const;
     /*
     Name: GetPurchase
     Return type: Item pointer
@@ -133,5 +120,4 @@ class Shop : public Room
     */
     std::string GetDialogue(int64_t);
     void GoToShop();
-    void GenerateRoom(int64_t ran1, int64_t ran2, int64_t ran3, int64_t ran4, int64_t ran5) override;
 };

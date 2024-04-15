@@ -35,6 +35,11 @@ class Item : public Menu{
     //Setters
     virtual void ChangeAmount(int64_t addAmnt);
 
+    /**
+     * @param times Multiplies the current amount by this much
+     */
+    void copy(int64_t times);
+
     //Setters I do not think we need
     void SetName(std::string newName);
 

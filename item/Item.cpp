@@ -32,6 +32,8 @@ void Item::ChangeAmount(int64_t addAmnt) {
 
 void Item::SetName(std::string newName) { name = std::move(newName); }
 
+void Item::copy(int64_t times) { amount *= times; }
+
 void Item::display()
 {
     std::cout << entries[0] << std::endl;
