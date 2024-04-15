@@ -27,11 +27,12 @@ class Item : public Menu{
     [[nodiscard]] bool isStackable() const;
     [[nodiscard]] bool isEquipment() const;
 
-    void display() override;
-
     //Setters
     virtual void ChangeAmount(int64_t addAmnt);
 
     //Setters I do not think we need
     void SetName(std::string newName);
+
+    void display() override;
+
 };

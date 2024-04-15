@@ -17,10 +17,17 @@ int64_t Item::GetPrice() const { return price; }
 bool Item::isStackable() const { return stackable; }
 bool Item::isEquipment() const { return equipable; }
 
+void Item::ChangeAmount(int64_t addAmnt) {
+    amount += addAmnt;
+    if (!stackable) amount = amount > 0 ? 1 : 0;
+}
+
+void Item::SetName(std::string newName) { name = std::move(newName); }
+
 void Item::display()
 {
     std::cout << entries[0] << std::endl;
-    std::cout << this->GetPrice() << std::endl;
+    std::cout << "Price: " << this->GetPrice() << std::endl;
     std::cout << entries[1] << std::endl;
     std::cout << "Enter any key to exit " << std::endl;
     std::string choice;
@@ -32,10 +39,3 @@ void Item::dispatch(int64_t i)
 {
     return;
 }
-
-void Item::ChangeAmount(int64_t addAmnt) {
-    amount += addAmnt;
-    if (!stackable) amount = amount > 0 ? 1 : 0;
-}
-
-void Item::SetName(std::string newName) { name = std::move(newName); }

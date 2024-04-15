@@ -20,6 +20,7 @@ class Inventory
     Inventory();
     Inventory(int64_t);
 
+    int64_t GetPos(Item*);
     Item* GetItem(int64_t);
     Item* GetItem(std::string);
     int64_t GetGold();

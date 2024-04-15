@@ -31,5 +31,7 @@ class Entity {
     // Applies this entitiy's attack to the passed entity
     void attackEntity(Entity* enemy) const;
 
+    void healSelf(int64_t healAmnt);
+
     [[nodiscard]] std::string toString() const;
 };

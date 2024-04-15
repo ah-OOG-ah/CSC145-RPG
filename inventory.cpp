@@ -6,6 +6,18 @@
     Inventory::Inventory() { }
     Inventory::Inventory(int64_t itemCap) { numElements = itemCap; }
 
+    int64_t Inventory::GetPos(Item* checkItem)
+    {
+        for(int i = 0; i < numElements; i++)
+        {
+            if(start[i]->GetName() == checkItem->GetName())
+            {
+                return i;
+            }
+        }
+        std::cout <<"ERROR: Tried to get Position of item not in Inventory! Check GetPos in Inventory.cpp and files where it has been called" <<std::endl;
+        return -1;
+    }
     Item* Inventory::GetItem(int64_t pos)
     {
         return start[pos];

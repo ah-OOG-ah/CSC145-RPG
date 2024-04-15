@@ -38,6 +38,7 @@ class AttackItem : public RegularItem {
     [[nodiscard]] int64_t GetDamage() const;
     Status* GetStatus();
     [[nodiscard]] int64_t GetChance() const;
+    void display() override;
 };
 
 class HealItem : public RegularItem
@@ -45,6 +46,7 @@ class HealItem : public RegularItem
     protected:
     int64_t hpAmnt;
     Status* healedStatus = nullptr;
+    //void dispatch(int64_t i) override;
 
     public:
     HealItem(std::string itemName, int64_t hp, int64_t price);
@@ -58,6 +60,8 @@ class HealItem : public RegularItem
 
     [[nodiscard]] int64_t GetHpAmnt() const;
     Status* GetHealedStatus();
+  
+    void display() override;
 };
 
 class NonConsumAttackItem : public AttackItem {

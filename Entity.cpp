@@ -24,6 +24,10 @@ bool Entity::getAlive() const { return this->hp > 0; }
 
 void Entity::setFleeing(bool val) { this->isFleeing = val; }
 
+void Entity::healSelf(int64_t healAmnt){
+    this->hp += healAmnt; 
+}
+
 void Entity::attackEntity(Entity* enemy) const {
     enemy->hp -= this->getAttk();
 }
