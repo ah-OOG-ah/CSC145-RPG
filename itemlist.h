@@ -43,10 +43,11 @@ Armor rockArmor("Armor Made Of Rocks", 5, 30, 50, 20, rockArmorDesc);
 Armor goldArmor("Gold Armor", 15, 5, 5, 120, goldArmorDesc);
 Armor toughVest("Tough Vest", 75, 10, 5, 25, vestDesc);
 
-//Special Armor(Name, durability, percentageDef, staticDef, damageMultiplier, price, description)
+//"Special Armor sets, ones with damage multipliers different than 1"
+//Armor(Name, durability, percentageDef, staticDef, damageMultiplier, price, description)
 std::string baboomArmorDesc = "Rare armor that gives you the fighting spirit of a baboon. PD: 5, SD: 5, Strength: 25";
 std::string armyVestDesc = "An bulletproof vest that has the Marines emblem on it. Increases manliness. PD: 10, SD: 10, Strength: 5";
 std::string mBobArmorDesc = "With this armor, you will be coming for Monkey Bob. MAY OBAMA BE EVER IN YOUR FAVOR. PD: 25, SD: 25, Strength: 35";
-SpecialArmor baboonArmor("Baboon Armor", 50, 5, 5, 25, 50);
-SpecialArmor armyVest("Marine Vest", 75, 10, 10, 5, 40);
-SpecialArmor monkeyBobArmor("Monkey Bob's Armor", 999, 25, 25, 35, 350);
+Armor baboonArmor("Baboon Armor", 50, 5, 5, 25, 50);
+Armor armyVest("Marine Vest", 75, 10, 10, 5, 40);
+Armor monkeyBobArmor("Monkey Bob's Armor", 999, 25, 25, 35, 350);
