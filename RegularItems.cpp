@@ -1,4 +1,6 @@
 #include <string>
+#include <iostream>
+#include "game.h"
 #include <utility>
 #include "RegularItems.h"
 
@@ -46,6 +48,18 @@ int64_t AttackItem::GetDamage() const { return damage; }
 Status* AttackItem::GetStatus() { return status; }
 int64_t AttackItem::GetChance() const { return effectChance; }
 
+void AttackItem::display()
+{
+    std::cout << entries[0] << std::endl;
+    std::cout << "Price: " << this->GetPrice() << std::endl;
+    std::cout << "Damage: " << this->GetDamage() << std::endl;
+    std::cout << entries[1] << std::endl;
+    std::cout << "Enter any key to exit " << std::endl;
+    std::string choice;
+    std::getline(std::cin, choice);
+    return;
+}
+
 HealItem::HealItem(std::string itemName, int64_t hp, int64_t price) : RegularItem(std::move(itemName), price) {
     hpAmnt = hp;
 }
@@ -65,6 +79,35 @@ void HealItem::SetHealedStatus(Status* status) { healedStatus = status; }
 
 int64_t HealItem::GetHpAmnt() const { return hpAmnt; }
 Status* HealItem::GetHealedStatus() { return healedStatus; }
+
+void HealItem::display()
+{
+    std::cout << entries[0] << std::endl;
+    std::cout << "Price: " << this->GetPrice() << std::endl;
+    std::cout << "Heals: " << this->GetHpAmnt() << std::endl;
+    std::cout << entries[1] << std::endl;
+    std::cout << "Enter EXIT to exit or HEAL to heal with this item" << std::endl;
+    std::string choice;
+    while(choice != "EXIT")
+    {
+        std::getline(std::cin, choice);
+        if(choice == "HEAL") 
+        {
+            getPlayer()->healSelf(this->GetHpAmnt());
+            getPlayer()->playerInven.RemoveItem(getPlayer()->playerInven.GetPos(this), 1);
+            std::cout << "Player's HP was restored by " << this->GetHpAmnt() << "HP" << std::endl;
+            if(this->GetAmount() <= 0)
+            {
+                return;
+            }
+        }
+        else if(choice != "EXIT")
+        {
+            std::cout << "Invalid input. Please input again. " << std::endl;
+        }
+    }
+    return;
+}
 
 NonConsumAttackItem::NonConsumAttackItem(std::string itemName, int64_t dmg, int64_t price, Status* effect, int64_t chance)
     : AttackItem(std::move(itemName), dmg, price, effect, chance) {
