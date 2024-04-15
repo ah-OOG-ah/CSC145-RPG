@@ -5,7 +5,7 @@
 #include <ostream>
 #include <vector>
 #include "inventory.h"
-#include "game.cpp"
+#include "game.h"
 
 
     /*
@@ -41,7 +41,7 @@ void ShopMenu::Buy()
     do
     {    
         std::cout << merchantName << ": " <<entries[2]<<std::endl;
-        std::cout << "GOLD" << player.playerInven.GetGold() << std::endl;
+        std::cout << "GOLD" << getPlayer()->playerInven.GetGold() << std::endl;
         for(int i = 1; i <= 3; i++)
         {
             std::cout<< i << ". " << GetPurchase(i)->GetName() << "x" << GetPurchase(i)->GetAmount();
@@ -61,26 +61,26 @@ void ShopMenu::Sell()
 {
     std::cout << merchantName<< ": " << entries[3] << std::endl;
         std::cout << "Please input the number for the item you want to sell. Enter 0 to exit" << std::endl;
-        player.playerInven.PrintItems(1); //Used to print items with numbers by them
+        getPlayer()->playerInven.PrintItems(1); //Used to print items with numbers by them
         int64_t choice = 0;
         std::cin>>choice; //Choice will substracted by one to account for the fact that array starts as zero but inventory numbers at 1
-        if(choice > 0 && choice <= player.playerInven.GetUsedElements())
+        if(choice > 0 && choice <= getPlayer()->playerInven.GetUsedElements())
         {
             int64_t sellAmnt = 1;
-            if(player.playerInven.GetItem(choice)->isStackable())
+            if(getPlayer()->playerInven.GetItem(choice)->isStackable())
             {
                 std::cout << merchantName<< ": " << entries[15] << " ";
                 std::cin>>sellAmnt;
             }
             std::cout << merchantName<< ": " << entries[4] << " ";
-            std::cout << ((player.playerInven.GetItem(choice)->GetPrice()) * sellAmnt)/(.8) << std::endl;
+            std::cout << ((getPlayer()->playerInven.GetItem(choice)->GetPrice()) * sellAmnt)/(.8) << std::endl;
             std::cout<< "Sell\?" << std::endl;
             std::string sellChoice;
             std::getline(std::cin, sellChoice);
             if(sellChoice == "Yes" || sellChoice == "yes"  || sellChoice == "YES" || sellChoice == "Y" || sellChoice == "Y")
             {
-                player.playerInven.AddGold(player.playerInven.GetItem(choice)->GetPrice() * sellAmnt * .8);
-                player.playerInven.RemoveItem(choice, -1*sellAmnt);
+                getPlayer()->playerInven.AddGold(getPlayer()->playerInven.GetItem(choice)->GetPrice() * sellAmnt * .8);
+                getPlayer()->playerInven.RemoveItem(choice, -1*sellAmnt);
                 std::cout << merchantName<< ": " << entries[6] << std::endl;
             }
             else
@@ -117,7 +117,7 @@ void ShopMenu::display()
     while(choice != 3)
     {
         std::cout << merchantName<< ": " << entries[1] <<std::endl;
-        std::cout << "GOLD" << player.playerInven.GetGold() << std::endl;
+        std::cout << "GOLD" << getPlayer()->playerInven.GetGold() << std::endl;
         std::cout<<"1. I want to buy"<<std::endl;
         std::cout<<"2. I want to sell"<<std::endl;
         std::cout<<"3. I was just leaving"<<std::endl;
@@ -144,7 +144,7 @@ void ShopMenu::dispatch(int64_t choice)
     switch(choice)
     {
         case 1:
-            if(player.playerInven.GetGold() < purchase1->GetPrice())
+            if(getPlayer()->playerInven.GetGold() < purchase1->GetPrice())
             {
                 std::cout << merchantName<< ": " << entries[7] <<std::endl;
                 return;
@@ -152,9 +152,9 @@ void ShopMenu::dispatch(int64_t choice)
             else 
             {
                 Item* newItem(purchase1);
-                if(player.playerInven.AddItem(newItem))
+                if(getPlayer()->playerInven.AddItem(newItem))
                 {
-                    player.playerInven.AddGold(-1 * purchase1->GetPrice());
+                    getPlayer()->playerInven.AddGold(-1 * purchase1->GetPrice());
                     purchase1->ChangeAmount(-1);
                     std::cout << purchase1->GetName() << " Added to Inventory" << std::endl;
                     std::cout << purchase1->GetPrice() << " Given to " << merchantName << std::endl;
@@ -167,7 +167,7 @@ void ShopMenu::dispatch(int64_t choice)
             }
             break;
         case 2:
-            if(player.playerInven.GetGold() < purchase2->GetPrice())
+            if(getPlayer()->playerInven.GetGold() < purchase2->GetPrice())
             {
                 std::cout << merchantName<< ": " << entries[7] <<std::endl;
                 return;
@@ -175,9 +175,9 @@ void ShopMenu::dispatch(int64_t choice)
             else 
             {
                 Item* newItem(purchase2);
-                if(player.playerInven.AddItem(newItem))
+                if(getPlayer()->playerInven.AddItem(newItem))
                 {
-                    player.playerInven.AddGold(-1 * purchase1->GetPrice());
+                    getPlayer()->playerInven.AddGold(-1 * purchase1->GetPrice());
                     purchase1->ChangeAmount(-1);
                     std::cout << purchase2->GetName() << " Added to Inventory" << std::endl;
                     std::cout << purchase2->GetPrice() << " Given to " << merchantName << std::endl;
@@ -190,7 +190,7 @@ void ShopMenu::dispatch(int64_t choice)
             }
             break;
         case 3:
-            if(player.playerInven.GetGold() < purchase1->GetPrice())
+            if(getPlayer()->playerInven.GetGold() < purchase1->GetPrice())
             {
                 std::cout << merchantName<< ": " << entries[7] <<std::endl;
                 return;
@@ -198,9 +198,9 @@ void ShopMenu::dispatch(int64_t choice)
             else 
             {
                 Item* newItem(purchase3);
-                if(player.playerInven.AddItem(newItem))
+                if(getPlayer()->playerInven.AddItem(newItem))
                 {
-                    player.playerInven.AddGold(-1 * purchase3->GetPrice());
+                    getPlayer()->playerInven.AddGold(-1 * purchase3->GetPrice());
                     purchase3->ChangeAmount(-1);
                     std::cout << purchase3->GetName() << " Added to Inventory" << std::endl;
                     std::cout << purchase3->GetPrice() << " Given to " << merchantName << std::endl;
@@ -227,23 +227,23 @@ std::string choice;
     {
     std::cout << merchantName<< ": " << entries[3] << std::endl;
     std::cout << "Enter \"Nothing\" or \"Exit\" to exit this menu" << std::endl;
-    player.playerInven.PrintInven();
+    getPlayer()->playerInven.PrintInven();
     std::getline(std::cin, choice);
-    if(player.playerInven.GetItem(choice) != nullptr)
+    if(getPlayer()->playerInven.GetItem(choice) != nullptr)
     {
         int64_t amnt = 0;
         do{
         std::cout << merchantName<< ": " << entries[11] << std::endl;
         std::cin>>amnt;
-        if(amnt > player.playerInven.GetItem(choice)->GetAmount() || amnt <= 0)
+        if(amnt > getPlayer()->playerInven.GetItem(choice)->GetAmount() || amnt <= 0)
         {
             std::cout << merchantName<< ": " << entries[10] << std::endl;
         }
-        }while(amnt <= player.playerInven.GetItem(choice)->GetAmount());
-        int64_t total = amnt * player.playerInven.GetItem(choice)->GetPrice();
-        //std::cout << merchantName<< ": " << entries[4] << (amnt * player.playerInven.GetElement(choice)->GetAmount()) << " Gold" << std::endl;
-        player.playerInven.AddGold(total);
-        player.playerInven.GetItem(choice)->ChangeAmount( -1 * amnt);
+        }while(amnt <= getPlayer()->playerInven.GetItem(choice)->GetAmount());
+        int64_t total = amnt * getPlayer()->playerInven.GetItem(choice)->GetPrice();
+        //std::cout << merchantName<< ": " << entries[4] << (amnt * getPlayer()->playerInven.GetElement(choice)->GetAmount()) << " Gold" << std::endl;
+        getPlayer()->playerInven.AddGold(total);
+        getPlayer()->playerInven.GetItem(choice)->ChangeAmount( -1 * amnt);
         std::cout << total << "Gold added to Inventory" << std::endl;
         std::cout << merchantName<< ": " << entries[6] << std::endl;
     }
@@ -258,6 +258,6 @@ std::string choice;
             while(amnt > 0)
             {
                 std::cin>>amnt;
-                if(amnt < 0 || amnt > player.playerInven.GetEquip(choice -1))
+                if(amnt < 0 || amnt > getPlayer()->playerInven.GetEquip(choice -1))
             }
 */
