@@ -24,7 +24,7 @@ Item* ShopRoom::GetPurchase(int64_t selection) {
 
 std::string ShopRoom::GetDialogue(int64_t i) { return entries[i]; }
 
-ShopRoom::ShopRoom(std::string name) : Room(std::move(name)) {
+ShopRoom::ShopRoom(std::shared_ptr<Movement> m) : Room("Shop", std::move(m)) {
     std::string enterString;
     std::string buyOrSell;
     std::string whatAreYouBuying;

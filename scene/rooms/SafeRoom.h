@@ -8,5 +8,5 @@ class SafeRoom : public Room {
     std::string mapDisplay = "M"; // "M" for Main
 
   public:
-    explicit SafeRoom(std::string name);
+    explicit SafeRoom(std::shared_ptr<Movement> m);
 };

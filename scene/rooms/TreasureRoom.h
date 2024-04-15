@@ -12,7 +12,7 @@ class TreasureRoom : public Room {
     Item* treasure2 = nullptr;
 
   public:
-    explicit TreasureRoom(std::string name);
+    explicit TreasureRoom(std::shared_ptr<Movement> m);
 
     /*
     Name: GetTreasure

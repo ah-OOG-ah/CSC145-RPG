@@ -11,7 +11,7 @@ class BattleRoom : public Room {
     Item* treasure = nullptr;
 
   public:
-    BattleRoom();
+    BattleRoom(std::shared_ptr<Movement> m);
 
     /*
     Name: GetTreasure

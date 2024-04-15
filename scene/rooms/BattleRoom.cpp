@@ -1,8 +1,10 @@
 #include "BattleRoom.h"
+
+#include <utility>
 #include "game.h"
 
 
-BattleRoom::BattleRoom() : Room("Battle") {
+BattleRoom::BattleRoom(std::shared_ptr<Movement> m) : Room("Battle", std::move(m)) {
     auto rand = getRand() % 4;
 
     switch (rand) {
