@@ -27,6 +27,6 @@ Armor goldArmor("Gold Armor", 15, 5, 5, 120);
 Armor toughVest("Tough Vest", 75, 10, 5, 25);
 
 //Special Armor(Name, durability, percentageDef, staticDef, damageMultiplier, price)
-SpeicalArmor baboonArmor("Baboon Armor", 50, 5, 5, 25, 50);
+SpecialArmor baboonArmor("Baboon Armor", 50, 5, 5, 25, 50);
 SpecialArmor armyVest("Marine Vest", 50, 10, 10, 5, 40);
-SpeicalArmor monkeyBobArmor("Monkey Bob's Armor", 100, 25, 25, 35, 350);
+SpecialArmor monkeyBobArmor("Monkey Bob's Armor", 100, 25, 25, 35, 350);
