@@ -4,9 +4,10 @@
 #include <cstdint>
 #include <memory>
 #include "Movement.h"
+#include "scene/Scene.h"
 
 
-class Room {
+class Room : public Scene {
   protected:
     std::string roomName;
     std::string description;

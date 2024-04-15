@@ -5,7 +5,7 @@
 
 Room::Room(std::string name, std::shared_ptr<Movement> m) : Room(std::move(name), "", std::move(m)) { }
 Room::Room(std::string name, std::string description, std::shared_ptr<Movement> m)
-    : roomName(std::move(name)), description(std::move(description)), movement(std::move(m)) { }
+    : Scene(name), roomName(std::move(name)), description(std::move(description)), movement(std::move(m)) { }
 
 Room::~Room() = default;
 

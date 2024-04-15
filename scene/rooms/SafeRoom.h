@@ -9,4 +9,6 @@ class SafeRoom : public Room {
 
   public:
     explicit SafeRoom(std::shared_ptr<Movement> m);
+
+    void run() override;
 };

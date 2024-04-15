@@ -20,3 +20,7 @@ SafeRoom::SafeRoom(std::shared_ptr<Movement> m) : Room("Safe", std::move(m)) {
             break;
     }
 }
+
+void SafeRoom::run() {
+    
+}
