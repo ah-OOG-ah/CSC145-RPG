@@ -9,6 +9,10 @@ class RegularItem : public Item {
   public:
     RegularItem(std::string itemName, int64_t price, int64_t amnt);
     RegularItem(std::string itemName, int64_t price);
+    //Constructors with descriptions
+    RegularItem(std::string itemName, int64_t price, int64_t amnt, std::string desc);
+    RegularItem(std::string itemName, int64_t price, std::string desc);
+
     std::string GetAmntText() override;
 };
 
@@ -22,6 +26,11 @@ class AttackItem : public RegularItem {
     AttackItem(std::string itemName, int64_t dmg, int64_t price, Status* effect, int64_t chance);
     AttackItem(std::string itemName, int64_t dmg, int64_t price, int64_t amnt);
     AttackItem(std::string itemName, int64_t dmg, int64_t price);
+    //Constructors with descriptions
+    AttackItem(std::string itemName, int64_t dmg, int64_t price, Status* effect, int64_t chance, std::string desc);
+    AttackItem(std::string itemName, int64_t dmg, int64_t price, int64_t amnt, std::string desc);
+    AttackItem(std::string itemName, int64_t dmg, int64_t price, std::string desc);
+
     void SetDamage(int64_t dmg);
     void SetStatus(Status* effect);
     void SetChance(int64_t chance);
@@ -40,6 +49,9 @@ class HealItem : public RegularItem
     public:
     HealItem(std::string itemName, int64_t hp, int64_t price);
     HealItem(std::string itemName, int64_t hp, int64_t price, int64_t amnt);
+    //Constructors with descriptions
+    HealItem(std::string itemName, int64_t hp, int64_t price, std::string desc);
+    HealItem(std::string itemName, int64_t hp, int64_t price, int64_t amnt, std::string desc);
 
     void SetHpAmnt(int64_t hp);
     void SetHealedStatus(Status* status);
@@ -53,5 +65,8 @@ class NonConsumAttackItem : public AttackItem {
     //stackable is set to false
     NonConsumAttackItem(std::string itemName, int64_t dmg, int64_t price, Status* effect, int64_t chance);
     NonConsumAttackItem(std::string itemName, int64_t dmg, int64_t price);
+    //Constructors with descriptions
+    NonConsumAttackItem(std::string itemName, int64_t dmg, int64_t price, Status* effect, int64_t chance, std::string desc);
+    NonConsumAttackItem(std::string itemName, int64_t dmg, int64_t price, std::string desc);
     std::string GetAmntText() override;
 };
