@@ -33,26 +33,19 @@ class Armor : public Equipment {
     //Defense stats work like those with the player
     int64_t percDef; 
     int64_t staticDef; 
-
-  public:
-    Armor(std::string itemName, int64_t durab, int64_t pDef, int64_t sDef, int64_t price);
-    Armor(std::string itemName, int64_t durab, int64_t pDef, int64_t sDef, int64_t price, std::string desc);
-    [[nodiscard]] int64_t GetPercDef() const;
-    [[nodiscard]] int64_t GetStaticDef() const;
-    void SetPercDef(int64_t);
-    void SetStaticDef(int64_t);
-};
-
-class SpecialArmor : public Armor {
-  protected:
-    int64_t dmgMultiplier; //Increases damage dealt when worn
+    int64_t dmgMultiplier = 1; //Increases damage dealt when worn
     //Status placeholder
 
   public:
-    SpecialArmor(std::string itemName, int64_t durab, int64_t pDef, int64_t sDef, int64_t dmg, int64_t price);
-    SpecialArmor(std::string itemName, int64_t durab, int64_t pDef, int64_t sDef, int64_t dmg, int64_t price, std::string desc);
+    Armor(std::string itemName, int64_t durab, int64_t pDef, int64_t sDef, int64_t price);
+    Armor(std::string itemName, int64_t durab, int64_t pDef, int64_t sDef, int64_t dmg, int64_t price);
+    //Constructors with Descriptions
+    Armor(std::string itemName, int64_t durab, int64_t pDef, int64_t sDef, int64_t price, std::string desc);
+    Armor(std::string itemName, int64_t durab, int64_t pDef, int64_t sDef, int64_t dmg, int64_t price, std::string desc);
+    [[nodiscard]] int64_t GetPercDef() const;
+    [[nodiscard]] int64_t GetStaticDef() const;
     [[nodiscard]] int64_t GetDmgMult() const;
+    void SetPercDef(int64_t);
+    void SetStaticDef(int64_t);
     void SetDmgMult(int64_t);
-
-    //Status effect placeholders
 };
