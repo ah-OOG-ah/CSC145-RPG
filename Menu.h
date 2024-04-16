@@ -9,8 +9,9 @@
 class Menu {
 
   public:
-    const std::vector<std::string> entries;
+    std::vector<std::string> entries;
 
+    Menu();
     explicit Menu(std::vector<std::string> entries);
 
     virtual void display();

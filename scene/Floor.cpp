@@ -16,15 +16,15 @@ void Floor::run() {
 
     // Generate rooms
     // First one is safe
-    rooms.push_back(std::make_shared<SafeRoom>(movement));
+    rooms.push_back(std::make_shared<SafeRoom>(movement, 0));
 
     // For now, every room is a battle
     for (int64_t i = 1; i < size * size; ++i) {
-        rooms.push_back(BattleRoom(movement));
+        rooms.push_back(std::make_shared<BattleRoom>(movement, 0));
     }
 
     // Enter the first room
-    rooms[0]
+    //rooms[0]
 
     std::cout << "TODO: implement floor" << std::endl;
 }

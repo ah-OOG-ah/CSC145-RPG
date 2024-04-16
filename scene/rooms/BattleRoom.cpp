@@ -4,7 +4,7 @@
 #include "game.h"
 
 
-BattleRoom::BattleRoom(std::shared_ptr<Movement> m) : Room("Battle", std::move(m)) {
+BattleRoom::BattleRoom(std::shared_ptr<Movement> m, uint8_t mask) : Room("Battle", std::move(m), mask) {
     auto rand = getRand() % 4;
 
     switch (rand) {
