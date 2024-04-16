@@ -39,3 +39,5 @@ void Item::dispatch(int64_t i)
 {
     return;
 }
+
+void Item::Use(Entity* user, Entity* opponent) { return; }

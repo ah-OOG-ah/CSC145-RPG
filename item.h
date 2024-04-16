@@ -3,6 +3,7 @@
 #include <cstdint>
 #include <string>
 #include "Menu.h"
+#include "Entity.h"
 
 class Item : public Menu{
   protected:
@@ -34,5 +35,11 @@ class Item : public Menu{
     void SetName(std::string newName);
 
     void display() override;
+
+    virtual void Use(Entity* user, Entity* opponent);
+};
+
+class ConsumItem : public Item
+{
 
 };
