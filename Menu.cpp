@@ -5,6 +5,8 @@
 #include <utility>
 #include <vector>
 
+
+Menu::Menu() = default;
 Menu::Menu(std::vector<std::string> entries) : entries(std::move(entries)) {}
 
 void Menu::display() {
@@ -36,5 +38,4 @@ void Menu::display() {
     }
 
     this->dispatch(i);
-        
 }

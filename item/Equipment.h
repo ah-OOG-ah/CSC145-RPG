@@ -37,7 +37,7 @@ enum ArmorType { Helmet, Chestplate, Leggings, Boots};
 class Armor : public Equipment {
   protected:
     double percDef = 1.00; //Defense stats work like those with the player
-    int64_t staticDef; 
+    int64_t staticDef;
     double dmgMultiplier = 1.0; //Increases damage dealt when worn
     ArmorType cast;
     //Status placeholder
