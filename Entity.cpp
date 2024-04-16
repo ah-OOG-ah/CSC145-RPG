@@ -6,6 +6,8 @@ Entity::Entity(int64_t hp) {
     this->hp = hp;
 }
 
+std::string Entity::getName() const { return name; }
+
 int64_t Entity::getHp() const { return hp; }
 
 int64_t Entity::getAttk() const { return attk; }

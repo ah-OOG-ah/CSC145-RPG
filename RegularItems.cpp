@@ -64,6 +64,9 @@ void AttackItem::display()
 void AttackItem::Use(Entity* user, Entity* opponent)
 {
     opponent->changeHP(-1 * this->GetDamage());
+    user->Inven.RemoveItem(user->Inven.GetPos(this), 1);
+    std::cout << user->getName() << " used " << this->GetName() << std::endl;
+    std::cout << opponent->getName() << " took " << this->GetDamage() << " damage " << std::endl;
 }
 
 HealItem::HealItem(std::string itemName, int64_t hp, int64_t price) : RegularItem(std::move(itemName), price) {
@@ -99,9 +102,7 @@ void HealItem::display()
         std::getline(std::cin, choice);
         if(choice == "HEAL") 
         {
-            Use(getPlayer().get(), nullptr);
-            getPlayer()->playerInven.RemoveItem(getPlayer()->playerInven.GetPos(this), 1);
-            std::cout << "Player's HP was restored by " << this->GetHpAmnt() << "HP" << std::endl;
+            this->Use(getPlayer().get(), nullptr);
             if(this->GetAmount() <= 0)
             {
                 return;
@@ -118,6 +119,9 @@ void HealItem::display()
 void HealItem::Use(Entity* user, Entity* opponent)
 {
     user->changeHP(this->GetHpAmnt());
+    user->Inven.RemoveItem(user->Inven.GetPos(this), 1);
+    std::cout << user->getName() << " used " << this->GetName() << std::endl;
+    std::cout << user->getName() << " HP was restored by " << this->GetHpAmnt() << "HP" << std::endl;
 }
 
 NonConsumAttackItem::NonConsumAttackItem(std::string itemName, int64_t dmg, int64_t price, Status* effect, int64_t chance)
