@@ -2,10 +2,13 @@
 
 #include <cstdint>
 #include <string>
+#include "Equipment.h"
+#include "inventory.h"
 
 class Entity {
 
   protected:
+    std::string name;
     int64_t hp;
     int64_t attk = 10;
     int64_t staticDef = 0; // Subtracts a set amount of damage from a hit
@@ -15,8 +18,16 @@ class Entity {
     bool isFleeing = false;
 
   public:
+    Inventory Inven;
+    Weapon* currentWeapon;
+    Armor* helmet;
+    Armor* chestPlate;
+    Armor* leggings;
+    Armor boots;
+
     explicit Entity(int64_t hp);
 
+    [[nodiscard]] std::string getName() const;
     [[nodiscard]] int64_t getHp() const;
     [[nodiscard]] int64_t getAttk() const;
     [[nodiscard]] int64_t getStaticDef() const;

@@ -30,10 +30,10 @@ class Weapon : public Equipment {
 
 class Armor : public Equipment {
   protected:
-    //Defense stats work like those with the player
-    int64_t percDef; 
+    int64_t percDef; //Defense stats work like those with the player
     int64_t staticDef; 
     int64_t dmgMultiplier = 1; //Increases damage dealt when worn
+    enum armorType { Helmet, Chestplate, Leggings, Boots};
     //Status placeholder
 
   public:
