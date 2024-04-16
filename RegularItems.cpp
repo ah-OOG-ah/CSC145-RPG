@@ -2,6 +2,7 @@
 #include <iostream>
 #include "game.h"
 #include <utility>
+#include <memory>
 #include "RegularItems.h"
 
 RegularItem::RegularItem(std::string itemName, int64_t price) : RegularItem(std::move(itemName), price, 1) {}
@@ -98,7 +99,7 @@ void HealItem::display()
         std::getline(std::cin, choice);
         if(choice == "HEAL") 
         {
-            Use(getPlayer(), nullptr);
+            Use(getPlayer().get(), nullptr);
             getPlayer()->playerInven.RemoveItem(getPlayer()->playerInven.GetPos(this), 1);
             std::cout << "Player's HP was restored by " << this->GetHpAmnt() << "HP" << std::endl;
             if(this->GetAmount() <= 0)
