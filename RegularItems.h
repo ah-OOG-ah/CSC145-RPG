@@ -12,7 +12,7 @@ class RegularItem : public Item {
     //Constructors with descriptions
     RegularItem(std::string itemName, int64_t price, int64_t amnt, std::string desc);
     RegularItem(std::string itemName, int64_t price, std::string desc);
-
+    
     std::string GetAmntText() override;
 };
 
@@ -39,6 +39,7 @@ class AttackItem : public RegularItem {
     Status* GetStatus();
     [[nodiscard]] int64_t GetChance() const;
     void display() override;
+    void Use(Entity* user, Entity* opponent) override;
 };
 
 class HealItem : public RegularItem
@@ -62,6 +63,8 @@ class HealItem : public RegularItem
     Status* GetHealedStatus();
   
     void display() override;
+
+    void Use(Entity* user, Entity* opponent) override;
 };
 
 class NonConsumAttackItem : public AttackItem {
