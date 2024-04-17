@@ -26,3 +26,14 @@ Enemy::Enemy(std::string name, int64_t hp, int64_t attk, int64_t percDef, int64_
         armorSlots[getRand() % armorSlots.size()]->Use(this, nullptr); 
     }
 }
+
+std::string Enemy::getSprite() const
+{
+    return enemySprite;
+}
+
+std::string Enemy::toString() const {
+    if (this->hp > 0)
+        return this->getName() + this->getSprite() + "{hp: " + std::to_string(this->hp) + ", atk: " + std::to_string(this->attk) + "}";
+    return this -> getName() + "{DEAD, atk: " + std::to_string(this->attk) + "}";
+}

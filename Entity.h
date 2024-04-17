@@ -43,5 +43,5 @@ class Entity {
 
     void changeHP(int64_t hpAmnt); //For item based attacks
 
-    [[nodiscard]] std::string toString() const;
+    [[nodiscard]] virtual std::string toString() const;
 };
