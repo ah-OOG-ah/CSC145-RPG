@@ -1,6 +1,8 @@
 #include <string>
 #include <utility>
 #include "Equipment.h"
+#include <iostream>
+#include "game.h"
 
 Equipment::Equipment(std::string itemName, int64_t durab, int64_t price) : Item(std::move(itemName), price, "FIXME") {
     durability = durab;
@@ -15,7 +17,7 @@ Equipment::Equipment(std::string itemName, int64_t durab, int64_t price, std::st
 }
 
 int64_t Equipment::GetDurab() const { return durability; }
-void Equipment::SetDurab(int64_t durab) { durability = durab; }
+void Equipment::ChangeDurab(int64_t durab) { durability += durab; }
 
 std::string Equipment::GetAmntText() {
     return "";
@@ -32,6 +34,53 @@ Weapon::Weapon(std::string itemName, int64_t durab, int64_t dmg, int64_t price, 
 int64_t Weapon::GetDamage() const { return dmgMultiplier; };
 
 void Weapon::SetDamage(int64_t dmg) { dmgMultiplier = dmg; };
+
+void Weapon::Use(Entity* user, Entity* opponent)
+{
+    user->currentWeapon = this;
+    int64_t pos = user->Inven.GetPos(this);
+    if(pos != -1)
+    {
+        user->Inven.RemoveItem(pos);
+    }
+}
+
+void Weapon::display()
+{
+    std::cout << entries[0] << std::endl;
+    std::cout << "WEAPON" << std::endl;
+    std::cout << "Price: " << this->GetPrice() << std::endl;
+    std::cout << "Strength: " << this->GetDamage() << std::endl;
+    std::cout << "Durability: " << this->GetDurab() << std::endl;
+    if(getPlayer()->currentWeapon == this)
+    {
+        std::cout<< "EQUIPPED" << std::endl;
+    }
+    else
+    {
+        std::cout << "EQUIPABLE" << std::endl;
+    }
+    std::cout << entries[1] << std::endl;
+    std::cout << "Enter EXIT to exit or EQUIP to equip this item" << std::endl;
+    std::string choice;
+    while(choice != "EXIT")
+    {
+        std::getline(std::cin, choice);
+        if(choice == "EQUIP") 
+        {
+            this->Use(getPlayer().get(), nullptr);
+            if(this->GetAmount() <= 0)
+            {
+                return;
+            }
+        }
+        else if(choice != "EXIT")
+        {
+            std::cout << "Invalid input. Please input again. " << std::endl;
+        }
+    }
+    return;
+}
 
 Armor::Armor(std::string itemName, int64_t durab, int64_t pDef, int64_t sDef, int64_t price, ArmorType mold) : Armor(std::move(itemName), durab, pDef, sDef, 1 , price, mold) {
     percDef = pDef;
@@ -61,3 +110,81 @@ int64_t Armor::GetDmgMult() const { return dmgMultiplier; }
 void Armor::SetPercDef(int64_t def) { percDef = def; }
 void Armor::SetStaticDef(int64_t def) { staticDef = def; }
 void Armor::SetDmgMult(int64_t dmg) { dmgMultiplier = dmg; }
+
+void Armor::Use(Entity* user, Entity* opponent)
+{
+    if(this->cast == Helmet)
+    {
+        user->helmet = this;
+    }
+    else if(this->cast == Chestplate)
+    {
+        user->chestPlate = this;
+    }
+    else if(this->cast == Leggings)
+    {
+        user->leggings = this;
+    }
+    else if(this->cast == Boots)
+    {
+        user->boots = this;
+    }
+    int64_t pos = user->Inven.GetPos(this);
+    if(pos != -1)
+    {
+        user->Inven.RemoveItem(pos);
+    }
+}
+
+void Armor::display()
+{
+    std::cout << entries[0] << std::endl;
+    if(this->cast == Helmet)
+    {
+        std::cout<< "HELMET" << std::endl;
+    }
+    else if(this->cast == Chestplate)
+    {
+        std::cout<< "CHESTPLATE" << std::endl;
+    }
+    else if(this->cast == Leggings)
+    {
+        std::cout<< "LEGGINGS" << std::endl;
+    }
+    else if(this->cast == Boots)
+    {
+        std::cout<< "BOOTS" << std::endl;
+    }
+    std::cout << "Price: " << this->GetPrice() << std::endl;
+    std::cout << "Percentage Defense: " << this->GetPercDef() << std::endl;
+    std::cout << "Static Defense: " << this->GetStaticDef() << std::endl;
+    std::cout << "Durability: " << this->GetDurab() << std::endl;
+    if(getPlayer()->currentWeapon == this)
+    {
+        std::cout<< "EQUIPPED" << std::endl;
+    }
+    else
+    {
+        std::cout << "EQUIPABLE" << std::endl;
+    }
+    std::cout << entries[1] << std::endl;
+    std::cout << "Enter EXIT to exit or EQUIP to equip this item" << std::endl;
+    std::string choice;
+    while(choice != "EXIT")
+    {
+        std::getline(std::cin, choice);
+        if(choice == "EQUIP") 
+        {
+            this->Use(getPlayer().get(), nullptr);
+            if(this->GetAmount() <= 0)
+            {
+                return;
+            }
+        }
+        else if(choice != "EXIT")
+        {
+            std::cout << "Invalid input. Please input again. " << std::endl;
+        }
+    }
+    return;
+}
