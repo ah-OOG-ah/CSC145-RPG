@@ -39,6 +39,11 @@ void Weapon::Use(Entity* user, Entity* opponent)
 {
     Weapon* oldWeapon = user->currentWeapon;
     user->currentWeapon = this;
+    if(oldWeapon != nullptr)
+    {
+        std::cout << oldWeapon->GetName() << " was unequipped "  << std::endl;
+    }
+    std::cout << user->getName() << " equipped " << this->GetName() << std::endl;
     user->Inven.RemoveItem(this);
     user->Inven.AddItem(oldWeapon);
 }
@@ -132,6 +137,11 @@ void Armor::Use(Entity* user, Entity* opponent)
         oldArmor = user->armorArray[3];
         user->armorArray[3] = this;
     }
+    if(oldArmor != nullptr)
+    {
+        std::cout << oldArmor->GetName() << " was unequipped "  << std::endl;
+    }
+    std::cout << user->getName() << " equipped " << this->GetName() << std::endl;
     user->Inven.RemoveItem(this);
     user->Inven.AddItem(oldArmor);
 }
