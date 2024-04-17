@@ -111,19 +111,19 @@ void Armor::Use(Entity* user, Entity* opponent)
 {
     if(this->cast == Helmet)
     {
-        user->helmet = this;
+        user->armorArray[0] = this;
     }
     else if(this->cast == Chestplate)
     {
-        user->chestPlate = this;
+        user->armorArray[1] = this;
     }
     else if(this->cast == Leggings)
     {
-        user->leggings = this;
+        user->armorArray[2] = this;
     }
     else if(this->cast == Boots)
     {
-        user->boots = this;
+        user->armorArray[3] = this;
     }
     user->Inven.RemoveItem(this);
 }
@@ -151,13 +151,16 @@ void Armor::display()
     std::cout << "Percentage Defense: " << this->GetPercDef() << std::endl;
     std::cout << "Static Defense: " << this->GetStaticDef() << std::endl;
     std::cout << "Durability: " << this->GetDurab() << std::endl;
-    if(getPlayer()->helmet == this || getPlayer()->chestPlate == this || getPlayer()->leggings == this || getPlayer()->boots == this)
+    for( Armor* it : getPlayer()->armorArray)
     {
-        std::cout<< "EQUIPPED" << std::endl;
-    }
-    else
-    {
-        std::cout << "EQUIPABLE" << std::endl;
+        if(it == this)
+        {
+            std::cout<< "EQUIPPED" << std::endl;
+        }
+        else if(it == getPlayer()->armorArray[getPlayer()->armorArray.size() - 1])
+        {
+            std::cout << "EQUIPABLE" << std::endl;
+        }
     }
     std::cout << entries[1] << std::endl;
     std::cout << "Enter EXIT to exit or EQUIP to equip this item" << std::endl;

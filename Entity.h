@@ -4,6 +4,7 @@
 #include <string>
 #include "Equipment.h"
 #include "inventory.h"
+#include <array>
 
 class Entity {
 
@@ -20,11 +21,8 @@ class Entity {
   public:
     Inventory Inven;
     Weapon* currentWeapon;
-    Armor* helmet;
-    Armor* chestPlate;
-    Armor* leggings;
-    Armor* boots;
-
+    std::array<Armor*, 4> armorArray; //Index of arrays are ordered just like ArmorType enum
+    //Helmet: 0, Chestplate: 1, Leggings: 2, Boots: 3
     explicit Entity(int64_t hp);
 
     [[nodiscard]] std::string getName() const;
