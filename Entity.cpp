@@ -5,6 +5,14 @@
 Entity::Entity(int64_t hp) {
     this->hp = hp;
 }
+Entity::Entity(std::string name, int64_t hp, int64_t attk, int64_t percDef, int64_t staticDef, int64_t spd){
+    this->name = name;
+    this->hp = hp;
+    this->attk = attk;
+    this->percDef = percDef;
+    this->staticDef = staticDef;
+    this->spd = spd;
+}
 
 std::string Entity::getName() const { return name; }
 
