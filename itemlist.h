@@ -1,3 +1,5 @@
+#pragma once
+
 #include "item.h"
 #include "RegularItems.h"
 #include "Equipment.h"
