@@ -77,4 +77,4 @@ std::string armyVestDesc = "An bulletproof vest that has the Marines emblem on i
 std::string mBobArmorDesc = "With this armor, you will be coming for Monkey Bob. MAY OBAMA BE EVER IN YOUR FAVOR.";
 Armor baboonArmor("Baboon Armor", 50, 5, 5, 25, 50, Chestplate, baboomArmorDesc);
 Armor armyVest("Marine Vest", 75, 10, 10, 5, 40, Chestplate, armyVestDesc);
-Armor monkeyBobArmor("Monkey Bob's Armor", 999, 25, 25, 35, 350, Chestplate, mBobArmorDesc);
+Armor monkeyBobArmor("Monkey Bob's Armor", 999999, 25, 25, 35, 350, Chestplate, mBobArmorDesc);
