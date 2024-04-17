@@ -26,6 +26,7 @@ class Inventory
     int64_t GetGold();
     bool AddItem(Item*); //Adds to amount if Item already is in Inventory. Bool to see if adding was successful
     void RemoveItem(int64_t pos, int64_t amnt = 0); //Used instead of ChangeAmount amount is to be removed. 0 in second integer removes all amount of the item
+    void RemoveItem(Item* thing, int64_t amnt = 0); //Used instead of ChangeAmount amount is to be removed. 0 in second integer removes all amount of the item
     void AddGold(int64_t);
 
     int64_t GetNumElements();
@@ -34,4 +35,6 @@ class Inventory
     void PrintItems(); //Called by PrintInven
     void PrintItems(int); //Called by functions that need inventory to print with numbers. Integer value is meaningless.
     void PrintInven(); 
+    void PrintInven(int dummy = 0);
+    void SelectItem(); 
 };

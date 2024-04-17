@@ -38,11 +38,7 @@ void Weapon::SetDamage(int64_t dmg) { dmgMultiplier = dmg; };
 void Weapon::Use(Entity* user, Entity* opponent)
 {
     user->currentWeapon = this;
-    int64_t pos = user->Inven.GetPos(this);
-    if(pos != -1)
-    {
-        user->Inven.RemoveItem(pos);
-    }
+    user->Inven.RemoveItem(this);
 }
 
 void Weapon::display()
@@ -129,11 +125,7 @@ void Armor::Use(Entity* user, Entity* opponent)
     {
         user->boots = this;
     }
-    int64_t pos = user->Inven.GetPos(this);
-    if(pos != -1)
-    {
-        user->Inven.RemoveItem(pos);
-    }
+    user->Inven.RemoveItem(this);
 }
 
 void Armor::display()
@@ -159,7 +151,7 @@ void Armor::display()
     std::cout << "Percentage Defense: " << this->GetPercDef() << std::endl;
     std::cout << "Static Defense: " << this->GetStaticDef() << std::endl;
     std::cout << "Durability: " << this->GetDurab() << std::endl;
-    if(getPlayer()->currentWeapon == this)
+    if(getPlayer()->helmet == this || getPlayer()->chestPlate == this || getPlayer()->leggings == this || getPlayer()->boots == this)
     {
         std::cout<< "EQUIPPED" << std::endl;
     }

@@ -80,6 +80,25 @@
         return false; //Should never be called
     }
 
+    void Inventory::RemoveItem(Item* thing, int64_t amnt)
+    {
+        int64_t pos = this->GetPos(thing);
+        if(pos == -1)
+        {
+            return;
+        }
+        start[pos]->ChangeAmount(-1 * amnt);
+        if(start[pos]->GetAmount() <= 0)
+        {
+            start[pos] = nullptr;
+            usedElements--;
+            for(int i = pos; i < numElements - 1; i++)
+            {
+                start[i] = start[i + 1];
+            }
+        }
+    }
+
     void Inventory::RemoveItem(int64_t pos, int64_t amnt)
     {
         start[pos]->ChangeAmount(-1 * amnt);
@@ -132,7 +151,36 @@
     {
         std::cout << "INVENTORY" << std::endl;
         std::cout << "GOLD" << std::to_string(gold) << std::endl;
+        PrintItems();
+    }
+
+    void Inventory::PrintInven(int dummy)
+    {
+        std::cout << "INVENTORY" << std::endl;
+        std::cout << "GOLD" << std::to_string(gold) << std::endl;
         PrintItems(1);
+        if(dummy == 0)
+        {
+            SelectItem();
+        }
+    }
+
+    void Inventory::SelectItem()
+    {
+        std::cout << "Input number for item you want selected. Enter -1 to exit." << std::endl;
+        int64_t choice = 0;
+        std::cin>>choice;
+        if(choice == -1) { return; }
+        if(choice > numElements)
+        {
+            std::cout << "Please input a valid number" << std::endl;
+            this->PrintInven(0);
+        }
+        else if(choice != -1)
+        {
+            start[choice]->display();
+            this->PrintInven(0);
+        }
     }
 
 
