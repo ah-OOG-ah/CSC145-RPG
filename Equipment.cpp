@@ -37,8 +37,10 @@ void Weapon::SetDamage(int64_t dmg) { dmgMultiplier = dmg; };
 
 void Weapon::Use(Entity* user, Entity* opponent)
 {
+    Weapon* oldWeapon = user->currentWeapon;
     user->currentWeapon = this;
     user->Inven.RemoveItem(this);
+    user->Inven.AddItem(oldWeapon);
 }
 
 void Weapon::display()
@@ -109,23 +111,29 @@ void Armor::SetDmgMult(int64_t dmg) { dmgMultiplier = dmg; }
 
 void Armor::Use(Entity* user, Entity* opponent)
 {
+    Armor* oldArmor = nullptr;
     if(this->cast == Helmet)
     {
+        oldArmor = user->armorArray[0];
         user->armorArray[0] = this;
     }
     else if(this->cast == Chestplate)
     {
+        oldArmor = user->armorArray[1];
         user->armorArray[1] = this;
     }
     else if(this->cast == Leggings)
     {
+        oldArmor = user->armorArray[2];
         user->armorArray[2] = this;
     }
     else if(this->cast == Boots)
     {
+        oldArmor = user->armorArray[3];
         user->armorArray[3] = this;
     }
     user->Inven.RemoveItem(this);
+    user->Inven.AddItem(oldArmor);
 }
 
 void Armor::display()
