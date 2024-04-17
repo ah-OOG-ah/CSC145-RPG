@@ -94,6 +94,7 @@ void HealItem::display()
     std::cout << entries[0] << std::endl;
     std::cout << "Price: " << this->GetPrice() << std::endl;
     std::cout << "Heals: " << this->GetHpAmnt() << std::endl;
+    std::cout << "Amount: " << this->GetAmount() << this->GetAmntText() << std::endl;
     std::cout << entries[1] << std::endl;
     std::cout << "Enter EXIT to exit or HEAL to heal with this item" << std::endl;
     std::string choice;

@@ -23,7 +23,7 @@ class Entity {
     Armor* helmet;
     Armor* chestPlate;
     Armor* leggings;
-    Armor boots;
+    Armor* boots;
 
     explicit Entity(int64_t hp);
 

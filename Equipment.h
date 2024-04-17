@@ -4,6 +4,7 @@
 #include <cstdint>
 #include "item.h"
 #include "Status.h"
+#include "Entity.h"
 
 class Equipment : public Item {
   protected:
@@ -13,8 +14,8 @@ class Equipment : public Item {
     Equipment(std::string itemName, int64_t durab, int64_t price);
     Equipment(std::string itemName, int64_t durab, int64_t price, std::string desc);
     [[nodiscard]] int64_t GetDurab() const;
-    void SetDurab(int64_t);
-    std::string GetAmntText() override; // Vestigal
+    void ChangeDurab(int64_t);
+    std::string GetAmntText() override;
 };
 
 class Weapon : public Equipment {
@@ -26,6 +27,8 @@ class Weapon : public Equipment {
     Weapon(std::string itemName, int64_t durab, int64_t dmg, int64_t price, std::string desc);
     [[nodiscard]] int64_t GetDamage() const;
     void SetDamage(int64_t dmg);
+    void Use(Entity* user, Entity* opponent) override;
+    void display() override;
 };
 
 enum ArmorType { Helmet, Chestplate, Leggings, Boots};
@@ -50,4 +53,6 @@ class Armor : public Equipment {
     void SetPercDef(int64_t);
     void SetStaticDef(int64_t);
     void SetDmgMult(int64_t);
+    void Use(Entity* user, Entity* opponent) override;
+    void display() override;
 };
