@@ -1,3 +1,5 @@
+#pragma once
+
 #include "itemlist.h"
 #include <vector>
 
