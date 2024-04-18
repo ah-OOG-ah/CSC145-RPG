@@ -6,16 +6,41 @@
 //AttackIem(Name, damage, price, canSpread, description)
 std::string rockDesc = "A simple rock to throw at enemies.";
 std::string dartDesc = "Peruvian dart to throw at enemies.";
+std::string bombDesc = "A bomb with a big punch and wide range.";
+std::string gorillaBombDesc = "A gorilla sized bomb with a big wallop. All opponents take massive damage.";
 AttackItem rock("Rock", 5, 2, false, rockDesc);
 AttackItem dart("Dart", 8, 5, false, dartDesc);
+AttackItem bomb("Bomb", 20, 25, true, bombDesc);
+AttackItem gorillaBomb("Gorilla Bomb", 50, 80, true, gorillaBombDesc);
 
 //HealItem(Name, healAmnt, price, description)
 std::string waterDesc = "Clear water as pure as Ryan Reynolds. Heals moderately.";
+std::string bananaDesc = "A nutrious, delicous banana. Stores health moderately.";
 std::string elixirDesc = "strange liquid with the consistency of medicine but taste of milk. Heals greatly.";
+std::string ectoplasmDesc = "Residue from a ghost. Seems able heal but the glow it gives is a bit offputting...";
+std::string zombieBloodDesc = "Blood from a decaying corpse. 0/10, would not recommend";
 std::string cookieDesc = "A delicous cookie. Not too good for health but healps";
 HealItem pureWater("Pure Water", 15, 9, waterDesc);
+HealItem banana("Banana", 10, 5, bananaDesc);
+HealItem ectoplasm("Ectoplasm", 25, 50, ectoplasmDesc);
+HealItem zombieBlood("Zombie Blood", -10, 5, zombieBloodDesc);
 HealItem elixir("Elixir", 40, 25, elixirDesc);
 HealItem cookie("Cookie", 5, 3, cookieDesc);
+
+//StatusItem(std::string itemName, int64_t boost, statBoost stat, int64_t price, std::string desc)
+std::string roidsDesc = "Literal steroids bro";
+std::string amuletDesc = "An amulet dropped by mummies. Has an inscription of Anubis, the Egyptian god of death and supposed inventor of embalming";
+std::string magicShieldDesc = "An artifact that temporally creates a magic sheild of energy around your body";
+std::string sentryHeadDesc = "The head of a sentry. Its strength flows through your body";
+std::string ninjaBandDesc = "The headband of a ninja. It causes you to put your arms straight behind you as you run, increasing your speed";
+std::string cryptoHeartDesc = "The heart of a cryptogriph. A strange power from within makes your skin like steel";
+StatusItem roids("'Roids", 10, attack, 15, roidsDesc);
+StatusItem amulet("Amulet of Anubis", 15, staticdef, 45, amuletDesc);
+StatusItem magicShield("Magic Shield", 10, percdef, 30, magicShieldDesc);
+StatusItem sentryHead("Sentry Head", 20, attack, 50, sentryHeadDesc);
+StatusItem ninjaBand("Ninja Band", 15, speed, 25, ninjaBandDesc);
+StatusItem cryptoHeart("Cryptogriph Heart", 25, staticdef, 60, cryptoHeartDesc);
+
 
 //Weapon(Name, durability, damageMultiplier, price, description)
 std::string swordDesc = "A mighty sword, made of Grecian Iron.";
