@@ -70,6 +70,14 @@ void AttackItem::display()
     std::cout << entries[0] << std::endl;
     std::cout << "Price: " << this->GetPrice() << std::endl;
     std::cout << "Damage: " << this->GetDamage() << std::endl;
+    if(this->spreadDamage)
+    {
+        std::cout << "Multi-Target" << std::endl;
+    }
+    else
+    {
+        std::cout << "Single-Target" << std::endl;
+    }
     std::cout << entries[1] << std::endl;
     std::cout << "Enter any key to exit " << std::endl;
     std::string choice;
