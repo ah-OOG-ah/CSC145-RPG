@@ -115,7 +115,7 @@ Enemy baboon("Baboon", 30, 10, 10, 10, 10, basicItems, swordsOnly, noArmor, babo
 Enemy angryBaboon("Angry Baboon", 30, 10, 10, 10, 10, basicItems, swordsOnly, noArmor, angryBaboonSprite);
 Enemy smallSentry("Mini Sentry", 50, 25, 12, 12, 15, sentryItems, rareWeapons, chainSet, smallSentrySprite);
 Enemy sentry("Sentry", 80, 30, 20, 12, 5, sentryItems, rareWeapons, betterArmor, sentrySprite);
-Enemy steelSentry("Steel sentry", 100, 30, 30, 18, 5, sentryItems, rareWeapons, steelSet, steelSentrySprite);
+Enemy steelSentry("Steel sentry", 100, 30, 30, 12, 5, sentryItems, rareWeapons, steelSet, steelSentrySprite);
 Enemy basedBat("Based Bat", 35, 15, 7, 7, 30, basicItems, basicWeapons, basicArmor, batSprite);
 Enemy veryBasedBat("Very Based Bat", 50, 18, 10, 10, 35, basicItems, basicWeapons, steelSet, batSprite);
 Enemy tradBasedBat("Based and Trad Bat", 55, 25, 7, 12, 35, bombsOnly, rareWeapons, topTierArmor, tradBatSprite);
@@ -123,6 +123,6 @@ Enemy mummy("Mummy", 65, 20, 10, 10, 12, mummyItems, undeadWeapons, noArmor, mum
 Enemy zombie("Zombie", 65, 20, 10, 10, 12, betterItems, undeadWeapons, noArmor, zombieSprite);
 Enemy ghoul("Ghoul", 60, 10, 20, 20, 30, betterItems, undeadWeapons, basicArmor, ghoulSprite);
 Enemy monkeyGhoul("Monkey Ghoul", 65, 25, 15, 15, 15, betterItems, undeadWeapons, basicArmor, monkeyGhoulSprite);
-Enemy cyrptogriph("Cryptogriph", 50, 10, 24, 16, 40, bombsOnly, swordsOnly, steelSet, cryptogriphSprite);
+Enemy cryptogriph("Cryptogriph", 50, 10, 24, 16, 40, bombsOnly, swordsOnly, steelSet, cryptogriphSprite);
 
 Enemy MonkeyBob("Monkey Bob", 200, 40, 35, 35, 50, gorillaBombOnly, rareWeapons, topTierArmor, MonkeyBobSprite);
