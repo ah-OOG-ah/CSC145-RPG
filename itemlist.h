@@ -6,10 +6,12 @@
 //AttackIem(Name, damage, price, canSpread, description)
 std::string rockDesc = "A simple rock to throw at enemies.";
 std::string dartDesc = "Peruvian dart to throw at enemies.";
+std::string throwingAxeDesc = "A small axe, perfect for throwing at enemies. Timber!";
 std::string bombDesc = "A bomb with a big punch and wide range.";
 std::string gorillaBombDesc = "A gorilla sized bomb with a big wallop. All opponents take massive damage.";
 AttackItem rock("Rock", 5, 2, false, rockDesc);
 AttackItem dart("Dart", 8, 5, false, dartDesc);
+AttackItem throwingAxe("Throwing Axe", 15, 15, false, throwingAxeDesc);
 AttackItem bomb("Bomb", 20, 25, true, bombDesc);
 AttackItem gorillaBomb("Gorilla Bomb", 50, 80, true, gorillaBombDesc);
 
