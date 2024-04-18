@@ -3,11 +3,11 @@
 #include "item.h"
 #include "RegularItems.h"
 #include "Equipment.h"
-//AttackIem(Name, damage, price, description)
+//AttackIem(Name, damage, price, canSpread, description)
 std::string rockDesc = "A simple rock to throw at enemies.";
 std::string dartDesc = "Peruvian dart to throw at enemies.";
-AttackItem rock("Rock", 5, 2, rockDesc);
-AttackItem dart("Dart", 8, 5, dartDesc);
+AttackItem rock("Rock", 5, 2, false, rockDesc);
+AttackItem dart("Dart", 8, 5, false, dartDesc);
 
 //HealItem(Name, healAmnt, price, description)
 std::string waterDesc = "Clear water as pure as Ryan Reynolds. Heals moderately.";
