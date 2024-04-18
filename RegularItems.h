@@ -22,6 +22,7 @@ class AttackItem : public RegularItem {
     int64_t damage;
     Status* status = nullptr;
     int64_t effectChance = 0;
+    bool spreadDamage = false;
 
   public:
     AttackItem(std::string itemName, int64_t dmg, int64_t price, Status* effect, int64_t chance);
@@ -41,7 +42,7 @@ class AttackItem : public RegularItem {
     Status* GetStatus();
     [[nodiscard]] int64_t GetChance() const;
     void display() override;
-    void Use(Entity* user, Entity* opponent) override;
+    void Use(Entity* user, std::vector<Entity*> opponents) override;
 };
 
 class HealItem : public RegularItem
@@ -66,7 +67,7 @@ class HealItem : public RegularItem
   
     void display() override;
 
-    void Use(Entity* user, Entity* opponent) override;
+    void Use(Entity* user, std::vector<Entity*> opponents) override;
 };
 
 enum statBoost {attack, percdef, staticdef, speed };
@@ -98,7 +99,7 @@ class StatusItem : public RegularItem {
     Status* GetStatus();
     [[nodiscard]] int64_t GetChance() const;
     void display() override;
-    void Use(Entity* user, Entity* opponent) override;
+    void Use(Entity* user, std::vector<Entity*> opponents) override;
 };
 
 class NonConsumAttackItem : public AttackItem {

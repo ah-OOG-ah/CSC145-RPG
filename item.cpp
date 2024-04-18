@@ -48,4 +48,4 @@ void Item::dispatch(int64_t i)
     return;
 }
 
-void Item::Use(Entity* user, Entity* opponent) { return; }
+void Item::Use(Entity* user, std::vector<Entity*> opponents) { return; }
