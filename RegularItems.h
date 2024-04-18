@@ -12,7 +12,8 @@ class RegularItem : public Item {
     //Constructors with descriptions
     RegularItem(std::string itemName, int64_t price, int64_t amnt, std::string desc);
     RegularItem(std::string itemName, int64_t price, std::string desc);
-    
+    RegularItem(RegularItem* r);
+
     std::string GetAmntText() override;
 };
 
@@ -30,6 +31,7 @@ class AttackItem : public RegularItem {
     AttackItem(std::string itemName, int64_t dmg, int64_t price, Status* effect, int64_t chance, std::string desc);
     AttackItem(std::string itemName, int64_t dmg, int64_t price, int64_t amnt, std::string desc);
     AttackItem(std::string itemName, int64_t dmg, int64_t price, std::string desc);
+    AttackItem(AttackItem* at);
 
     void SetDamage(int64_t dmg);
     void SetStatus(Status* effect);
@@ -55,7 +57,7 @@ class HealItem : public RegularItem
     //Constructors with descriptions
     HealItem(std::string itemName, int64_t hp, int64_t price, std::string desc);
     HealItem(std::string itemName, int64_t hp, int64_t price, int64_t amnt, std::string desc);
-
+    HealItem(HealItem* ht);
     void SetHpAmnt(int64_t hp);
     void SetHealedStatus(Status* status);
 
@@ -75,5 +77,6 @@ class NonConsumAttackItem : public AttackItem {
     //Constructors with descriptions
     NonConsumAttackItem(std::string itemName, int64_t dmg, int64_t price, Status* effect, int64_t chance, std::string desc);
     NonConsumAttackItem(std::string itemName, int64_t dmg, int64_t price, std::string desc);
+    NonConsumAttackItem(NonConsumAttackItem* ncat);
     std::string GetAmntText() override;
 };

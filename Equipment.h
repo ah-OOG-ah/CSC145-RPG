@@ -13,6 +13,7 @@ class Equipment : public Item {
   public:
     Equipment(std::string itemName, int64_t durab, int64_t price);
     Equipment(std::string itemName, int64_t durab, int64_t price, std::string desc);
+    Equipment(Equipment* e);
     [[nodiscard]] int64_t GetDurab() const;
     void ChangeDurab(int64_t);
     std::string GetAmntText() override;
@@ -52,9 +53,11 @@ class Armor : public Equipment {
     [[nodiscard]] int64_t GetPercDef() const;
     [[nodiscard]] int64_t GetStaticDef() const;
     [[nodiscard]] int64_t GetDmgMult() const;
+    [[nodiscard]] ArmorType GetArmorType() const;
     void SetPercDef(int64_t);
     void SetStaticDef(int64_t);
     void SetDmgMult(int64_t);
+    void SetArmorType(ArmorType);
     void Use(Entity* user, Entity* opponent) override;
     void display() override;
 };

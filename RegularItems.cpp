@@ -12,6 +12,7 @@ RegularItem::RegularItem(std::string itemName, int64_t price, int64_t amnt)
 RegularItem::RegularItem(std::string itemName, int64_t price, std::string desc) : RegularItem(std::move(itemName), price, 1, std::move(desc)) {}
 RegularItem::RegularItem(std::string itemName, int64_t price, int64_t amnt, std::string desc)
     : Item(std::move(itemName), price, amnt, std::move(desc)) {}
+RegularItem::RegularItem(RegularItem* r) : Item(r) {}
 
 std::string RegularItem::GetAmntText() {
     return "x";
@@ -39,6 +40,10 @@ AttackItem::AttackItem(std::string itemName, int64_t dmg, int64_t price, int64_t
 }
 AttackItem::AttackItem(std::string itemName, int64_t dmg, int64_t price, std::string desc) : RegularItem(std::move(itemName), price, std::move(desc)) {
     damage = dmg;
+}
+AttackItem::AttackItem(AttackItem* at) : RegularItem(at)
+{
+    this->damage = at->GetDamage();
 }
 
 void AttackItem::SetDamage(int64_t dmg) { damage = dmg; }
@@ -81,6 +86,10 @@ HealItem::HealItem(std::string itemName, int64_t hp, int64_t price, std::string 
 }
 HealItem::HealItem(std::string itemName, int64_t hp, int64_t price, int64_t amnt, std::string desc) : RegularItem(std::move(itemName), price, amnt, std::move(desc)) {
     hpAmnt = hp;
+}
+HealItem::HealItem(HealItem* ht) : RegularItem(ht)
+{
+    this->hpAmnt = ht->GetHpAmnt();
 }
 
 void HealItem::SetHpAmnt(int64_t hp) { hpAmnt = hp; }
@@ -137,11 +146,15 @@ NonConsumAttackItem::NonConsumAttackItem(std::string itemName, int64_t dmg, int6
 //Constructors with descriptions
 NonConsumAttackItem::NonConsumAttackItem(std::string itemName, int64_t dmg, int64_t price, Status* effect, int64_t chance, std::string desc)
     : AttackItem(std::move(itemName), dmg, price, effect, chance, std::move(desc)) {
-    stackable = false;
+    this->stackable = false;
 }
 NonConsumAttackItem::NonConsumAttackItem(std::string itemName, int64_t dmg, int64_t price, std::string desc)
     : AttackItem(std::move(itemName), dmg, price, std::move(desc)) {
-    stackable = false;
+    this->stackable = false;
+}
+NonConsumAttackItem::NonConsumAttackItem(NonConsumAttackItem* ncat) : AttackItem(ncat)
+{
+    this->stackable = false;
 }
 
 std::string NonConsumAttackItem::GetAmntText() { return " "; }
