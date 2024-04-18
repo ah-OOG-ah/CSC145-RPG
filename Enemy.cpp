@@ -36,6 +36,14 @@ Enemy::Enemy(std::string name, int64_t hp, int64_t attk, int64_t percDef, int64_
     }
 }
 
+Enemy::Enemy(Enemy* en) : Entity(en) 
+{
+    this->enemySprite = en->getSprite();
+    this->currentWeapon = en->currentWeapon;
+    this->armorArray = en->armorArray;
+    this->Inven = en->Inven;
+}
+
 std::string Enemy::getSprite() const
 {
     return enemySprite;
