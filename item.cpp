@@ -11,10 +11,10 @@ Item::Item(std::string itemName, int64_t price, int64_t amnt, std::string desc)
 : name(std::move(itemName)), amount(amnt), price(price), description(std::move(desc)), Menu(std::vector<std::string>({itemName,  desc})) { }
 Item::Item(Item* i) : Menu(std::vector<std::string>({i->GetName(), i->GetDesc()}))
 {
-    this->amount = i->amount;
-    this->name = i->name;
-    this->price = i->price;
-    this->description = i->description;
+    this->amount = i->GetAmount();
+    this->name = i->GetName();
+    this->price = i->GetPrice();
+    this->description = i->GetDesc();
 }
 
 std::string Item::GetName() { return name; }
