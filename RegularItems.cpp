@@ -18,41 +18,52 @@ std::string RegularItem::GetAmntText() {
     return "x";
 }
 
-AttackItem::AttackItem(std::string itemName, int64_t dmg, int64_t price, Status* effect, int64_t chance) : RegularItem(std::move(itemName), price) {
+AttackItem::AttackItem(std::string itemName, int64_t dmg, int64_t price, Status* effect, int64_t chance, bool spread) : RegularItem(std::move(itemName), price) {
     damage = dmg;
     status = effect;
     effectChance = chance;
+    this->spreadDamage = spread;
 }
-AttackItem::AttackItem(std::string itemName, int64_t dmg, int64_t price, int64_t amnt) : RegularItem(std::move(itemName), price, amnt) {
+AttackItem::AttackItem(std::string itemName, int64_t dmg, int64_t price, int64_t amnt, bool spread) : RegularItem(std::move(itemName), price, amnt) {
     damage = dmg;
+    this->spreadDamage = spread;
 }
-AttackItem::AttackItem(std::string itemName, int64_t dmg, int64_t price) : RegularItem(std::move(itemName), price) {
+AttackItem::AttackItem(std::string itemName, int64_t dmg, int64_t price, bool spread) : RegularItem(std::move(itemName), price) {
     damage = dmg;
+    this->spreadDamage = spread;
 }
 //Constructors with descriptions
-AttackItem::AttackItem(std::string itemName, int64_t dmg, int64_t price, Status* effect, int64_t chance, std::string desc) : RegularItem(std::move(itemName), price, std::move(desc)) {
+AttackItem::AttackItem(std::string itemName, int64_t dmg, int64_t price, Status* effect, int64_t chance, bool spread, std::string desc) : RegularItem(std::move(itemName), price, std::move(desc)) {
     damage = dmg;
     status = effect;
     effectChance = chance;
+    this->spreadDamage = spread;
 }
-AttackItem::AttackItem(std::string itemName, int64_t dmg, int64_t price, int64_t amnt, std::string desc) : RegularItem(std::move(itemName), price, amnt, std::move(desc)) {
+AttackItem::AttackItem(std::string itemName, int64_t dmg, int64_t price, int64_t amnt, bool spread, std::string desc) : RegularItem(std::move(itemName), price, amnt, std::move(desc)) {
     damage = dmg;
+    this->spreadDamage = spread;
 }
-AttackItem::AttackItem(std::string itemName, int64_t dmg, int64_t price, std::string desc) : RegularItem(std::move(itemName), price, std::move(desc)) {
+AttackItem::AttackItem(std::string itemName, int64_t dmg, int64_t price, bool spread, std::string desc) : RegularItem(std::move(itemName), price, std::move(desc)) {
     damage = dmg;
+    this->spreadDamage = spread;
 }
 AttackItem::AttackItem(AttackItem* at) : RegularItem(at)
 {
     this->damage = at->GetDamage();
+    this->status = at->GetStatus();
+    this->effectChance = at->GetChance();
+    this->spreadDamage = at->canSpread();
 }
 
 void AttackItem::SetDamage(int64_t dmg) { damage = dmg; }
 void AttackItem::SetStatus(Status* effect) { status = effect; }
 void AttackItem::SetChance(int64_t chance) { effectChance = chance; }
+void AttackItem::SetSpread(bool spread) { spreadDamage = spread; }
 
 int64_t AttackItem::GetDamage() const { return damage; }
 Status* AttackItem::GetStatus() { return status; }
 int64_t AttackItem::GetChance() const { return effectChance; }
+bool AttackItem::canSpread() const { return spreadDamage; }
 
 void AttackItem::display()
 {
@@ -171,10 +182,10 @@ StatusItem::StatusItem(std::string itemName, int64_t boost, statBoost stat, int6
 }
 StatusItem::StatusItem(StatusItem* st) : RegularItem(st)
 {
-    this->boost =st->boost;
-    this->stat = st->stat;
-    this->status = st->status;
-    this->effectChance = st->effectChance;
+    this->boost =st->GetBoost();
+    this->stat = st->GetStat();
+    this->status = st->GetStatus();
+    this->effectChance = st->GetChance();
 }
 
 void StatusItem::SetBoost(int64_t boost) { this->boost = boost; }
@@ -207,21 +218,21 @@ void StatusItem::Use(Entity* user, std::vector<Entity*> opponents)
 }
 
 NonConsumAttackItem::NonConsumAttackItem(std::string itemName, int64_t dmg, int64_t price, Status* effect, int64_t chance)
-    : AttackItem(std::move(itemName), dmg, price, effect, chance) {
+    : AttackItem(std::move(itemName), dmg, price, effect, chance, false) {
     stackable = false;
 }
 
 NonConsumAttackItem::NonConsumAttackItem(std::string itemName, int64_t dmg, int64_t price)
-    : AttackItem(std::move(itemName), dmg, price) {
+    : AttackItem(std::move(itemName), dmg, price, false) {
     stackable = false;
 }
 //Constructors with descriptions
 NonConsumAttackItem::NonConsumAttackItem(std::string itemName, int64_t dmg, int64_t price, Status* effect, int64_t chance, std::string desc)
-    : AttackItem(std::move(itemName), dmg, price, effect, chance, std::move(desc)) {
+    : AttackItem(std::move(itemName), dmg, price, effect, chance, false, std::move(desc)) {
     this->stackable = false;
 }
 NonConsumAttackItem::NonConsumAttackItem(std::string itemName, int64_t dmg, int64_t price, std::string desc)
-    : AttackItem(std::move(itemName), dmg, price, std::move(desc)) {
+    : AttackItem(std::move(itemName), dmg, price, false, std::move(desc)) {
     this->stackable = false;
 }
 NonConsumAttackItem::NonConsumAttackItem(NonConsumAttackItem* ncat) : AttackItem(ncat)

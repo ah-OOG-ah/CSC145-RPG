@@ -25,22 +25,24 @@ class AttackItem : public RegularItem {
     bool spreadDamage = false;
 
   public:
-    AttackItem(std::string itemName, int64_t dmg, int64_t price, Status* effect, int64_t chance);
-    AttackItem(std::string itemName, int64_t dmg, int64_t price, int64_t amnt);
-    AttackItem(std::string itemName, int64_t dmg, int64_t price);
+    AttackItem(std::string itemName, int64_t dmg, int64_t price, Status* effect, int64_t chance, bool spread);
+    AttackItem(std::string itemName, int64_t dmg, int64_t price, int64_t amnt, bool spread);
+    AttackItem(std::string itemName, int64_t dmg, int64_t price, bool spread);
     //Constructors with descriptions
-    AttackItem(std::string itemName, int64_t dmg, int64_t price, Status* effect, int64_t chance, std::string desc);
-    AttackItem(std::string itemName, int64_t dmg, int64_t price, int64_t amnt, std::string desc);
-    AttackItem(std::string itemName, int64_t dmg, int64_t price, std::string desc);
+    AttackItem(std::string itemName, int64_t dmg, int64_t price, Status* effect, int64_t chance, bool spread, std::string desc);
+    AttackItem(std::string itemName, int64_t dmg, int64_t price, int64_t amnt, bool spread, std::string desc);
+    AttackItem(std::string itemName, int64_t dmg, int64_t price, bool spread, std::string desc);
     AttackItem(AttackItem* at);
 
     void SetDamage(int64_t dmg);
     void SetStatus(Status* effect);
     void SetChance(int64_t chance);
+    void SetSpread(bool spread);
 
     [[nodiscard]] int64_t GetDamage() const;
     Status* GetStatus();
     [[nodiscard]] int64_t GetChance() const;
+    [[nodiscard]] bool canSpread() const;
     void display() override;
     void Use(Entity* user, std::vector<Entity*> opponents) override;
 };
