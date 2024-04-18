@@ -18,6 +18,7 @@ class Item : public Menu{
     //Constructor
     Item(std::string itemName, int64_t price, int64_t amnt, std::string desc);
     Item(std::string itemName, int64_t price, std::string desc);
+    Item(Item* i);
 
     //Getters
     std::string GetName();
