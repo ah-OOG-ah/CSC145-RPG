@@ -22,7 +22,7 @@ class Item : public Menu{
 
     //Getters
     std::string GetName();
-    virtual std::string GetAmntText() = 0;
+    virtual std::string GetAmntText();
     std::string GetDesc();
     [[nodiscard]] int64_t GetAmount() const;
     [[nodiscard]] int64_t GetPrice() const;

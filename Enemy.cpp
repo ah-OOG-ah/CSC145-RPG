@@ -14,16 +14,25 @@ Enemy::Enemy(std::string name, int64_t hp, int64_t attk, int64_t percDef, int64_
     int64_t amntOfItems = 4 + getRand() % 3;
     for(int i = 0; i < amntOfItems; i++)
     {
-        this->Inven.AddItem(invenSlots[getRand() % this->Inven.GetNumElements()]);
+        Item* newItem = new Item(invenSlots[getRand() % this->Inven.GetNumElements()]);
+        this->Inven.AddItem(newItem);
     }
     int64_t numWeapons = getRand() % 2;
     for(int j = 0; j <= numWeapons; j++)
     {
         Weapon* newWeapon = new Weapon(weaponSlots[getRand() % weaponSlots.size()]);
+        if(newWeapon != nullptr)
+        {
+            newWeapon->Use(this, nullptr);
+        }
     }
     for(int k = 0; k < 4; k++)
     {
-        armorSlots[getRand() % armorSlots.size()]->Use(this, nullptr); 
+        Armor* newArmor = new Armor(armorSlots[getRand() % armorSlots.size()]); 
+        if(newArmor != nullptr)
+        {
+            newArmor->Use(this, nullptr);
+        }
     }
 }
 
