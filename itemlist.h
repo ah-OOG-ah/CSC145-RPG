@@ -50,6 +50,9 @@ std::string staffDesc = "An old staff. While it has seem better days, it still h
 std::string bottleDesc = "A broken bottle of beer. Great for dealing damage but easily broken.";
 std::string goldSwordDesc = "A heavy sword made of solid gold. Not very durable but highly prized by merchants.";
 std::string whipDesc = "a flexible and durable whip, handy to beat orphans.";
+std::string undeadBladeDesc = "A sharp blade that reaks of death. Every second you hold it, the more it feels like the souls of the dead surround you";
+std::string boneDesc = "A thick bone that seems to come from a femur. The bone looks oddly human-like.";
+std::string katanaDesc = "A sharp, one-edged sword. So sharp, that even running your finger across it seems risky";
 Weapon sword("Sword", 20, 25, 20, swordDesc);
 Weapon spear("Spear", 10, 20, 15, spearDesc);
 Weapon hammer("Gorilla Hammer", 30, 50, 45, hammerDesc);
@@ -57,6 +60,10 @@ Weapon staff("Staff", 10, 10, 8, staffDesc);
 Weapon bottle("Broken Bottle", 3, 70, 4, bottleDesc);
 Weapon goldSword("Gold Sword", 5, 50, 100, goldSwordDesc);
 Weapon whip("Orphan Whip", 40, 5, 20, whipDesc);
+Weapon undeadBlade("Undead Blade", 30, 30, 70, undeadBladeDesc);
+Weapon bone("Bone", 10, 20, 10, boneDesc);
+Weapon katana("Katana", 18, 32, 30, katanaDesc);
+
 
 //Armor(Name, durability, percentageDef, staticDef, price, ArmorType (enum), description)
 std::string steelHelmDesc = "A reliable steel helmet to protect you from concusions.";
