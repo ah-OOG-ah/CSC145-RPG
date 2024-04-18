@@ -25,6 +25,7 @@ class Entity {
     //Helmet: 0, Chestplate: 1, Leggings: 2, Boots: 3
     explicit Entity(int64_t hp);
     explicit Entity(std::string name, int64_t hp, int64_t attk, int64_t percDef, int64_t staticDef, int64_t spd);
+    Entity(Entity* e);
 
     [[nodiscard]] std::string getName() const;
     [[nodiscard]] int64_t getHp() const;

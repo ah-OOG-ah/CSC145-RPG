@@ -13,6 +13,15 @@ Entity::Entity(std::string name, int64_t hp, int64_t attk, int64_t percDef, int6
     this->staticDef = staticDef;
     this->spd = spd;
 }
+Entity::Entity(Entity* e)
+{
+    this->name = e->getName();
+    this->hp = e->getHp();
+    this->attk = e->getAttk();
+    this->percDef = e->getPercDef();
+    this->staticDef = e->getStaticDef();
+    this->spd = e->getSpd();
+}
 
 std::string Entity::getName() const { return name; }
 
