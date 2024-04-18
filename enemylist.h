@@ -113,13 +113,16 @@ Enemy rockMonster ("Rock Monster", 50, 5, 30, 30, 5, noItems, noWeapons, rockSet
 Enemy baboon("Baboon", 30, 10, 10, 10, 10, basicItems, swordsOnly, noArmor, baboonSprite);
 //Only difference between two baboons is behavior and sprite
 Enemy angryBaboon("Angry Baboon", 30, 10, 10, 10, 10, basicItems, swordsOnly, noArmor, angryBaboonSprite);
-Enemy smallSentry("Mini Sentry", 50, 25, 12, 12, 15, healItemsOnly, rareWeapons, chainSet, smallSentrySprite);
-Enemy sentry("Sentry", 80, 30, 20, 12, 5, healItemsOnly, rareWeapons, betterArmor, sentrySprite);
-Enemy steelSentry("Steel sentry", 100, 30, 30, 18, 5, healItemsOnly, rareWeapons, steelSet, steelSentrySprite);
+Enemy smallSentry("Mini Sentry", 50, 25, 12, 12, 15, sentryItems, rareWeapons, chainSet, smallSentrySprite);
+Enemy sentry("Sentry", 80, 30, 20, 12, 5, sentryItems, rareWeapons, betterArmor, sentrySprite);
+Enemy steelSentry("Steel sentry", 100, 30, 30, 18, 5, sentryItems, rareWeapons, steelSet, steelSentrySprite);
 Enemy basedBat("Based Bat", 35, 15, 7, 7, 30, basicItems, basicWeapons, basicArmor, batSprite);
 Enemy veryBasedBat("Very Based Bat", 50, 18, 10, 10, 35, basicItems, basicWeapons, steelSet, batSprite);
-Enemy tradBasedBat("Based and Trad Bat", 75, 25, 7, 12, 35, basicItems, rareWeapons, topTierArmor, tradBatSprite);
-Enemy mummy("Mummy", 65, 20, 10, 10, 12, noItems, noWeapons, noArmor, mummySprite);
+Enemy tradBasedBat("Based and Trad Bat", 55, 25, 7, 12, 35, bombsOnly, rareWeapons, topTierArmor, tradBatSprite);
+Enemy mummy("Mummy", 65, 20, 10, 10, 12, mummyItems, undeadWeapons, noArmor, mummySprite);
+Enemy zombie("Zombie", 65, 20, 10, 10, 12, betterItems, undeadWeapons, noArmor, zombieSprite);
+Enemy ghoul("Ghoul", 60, 10, 20, 20, 30, betterItems, undeadWeapons, basicArmor, ghoulSprite);
+Enemy monkeyGhoul("Monkey Ghoul", 65, 25, 15, 15, 15, betterItems, undeadWeapons, basicArmor, monkeyGhoulSprite);
+Enemy cyrptogriph("Cryptogriph", 50, 10, 24, 16, 40, bombsOnly, swordsOnly, steelSet, cryptogriphSprite);
 
-
-Enemy MonkeyBob("Monkey Bob", 200, 40, 35, 35, 50, healItemsOnly, rareWeapons, topTierArmor, MonkeyBobSprite);
+Enemy MonkeyBob("Monkey Bob", 200, 40, 35, 35, 50, gorillaBombOnly, rareWeapons, topTierArmor, MonkeyBobSprite);
