@@ -31,6 +31,12 @@ Weapon::Weapon(std::string itemName, int64_t durab, int64_t dmg, int64_t price, 
     dmgMultiplier = dmg;
 }
 
+Weapon::Weapon(Weapon* w)
+{
+    this->amount = w->amount;
+
+}
+
 int64_t Weapon::GetDamage() const { return dmgMultiplier; };
 
 void Weapon::SetDamage(int64_t dmg) { dmgMultiplier = dmg; };

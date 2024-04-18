@@ -19,7 +19,7 @@ Enemy::Enemy(std::string name, int64_t hp, int64_t attk, int64_t percDef, int64_
     int64_t numWeapons = getRand() % 2;
     for(int j = 0; j <= numWeapons; j++)
     {
-        weaponSlots[getRand() % weaponSlots.size()]->Use(this, nullptr); //Equips armor automatically. If armor already equipped adds old armor to inventory
+        Weapon* newWeapon = new Weapon(weaponSlots[getRand() % weaponSlots.size()]);
     }
     for(int k = 0; k < 4; k++)
     {

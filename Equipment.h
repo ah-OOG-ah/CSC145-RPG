@@ -25,6 +25,7 @@ class Weapon : public Equipment {
   public:
     Weapon(std::string itemName, int64_t durab, int64_t dmg, int64_t price);
     Weapon(std::string itemName, int64_t durab, int64_t dmg, int64_t price, std::string desc);
+    Weapon(Weapon* w);
     [[nodiscard]] int64_t GetDamage() const;
     void SetDamage(int64_t dmg);
     void Use(Entity* user, Entity* opponent) override;
@@ -47,6 +48,7 @@ class Armor : public Equipment {
     //Constructors with Descriptions
     Armor(std::string itemName, int64_t durab, int64_t pDef, int64_t sDef, int64_t price, ArmorType mold, std::string desc);
     Armor(std::string itemName, int64_t durab, int64_t pDef, int64_t sDef, int64_t dmg, int64_t price, ArmorType mold, std::string desc);
+    Armor(Armor* a);
     [[nodiscard]] int64_t GetPercDef() const;
     [[nodiscard]] int64_t GetStaticDef() const;
     [[nodiscard]] int64_t GetDmgMult() const;
