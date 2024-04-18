@@ -66,12 +66,25 @@ void AttackItem::display()
     return;
 }
 
-void AttackItem::Use(Entity* user, Entity* opponent)
+void AttackItem::Use(Entity* user, std::vector<Entity*> opponents)
 {
-    opponent->changeHP(-1 * this->GetDamage());
-    user->Inven.RemoveItem(user->Inven.GetPos(this), 1);
-    std::cout << user->getName() << " used " << this->GetName() << std::endl;
-    std::cout << opponent->getName() << " took " << this->GetDamage() << " damage " << std::endl;
+    if(this->spreadDamage)
+    {
+        user->Inven.RemoveItem(user->Inven.GetPos(this), 1);
+        std::cout << user->getName() << " used " << this->GetName() << std::endl;
+        for(Entity* target : opponents)
+        {
+            target->changeHP(-1 * this->GetDamage());
+            std::cout << target->getName() << " took " << this->GetDamage() << " damage " << std::endl;
+        }
+    }
+    else
+    {
+        opponents[0]->changeHP(-1 * this->GetDamage());
+        user->Inven.RemoveItem(user->Inven.GetPos(this), 1);
+        std::cout << user->getName() << " used " << this->GetName() << std::endl;
+        std::cout << opponents[0]->getName() << " took " << this->GetDamage() << " damage " << std::endl;
+    }
 }
 
 HealItem::HealItem(std::string itemName, int64_t hp, int64_t price) : RegularItem(std::move(itemName), price) {
@@ -112,7 +125,7 @@ void HealItem::display()
         std::getline(std::cin, choice);
         if(choice == "HEAL") 
         {
-            this->Use(getPlayer().get(), nullptr);
+            this->Use(getPlayer().get(), std::vector<Entity*>{nullptr});
             if(this->GetAmount() <= 0)
             {
                 return;
@@ -126,7 +139,7 @@ void HealItem::display()
     return;
 }
 
-void HealItem::Use(Entity* user, Entity* opponent)
+void HealItem::Use(Entity* user, std::vector<Entity*> opponents)
 {
     user->changeHP(this->GetHpAmnt());
     user->Inven.RemoveItem(user->Inven.GetPos(this), 1);
@@ -188,7 +201,7 @@ void StatusItem::display()
     return;
 }
 
-void StatusItem::Use(Entity* user, Entity* opponent)
+void StatusItem::Use(Entity* user, std::vector<Entity*> opponents)
 {
     return; //Exact implementation awaits
 }

@@ -23,7 +23,7 @@ Enemy::Enemy(std::string name, int64_t hp, int64_t attk, int64_t percDef, int64_
         Weapon* newWeapon = new Weapon(weaponSlots[getRand() % weaponSlots.size()]);
         if(newWeapon != nullptr)
         {
-            newWeapon->Use(this, nullptr);
+            newWeapon->Use(this, std::vector<Entity*>{nullptr});
         }
     }
     for(int k = 0; k < 4; k++)
@@ -31,7 +31,7 @@ Enemy::Enemy(std::string name, int64_t hp, int64_t attk, int64_t percDef, int64_
         Armor* newArmor = new Armor(armorSlots[getRand() % armorSlots.size()]); 
         if(newArmor != nullptr)
         {
-            newArmor->Use(this, nullptr);
+            newArmor->Use(this, std::vector<Entity*>{nullptr});
         }
     }
 }
