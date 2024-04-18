@@ -21,8 +21,15 @@ std::string rockSprite =
 std::string baboonSprite = 
 "     \n"
 "     \n"
-"(080)\n"
+" 0..0\n"
+"  -- \n"
+"     \n";
+
+std::string angryBaboonSprite = 
 "     \n"
+" \\  /\n"
+" O..O\n"
+"  ~~ \n"
 "     \n";
 
 std::string batSprite =
@@ -53,13 +60,22 @@ std::string smallSentrySprite =
 " | | \n"
 " O O \n";
 
+std::string MonkeyBobSprite =
+"HAIL OBAMA\n"
+"{(|)..(|)}\n"
+"    --    \n";
+
 //Enemy(name,hp,attk,percDef,staticDef,spd, invenSlots, weaponSlots, armorSlots, sprite)
 Enemy wideSpider ("WIDE Spider", 20, 10, 10, 5, 20, rocksOnly, noWeapons, noArmor, spiderSprite);
 Enemy rockMonster ("Rock Monster", 50, 5, 30, 30, 5, noItems, noWeapons, rockSet, rockSprite);
 Enemy baboon("Baboon", 30, 10, 10, 10, 10, basicItems, swordsOnly, noArmor, baboonSprite);
+//Only difference between two baboons is behavior and sprite
+Enemy angryBaboon("Angry Baboon", 30, 10, 10, 10, 10, basicItems, swordsOnly, noArmor, angryBaboonSprite);
 Enemy smallSentry("Mini Sentry", 50, 25, 12, 12, 15, healItemsOnly, rareWeapons, chainSet, smallSentrySprite);
 Enemy sentry("Sentry", 80, 30, 20, 12, 5, healItemsOnly, rareWeapons, betterArmor, sentrySprite);
 Enemy steelSentry("Steel sentry", 100, 30, 30, 18, 5, healItemsOnly, rareWeapons, steelSet, steelSentrySprite);
 Enemy basedBat("Based Bat", 35, 15, 7, 7, 30, basicItems, basicWeapons, basicArmor, batSprite);
 Enemy veryBasedBat("Very Based Bat", 50, 18, 10, 10, 35, basicItems, basicWeapons, steelSet, batSprite);
 Enemy tradBasedBat("Based and Trad Bat", 75, 25, 7, 12, 35, basicItems, rareWeapons, topTierArmor, batSprite);
+
+Enemy MonkeyBob("Monkey Bob", 200, 40, 35, 35, 50, healItemsOnly, rareWeapons, topTierArmor, MonkeyBobSprite);
