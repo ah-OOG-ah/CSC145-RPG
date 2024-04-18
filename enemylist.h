@@ -39,6 +39,13 @@ std::string batSprite =
 "     \n"
 "     \n";
 
+std::string tradBatSprite =
+"     \n"
+"  +  \n"
+" \\o/ \n"
+"     \n"
+"     \n";
+
 std::string sentrySprite =
 " (0) \n"
 "-----\n"
@@ -60,6 +67,41 @@ std::string smallSentrySprite =
 " | | \n"
 " O O \n";
 
+std::string mummySprite =
+"     \n"
+"  O  \n"
+" /#\\ \n"
+"  #  \n"
+" # # \n";
+
+std::string zombieSprite =
+"     \n"
+"     \n"
+"  O  \n"
+" /%\\ \n"
+" / \\ \n";
+
+std::string ghoulSprite = 
+"     \n"
+"(* *)\n"
+"  *  \n"
+"  *  \n"
+" *** \n";
+
+std::string monkeyGhoulSprite = 
+"     \n"
+"*. .*\n"
+" ___ \n"
+"  *  \n"
+" *** \n";
+
+std::string cryptogriphSprite = 
+" ^ ^ \n"
+" ^ ^ \n"
+"{***}\n"
+" ### \n"
+"@ @ @\n";
+
 std::string MonkeyBobSprite =
 "HAIL OBAMA\n"
 "{(|)..(|)}\n"
@@ -76,6 +118,8 @@ Enemy sentry("Sentry", 80, 30, 20, 12, 5, healItemsOnly, rareWeapons, betterArmo
 Enemy steelSentry("Steel sentry", 100, 30, 30, 18, 5, healItemsOnly, rareWeapons, steelSet, steelSentrySprite);
 Enemy basedBat("Based Bat", 35, 15, 7, 7, 30, basicItems, basicWeapons, basicArmor, batSprite);
 Enemy veryBasedBat("Very Based Bat", 50, 18, 10, 10, 35, basicItems, basicWeapons, steelSet, batSprite);
-Enemy tradBasedBat("Based and Trad Bat", 75, 25, 7, 12, 35, basicItems, rareWeapons, topTierArmor, batSprite);
+Enemy tradBasedBat("Based and Trad Bat", 75, 25, 7, 12, 35, basicItems, rareWeapons, topTierArmor, tradBatSprite);
+Enemy mummy("Mummy", 65, 20, 10, 10, 12, noItems, noWeapons, noArmor, mummySprite);
+
 
 Enemy MonkeyBob("Monkey Bob", 200, 40, 35, 35, 50, healItemsOnly, rareWeapons, topTierArmor, MonkeyBobSprite);
