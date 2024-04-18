@@ -69,6 +69,38 @@ class HealItem : public RegularItem
     void Use(Entity* user, Entity* opponent) override;
 };
 
+enum statBoost {attack, percdef, staticdef, speed };
+
+class StatusItem : public RegularItem {
+  protected:
+    int64_t boost;
+    statBoost stat;
+    Status* status = nullptr;
+    int64_t effectChance = 0;
+
+  public:
+    StatusItem(std::string itemName, int64_t boost, statBoost stat, int64_t price, Status* effect, int64_t chance);
+    StatusItem(std::string itemName, int64_t boost, statBoost stat, int64_t price, int64_t amnt);
+    StatusItem(std::string itemName, int64_t boost, statBoost stat, int64_t price);
+    //Constructors with descriptions
+    StatusItem(std::string itemName, int64_t boost, statBoost stat, int64_t price, Status* effect, int64_t chance, std::string desc);
+    StatusItem(std::string itemName, int64_t boost, statBoost stat, int64_t price, int64_t amnt, std::string desc);
+    StatusItem(std::string itemName, int64_t boost, statBoost stat, int64_t price, std::string desc);
+    StatusItem(StatusItem* st);
+
+    void SetBoost(int64_t boost);
+    void SetStat(statBoost stat);
+    void SetStatus(Status* effect);
+    void SetChance(int64_t chance);
+
+    [[nodiscard]] int64_t GetBoost() const;
+    [[nodiscard]] statBoost GetStat() const;
+    Status* GetStatus();
+    [[nodiscard]] int64_t GetChance() const;
+    void display() override;
+    void Use(Entity* user, Entity* opponent) override;
+};
+
 class NonConsumAttackItem : public AttackItem {
   public:
     //stackable is set to false

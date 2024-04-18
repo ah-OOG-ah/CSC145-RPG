@@ -134,6 +134,65 @@ void HealItem::Use(Entity* user, Entity* opponent)
     std::cout << user->getName() << " HP was restored by " << this->GetHpAmnt() << "HP" << std::endl;
 }
 
+StatusItem::StatusItem(std::string itemName, int64_t boost, statBoost stat, int64_t price, Status* effect, int64_t chance) : StatusItem(itemName, boost, stat, price, effect, chance, "NONE") {}
+
+StatusItem::StatusItem(std::string itemName, int64_t boost, statBoost stat, int64_t price, int64_t amnt) : StatusItem(itemName, boost, stat, price, amnt, "NONE") {}
+StatusItem::StatusItem(std::string itemName, int64_t boost, statBoost stat, int64_t price) : StatusItem(itemName, boost, stat, price, "NONE") {}
+//Constructors with descriptions
+StatusItem::StatusItem(std::string itemName, int64_t boost, statBoost stat, int64_t price, Status* effect, int64_t chance, std::string desc) : RegularItem(itemName, price, desc)
+{
+    this->boost = boost;
+    this->stat = stat;
+    this->status = effect;
+    this->effectChance = chance;
+}
+StatusItem::StatusItem(std::string itemName, int64_t boost, statBoost stat, int64_t price, int64_t amnt, std::string desc) : RegularItem(itemName, price, amnt, desc)
+{
+    this->boost = boost;
+    this->stat = stat;
+}
+StatusItem::StatusItem(std::string itemName, int64_t boost, statBoost stat, int64_t price, std::string desc) : RegularItem(itemName, price, desc)
+{
+    this->boost = boost;
+    this->stat = stat;
+}
+StatusItem::StatusItem(StatusItem* st) : RegularItem(st)
+{
+    this->boost =st->boost;
+    this->stat = st->stat;
+    this->status = st->status;
+    this->effectChance = st->effectChance;
+}
+
+void StatusItem::SetBoost(int64_t boost) { this->boost = boost; }
+void StatusItem::SetStat(statBoost stat) { this->stat = stat; }
+void StatusItem::SetStatus(Status* effect) { status = effect; }
+void StatusItem::SetChance(int64_t chance) { effectChance = chance; }
+
+int64_t StatusItem::GetBoost() const { return this->boost; }
+statBoost StatusItem::GetStat() const { return this->stat; }
+Status* StatusItem::GetStatus() { return this->status; }
+int64_t StatusItem::GetChance() const { return this->effectChance; }
+
+void StatusItem::display()
+{
+    std::cout << entries[0] << std::endl;
+    std::cout << "Price: " << this->GetPrice() << std::endl;
+    std::cout << "Boosts: " << this->GetStat() << std::endl;
+    std::cout << "Boost Amount: " << this->GetBoost() << std::endl;
+    std::cout << "Amount: " << this->GetAmount() << this->GetAmntText() << std::endl;
+    std::cout << entries[1] << std::endl;
+    std::cout << "Enter any key to exit " << std::endl;
+    std::string choice;
+    std::getline(std::cin, choice);
+    return;
+}
+
+void StatusItem::Use(Entity* user, Entity* opponent)
+{
+    return; //Exact implementation awaits
+}
+
 NonConsumAttackItem::NonConsumAttackItem(std::string itemName, int64_t dmg, int64_t price, Status* effect, int64_t chance)
     : AttackItem(std::move(itemName), dmg, price, effect, chance) {
     stackable = false;
