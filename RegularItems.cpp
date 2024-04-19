@@ -95,14 +95,35 @@ void AttackItem::Use(Entity* user, std::vector<Entity*> opponents)
         {
             target->changeHP(-1 * this->GetDamage());
             std::cout << target->getName() << " took " << this->GetDamage() << " damage " << std::endl;
+            if(this->status != nullptr)
+            {
+                int64_t chance = getRand() % 10;
+                if(chance <= this->effectChance) 
+                {
+                    Status* ailment = new Status(this->status);
+                    target->setStatus(ailment);
+                    std::cout << target->getName() << " was afflicted by " << this->status->GetName() << std::endl;
+                }
+            }
         }
+        user->Inven.RemoveItem(user->Inven.GetPos(this), 1);
     }
     else
     {
         opponents[0]->changeHP(-1 * this->GetDamage());
-        user->Inven.RemoveItem(user->Inven.GetPos(this), 1);
         std::cout << user->getName() << " used " << this->GetName() << std::endl;
         std::cout << opponents[0]->getName() << " took " << this->GetDamage() << " damage " << std::endl;
+        if(this->status != nullptr)
+        {
+            int64_t chance = getRand() % 10;
+            if(chance <= this->effectChance) 
+            {
+                Status* ailment = new Status(this->status);
+                opponents[0]->setStatus(ailment);
+                std::cout << opponents[0]->getName() << " was afflicted by " << this->status->GetName() << std::endl;
+            }
+        }
+        user->Inven.RemoveItem(user->Inven.GetPos(this), 1);
     }
 }
 
@@ -119,9 +140,14 @@ HealItem::HealItem(std::string itemName, int64_t hp, int64_t price, std::string 
 HealItem::HealItem(std::string itemName, int64_t hp, int64_t price, int64_t amnt, std::string desc) : RegularItem(std::move(itemName), price, amnt, std::move(desc)) {
     hpAmnt = hp;
 }
+HealItem::HealItem(std::string itemName, int64_t hp, int64_t price, Status* effect, std::string desc) : RegularItem(std::move(itemName), price, std::move(desc)) {
+    hpAmnt = hp;
+    this->healedStatus = effect;
+}
 HealItem::HealItem(HealItem* ht) : RegularItem(ht)
 {
     this->hpAmnt = ht->GetHpAmnt();
+    this->healedStatus = ht->GetHealedStatus();
 }
 
 void HealItem::SetHpAmnt(int64_t hp) { hpAmnt = hp; }
@@ -135,6 +161,10 @@ void HealItem::display()
     std::cout << entries[0] << std::endl;
     std::cout << "Price: " << this->GetPrice() << std::endl;
     std::cout << "Heals: " << this->GetHpAmnt() << std::endl;
+    if(this->healedStatus != nullptr)
+    {
+        std::cout << "Cures: " << this->GetHealedStatus()->GetName() << std::endl;
+    }
     std::cout << "Amount: " << this->GetAmount() << this->GetAmntText() << std::endl;
     std::cout << entries[1] << std::endl;
     std::cout << "Enter EXIT to exit or HEAL to heal with this item" << std::endl;
@@ -163,7 +193,17 @@ void HealItem::Use(Entity* user, std::vector<Entity*> opponents)
     user->changeHP(this->GetHpAmnt());
     user->Inven.RemoveItem(user->Inven.GetPos(this), 1);
     std::cout << user->getName() << " used " << this->GetName() << std::endl;
-    std::cout << user->getName() << " HP was restored by " << this->GetHpAmnt() << "HP" << std::endl;
+    if(hpAmnt != 0)
+    {
+        std::cout << user->getName() << " HP was restored by " << this->GetHpAmnt() << "HP" << std::endl;
+    }
+    if(this->healedStatus != nullptr)
+    {
+        if(this->healedStatus->GetName() == user->getStatus()->GetName()) {
+            user->setStatus(nullptr);
+            std::cout << user->getName() << " was cured of " << this->healedStatus->GetName() << std::endl;
+        }
+    }
 }
 
 StatusItem::StatusItem(std::string itemName, int64_t boost, statBoost stat, int64_t price, Status* effect, int64_t chance) : StatusItem(itemName, boost, stat, price, effect, chance, "NONE") {}
@@ -176,7 +216,6 @@ StatusItem::StatusItem(std::string itemName, int64_t boost, statBoost stat, int6
     this->boost = boost;
     this->stat = stat;
     this->status = effect;
-    this->effectChance = chance;
 }
 StatusItem::StatusItem(std::string itemName, int64_t boost, statBoost stat, int64_t price, int64_t amnt, std::string desc) : RegularItem(itemName, price, amnt, desc)
 {
@@ -193,7 +232,6 @@ StatusItem::StatusItem(StatusItem* st) : RegularItem(st)
     this->boost =st->GetBoost();
     this->stat = st->GetStat();
     this->status = st->GetStatus();
-    this->effectChance = st->GetChance();
 }
 
 void StatusItem::SetBoost(int64_t boost) { this->boost = boost; }
@@ -261,7 +299,7 @@ void StatusItem::Use(Entity* user, std::vector<Entity*> opponents)
         std::cout << user->getName() << " used " << this->name << std::endl;
         std::cout << user->getName() <<"'s Speed was boosted " << this->boost << " points!" << std::endl;
     }
-    user->Inven.RemoveItem(this);
+    user->Inven.RemoveItem(this, 1);
 }
 
 NonConsumAttackItem::NonConsumAttackItem(std::string itemName, int64_t dmg, int64_t price, Status* effect, int64_t chance)

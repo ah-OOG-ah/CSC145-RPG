@@ -4,6 +4,7 @@
 #include "RegularItems.h"
 #include "Equipment.h"
 //AttackIem(Name, damage, price, canSpread, description)
+//AttackItem(Name, damage, price, effect, chance, canSpread, description);
 std::string rockDesc = "A simple rock to throw at enemies.";
 std::string dartDesc = "Peruvian dart to throw at enemies.";
 std::string throwingAxeDesc = "A small axe, perfect for throwing at enemies. Timber!";
@@ -29,7 +30,8 @@ HealItem zombieBlood("Zombie Blood", -10, 5, zombieBloodDesc);
 HealItem elixir("Elixir", 40, 25, elixirDesc);
 HealItem cookie("Cookie", 5, 3, cookieDesc);
 
-//StatusItem(std::string itemName, int64_t boost, statBoost stat, int64_t price, std::string desc)
+//StatusItem(name, boost, stat, price, description)
+//StatusItem(name, boost, stat, price, effect, chance, description);
 std::string roidsDesc = "Literal steroids bro";
 std::string amuletDesc = "An amulet dropped by mummies. Has an inscription of Anubis, the Egyptian god of death and supposed inventor of embalming";
 std::string magicShieldDesc = "An artifact that temporally creates a magic sheild of energy around your body";
