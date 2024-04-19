@@ -17,4 +17,5 @@ class Enemy : public Entity {
     [[nodiscard]] std::string getSprite() const;
     [[nodiscard]] std::vector<Item*> getExtraLoot();
     [[nodiscard]] std::string toString() const override;
+    void dropLoot(Entity* player);
 };
