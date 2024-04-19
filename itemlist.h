@@ -3,6 +3,7 @@
 #include "item.h"
 #include "RegularItems.h"
 #include "Equipment.h"
+#include "statustypes.h"
 //AttackIem(Name, damage, price, canSpread, description)
 //AttackItem(Name, damage, price, effect, chance, canSpread, description);
 std::string rockDesc = "A simple rock to throw at enemies.";
@@ -10,13 +11,16 @@ std::string dartDesc = "Peruvian dart to throw at enemies.";
 std::string throwingAxeDesc = "A small axe, perfect for throwing at enemies. Timber!";
 std::string bombDesc = "A bomb with a big punch and wide range.";
 std::string gorillaBombDesc = "A gorilla sized bomb with a big wallop. All opponents take massive damage.";
+std::string bucketOfSludgeDesc = "A bucket of sludge and waste to throw at enemies.";
 AttackItem rock("Rock", 10, 2, false, rockDesc);
 AttackItem dart("Dart", 15, 5, false, dartDesc);
 AttackItem throwingAxe("Throwing Axe", 20, 15, false, throwingAxeDesc);
 AttackItem bomb("Bomb", 20, 25, true, bombDesc);
 AttackItem gorillaBomb("Gorilla Bomb", 50, 80, true, gorillaBombDesc);
+AttackItem bucketOfSludge("Bucket of Sludge", 0, 15, &poison, 4, false, bucketOfSludgeDesc);
 
 //HealItem(Name, healAmnt, price, description)
+//HealItem(Name, healAmnt, price, status, description)
 std::string waterDesc = "Clear water as pure as Ryan Reynolds. Heals moderately.";
 std::string bananaDesc = "A nutrious, delicous banana. Stores health moderately.";
 std::string elixirDesc = "strange liquid with the consistency of medicine but taste of milk. Heals greatly.";
@@ -31,7 +35,6 @@ HealItem elixir("Elixir", 40, 25, elixirDesc);
 HealItem cookie("Cookie", 5, 3, cookieDesc);
 
 //StatusItem(name, boost, stat, price, description)
-//StatusItem(name, boost, stat, price, effect, chance, description);
 std::string roidsDesc = "Literal steroids bro";
 std::string amuletDesc = "An amulet dropped by mummies. Has an inscription of Anubis, the Egyptian god of death and supposed inventor of embalming";
 std::string magicShieldDesc = "An artifact that temporally creates a magic sheild of energy around your body";

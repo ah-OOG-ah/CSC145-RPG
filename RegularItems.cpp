@@ -20,7 +20,8 @@ std::string RegularItem::GetAmntText() {
 
 AttackItem::AttackItem(std::string itemName, int64_t dmg, int64_t price, Status* effect, int64_t chance, bool spread) : RegularItem(std::move(itemName), price) {
     damage = dmg;
-    status = effect;
+    Status* ailment = new Status(effect);
+    status = ailment;
     effectChance = chance;
     this->spreadDamage = spread;
 }
@@ -35,6 +36,7 @@ AttackItem::AttackItem(std::string itemName, int64_t dmg, int64_t price, bool sp
 //Constructors with descriptions
 AttackItem::AttackItem(std::string itemName, int64_t dmg, int64_t price, Status* effect, int64_t chance, bool spread, std::string desc) : RegularItem(std::move(itemName), price, std::move(desc)) {
     damage = dmg;
+    Status* ailment = new Status(effect);
     status = effect;
     effectChance = chance;
     this->spreadDamage = spread;
@@ -50,7 +52,8 @@ AttackItem::AttackItem(std::string itemName, int64_t dmg, int64_t price, bool sp
 AttackItem::AttackItem(AttackItem* at) : RegularItem(at)
 {
     this->damage = at->GetDamage();
-    this->status = at->GetStatus();
+    Status* ailment = new Status(at->GetStatus());
+    this->status = ailment;
     this->effectChance = at->GetChance();
     this->spreadDamage = at->canSpread();
 }
@@ -146,12 +149,14 @@ HealItem::HealItem(std::string itemName, int64_t hp, int64_t price, int64_t amnt
 }
 HealItem::HealItem(std::string itemName, int64_t hp, int64_t price, Status* effect, std::string desc) : RegularItem(std::move(itemName), price, std::move(desc)) {
     hpAmnt = hp;
-    this->healedStatus = effect;
+    Status* cure = new Status(effect);
+    this->healedStatus = cure;
 }
 HealItem::HealItem(HealItem* ht) : RegularItem(ht)
 {
     this->hpAmnt = ht->GetHpAmnt();
-    this->healedStatus = ht->GetHealedStatus();
+    Status* cure = new Status(ht->GetHealedStatus());
+    this->healedStatus = cure;
 }
 
 void HealItem::SetHpAmnt(int64_t hp) { hpAmnt = hp; }
