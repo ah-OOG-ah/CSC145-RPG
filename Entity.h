@@ -5,6 +5,7 @@
 #include "Equipment.h"
 #include "inventory.h"
 #include <array>
+#include "Status.h"
 
 class Entity {
 
@@ -16,7 +17,9 @@ class Entity {
     int64_t staticDef = 0; // Subtracts a set amount of damage from a hit
     int64_t spd = 10; // Used to determine turn order
     int64_t mp = 0; // Used to have a magic points system if we want include that
+    Status* currentStatus = nullptr;
     bool isFleeing = false;
+    bool canAct = true;
 
   public:
     Inventory Inven;
@@ -34,10 +37,13 @@ class Entity {
     [[nodiscard]] int64_t getPercDef() const;
     [[nodiscard]] int64_t getSpd() const;
     [[nodiscard]] int64_t getMp() const;
+    [[nodiscard]] Status* getStatus();
     [[nodiscard]] bool getFleeing() const;
+    [[nodiscard]] bool getCanAct() const;
     [[nodiscard]] bool getAlive() const;
 
     void setFleeing(bool);
+    void setCanAct(bool);
 
     // Applies this entitiy's attack to the passed entity
     void attackEntity(Entity* enemy) const;
@@ -47,6 +53,7 @@ class Entity {
     void changePercDef(int64_t);
     void changeStaticDef(int64_t);
     void changeSpd(int64_t);
+    void setStatus(Status*);
 
     [[nodiscard]] virtual std::string toString() const;
 };
