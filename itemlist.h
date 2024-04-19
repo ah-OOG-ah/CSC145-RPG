@@ -45,18 +45,24 @@ HealItem cookie("Cookie", 5, 3, cookieDesc);
 HealItem rubberFruit("Rubber Fruit", 0, 15, &paralysis, rubberFruitDesc);
 
 //StatusItem(name, boost, stat, price, description)
+//StatusItem(name, boost, stat, price, Status, chance, description)
 std::string roidsDesc = "Literal steroids bro";
-std::string amuletDesc = "An amulet dropped by mummies. Has an inscription of Anubis, the Egyptian god of death and supposed inventor of embalming";
+std::string superRoidsDesc = "Even better steroids bro";
+std::string anubisAmuletDesc = "An amulet dropped by mummies. Has an inscription of Anubis, the Egyptian god of death and supposed inventor of embalming";
+std::string setAmuletDesc = "An amulet dropped by mummies. Has an inscription of Set, the Egyptian god who is the rival of Horus and got into conflict with Anubis";
 std::string magicShieldDesc = "An artifact that temporally creates a magic sheild of energy around your body";
 std::string sentryHeadDesc = "The head of a sentry. Its strength flows through your body";
 std::string ninjaBandDesc = "The headband of a ninja. It causes you to put your arms straight behind you as you run, increasing your speed";
 std::string cryptoHeartDesc = "The heart of a cryptogriph. A strange power from within makes your skin like steel";
 StatusItem roids("'Roids", 2, attack, 15, roidsDesc);
-StatusItem amulet("Amulet of Anubis", 5, staticdef, 45, amuletDesc);
+StatusItem superRoids("Super 'Roids", 15, attack, 60, &paralysis, 10, superRoidsDesc);
+StatusItem anubisAmulet("Amulet of Anubis", 5, staticdef, 45, anubisAmuletDesc);
+StatusItem setAmulet("Amulet of Set", 10, staticdef, 45, &poison, 10, setAmuletDesc);
 StatusItem magicShield("Magic Shield", 5, percdef, 30, magicShieldDesc);
 StatusItem sentryHead("Sentry Head", 10, attack, 50, sentryHeadDesc);
 StatusItem ninjaBand("Ninja Band", 15, speed, 25, ninjaBandDesc);
-StatusItem cryptoHeart("Cryptogriph Heart", 10, staticdef, 60, cryptoHeartDesc);
+StatusItem cryptoHeart("Cryptogriph Heart", 10, staticdef, 60, &paralysis, 4, cryptoHeartDesc);
+
 
 
 //Weapon(Name, durability, damageMultiplier, price, description)
