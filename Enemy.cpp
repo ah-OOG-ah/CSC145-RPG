@@ -118,6 +118,10 @@ void Enemy::dropLoot(Entity* player)
     for(int j = 0; j < amntOfLoot; j++)
     {
         int64_t pos = getRand() % lootVector.size();
+        if(lootVector[pos] == nullptr)
+        {
+            continue;
+        }
         std::cout << " a(n) " << lootVector[pos]->GetName() << std::endl;
         droppedLoot.insert(droppedLoot.begin(), lootVector[pos]);
     }
