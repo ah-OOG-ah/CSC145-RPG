@@ -2,18 +2,20 @@
 
 #include <cstdint>
 
-Status::Status(std::string n, int64_t turns, int64_t damage, int64_t chance)
+Status::Status(std::string n, int64_t turns, std::function<void(Entity*, Status*)> func)
 {
     name = n;
     turnAmnt = turns;
-    damageAmnt = damage;
-    effectChance = chance;
+    this->statusFunction = func;
 }
 
 std::string Status::GetName() { return name; }
 
 int64_t Status::GetTurn() { return turnAmnt; }
 
-int64_t Status::GetDamage() { return damageAmnt; }
+void Status::ReduceTurn() { this->turnAmnt -=1; }
 
-int64_t Status::GetChance() { return effectChance; }
+void Status::effect(Entity* victim)
+{
+    this->statusFunction(victim, this);
+}
