@@ -5,22 +5,24 @@
 Status::Status(std::string n, int64_t turns, std::function<void(Entity*, Status*)> func)
 {
     name = n;
-    turnAmnt = turns;
+    maxTurns = turns;
     this->statusFunction = func;
 }
 
 Status::Status(Status* st)
 {
     this->name = st->GetName();
-    this->turnAmnt = st->GetTurn();
+    this->maxTurns = st->GetMaxTurns();
     this->statusFunction = this->getFunc();
 }
 
 std::string Status::GetName() { return name; }
 
-int64_t Status::GetTurn() { return turnAmnt; }
+int64_t Status::GetRemainingTurns() { return remainingTurns; }
 
-void Status::ReduceTurn() { this->turnAmnt -=1; }
+int64_t Status::GetMaxTurns() { return maxTurns; }
+
+void Status::ReduceTurn() { this->remainingTurns -=1; }
 
 void Status::effect(Entity* victim)
 {

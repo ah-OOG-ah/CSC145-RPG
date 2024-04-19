@@ -60,6 +60,7 @@ class HealItem : public RegularItem
     //Constructors with descriptions
     HealItem(std::string itemName, int64_t hp, int64_t price, std::string desc);
     HealItem(std::string itemName, int64_t hp, int64_t price, int64_t amnt, std::string desc);
+    HealItem(std::string itemName, int64_t hp, int64_t price, Status* effect, std::string desc);
     HealItem(HealItem* ht);
     void SetHpAmnt(int64_t hp);
     void SetHealedStatus(Status* status);

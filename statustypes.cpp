@@ -3,7 +3,7 @@
 
 void poisonEffect(Entity* victim, Status* ailment)
 {
-    if(ailment->GetTurn() == 0)
+    if(ailment->GetRemainingTurns() == 0)
     {
         victim->setStatus(nullptr);
         std::cout << victim->getName() << "'s "<< ailment->GetName() << " went away" << std::endl;
@@ -18,7 +18,7 @@ void poisonEffect(Entity* victim, Status* ailment)
 
 void paralyzeEffect(Entity* victim, Status* ailment)
 {
-    if(ailment->GetTurn() == 0)
+    if(ailment->GetRemainingTurns() == 0)
     {
         victim->setStatus(nullptr);
         std::cout << victim->getName() << "'s "<< ailment->GetName() << " went away" << std::endl;
@@ -43,7 +43,7 @@ void paralyzeEffect(Entity* victim, Status* ailment)
 
 void sleepEffect(Entity* victim, Status* ailment)
 {
-    if(ailment->GetTurn() == 0)
+    if(ailment->GetRemainingTurns() == 0)
     {
         victim->setStatus(nullptr);
         std::cout << victim->getName() << "'s "<< ailment->GetName() << " went away" << std::endl;
