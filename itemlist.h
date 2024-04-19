@@ -54,6 +54,7 @@ std::string magicShieldDesc = "An artifact that temporally creates a magic sheil
 std::string sentryHeadDesc = "The head of a sentry. Its strength flows through your body";
 std::string ninjaBandDesc = "The headband of a ninja. It causes you to put your arms straight behind you as you run, increasing your speed";
 std::string cryptoHeartDesc = "The heart of a cryptogriph. A strange power from within makes your skin like steel";
+std::string sleepingPillDesc = "A pill to help you fall asleep. Boosts StaticDef";
 StatusItem roids("'Roids", 2, attack, 15, roidsDesc);
 StatusItem superRoids("Super 'Roids", 15, attack, 60, &paralysis, 10, superRoidsDesc);
 StatusItem anubisAmulet("Amulet of Anubis", 5, staticdef, 45, anubisAmuletDesc);
@@ -61,7 +62,8 @@ StatusItem setAmulet("Amulet of Set", 10, staticdef, 45, &poison, 10, setAmuletD
 StatusItem magicShield("Magic Shield", 5, percdef, 30, magicShieldDesc);
 StatusItem sentryHead("Sentry Head", 10, attack, 50, sentryHeadDesc);
 StatusItem ninjaBand("Ninja Band", 15, speed, 25, ninjaBandDesc);
-StatusItem cryptoHeart("Cryptogriph Heart", 10, staticdef, 60, &paralysis, 4, cryptoHeartDesc);
+StatusItem cryptoHeart("Cryptogriph Heart", 15, staticdef, 60, &paralysis, 4, cryptoHeartDesc);
+StatusItem sleepingPill("Sleeping Pill", 9, staticdef, 15, &sleep, 10, sleepingPillDesc);
 
 
 
