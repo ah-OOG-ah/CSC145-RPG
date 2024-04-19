@@ -224,7 +224,8 @@ StatusItem::StatusItem(std::string itemName, int64_t boost, statBoost stat, int6
 {
     this->boost = boost;
     this->stat = stat;
-    this->status = effect;
+    Status* cure = effect;
+    this->status = cure;
 }
 StatusItem::StatusItem(std::string itemName, int64_t boost, statBoost stat, int64_t price, int64_t amnt, std::string desc) : RegularItem(itemName, price, amnt, desc)
 {
@@ -240,7 +241,8 @@ StatusItem::StatusItem(StatusItem* st) : RegularItem(st)
 {
     this->boost =st->GetBoost();
     this->stat = st->GetStat();
-    this->status = st->GetStatus();
+    Status* cure = new Status(st->GetStatus());
+    this->status = cure;
 }
 
 void StatusItem::SetBoost(int64_t boost) { this->boost = boost; }
@@ -257,8 +259,11 @@ void StatusItem::display()
 {
     std::cout << entries[0] << std::endl;
     std::cout << "Price: " << this->GetPrice() << std::endl;
-    std::cout << "Boosts: " << this->GetStat() << std::endl;
-    std::cout << "Boost Amount: " << this->GetBoost() << std::endl;
+    std::cout << "Boosts: " << this->GetStat() << " by " << this->GetBoost() << " Points" << std::endl;
+    if(this->status != nullptr)
+    {
+        std::cout <<"Causes: " << this->status << std::endl;
+    }
     std::cout << "Amount: " << this->GetAmount() << this->GetAmntText() << std::endl;
     std::cout << entries[1] << std::endl;
     std::cout << "Enter EXIT to exit or USE to use this item" << std::endl;
@@ -307,6 +312,16 @@ void StatusItem::Use(Entity* user, std::vector<Entity*> opponents)
         user->changeSpd(this->boost);
         std::cout << user->getName() << " used " << this->name << std::endl;
         std::cout << user->getName() <<"'s Speed was boosted " << this->boost << " points!" << std::endl;
+    }
+    if(this->status != nullptr)
+    {
+        int64_t chance = getRand() % 10;
+        if(chance <= this->effectChance) 
+        {
+            Status* ailment = new Status(this->status);
+            user->setStatus(ailment);
+            std::cout << user->getName() << " was afflicted by " << this->status->GetName() << std::endl;
+        }
     }
     user->Inven.RemoveItem(this, 1);
 }
