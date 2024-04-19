@@ -9,9 +9,9 @@ std::string dartDesc = "Peruvian dart to throw at enemies.";
 std::string throwingAxeDesc = "A small axe, perfect for throwing at enemies. Timber!";
 std::string bombDesc = "A bomb with a big punch and wide range.";
 std::string gorillaBombDesc = "A gorilla sized bomb with a big wallop. All opponents take massive damage.";
-AttackItem rock("Rock", 5, 2, false, rockDesc);
-AttackItem dart("Dart", 8, 5, false, dartDesc);
-AttackItem throwingAxe("Throwing Axe", 15, 15, false, throwingAxeDesc);
+AttackItem rock("Rock", 10, 2, false, rockDesc);
+AttackItem dart("Dart", 15, 5, false, dartDesc);
+AttackItem throwingAxe("Throwing Axe", 20, 15, false, throwingAxeDesc);
 AttackItem bomb("Bomb", 20, 25, true, bombDesc);
 AttackItem gorillaBomb("Gorilla Bomb", 50, 80, true, gorillaBombDesc);
 
@@ -22,7 +22,7 @@ std::string elixirDesc = "strange liquid with the consistency of medicine but ta
 std::string ectoplasmDesc = "Residue from a ghost. Seems able heal but the glow it gives is a bit offputting...";
 std::string zombieBloodDesc = "Blood from a decaying corpse. 0/10, would not recommend";
 std::string cookieDesc = "A delicous cookie. Not too good for health but healps";
-HealItem pureWater("Pure Water", 15, 9, waterDesc);
+HealItem pureWater("Pure Water", 20, 9, waterDesc);
 HealItem banana("Banana", 10, 5, bananaDesc);
 HealItem ectoplasm("Ectoplasm", 25, 50, ectoplasmDesc);
 HealItem zombieBlood("Zombie Blood", -10, 5, zombieBloodDesc);
@@ -36,12 +36,12 @@ std::string magicShieldDesc = "An artifact that temporally creates a magic sheil
 std::string sentryHeadDesc = "The head of a sentry. Its strength flows through your body";
 std::string ninjaBandDesc = "The headband of a ninja. It causes you to put your arms straight behind you as you run, increasing your speed";
 std::string cryptoHeartDesc = "The heart of a cryptogriph. A strange power from within makes your skin like steel";
-StatusItem roids("'Roids", 10, attack, 15, roidsDesc);
-StatusItem amulet("Amulet of Anubis", 15, staticdef, 45, amuletDesc);
-StatusItem magicShield("Magic Shield", 10, percdef, 30, magicShieldDesc);
-StatusItem sentryHead("Sentry Head", 20, attack, 50, sentryHeadDesc);
+StatusItem roids("'Roids", 2, attack, 15, roidsDesc);
+StatusItem amulet("Amulet of Anubis", 5, staticdef, 45, amuletDesc);
+StatusItem magicShield("Magic Shield", 5, percdef, 30, magicShieldDesc);
+StatusItem sentryHead("Sentry Head", 10, attack, 50, sentryHeadDesc);
 StatusItem ninjaBand("Ninja Band", 15, speed, 25, ninjaBandDesc);
-StatusItem cryptoHeart("Cryptogriph Heart", 25, staticdef, 60, cryptoHeartDesc);
+StatusItem cryptoHeart("Cryptogriph Heart", 10, staticdef, 60, cryptoHeartDesc);
 
 
 //Weapon(Name, durability, damageMultiplier, price, description)
