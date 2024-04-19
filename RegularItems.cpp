@@ -214,15 +214,54 @@ void StatusItem::display()
     std::cout << "Boost Amount: " << this->GetBoost() << std::endl;
     std::cout << "Amount: " << this->GetAmount() << this->GetAmntText() << std::endl;
     std::cout << entries[1] << std::endl;
-    std::cout << "Enter any key to exit " << std::endl;
+    std::cout << "Enter EXIT to exit or USE to use this item" << std::endl;
     std::string choice;
-    std::getline(std::cin, choice);
+    while(choice != "EXIT")
+    {
+        std::getline(std::cin, choice);
+        if(choice == "USE") 
+        {
+            this->Use(getPlayer().get(), std::vector<Entity*>{nullptr});
+            if(this->GetAmount() <= 0)
+            {
+                return;
+            }
+        }
+        else if(choice != "EXIT")
+        {
+            std::cout << "Invalid input. Please input again. " << std::endl;
+        }
+    }
     return;
 }
 
 void StatusItem::Use(Entity* user, std::vector<Entity*> opponents)
 {
-    return; //Exact implementation awaits
+    if(this->stat == attack)
+    {
+        user->changeAttk(this->boost);
+        std::cout << user->getName() << " used " << this->name << std::endl;
+        std::cout << user->getName() <<"'s Attack was boosted " << this->boost << " points!" << std::endl;
+    }
+    if(this->stat == percdef)
+    {
+        user->changePercDef(this->boost);
+        std::cout << user->getName() << " used " << this->name << std::endl;
+        std::cout << user->getName() <<"'s PercDef was boosted " << this->boost << " points!" << std::endl;
+    }
+    if(this->stat == staticdef)
+    {
+        user->changeStaticDef(this->boost);
+        std::cout << user->getName() << " used " << this->name << std::endl;
+        std::cout << user->getName() <<"'s StaticDef was boosted " << this->boost << " points!" << std::endl;
+    }
+    if(this->stat == speed)
+    {
+        user->changeSpd(this->boost);
+        std::cout << user->getName() << " used " << this->name << std::endl;
+        std::cout << user->getName() <<"'s Speed was boosted " << this->boost << " points!" << std::endl;
+    }
+    user->Inven.RemoveItem(this);
 }
 
 NonConsumAttackItem::NonConsumAttackItem(std::string itemName, int64_t dmg, int64_t price, Status* effect, int64_t chance)

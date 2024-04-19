@@ -47,6 +47,22 @@ void Entity::changeHP(int64_t hpAmnt){
     this->hp += hpAmnt; 
 }
 
+void Entity::changeAttk(int64_t amnt){
+    this->attk += amnt; 
+}
+
+void Entity::changePercDef(int64_t amnt){
+    this->percDef += amnt; 
+}
+
+void Entity::changeStaticDef(int64_t amnt){
+    this->staticDef += amnt; 
+}
+
+void Entity::changeSpd(int64_t amnt){
+    this->spd += amnt; 
+}
+
 void Entity::attackEntity(Entity* enemy) const {
     enemy->hp -= this->getAttk();
 }

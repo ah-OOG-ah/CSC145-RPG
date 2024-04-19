@@ -110,7 +110,7 @@ Armor toughVest("Tough Vest", 75, 15, 10, 30, Chestplate, vestDesc);
 
 std::string baboomArmorDesc = "Rare armor that gives you the fighting spirit of a baboon.";
 std::string armyVestDesc = "An bulletproof vest that has the Marines emblem on it. Increases manliness.";
-std::string mBobArmorDesc = "With this armor, you will be coming for Monkey Bob. MAY OBAMA BE EVER IN YOUR FAVOR.";
+std::string mBobArmorDesc = "With this armor, you will be coming for Monkey Bob. MAY PUTIN BE EVER IN YOUR FAVOR.";
 Armor baboonArmor("Baboon Armor", 50, 5, 5, 25, 50, Chestplate, baboomArmorDesc);
 Armor armyVest("Marine Vest", 75, 10, 10, 5, 40, Chestplate, armyVestDesc);
 Armor monkeyBobArmor("Monkey Bob's Armor", 999999, 25, 25, 35, 350, Chestplate, mBobArmorDesc);
