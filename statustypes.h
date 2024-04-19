@@ -2,30 +2,15 @@
 
 #include <iostream>
 #include "Status.h"
+#include "game.h"
 
-void poisonStatus(Entity* victim, Status* ailment)
-{
-    if(ailment->GetTurn() == 0)
-    {
-        //Set victim's status to nullptr
-        return;
-    }
-    else {
-        victim->changeHP(-10);
-        ailment->ReduceTurn();
-        std::cout << victim->getName() << " lost 10 HP due to the poison " << std::endl;
-    }
-}
+void poisonEffect(Entity* victim, Status* ailment);
 
-void paralyzeStatus(Entity* victim, Status* ailment)
-{
-    if(ailment->GetTurn() == 0)
-    {
-        return;
-    }
-    else {
-        victim->changeHP(-10);
-        ailment->ReduceTurn();
-        std::cout << victim->getName() << " lost 10 HP due to the poison " << std::endl;
-    }
-}
+void paralyzeEffect(Entity* victim, Status* ailment);
+
+void sleepEffect(Entity* victim, Status* ailment);
+
+Status poison("Poison", 4, poisonEffect);
+Status poison("Long-Lasting Poison", 8, poisonEffect);
+Status paralysis("Paralysis", 5, paralyzeEffect);
+Status sleep("Sleep", 3, sleepEffect);
