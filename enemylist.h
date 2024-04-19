@@ -103,7 +103,7 @@ std::string cryptogriphSprite =
 "@ @ @\n";
 
 std::string MonkeyBobSprite =
-"HAIL OBAMA\n"
+"HAIL PUTIN\n"
 "{(|)..(|)}\n"
 "    --    \n";
 

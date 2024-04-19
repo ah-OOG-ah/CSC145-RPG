@@ -43,6 +43,10 @@ class Entity {
     void attackEntity(Entity* enemy) const;
 
     void changeHP(int64_t hpAmnt); //For item based attacks
+    void changeAttk(int64_t);
+    void changePercDef(int64_t);
+    void changeStaticDef(int64_t);
+    void changeSpd(int64_t);
 
     [[nodiscard]] virtual std::string toString() const;
 };
