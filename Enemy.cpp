@@ -2,6 +2,7 @@
 #include "Equipment.h"
 #include "game.h"
 #include <cstdint>
+#include <iostream>
 
 Enemy::Enemy(std::string name, int64_t hp, int64_t attk, int64_t percDef, int64_t staticDef, int64_t spd, std::vector<RegularItem*> invenSlots, std::vector<Weapon*> weaponSlots, std::vector<Armor*> armorSlots)
  : Enemy(name, hp, attk, percDef, staticDef, spd, invenSlots, weaponSlots, armorSlots, "") {}
@@ -90,4 +91,48 @@ std::string Enemy::toString() const {
     if (this->hp > 0)
         return this->getName() + this->getSprite() + "{hp: " + std::to_string(this->hp) + ", atk: " + std::to_string(this->attk) + "}";
     return this -> getName() + "{DEAD, atk: " + std::to_string(this->attk) + "}";
+}
+
+void Enemy::dropLoot(Entity* player)
+{
+    std::vector<Item*> lootVector;
+    for(int i = 0; i < this->Inven.GetUsedElements(); i++)
+    {
+        lootVector.insert(lootVector.begin(), this->Inven.GetItem(i));
+    }
+    if(!lootVector.empty())
+    {
+        for(Item* loot : this->extraLoot)
+        {
+            lootVector.insert(lootVector.begin(), loot);
+        }
+    }
+    for(Item* armor : this->armorArray)
+    {
+        lootVector.insert(lootVector.begin(), armor);
+    }
+    lootVector.insert(lootVector.begin(), this->currentWeapon);
+    int64_t amntOfLoot = getRand() % 4; //Gives loot 1 to 4
+    std::vector<Item*> droppedLoot;
+    std::cout<< this->name << " dropped ";
+    for(int j = 0; j < amntOfLoot; j++)
+    {
+        int64_t pos = getRand() % lootVector.size();
+        std::cout << " a(n) " << lootVector[pos]->GetName() << std::endl;
+        droppedLoot.insert(droppedLoot.begin(), lootVector[pos]);
+    }
+    std::cout << "Collect " << this->name <<"'s loot\? Y/N " << std::endl;
+    std::string choice;
+    std::getline(std::cin, choice);
+    if(choice == "Y" || choice == "y" || choice == "yes" || choice == "YES" || choice == "Yes")
+    {
+        for(Item* gains : droppedLoot)
+        {
+            player->Inven.AddItem(gains);
+        }
+    }
+    else
+    {
+        std::cout << "Loot was discarded" << std::endl;
+    }
 }
