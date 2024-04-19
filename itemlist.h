@@ -7,17 +7,25 @@
 //AttackIem(Name, damage, price, canSpread, description)
 //AttackItem(Name, damage, price, effect, chance, canSpread, description);
 std::string rockDesc = "A simple rock to throw at enemies.";
-std::string dartDesc = "Peruvian dart to throw at enemies.";
+std::string dartDesc = "Peruvian dart to throw at enemies. Has slight chance to poison.";
 std::string throwingAxeDesc = "A small axe, perfect for throwing at enemies. Timber!";
 std::string bombDesc = "A bomb with a big punch and wide range.";
 std::string gorillaBombDesc = "A gorilla sized bomb with a big wallop. All opponents take massive damage.";
 std::string bucketOfSludgeDesc = "A bucket of sludge and waste to throw at enemies.";
+std::string oilDrumSludgeDesc = "A entire oil drum of sludge. How does it do no damage\?";
+std::string fluteDesc = "A lovely wooden flute. Makes even the most hardcore beast fall asleep";
+std::string toasterDesc = "A NAV-116 model toaster by ReynoldsTech. Good for throwing and making toast. Can paralyze opponents.";
+std::string lightningBottleDesc = "Release a powerful lighting bolt to strike an enemy. A very effective attack and can cause paralysis. It\'s lightning in a bottle!";
 AttackItem rock("Rock", 10, 2, false, rockDesc);
-AttackItem dart("Dart", 15, 5, false, dartDesc);
+AttackItem dart("Dart", 15, 5, &poison, 2, false, dartDesc);
 AttackItem throwingAxe("Throwing Axe", 20, 15, false, throwingAxeDesc);
 AttackItem bomb("Bomb", 20, 25, true, bombDesc);
 AttackItem gorillaBomb("Gorilla Bomb", 50, 80, true, gorillaBombDesc);
 AttackItem bucketOfSludge("Bucket of Sludge", 0, 15, &poison, 4, false, bucketOfSludgeDesc);
+AttackItem bucketOfSludge("Bucket of Sludge", 0, 50, &poison, 5, true, oilDrumSludgeDesc);
+AttackItem flute("Flute", 0, 20, &sleep, 10, false, fluteDesc);
+AttackItem toaster("Toaster", 15, 50, &paralysis, 5, false, toasterDesc);
+AttackItem lightningBottle("Lightning in a Bottle", 50, 120, &paralysis, 8, false, lightningBottleDesc);
 
 //HealItem(Name, healAmnt, price, description)
 //HealItem(Name, healAmnt, price, status, description)
@@ -27,12 +35,14 @@ std::string elixirDesc = "strange liquid with the consistency of medicine but ta
 std::string ectoplasmDesc = "Residue from a ghost. Seems able heal but the glow it gives is a bit offputting...";
 std::string zombieBloodDesc = "Blood from a decaying corpse. 0/10, would not recommend";
 std::string cookieDesc = "A delicous cookie. Not too good for health but healps";
-HealItem pureWater("Pure Water", 20, 9, waterDesc);
+std::string rubberFruitDesc = "Fruit with rubber-like flesh. Eating it cures paralysis.";
+HealItem pureWater("Pure Water", 20, 9, &poison, waterDesc);
 HealItem banana("Banana", 10, 5, bananaDesc);
-HealItem ectoplasm("Ectoplasm", 25, 50, ectoplasmDesc);
+HealItem ectoplasm("Ectoplasm", 25, 50, &paralysis, ectoplasmDesc);
 HealItem zombieBlood("Zombie Blood", -10, 5, zombieBloodDesc);
-HealItem elixir("Elixir", 40, 25, elixirDesc);
+HealItem elixir("Elixir", 40, 25, &poison, elixirDesc);
 HealItem cookie("Cookie", 5, 3, cookieDesc);
+HealItem rubberFruit("Rubber Fruit", 0, 15, &paralysis, rubberFruitDesc);
 
 //StatusItem(name, boost, stat, price, description)
 std::string roidsDesc = "Literal steroids bro";
