@@ -21,14 +21,14 @@ class Equipment : public Item {
 
 class Weapon : public Equipment {
   protected:
-    int64_t dmgMultiplier;
+    double dmgMultiplier = 1.0;
 
   public:
-    Weapon(std::string itemName, int64_t durab, int64_t dmg, int64_t price);
-    Weapon(std::string itemName, int64_t durab, int64_t dmg, int64_t price, std::string desc);
+    Weapon(std::string itemName, int64_t durab, double dmg, int64_t price);
+    Weapon(std::string itemName, int64_t durab, double dmg, int64_t price, std::string desc);
     Weapon(Weapon* w);
-    [[nodiscard]] int64_t GetDamage() const;
-    void SetDamage(int64_t dmg);
+    [[nodiscard]] double GetDamage() const;
+    void SetDamage(double dmg);
     void Use(Entity* user, std::vector<Entity*> opponents) override;
     void display() override;
 };
@@ -37,26 +37,26 @@ enum ArmorType { Helmet, Chestplate, Leggings, Boots};
 
 class Armor : public Equipment {
   protected:
-    int64_t percDef; //Defense stats work like those with the player
+    double percDef = 1.00; //Defense stats work like those with the player
     int64_t staticDef; 
-    int64_t dmgMultiplier = 1; //Increases damage dealt when worn
+    double dmgMultiplier = 1.0; //Increases damage dealt when worn
     ArmorType cast;
     //Status placeholder
 
   public:
-    Armor(std::string itemName, int64_t durab, int64_t pDef, int64_t sDef, int64_t price, ArmorType mold);
-    Armor(std::string itemName, int64_t durab, int64_t pDef, int64_t sDef, int64_t dmg, int64_t price, ArmorType mold);
+    Armor(std::string itemName, int64_t durab, double pDef, int64_t sDef, int64_t price, ArmorType mold);
+    Armor(std::string itemName, int64_t durab, double pDef, int64_t sDef, double dmg, int64_t price, ArmorType mold);
     //Constructors with Descriptions
-    Armor(std::string itemName, int64_t durab, int64_t pDef, int64_t sDef, int64_t price, ArmorType mold, std::string desc);
-    Armor(std::string itemName, int64_t durab, int64_t pDef, int64_t sDef, int64_t dmg, int64_t price, ArmorType mold, std::string desc);
+    Armor(std::string itemName, int64_t durab, double pDef, int64_t sDef, int64_t price, ArmorType mold, std::string desc);
+    Armor(std::string itemName, int64_t durab, double pDef, int64_t sDef, double dmg, int64_t price, ArmorType mold, std::string desc);
     Armor(Armor* a);
-    [[nodiscard]] int64_t GetPercDef() const;
+    [[nodiscard]] double GetPercDef() const;
     [[nodiscard]] int64_t GetStaticDef() const;
-    [[nodiscard]] int64_t GetDmgMult() const;
+    [[nodiscard]] double GetDmgMult() const;
     [[nodiscard]] ArmorType GetArmorType() const;
-    void SetPercDef(int64_t);
+    void SetPercDef(double);
     void SetStaticDef(int64_t);
-    void SetDmgMult(int64_t);
+    void SetDmgMult(double);
     void SetArmorType(ArmorType);
     void Use(Entity* user, std::vector<Entity*> opponents) override;
     void display() override;

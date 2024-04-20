@@ -29,11 +29,11 @@ std::string Equipment::GetAmntText() {
     return "";
 }
 
-Weapon::Weapon(std::string itemName, int64_t durab, int64_t dmg, int64_t price) : Equipment(std::move(itemName), durab, price) {
+Weapon::Weapon(std::string itemName, int64_t durab, double dmg, int64_t price) : Equipment(std::move(itemName), durab, price) {
     dmgMultiplier = dmg;
 }
 //Constructor with description
-Weapon::Weapon(std::string itemName, int64_t durab, int64_t dmg, int64_t price, std::string desc) : Equipment(std::move(itemName), durab, price, std::move(desc)) {
+Weapon::Weapon(std::string itemName, int64_t durab, double dmg, int64_t price, std::string desc) : Equipment(std::move(itemName), durab, price, std::move(desc)) {
     dmgMultiplier = dmg;
 }
 
@@ -42,9 +42,9 @@ Weapon::Weapon(Weapon* w) : Equipment(w)
     this->dmgMultiplier = w->GetDamage();
 }
 
-int64_t Weapon::GetDamage() const { return dmgMultiplier; };
+double Weapon::GetDamage() const { return dmgMultiplier; };
 
-void Weapon::SetDamage(int64_t dmg) { dmgMultiplier = dmg; };
+void Weapon::SetDamage(double dmg) { dmgMultiplier = dmg; };
 
 void Weapon::Use(Entity* user, std::vector<Entity*> opponents)
 {
@@ -96,24 +96,24 @@ void Weapon::display()
     return;
 }
 
-Armor::Armor(std::string itemName, int64_t durab, int64_t pDef, int64_t sDef, int64_t price, ArmorType mold) : Armor(std::move(itemName), durab, pDef, sDef, 1 , price, mold) {
+Armor::Armor(std::string itemName, int64_t durab, double pDef, int64_t sDef, int64_t price, ArmorType mold) : Armor(std::move(itemName), durab, pDef, sDef, 1.0 , price, mold) {
     percDef = pDef;
     staticDef = sDef;
     cast = mold;
 }
-Armor::Armor(std::string itemName, int64_t durab, int64_t pDef, int64_t sDef, int64_t dmg, int64_t price, ArmorType mold) : Equipment(std::move(itemName), durab, price) {
+Armor::Armor(std::string itemName, int64_t durab, double pDef, int64_t sDef, double dmg, int64_t price, ArmorType mold) : Equipment(std::move(itemName), durab, price) {
     percDef = pDef;
     staticDef = sDef;
     dmgMultiplier = dmg;
     cast = mold;
 }
 //Constructor with description
-Armor::Armor(std::string itemName, int64_t durab, int64_t pDef, int64_t sDef, int64_t price, ArmorType mold, std::string desc) : Armor(std::move(itemName), durab, pDef, sDef, 1 , price, mold, std::move(desc)) {
+Armor::Armor(std::string itemName, int64_t durab, double pDef, int64_t sDef, int64_t price, ArmorType mold, std::string desc) : Armor(std::move(itemName), durab, pDef, sDef, 1.0 , price, mold, std::move(desc)) {
     percDef = pDef;
     staticDef = sDef;
     cast = mold;
 }
-Armor::Armor(std::string itemName, int64_t durab, int64_t pDef, int64_t sDef, int64_t dmg, int64_t price, ArmorType mold, std::string desc) : Equipment(std::move(itemName), durab, price, std::move(desc)) {
+Armor::Armor(std::string itemName, int64_t durab, double pDef, int64_t sDef, double dmg, int64_t price, ArmorType mold, std::string desc) : Equipment(std::move(itemName), durab, price, std::move(desc)) {
     percDef = pDef;
     staticDef = sDef;
     dmgMultiplier = dmg;
@@ -127,13 +127,13 @@ Armor::Armor(Armor* a) : Equipment(a)
     this->cast = a->GetArmorType();
 }
 
-int64_t Armor::GetPercDef() const { return percDef; }
+double Armor::GetPercDef() const { return percDef; }
 int64_t Armor::GetStaticDef() const { return staticDef; }
-int64_t Armor::GetDmgMult() const { return dmgMultiplier; }
+double Armor::GetDmgMult() const { return dmgMultiplier; }
 ArmorType Armor::GetArmorType() const { return cast; }
-void Armor::SetPercDef(int64_t def) { percDef = def; }
+void Armor::SetPercDef(double def) { percDef = def; }
 void Armor::SetStaticDef(int64_t def) { staticDef = def; }
-void Armor::SetDmgMult(int64_t dmg) { dmgMultiplier = dmg; }
+void Armor::SetDmgMult(double dmg) { dmgMultiplier = dmg; }
 void Armor::SetArmorType(ArmorType mold) { cast = mold; }
 
 void Armor::Use(Entity* user, std::vector<Entity*> opponents)

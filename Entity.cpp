@@ -6,7 +6,7 @@ Entity::Entity(int64_t hp) {
     this->maxHp = hp;
     this->hp = this->maxHp;
 }
-Entity::Entity(std::string name, int64_t hp, int64_t attk, int64_t percDef, int64_t staticDef, int64_t spd){
+Entity::Entity(std::string name, int64_t hp, int64_t attk, double percDef, int64_t staticDef, int64_t spd){
     this->name = name;
     this->maxHp = hp;
     this->hp = this->maxHp;
@@ -36,7 +36,7 @@ int64_t Entity::getAttk() const { return attk; }
 
 int64_t Entity::getStaticDef() const { return staticDef; }
 
-int64_t Entity::getPercDef() const { return percDef; }
+double Entity::getPercDef() const { return percDef; }
 
 int64_t Entity::getSpd() const { return spd; }
 
@@ -62,7 +62,7 @@ void Entity::changeAttk(int64_t amnt){
     this->attk += amnt; 
 }
 
-void Entity::changePercDef(int64_t amnt){
+void Entity::changePercDef(double amnt){
     this->percDef += amnt; 
 }
 
