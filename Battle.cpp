@@ -32,7 +32,7 @@ void Battle::run() {
         for (Enemy e : enemy)
             std::cout << e.toString() << std::endl;
 
-        if (this->player->getFleeing() || this->player->getHp() < 1) {
+        if (this->player->getFleeing() || this->player->getCurrentHp() < 1) {
             this->player->setFleeing(false);
             std::cout << "You have been defeated." << std::endl;
             // TODO: monkey bob reference?

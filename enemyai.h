@@ -25,9 +25,28 @@ void ItemHappy(Enemy* user, Entity* target)
 
 void higherLevelBehavior(Enemy* user, Entity* target)
 {
-    if(user->getCurrentHp() < (user->getMaxHp() / 2.0) || user->getAttk() < (target->getAttk() - 10))
+    int64_t fleeChance = getRand() % 100;
+    if(fleeChance <=10)
     {
-        user->Inven.GetItem(getRand() % user->Inven.GetUsedElements())->Use(user, std::vector<Entity*>{target});
+        //Flee code
+    }
+    if(user->getCurrentHp() < (user->getMaxHp() / 2.0))
+    {
+        Item* chosenItem = user->Inven.GetItem(getRand() % user->Inven.GetUsedElements());
+        while(chosenItem->GetType() != "HEAL")
+        {
+            chosenItem = user->Inven.GetItem(getRand() % user->Inven.GetUsedElements());
+        }
+        chosenItem->Use(user, std::vector<Entity*>{target});
+    }
+    else if(user->getAttk() < (target->getAttk() - 10))
+    {
+        Item* chosenItem = user->Inven.GetItem(getRand() % user->Inven.GetUsedElements());
+        while(chosenItem->GetType() != "STATUS")
+        {
+            chosenItem = user->Inven.GetItem(getRand() % user->Inven.GetUsedElements());
+        }
+        chosenItem->Use(user, std::vector<Entity*>{target});
     }
     else
     {
