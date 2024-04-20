@@ -18,7 +18,6 @@ Item::Item(Item* i) : Menu(std::vector<std::string>({i->GetName(), i->GetDesc()}
 }
 
 std::string Item::GetName() { return name; }
-std::string Item::GetAmntText() { return ""; }
 std::string Item::GetDesc() { return description; }
 int64_t Item::GetAmount() const { return amount; }
 int64_t Item::GetPrice() const { return price; }
