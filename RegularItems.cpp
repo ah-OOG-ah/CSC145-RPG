@@ -24,14 +24,17 @@ AttackItem::AttackItem(std::string itemName, int64_t dmg, int64_t price, Status*
     status = ailment;
     effectChance = chance;
     this->spreadDamage = spread;
+    type = "ATTACK";
 }
 AttackItem::AttackItem(std::string itemName, int64_t dmg, int64_t price, int64_t amnt, bool spread) : RegularItem(std::move(itemName), price, amnt) {
     damage = dmg;
     this->spreadDamage = spread;
+    type = "ATTACK";
 }
 AttackItem::AttackItem(std::string itemName, int64_t dmg, int64_t price, bool spread) : RegularItem(std::move(itemName), price) {
     damage = dmg;
     this->spreadDamage = spread;
+    type = "ATTACK";
 }
 //Constructors with descriptions
 AttackItem::AttackItem(std::string itemName, int64_t dmg, int64_t price, Status* effect, int64_t chance, bool spread, std::string desc) : RegularItem(std::move(itemName), price, std::move(desc)) {
@@ -40,14 +43,17 @@ AttackItem::AttackItem(std::string itemName, int64_t dmg, int64_t price, Status*
     status = effect;
     effectChance = chance;
     this->spreadDamage = spread;
+    type = "ATTACK";
 }
 AttackItem::AttackItem(std::string itemName, int64_t dmg, int64_t price, int64_t amnt, bool spread, std::string desc) : RegularItem(std::move(itemName), price, amnt, std::move(desc)) {
     damage = dmg;
     this->spreadDamage = spread;
+    type = "ATTACK";
 }
 AttackItem::AttackItem(std::string itemName, int64_t dmg, int64_t price, bool spread, std::string desc) : RegularItem(std::move(itemName), price, std::move(desc)) {
     damage = dmg;
     this->spreadDamage = spread;
+    type = "ATTACK";
 }
 AttackItem::AttackItem(AttackItem* at) : RegularItem(at)
 {
@@ -56,6 +62,7 @@ AttackItem::AttackItem(AttackItem* at) : RegularItem(at)
     this->status = ailment;
     this->effectChance = at->GetChance();
     this->spreadDamage = at->canSpread();
+    type = "ATTACK";
 }
 
 void AttackItem::SetDamage(int64_t dmg) { damage = dmg; }
@@ -136,27 +143,33 @@ void AttackItem::Use(Entity* user, std::vector<Entity*> opponents)
 
 HealItem::HealItem(std::string itemName, int64_t hp, int64_t price) : RegularItem(std::move(itemName), price) {
     hpAmnt = hp;
+    type = "HEAL";
 }
 HealItem::HealItem(std::string itemName, int64_t hp, int64_t price, int64_t amnt) : RegularItem(std::move(itemName), price, amnt) {
     hpAmnt = hp;
+    type = "HEAL";
 }
 //Constructors with descriptions
 HealItem::HealItem(std::string itemName, int64_t hp, int64_t price, std::string desc) : RegularItem(std::move(itemName), price, std::move(desc)) {
     hpAmnt = hp;
+    type = "HEAL";
 }
 HealItem::HealItem(std::string itemName, int64_t hp, int64_t price, int64_t amnt, std::string desc) : RegularItem(std::move(itemName), price, amnt, std::move(desc)) {
     hpAmnt = hp;
+    type = "HEAL";
 }
 HealItem::HealItem(std::string itemName, int64_t hp, int64_t price, Status* effect, std::string desc) : RegularItem(std::move(itemName), price, std::move(desc)) {
     hpAmnt = hp;
     Status* cure = new Status(effect);
     this->healedStatus = cure;
+    type = "HEAL";
 }
 HealItem::HealItem(HealItem* ht) : RegularItem(ht)
 {
     this->hpAmnt = ht->GetHpAmnt();
     Status* cure = new Status(ht->GetHealedStatus());
     this->healedStatus = cure;
+    type = "HEAL";
 }
 
 void HealItem::SetHpAmnt(int64_t hp) { hpAmnt = hp; }
@@ -231,16 +244,19 @@ StatusItem::StatusItem(std::string itemName, int64_t boost, statBoost stat, int6
     this->stat = stat;
     Status* cure = effect;
     this->status = cure;
+    type = "STATUS";
 }
 StatusItem::StatusItem(std::string itemName, int64_t boost, statBoost stat, int64_t price, int64_t amnt, std::string desc) : RegularItem(itemName, price, amnt, desc)
 {
     this->boost = boost;
     this->stat = stat;
+    type = "STATUS";
 }
 StatusItem::StatusItem(std::string itemName, int64_t boost, statBoost stat, int64_t price, std::string desc) : RegularItem(itemName, price, desc)
 {
     this->boost = boost;
     this->stat = stat;
+    type = "STATUS";
 }
 StatusItem::StatusItem(StatusItem* st) : RegularItem(st)
 {
@@ -248,6 +264,7 @@ StatusItem::StatusItem(StatusItem* st) : RegularItem(st)
     this->stat = st->GetStat();
     Status* cure = new Status(st->GetStatus());
     this->status = cure;
+    type = "STATUS";
 }
 
 void StatusItem::SetBoost(int64_t boost) { this->boost = boost; }
@@ -331,6 +348,7 @@ void StatusItem::Use(Entity* user, std::vector<Entity*> opponents)
     user->Inven.RemoveItem(this, 1);
 }
 
+/*
 NonConsumAttackItem::NonConsumAttackItem(std::string itemName, int64_t dmg, int64_t price, Status* effect, int64_t chance)
     : AttackItem(std::move(itemName), dmg, price, effect, chance, false) {
     stackable = false;
@@ -354,4 +372,4 @@ NonConsumAttackItem::NonConsumAttackItem(NonConsumAttackItem* ncat) : AttackItem
     this->stackable = false;
 }
 
-std::string NonConsumAttackItem::GetAmntText() { return " "; }
+std::string NonConsumAttackItem::GetAmntText() { return " "; } */

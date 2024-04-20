@@ -31,15 +31,18 @@ std::string Equipment::GetAmntText() {
 
 Weapon::Weapon(std::string itemName, int64_t durab, double dmg, int64_t price) : Equipment(std::move(itemName), durab, price) {
     dmgMultiplier = dmg;
+    type = "WEAPON";
 }
 //Constructor with description
 Weapon::Weapon(std::string itemName, int64_t durab, double dmg, int64_t price, std::string desc) : Equipment(std::move(itemName), durab, price, std::move(desc)) {
     dmgMultiplier = dmg;
+    type = "WEAPON";
 }
 
 Weapon::Weapon(Weapon* w) : Equipment(w)
 {
     this->dmgMultiplier = w->GetDamage();
+    type = "WEAPON";
 }
 
 double Weapon::GetDamage() const { return dmgMultiplier; };
@@ -100,24 +103,28 @@ Armor::Armor(std::string itemName, int64_t durab, double pDef, int64_t sDef, int
     percDef = pDef;
     staticDef = sDef;
     cast = mold;
+    type = "ARMOR";
 }
 Armor::Armor(std::string itemName, int64_t durab, double pDef, int64_t sDef, double dmg, int64_t price, ArmorType mold) : Equipment(std::move(itemName), durab, price) {
     percDef = pDef;
     staticDef = sDef;
     dmgMultiplier = dmg;
     cast = mold;
+    type = "ARMOR";
 }
 //Constructor with description
 Armor::Armor(std::string itemName, int64_t durab, double pDef, int64_t sDef, int64_t price, ArmorType mold, std::string desc) : Armor(std::move(itemName), durab, pDef, sDef, 1.0 , price, mold, std::move(desc)) {
     percDef = pDef;
     staticDef = sDef;
     cast = mold;
+    type = "ARMOR";
 }
 Armor::Armor(std::string itemName, int64_t durab, double pDef, int64_t sDef, double dmg, int64_t price, ArmorType mold, std::string desc) : Equipment(std::move(itemName), durab, price, std::move(desc)) {
     percDef = pDef;
     staticDef = sDef;
     dmgMultiplier = dmg;
     cast = mold;
+    type = "ARMOR";
 }
 Armor::Armor(Armor* a) : Equipment(a)
 {
@@ -125,6 +132,7 @@ Armor::Armor(Armor* a) : Equipment(a)
     this->staticDef = a->GetStaticDef();
     this->dmgMultiplier = a->GetDmgMult();
     this->cast = a->GetArmorType();
+    type = "ARMOR";
 }
 
 double Armor::GetPercDef() const { return percDef; }
