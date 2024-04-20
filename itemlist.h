@@ -22,7 +22,7 @@ AttackItem throwingAxe("Throwing Axe", 20, 15, false, throwingAxeDesc);
 AttackItem bomb("Bomb", 20, 25, true, bombDesc);
 AttackItem gorillaBomb("Gorilla Bomb", 50, 80, true, gorillaBombDesc);
 AttackItem bucketOfSludge("Bucket of Sludge", 0, 15, &poison, 4, false, bucketOfSludgeDesc);
-AttackItem bucketOfSludge("Bucket of Sludge", 0, 50, &poison, 5, true, oilDrumSludgeDesc);
+AttackItem oilDrumOfSludge("Oil Drum of Sludge", 0, 50, &poison, 5, true, oilDrumSludgeDesc);
 AttackItem flute("Flute", 0, 20, &sleep, 10, false, fluteDesc);
 AttackItem toaster("Toaster", 15, 50, &paralysis, 5, false, toasterDesc);
 AttackItem lightningBottle("Lightning in a Bottle", 50, 120, &paralysis, 8, false, lightningBottleDesc);

@@ -3,15 +3,24 @@
 #include "itemlist.h"
 #include <vector>
 
-std::vector<RegularItem*> noItems = { nullptr };
-std::vector<RegularItem*> bombsOnly = {&bomb, &bomb, &gorillaBomb, nullptr };
-std::vector<RegularItem*> gorillaBombOnly = { &gorillaBomb };
-std::vector<RegularItem*> basicItems = {&rock, &rock, &dart, &dart, &pureWater, &cookie, &banana };
-std::vector<RegularItem*> betterItems = {&throwingAxe, &bomb, &throwingAxe, &bomb, &elixir, &gorillaBomb, &roids, &roids, &ninjaBand};
-std::vector<RegularItem*> mummyItems = {&anubisAmulet, &anubisAmulet, &setAmulet, &elixir, &elixir};
-std::vector<RegularItem*> sentryItems = {&bomb, nullptr, &magicShield, &magicShield };
-std::vector<RegularItem*> healItemsOnly = {&pureWater, &cookie, &pureWater, &banana, &elixir, &banana };
-std::vector<RegularItem*> rocksOnly = { &rock} ;
+std::vector<AttackItem> noAttk = {};
+std::vector<HealItem> noHeal = {};
+std::vector<StatusItem> noStatusItems = {};
+std::vector<AttackItem> bombsOnly = {bomb, bomb, gorillaBomb, nullptr };
+std::vector<AttackItem> powerfulAttkItems = { gorillaBomb, gorillaBomb, oilDrumOfSludge, lightningBottle};
+std::vector<AttackItem> basicAttkItems = { rock, rock, dart, dart};
+std::vector<AttackItem> betterAttkItems = {throwingAxe, bomb, throwingAxe, bomb, gorillaBomb, flute, bucketOfSludge};
+std::vector<StatusItem> mummyItems = {anubisAmulet, anubisAmulet, setAmulet };
+std::vector<StatusItem> shieldOnly = { magicShield };
+std::vector<HealItem> basicHealItems = { pureWater, cookie, cookie, cookie, banana, banana };
+std::vector<AttackItem> greatAttkItems = {throwingAxe, gorillaBomb, toaster, bucketOfSludge, oilDrumOfSludge };
+std::vector<AttackItem> poisonItems = { bucketOfSludge, bucketOfSludge, oilDrumOfSludge };
+std::vector<HealItem> betterHealItems = { elixir, elixir, pureWater, pureWater, rubberFruit };
+std::vector<StatusItem> basicRoids = { roids};
+std::vector<StatusItem> allRoids = { roids, roids, superRoids};
+std::vector<StatusItem> goodStatusItems = { ninjaBand, superRoids, magicShield };
+std::vector<StatusItem> sleepingPillsOnly = { sleepingPill };
+std::vector<AttackItem> rocksOnly = { rock};
 std::vector<Weapon*> noWeapons = { nullptr };
 std::vector<Weapon*> basicWeapons = {&sword, &spear, &whip, &staff, nullptr};
 std::vector<Weapon*> rareWeapons = {&katana, &hammer, &goldSword, &bottle};
