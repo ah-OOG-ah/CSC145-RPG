@@ -3,11 +3,13 @@
 #include <string>
 
 Entity::Entity(int64_t hp) {
-    this->hp = hp;
+    this->maxHp = hp;
+    this->hp = this->maxHp;
 }
 Entity::Entity(std::string name, int64_t hp, int64_t attk, int64_t percDef, int64_t staticDef, int64_t spd){
     this->name = name;
-    this->hp = hp;
+    this->maxHp = hp;
+    this->hp = this->maxHp;
     this->attk = attk;
     this->percDef = percDef;
     this->staticDef = staticDef;
@@ -16,7 +18,8 @@ Entity::Entity(std::string name, int64_t hp, int64_t attk, int64_t percDef, int6
 Entity::Entity(Entity* e)
 {
     this->name = e->getName();
-    this->hp = e->getHp();
+    this->maxHp = e->getMaxHp();
+    this->hp = this->maxHp;
     this->attk = e->getAttk();
     this->percDef = e->getPercDef();
     this->staticDef = e->getStaticDef();
@@ -25,7 +28,9 @@ Entity::Entity(Entity* e)
 
 std::string Entity::getName() const { return name; }
 
-int64_t Entity::getHp() const { return hp; }
+int64_t Entity::getMaxHp() const { return maxHp; }
+
+int64_t Entity::getCurrentHp() const { return hp; }
 
 int64_t Entity::getAttk() const { return attk; }
 
@@ -71,8 +76,8 @@ void Entity::changeSpd(int64_t amnt){
 
 void Entity::setStatus(Status* ailment) { this->currentStatus = ailment; }
 
-void Entity::attackEntity(Entity* enemy) const {
-    enemy->hp -= this->getAttk();
+void Entity::attackEntity(Entity* enemy) {
+    enemy->changeHP(-1 * this->getAttk());
 }
 
 std::string Entity::toString() const {

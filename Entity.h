@@ -11,6 +11,7 @@ class Entity {
 
   protected:
     std::string name;
+    int64_t maxHp;
     int64_t hp;
     int64_t attk = 10;
     int64_t percDef = 0; // Reduces a specified percentage of damage from an attack after staticDef removes its amount
@@ -31,7 +32,8 @@ class Entity {
     Entity(Entity* e);
 
     [[nodiscard]] std::string getName() const;
-    [[nodiscard]] int64_t getHp() const;
+    [[nodiscard]] int64_t getMaxHp() const;
+    [[nodiscard]] int64_t getCurrentHp() const;
     [[nodiscard]] int64_t getAttk() const;
     [[nodiscard]] int64_t getStaticDef() const;
     [[nodiscard]] int64_t getPercDef() const;
@@ -46,7 +48,7 @@ class Entity {
     void setCanAct(bool);
 
     // Applies this entitiy's attack to the passed entity
-    void attackEntity(Entity* enemy) const;
+    virtual void attackEntity(Entity* enemy);
 
     void changeHP(int64_t hpAmnt); //For item based attacks
     void changeAttk(int64_t);

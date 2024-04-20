@@ -1,13 +1,14 @@
 #include "Enemy.h"
 #include "Equipment.h"
 #include "game.h"
+#include <string>
 #include <cstdint>
 #include <iostream>
 
-Enemy::Enemy(std::string name, int64_t hp, int64_t attk, int64_t percDef, int64_t staticDef, int64_t spd, std::vector<AttackItem> attkSlots, std::vector<HealItem> healSlots, std::vector<StatusItem> statusSlots, std::vector<Weapon*> weaponSlots, std::vector<Armor*> armorSlots)
- : Enemy(name, hp, attk, percDef, staticDef, spd, attkSlots, healSlots, statusSlots, weaponSlots, armorSlots, "") {}
+Enemy::Enemy(std::string name, int64_t hp, int64_t attk, int64_t percDef, int64_t staticDef, int64_t spd, std::vector<AttackItem> attkSlots, std::vector<HealItem> healSlots, std::vector<StatusItem> statusSlots, std::vector<Weapon*> weaponSlots, std::vector<Armor*> armorSlots, std::function<void(Enemy*, Entity*)> behavior )
+ : Enemy(name, hp, attk, percDef, staticDef, spd, attkSlots, healSlots, statusSlots, weaponSlots, armorSlots, "", behavior) {}
 
-Enemy::Enemy(std::string name, int64_t hp, int64_t attk, int64_t percDef, int64_t staticDef, int64_t spd, std::vector<AttackItem> attkSlots, std::vector<HealItem> healSlots, std::vector<StatusItem> statusSlots, std::vector<Weapon*> weaponSlots, std::vector<Armor*> armorSlots, std::string sprite)
+Enemy::Enemy(std::string name, int64_t hp, int64_t attk, int64_t percDef, int64_t staticDef, int64_t spd, std::vector<AttackItem> attkSlots, std::vector<HealItem> healSlots, std::vector<StatusItem> statusSlots, std::vector<Weapon*> weaponSlots, std::vector<Armor*> armorSlots, std::string sprite, std::function<void(Enemy*, Entity*)> behavior)
  : Entity(name, hp, attk, percDef, staticDef, spd)
 {
     this->enemySprite = sprite;
@@ -75,6 +76,11 @@ std::string Enemy::toString() const {
     if (this->hp > 0)
         return this->getName() + this->getSprite() + "{hp: " + std::to_string(this->hp) + ", atk: " + std::to_string(this->attk) + "}";
     return this -> getName() + "{DEAD, atk: " + std::to_string(this->attk) + "}";
+}
+
+void Enemy::attackEntity(Entity* target)
+{
+    behaviorFunction(this, target);
 }
 
 void Enemy::dropLoot(Entity* player)

@@ -199,12 +199,17 @@ void HealItem::display()
 
 void HealItem::Use(Entity* user, std::vector<Entity*> opponents)
 {
-    user->changeHP(this->GetHpAmnt());
+    int64_t healedAmnt = this->hpAmnt;
+    if((healedAmnt + user->getCurrentHp()) > user->getMaxHp())
+    {
+        healedAmnt = user->getMaxHp() - user->getCurrentHp();
+    }
+    user->changeHP(healedAmnt);
     user->Inven.RemoveItem(user->Inven.GetPos(this), 1);
     std::cout << user->getName() << " used " << this->GetName() << std::endl;
     if(hpAmnt != 0)
     {
-        std::cout << user->getName() << " HP was restored by " << this->GetHpAmnt() << "HP" << std::endl;
+        std::cout << user->getName() << " HP was restored by " << healedAmnt << "HP" << std::endl;
     }
     if(this->healedStatus != nullptr)
     {
