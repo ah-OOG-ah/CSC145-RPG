@@ -105,7 +105,7 @@ class StatusItem : public RegularItem {
     void Use(Entity* user, std::vector<Entity*> opponents) override;
 };
 
-class NonConsumAttackItem : public AttackItem {
+/*class NonConsumAttackItem : public AttackItem {
   public:
     //stackable is set to false
     NonConsumAttackItem(std::string itemName, int64_t dmg, int64_t price, Status* effect, int64_t chance);
@@ -115,4 +115,4 @@ class NonConsumAttackItem : public AttackItem {
     NonConsumAttackItem(std::string itemName, int64_t dmg, int64_t price, std::string desc);
     NonConsumAttackItem(NonConsumAttackItem* ncat);
     std::string GetAmntText() override;
-};
+};*/

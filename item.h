@@ -8,6 +8,7 @@
 class Item : public Menu{
   protected:
     std::string name;
+    std::string type = "NONE";
     int64_t amount = 1;
     int64_t price = 10;
     bool stackable = true;
@@ -22,6 +23,7 @@ class Item : public Menu{
 
     //Getters
     std::string GetName();
+    std::string GetType();
     virtual std::string GetAmntText() = 0;
     std::string GetDesc();
     [[nodiscard]] int64_t GetAmount() const;
