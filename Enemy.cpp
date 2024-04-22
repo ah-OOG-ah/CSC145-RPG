@@ -5,11 +5,11 @@
 #include <cstdint>
 #include <iostream>
 
-Enemy::Enemy(std::string name, int64_t hp, int64_t attk, int64_t percDef, int64_t staticDef, int64_t spd, std::vector<AttackItem> attkSlots, std::vector<HealItem> healSlots, std::vector<StatusItem> statusSlots, std::vector<Weapon*> weaponSlots, std::vector<Armor*> armorSlots, std::function<void(Enemy*, Entity*)> behavior )
+Enemy::Enemy(std::string name, int64_t hp, int64_t attk, int64_t percDef, int64_t staticDef, int64_t spd, std::vector<AttackItem> attkSlots, std::vector<HealItem> healSlots, std::vector<StatusItem> statusSlots, std::vector<Weapon*> weaponSlots, std::vector<Armor*> armorSlots, std::function<void(Enemy*, EquippedEntity*)> behavior )
  : Enemy(name, hp, attk, percDef, staticDef, spd, attkSlots, healSlots, statusSlots, weaponSlots, armorSlots, "", behavior) {}
 
-Enemy::Enemy(std::string name, int64_t hp, int64_t attk, int64_t percDef, int64_t staticDef, int64_t spd, std::vector<AttackItem> attkSlots, std::vector<HealItem> healSlots, std::vector<StatusItem> statusSlots, std::vector<Weapon*> weaponSlots, std::vector<Armor*> armorSlots, std::string sprite, std::function<void(Enemy*, Entity*)> behavior)
- : Entity(name, hp, attk, percDef, staticDef, spd)
+Enemy::Enemy(std::string name, int64_t hp, int64_t attk, int64_t percDef, int64_t staticDef, int64_t spd, std::vector<AttackItem> attkSlots, std::vector<HealItem> healSlots, std::vector<StatusItem> statusSlots, std::vector<Weapon*> weaponSlots, std::vector<Armor*> armorSlots, std::string sprite, std::function<void(Enemy*, EquippedEntity*)> behavior)
+ : EquippedEntity(name, hp, attk, percDef, staticDef, spd)
 {
     this->enemySprite = sprite;
     //Choosing items for inven
@@ -56,7 +56,7 @@ Enemy::Enemy(std::string name, int64_t hp, int64_t attk, int64_t percDef, int64_
     }
 }
 
-Enemy::Enemy(Enemy* en) : Entity(en) 
+Enemy::Enemy(Enemy* en) : EquippedEntity(en) 
 {
     this->enemySprite = en->getSprite();
     this->currentWeapon = en->currentWeapon;
@@ -78,12 +78,12 @@ std::string Enemy::toString() const {
     return this -> getName() + "{DEAD, atk: " + std::to_string(this->attk) + "}";
 }
 
-void Enemy::attackEntity(Entity* target)
+void Enemy::attackEntity(EquippedEntity* target)
 {
     behaviorFunction(this, target);
 }
 
-void Enemy::dropLoot(Entity* player)
+void Enemy::dropLoot(EquippedEntity* player)
 {
     std::vector<Item*> lootVector;
     for(int i = 0; i < this->Inven.GetUsedElements(); i++)

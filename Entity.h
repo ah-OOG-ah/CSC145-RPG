@@ -2,8 +2,6 @@
 
 #include <cstdint>
 #include <string>
-#include "Equipment.h"
-#include "inventory.h"
 #include <array>
 #include "Status.h"
 
@@ -23,9 +21,7 @@ class Entity {
     bool canAct = true;
 
   public:
-    Inventory Inven;
-    Weapon* currentWeapon;
-    std::array<Armor*, 4> armorArray; //Index of arrays are ordered just like ArmorType enum
+    
     //Helmet: 0, Chestplate: 1, Leggings: 2, Boots: 3
     explicit Entity(int64_t hp);
     explicit Entity(std::string name, int64_t hp, int64_t attk, double percDef, int64_t staticDef, int64_t spd);

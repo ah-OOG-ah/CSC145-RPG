@@ -1,11 +1,9 @@
 #pragma once
 
-#include "Entity.h"
-#include "inventory.h"
-#include "Equipment.h"
+#include "EquippedEntity.h"
 #include <cstdint>
 
-class Player : public Entity {
+class Player : public EquippedEntity {
 
   public:
     int64_t x;
