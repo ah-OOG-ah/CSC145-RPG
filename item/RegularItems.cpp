@@ -5,20 +5,16 @@
 #include <memory>
 #include "RegularItems.h"
 
-RegularItem::RegularItem(std::string itemName, int64_t price) : RegularItem(std::move(itemName), price, 1) {}
-RegularItem::RegularItem(std::string itemName, int64_t price, int64_t amnt)
-    : Item(std::move(itemName), price, amnt, "FIXME") {}
-//Constructors with descriptions
-RegularItem::RegularItem(std::string itemName, int64_t price, std::string desc) : RegularItem(std::move(itemName), price, 1, std::move(desc)) {}
-RegularItem::RegularItem(std::string itemName, int64_t price, int64_t amnt, std::string desc)
-    : Item(std::move(itemName), price, amnt, std::move(desc)) {}
-RegularItem::RegularItem(RegularItem* r) : Item(r) {}
+
+RegularItem::RegularItem(std::string itemName, int64_t price, std::string desc, int64_t amnt)
+        : Item(std::move(itemName), price, amnt, std::move(desc)) {}
 
 std::string RegularItem::GetAmntText() {
     return "x";
 }
 
-AttackItem::AttackItem(std::string itemName, int64_t dmg, int64_t price, Status* effect, int64_t chance, bool spread) : RegularItem(std::move(itemName), price) {
+
+AttackItem::AttackItem(std::string itemName, int64_t dmg, int64_t price, std::string desc, Status* effect, int64_t chance, bool spread) : RegularItem(std::move(itemName), price, std::move(desc)) {
     damage = dmg;
     Status* ailment = new Status(effect);
     status = ailment;
@@ -26,42 +22,9 @@ AttackItem::AttackItem(std::string itemName, int64_t dmg, int64_t price, Status*
     this->spreadDamage = spread;
     type = "ATTACK";
 }
-AttackItem::AttackItem(std::string itemName, int64_t dmg, int64_t price, int64_t amnt, bool spread) : RegularItem(std::move(itemName), price, amnt) {
+AttackItem::AttackItem(std::string itemName, int64_t dmg, int64_t price, std::string desc, int64_t amnt, bool spread) : RegularItem(std::move(itemName), price, std::move(desc), amnt) {
     damage = dmg;
     this->spreadDamage = spread;
-    type = "ATTACK";
-}
-AttackItem::AttackItem(std::string itemName, int64_t dmg, int64_t price, bool spread) : RegularItem(std::move(itemName), price) {
-    damage = dmg;
-    this->spreadDamage = spread;
-    type = "ATTACK";
-}
-//Constructors with descriptions
-AttackItem::AttackItem(std::string itemName, int64_t dmg, int64_t price, Status* effect, int64_t chance, bool spread, std::string desc) : RegularItem(std::move(itemName), price, std::move(desc)) {
-    damage = dmg;
-    Status* ailment = new Status(effect);
-    status = effect;
-    effectChance = chance;
-    this->spreadDamage = spread;
-    type = "ATTACK";
-}
-AttackItem::AttackItem(std::string itemName, int64_t dmg, int64_t price, int64_t amnt, bool spread, std::string desc) : RegularItem(std::move(itemName), price, amnt, std::move(desc)) {
-    damage = dmg;
-    this->spreadDamage = spread;
-    type = "ATTACK";
-}
-AttackItem::AttackItem(std::string itemName, int64_t dmg, int64_t price, bool spread, std::string desc) : RegularItem(std::move(itemName), price, std::move(desc)) {
-    damage = dmg;
-    this->spreadDamage = spread;
-    type = "ATTACK";
-}
-AttackItem::AttackItem(AttackItem* at) : RegularItem(at)
-{
-    this->damage = at->GetDamage();
-    Status* ailment = new Status(at->GetStatus());
-    this->status = ailment;
-    this->effectChance = at->GetChance();
-    this->spreadDamage = at->canSpread();
     type = "ATTACK";
 }
 
@@ -112,7 +75,7 @@ void AttackItem::Use(Entity* user, std::vector<Entity*> opponents)
             if(this->status != nullptr)
             {
                 int64_t chance = getRand() % 10;
-                if(chance <= this->effectChance) 
+                if(chance <= this->effectChance)
                 {
                     Status* ailment = new Status(this->status);
                     target->setStatus(ailment);
@@ -130,7 +93,7 @@ void AttackItem::Use(Entity* user, std::vector<Entity*> opponents)
         if(this->status != nullptr)
         {
             int64_t chance = getRand() % 10;
-            if(chance <= this->effectChance) 
+            if(chance <= this->effectChance)
             {
                 Status* ailment = new Status(this->status);
                 opponents[0]->setStatus(ailment);
@@ -141,20 +104,7 @@ void AttackItem::Use(Entity* user, std::vector<Entity*> opponents)
     }
 }
 
-HealItem::HealItem(std::string itemName, int64_t hp, int64_t price) : RegularItem(std::move(itemName), price) {
-    hpAmnt = hp;
-    type = "HEAL";
-}
-HealItem::HealItem(std::string itemName, int64_t hp, int64_t price, int64_t amnt) : RegularItem(std::move(itemName), price, amnt) {
-    hpAmnt = hp;
-    type = "HEAL";
-}
-//Constructors with descriptions
-HealItem::HealItem(std::string itemName, int64_t hp, int64_t price, std::string desc) : RegularItem(std::move(itemName), price, std::move(desc)) {
-    hpAmnt = hp;
-    type = "HEAL";
-}
-HealItem::HealItem(std::string itemName, int64_t hp, int64_t price, int64_t amnt, std::string desc) : RegularItem(std::move(itemName), price, amnt, std::move(desc)) {
+HealItem::HealItem(std::string itemName, int64_t hp, int64_t price, std::string desc, int64_t amnt) : RegularItem(std::move(itemName), price, std::move(desc), amnt) {
     hpAmnt = hp;
     type = "HEAL";
 }
@@ -164,8 +114,7 @@ HealItem::HealItem(std::string itemName, int64_t hp, int64_t price, Status* effe
     this->healedStatus = cure;
     type = "HEAL";
 }
-HealItem::HealItem(HealItem* ht) : RegularItem(ht)
-{
+HealItem::HealItem(HealItem* ht) : RegularItem(ht) {
     this->hpAmnt = ht->GetHpAmnt();
     Status* cure = new Status(ht->GetHealedStatus());
     this->healedStatus = cure;
@@ -194,7 +143,7 @@ void HealItem::display()
     while(choice != "EXIT")
     {
         std::getline(std::cin, choice);
-        if(choice == "HEAL") 
+        if(choice == "HEAL")
         {
             this->Use(getPlayer().get(), std::vector<Entity*>{nullptr});
             if(this->GetAmount() <= 0)
@@ -294,7 +243,7 @@ void StatusItem::display()
     while(choice != "EXIT")
     {
         std::getline(std::cin, choice);
-        if(choice == "USE") 
+        if(choice == "USE")
         {
             this->Use(getPlayer().get(), std::vector<Entity*>{nullptr});
             if(this->GetAmount() <= 0)
@@ -340,7 +289,7 @@ void StatusItem::Use(Entity* user, std::vector<Entity*> opponents)
     if(this->status != nullptr)
     {
         int64_t chance = getRand() % 10;
-        if(chance <= this->effectChance) 
+        if(chance <= this->effectChance)
         {
             Status* ailment = new Status(this->status);
             user->setStatus(ailment);

@@ -5,10 +5,10 @@
 #include "Item.h"
 #include "Status.h"
 
+
 class RegularItem : public Item {
   public:
-    RegularItem(std::string itemName, int64_t price, int64_t amnt);
-    RegularItem(std::string itemName, int64_t price);
+    RegularItem(std::string itemName, int64_t price, std::string desc, int64_t amnt = 1);
     std::string GetAmntText() override;
 };
 
@@ -20,9 +20,8 @@ class AttackItem : public RegularItem {
     bool spreadDamage = false;
 
   public:
-    AttackItem(std::string itemName, int64_t dmg, int64_t price, Status* effect, int64_t chance);
-    AttackItem(std::string itemName, int64_t dmg, int64_t price, int64_t amnt);
-    AttackItem(std::string itemName, int64_t dmg, int64_t price);
+    AttackItem(std::string itemName, int64_t dmg, int64_t price, std::string desc, int64_t amnt = 1);
+    AttackItem(std::string itemName, int64_t dmg, int64_t price, std::string desc, Status* effect, int64_t chance);
 
     void SetDamage(int64_t dmg);
     void SetStatus(Status* effect);
@@ -45,8 +44,7 @@ class HealItem : public RegularItem
     //void dispatch(int64_t i) override;
 
     public:
-    HealItem(std::string itemName, int64_t hp, int64_t price);
-    HealItem(std::string itemName, int64_t hp, int64_t price, int64_t amnt);
+    HealItem(std::string itemName, int64_t hp, int64_t price, std::string desc, int64_t amnt = 1);
 
     void SetHpAmnt(int64_t hp);
     void SetHealedStatus(Status* status);
