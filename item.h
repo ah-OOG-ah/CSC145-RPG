@@ -3,7 +3,7 @@
 #include <cstdint>
 #include <string>
 #include "Menu.h"
-#include "EquippedEntity.h"
+#include "Entity.h"
 #include <vector>
 
 class Item : public Menu{
@@ -40,5 +40,5 @@ class Item : public Menu{
 
     void display() override;
 
-    virtual void Use(EquippedEntity* user , std::vector< EquippedEntity* > opponents);
+    virtual void Use(Entity* user , std::vector< Entity* > opponents);
 };
