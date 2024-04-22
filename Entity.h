@@ -13,7 +13,7 @@ class Entity {
     std::string name;
     int64_t maxHp;
     int64_t hp;
-    int64_t attk = 10;
+    double attk = 10;
     double percDef = 0; // Reduces a specified percentage of damage from an attack after staticDef removes its amount
     int64_t staticDef = 0; // Subtracts a set amount of damage from a hit
     int64_t spd = 10; // Used to determine turn order
@@ -34,7 +34,7 @@ class Entity {
     [[nodiscard]] std::string getName() const;
     [[nodiscard]] int64_t getMaxHp() const;
     [[nodiscard]] int64_t getCurrentHp() const;
-    [[nodiscard]] int64_t getAttk() const;
+    [[nodiscard]] double getAttk() const;
     [[nodiscard]] int64_t getStaticDef() const;
     [[nodiscard]] double getPercDef() const;
     [[nodiscard]] int64_t getSpd() const;
@@ -51,7 +51,7 @@ class Entity {
     virtual void attackEntity(Entity* enemy);
 
     void changeHP(int64_t hpAmnt); //For item based attacks
-    void changeAttk(int64_t);
+    void changeAttk(double);
     void changePercDef(double);
     void changeStaticDef(int64_t);
     void changeSpd(int64_t);

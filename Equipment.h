@@ -4,7 +4,7 @@
 #include <cstdint>
 #include "item.h"
 #include "Status.h"
-#include "Entity.h"
+#include "Entity.h"x\
 
 class Equipment : public Item {
   protected:
@@ -29,7 +29,7 @@ class Weapon : public Equipment {
     Weapon(Weapon* w);
     [[nodiscard]] double GetDamage() const;
     void SetDamage(double dmg);
-    void Use(Entity* user , std::vector< Entity* > opponents) override;
+    void Use(Entity*, std::vector<Entity* >) override;
     void display() override;
 };
 
@@ -58,6 +58,6 @@ class Armor : public Equipment {
     void SetStaticDef(int64_t);
     void SetDmgMult(double);
     void SetArmorType(ArmorType);
-    void Use(Entity* user , std::vector< Entity* > opponents) override;
+    void Use(Entity*, std::vector<Entity* >) override;
     void display() override;
 };
