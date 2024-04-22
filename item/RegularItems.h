@@ -36,14 +36,13 @@ class AttackItem : public RegularItem {
     void Use(Entity* user , std::vector< Entity* > opponents) override;
 };
 
-class HealItem : public RegularItem
-{
-    protected:
+class HealItem : public RegularItem {
+  protected:
     int64_t hpAmnt;
     Status* healedStatus = nullptr;
     //void dispatch(int64_t i) override;
 
-    public:
+  public:
     HealItem(std::string itemName, int64_t hp, int64_t price, std::string desc, int64_t amnt = 1);
 
     void SetHpAmnt(int64_t hp);
