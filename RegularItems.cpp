@@ -99,11 +99,10 @@ void AttackItem::display()
     return;
 }
 
-void AttackItem::Use(EquippedEntity* user, std::vector<EquippedEntity*> opponents)
+void AttackItem::Use(Entity* user, std::vector<Entity*> opponents)
 {
     if(this->spreadDamage)
     {
-        user->Inven.RemoveItem(user->Inven.GetPos(this), 1);
         std::cout << user->getName() << " used " << this->GetName() << std::endl;
         for(Entity* target : opponents)
         {
@@ -120,7 +119,7 @@ void AttackItem::Use(EquippedEntity* user, std::vector<EquippedEntity*> opponent
                 }
             }
         }
-        user->Inven.RemoveItem(user->Inven.GetPos(this), 1);
+        this->amount -1;
     }
     else
     {
@@ -137,7 +136,7 @@ void AttackItem::Use(EquippedEntity* user, std::vector<EquippedEntity*> opponent
                 std::cout << opponents[0]->getName() << " was afflicted by " << this->status->GetName() << std::endl;
             }
         }
-        user->Inven.RemoveItem(user->Inven.GetPos(this), 1);
+        this->amount -1;
     }
 }
 
@@ -196,7 +195,7 @@ void HealItem::display()
         std::getline(std::cin, choice);
         if(choice == "HEAL") 
         {
-            this->Use(getPlayer().get(), std::vector<EquippedEntity*>{nullptr});
+            this->Use(getPlayer().get(), std::vector<Entity*>{nullptr});
             if(this->GetAmount() <= 0)
             {
                 return;
@@ -210,7 +209,7 @@ void HealItem::display()
     return;
 }
 
-void HealItem::Use(EquippedEntity* user, std::vector<EquippedEntity*> opponents)
+void HealItem::Use(Entity* user, std::vector<Entity*> opponents)
 {
     int64_t healedAmnt = this->hpAmnt;
     if((healedAmnt + user->getCurrentHp()) > user->getMaxHp())
@@ -218,7 +217,7 @@ void HealItem::Use(EquippedEntity* user, std::vector<EquippedEntity*> opponents)
         healedAmnt = user->getMaxHp() - user->getCurrentHp();
     }
     user->changeHP(healedAmnt);
-    user->Inven.RemoveItem(user->Inven.GetPos(this), 1);
+    this->amount -1;
     std::cout << user->getName() << " used " << this->GetName() << std::endl;
     if(hpAmnt != 0)
     {
@@ -295,7 +294,7 @@ void StatusItem::display()
         std::getline(std::cin, choice);
         if(choice == "USE") 
         {
-            this->Use(getPlayer().get(), std::vector<EquippedEntity*>{nullptr});
+            this->Use(getPlayer().get(), std::vector<Entity*>{nullptr});
             if(this->GetAmount() <= 0)
             {
                 return;
@@ -309,7 +308,7 @@ void StatusItem::display()
     return;
 }
 
-void StatusItem::Use(EquippedEntity* user, std::vector<EquippedEntity*> opponents)
+void StatusItem::Use(Entity* user, std::vector<Entity*> opponents)
 {
     if(this->stat == attack)
     {
@@ -345,5 +344,5 @@ void StatusItem::Use(EquippedEntity* user, std::vector<EquippedEntity*> opponent
             std::cout << user->getName() << " was afflicted by " << this->status->GetName() << std::endl;
         }
     }
-    user->Inven.RemoveItem(this, 1);
+    this->amount -1;
 }
