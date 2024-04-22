@@ -183,42 +183,26 @@
         }
     }
 
-
-
-/*
-void Inventory::SetItem(int64_t pos, Item* newItem)
+void Inventory::GarbageCollection()
+{
+    int64_t removedItems = 0;
+    for(int i = 0; i < usedElements; i++)
     {
-        start[pos] = newItem;
-        if(newItem != nullptr) { usedElements++; } //Used to handle case when someone tries to use set item to remove an item
-        else{ usedElements--; }
-    }
-    void Inventory::SetItem(std::string name, Item* newItem)
-    {
-        int i = 0;
-        while((*start)[i].GetName() != name)
+        if(start[i]->GetAmount() <= 0)
         {
-            i++;
-            if(i >= numElements)
+            start[i] = nullptr;
+            removedItems++;
+        }
+    }
+    for(int j = 0; j < usedElements; j++)
+    {
+        if(start[j] == nullptr)
+        {
+            for(int i = j; i < numElements - 1; i++)
             {
-                return;
+                start[i] = start[i + 1];
             }
         }
-        start[i] = newItem;
-        if(newItem != nullptr) { usedElements++; } //Used to handle case when someone tries to use set item to remove an item
-        else{ usedElements--; }
     }
-
-    void Inventory::PushBackEquip(Equipment* newTool)
-    {
-        if(usedEquips = numEquips) { return; }
-        tools[usedEquips] = newTool;
-        usedEquips++;
-    }
-
-    void Inventory::PushBack(Item* newItem)
-    {
-        if(usedElements = numElements) { return; }
-        start[usedElements] = newItem;
-        usedElements++;
-    }
-*/
+    usedElements -= removedItems;
+}

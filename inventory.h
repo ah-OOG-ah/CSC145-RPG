@@ -37,4 +37,6 @@ class Inventory
     void PrintInven(); 
     void PrintInven(int dummy = 0);
     void SelectItem(); 
+
+    void GarbageCollection();
 };

@@ -101,6 +101,7 @@ void AttackItem::display()
 
 void AttackItem::Use(Entity* user, std::vector<Entity*> opponents)
 {
+    if(this->amount <= 0) { return;}
     if(this->spreadDamage)
     {
         std::cout << user->getName() << " used " << this->GetName() << std::endl;
@@ -211,6 +212,7 @@ void HealItem::display()
 
 void HealItem::Use(Entity* user, std::vector<Entity*> opponents)
 {
+    if(this->amount <= 0) { return;}
     int64_t healedAmnt = this->hpAmnt;
     if((healedAmnt + user->getCurrentHp()) > user->getMaxHp())
     {
@@ -310,6 +312,7 @@ void StatusItem::display()
 
 void StatusItem::Use(Entity* user, std::vector<Entity*> opponents)
 {
+    if(this->amount <= 0) { return;}
     if(this->stat == attack)
     {
         user->changeAttk(this->boost);
