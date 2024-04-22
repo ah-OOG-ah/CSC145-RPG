@@ -124,6 +124,6 @@ Enemy mummy("Mummy", 65, 20, 1.0, 10, 12, greatAttkItems, betterHealItems, mummy
 Enemy zombie("Zombie", 65, 20, 1.0, 10, 12, greatAttkItems, basicHealItems, allRoids, undeadWeapons, noArmor, std::vector<Item*>{&zombieBlood}, zombieSprite, MidLevelAI);
 Enemy ghoul("Ghoul", 60, 10, .80, 20, 30, betterAttkItems, noHeal, shieldOnly, undeadWeapons, basicArmor, ghoulSprite, MidLevelAI);
 Enemy monkeyGhoul("Monkey Ghoul", 65, 25, .82, 15, 15, betterAttkItems, noHeal, shieldOnly, undeadWeapons, basicArmor, monkeyGhoulSprite, MidLevelAI);
-Enemy cryptogriph("Cryptogriph", 50, 10, .60, 16, 40, powerfulAttkItems, betterHealItems, sleepingPillsOnly, swordsOnly, steelSet, std::vector<Item*>{&elixir, &goldBoots, &goldChest, &goldSword}, cryptogriphSprite, MidLevelAI);
+Enemy cryptogriph("Cryptogriph", 50, 10, .60, 16, 40, powerfulAttkItems, betterHealItems, sleepingPillsOnly, swordsOnly, steelSet, std::vector<Item*>{&elixir, &goldBoots, &goldChest, &goldSword}, cryptogriphSprite, ItemHappy);
 
 Enemy MonkeyBob("Monkey Bob", 200, 40, .50, 35, 50, powerfulAttkItems, betterHealItems, std::vector<StatusItem>{superRoids}, rareWeapons, topTierArmor, MonkeyBobSprite, HighLevelAI);
