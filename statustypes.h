@@ -2,7 +2,6 @@
 
 #include <iostream>
 #include "Status.h"
-#include "game.h"
 
 void poisonEffect(Entity* victim, Status* ailment);
 
