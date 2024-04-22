@@ -39,10 +39,5 @@ class Item : public Menu{
 
     void display() override;
 
-    virtual void Use(Entity* user, std::vector<Entity*> opponents);
-};
-
-class ConsumItem : public Item
-{
-
+    virtual void Use(Entity* user , std::vector< Entity* > opponents);
 };

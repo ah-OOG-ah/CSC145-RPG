@@ -29,7 +29,7 @@ class Weapon : public Equipment {
     Weapon(Weapon* w);
     [[nodiscard]] double GetDamage() const;
     void SetDamage(double dmg);
-    void Use(Entity* user, std::vector<Entity*> opponents) override;
+    void Use(Entity* user , std::vector< Entity* > opponents) override;
     void display() override;
 };
 
@@ -58,6 +58,6 @@ class Armor : public Equipment {
     void SetStaticDef(int64_t);
     void SetDmgMult(double);
     void SetArmorType(ArmorType);
-    void Use(Entity* user, std::vector<Entity*> opponents) override;
+    void Use(Entity* user , std::vector< Entity* > opponents) override;
     void display() override;
 };
