@@ -4,6 +4,7 @@
 #include <string>
 #include "Menu.h"
 #include "Entity.h"
+#include <vector>
 
 class Item : public Menu{
   protected:

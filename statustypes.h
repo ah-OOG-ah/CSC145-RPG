@@ -1,6 +1,5 @@
 #pragma once
 
-#include <iostream>
 #include "Status.h"
 
 void poisonEffect(Entity* victim, Status* ailment);

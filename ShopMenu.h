@@ -2,7 +2,6 @@
 
 #include "Menu.h"
 #include "item.h"
-#include "Equipment.h"
 #include <cstdint>
 #include <string>
 
