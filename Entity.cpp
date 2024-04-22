@@ -32,7 +32,7 @@ int64_t Entity::getMaxHp() const { return maxHp; }
 
 int64_t Entity::getCurrentHp() const { return hp; }
 
-int64_t Entity::getAttk() const { return attk; }
+double Entity::getAttk() const { return attk; }
 
 int64_t Entity::getStaticDef() const { return staticDef; }
 
@@ -58,7 +58,7 @@ void Entity::changeHP(int64_t hpAmnt){
     this->hp += hpAmnt; 
 }
 
-void Entity::changeAttk(int64_t amnt){
+void Entity::changeAttk(double amnt){
     this->attk += amnt; 
 }
 
