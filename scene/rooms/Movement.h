@@ -9,4 +9,7 @@ struct Movement {
     bool incX = false;
     bool isY = false;
     bool incY = false;
+
+    [[nodiscard]] std::string toString() const;
+    void reset();
 };

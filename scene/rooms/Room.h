@@ -10,13 +10,11 @@
 #include "Menu.h"
 
 
-class Room;
-
 struct Direction {
     std::string name;
-    std::function<void(Room*)> func;
+    std::function<void(std::shared_ptr<Movement>)> func;
 
-    Direction(std::string n, std::function<void(Room*)> f) : name(std::move(n)), func(std::move(f)) { }
+    Direction(std::string n, std::function<void(std::shared_ptr<Movement>)> f) : name(std::move(n)), func(std::move(f)) { }
 };
 
 class Room : public Menu {
@@ -43,7 +41,7 @@ class Room : public Menu {
     /**
      * Some special action specific to the room, e.g. a shop or treasure.
      */
-    virtual void specialAction() = 0;
+    virtual void specialAction();
 
     /*
      * Set the movement struct so rooms can pass changes back up to the Floor.
@@ -74,10 +72,3 @@ class Room : public Menu {
 
     static const std::vector<Direction> directions;
 };
-
-const std::vector<Direction> Room :: directions ({
-     Direction("North", [](Room* r){ r->movement->isY = true; r->movement->incY = false; }),
-     Direction("South", [](Room* r){ r->movement->isY = true; r->movement->incY = true; }),
-     Direction("East", [](Room* r){ r->movement->isX = true; r->movement->incX = false; }),
-     Direction("West", [](Room* r){ r->movement->isX = true; r->movement->incX = true; })
-});
