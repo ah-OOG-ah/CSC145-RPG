@@ -12,10 +12,10 @@ game_src = [
   'Battle.cpp',
   'BattleMenu.cpp',
   'Player.cpp',
+  'item.cpp',
   'RegularItems.cpp',
   'inventory.cpp',
   'Status.cpp',
-  'item.cpp',
   'Equipment.cpp',
   'statustypes.cpp',
   'enemyai.cpp'
