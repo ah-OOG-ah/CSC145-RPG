@@ -99,7 +99,7 @@ void AttackItem::display()
     return;
 }
 
-void AttackItem::Use(Entity* user, std::vector<Entity*> opponents)
+void AttackItem::Use(EquippedEntity* user, std::vector<EquippedEntity*> opponents)
 {
     if(this->spreadDamage)
     {
@@ -196,7 +196,7 @@ void HealItem::display()
         std::getline(std::cin, choice);
         if(choice == "HEAL") 
         {
-            this->Use(getPlayer().get(), std::vector<Entity*>{nullptr});
+            this->Use(getPlayer().get(), std::vector<EquippedEntity*>{nullptr});
             if(this->GetAmount() <= 0)
             {
                 return;
@@ -210,7 +210,7 @@ void HealItem::display()
     return;
 }
 
-void HealItem::Use(Entity* user, std::vector<Entity*> opponents)
+void HealItem::Use(EquippedEntity* user, std::vector<EquippedEntity*> opponents)
 {
     int64_t healedAmnt = this->hpAmnt;
     if((healedAmnt + user->getCurrentHp()) > user->getMaxHp())
@@ -295,7 +295,7 @@ void StatusItem::display()
         std::getline(std::cin, choice);
         if(choice == "USE") 
         {
-            this->Use(getPlayer().get(), std::vector<Entity*>{nullptr});
+            this->Use(getPlayer().get(), std::vector<EquippedEntity*>{nullptr});
             if(this->GetAmount() <= 0)
             {
                 return;
@@ -309,7 +309,7 @@ void StatusItem::display()
     return;
 }
 
-void StatusItem::Use(Entity* user, std::vector<Entity*> opponents)
+void StatusItem::Use(EquippedEntity* user, std::vector<EquippedEntity*> opponents)
 {
     if(this->stat == attack)
     {
@@ -347,29 +347,3 @@ void StatusItem::Use(Entity* user, std::vector<Entity*> opponents)
     }
     user->Inven.RemoveItem(this, 1);
 }
-
-/*
-NonConsumAttackItem::NonConsumAttackItem(std::string itemName, int64_t dmg, int64_t price, Status* effect, int64_t chance)
-    : AttackItem(std::move(itemName), dmg, price, effect, chance, false) {
-    stackable = false;
-}
-
-NonConsumAttackItem::NonConsumAttackItem(std::string itemName, int64_t dmg, int64_t price)
-    : AttackItem(std::move(itemName), dmg, price, false) {
-    stackable = false;
-}
-//Constructors with descriptions
-NonConsumAttackItem::NonConsumAttackItem(std::string itemName, int64_t dmg, int64_t price, Status* effect, int64_t chance, std::string desc)
-    : AttackItem(std::move(itemName), dmg, price, effect, chance, false, std::move(desc)) {
-    this->stackable = false;
-}
-NonConsumAttackItem::NonConsumAttackItem(std::string itemName, int64_t dmg, int64_t price, std::string desc)
-    : AttackItem(std::move(itemName), dmg, price, false, std::move(desc)) {
-    this->stackable = false;
-}
-NonConsumAttackItem::NonConsumAttackItem(NonConsumAttackItem* ncat) : AttackItem(ncat)
-{
-    this->stackable = false;
-}
-
-std::string NonConsumAttackItem::GetAmntText() { return " "; } */

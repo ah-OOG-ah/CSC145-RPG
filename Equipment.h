@@ -4,7 +4,6 @@
 #include <cstdint>
 #include "item.h"
 #include "Status.h"
-#include "Entity.h"x\
 
 class Equipment : public Item {
   protected:
