@@ -24,6 +24,7 @@ game_src = [
   'scene/Floor.cpp',
   'scene/rooms/BattleRoom.cpp',
   'scene/rooms/EmptyRoom.cpp',
+  'scene/rooms/Movement.cpp',
   'scene/rooms/Room.cpp',
   'scene/rooms/SafeRoom.cpp',
   'scene/rooms/ShopRoom.cpp',
