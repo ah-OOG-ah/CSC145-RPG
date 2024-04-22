@@ -4,6 +4,7 @@ project('CSC145-RPG', 'cpp',
 
 game_src = [ 
   'Entity.cpp', 
+  'Enemy.cpp',
   'game.cpp',
   'Menu.cpp',
   'DebugMenu.cpp',
@@ -15,7 +16,9 @@ game_src = [
   'inventory.cpp',
   'Status.cpp',
   'item.cpp',
-  'Equipment.cpp'
+  'Equipment.cpp',
+  'statustypes.cpp',
+  'enemyai.cpp'
 ]   
 executable(
   'game',
