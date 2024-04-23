@@ -30,6 +30,10 @@ std::string Equipment::GetAmntText() {
     return "";
 }
 
+std::unique_ptr<Item> Equipment::copy() {
+    return std::make_unique<Equipment>(this);
+}
+
 Weapon::Weapon(std::string itemName, int64_t durab, double dmg, int64_t price) : Equipment(std::move(itemName), durab, price) {
     dmgMultiplier = dmg;
     type = "WEAPON";
@@ -89,6 +93,10 @@ void Weapon::display() {
             std::cout << "Invalid input. Please input again. " << std::endl;
         }
     }
+}
+
+std::unique_ptr<Item> Weapon::copy() {
+    return std::make_unique<Weapon>(this);
 }
 
 Armor::Armor(std::string itemName, int64_t durab, double pDef, int64_t sDef, int64_t price, ArmorType mold) : Armor(std::move(itemName), durab, pDef, sDef, 1.0 , price, mold) {
@@ -213,4 +221,8 @@ void Armor::display()
             std::cout << "Invalid input. Please input again. " << std::endl;
         }
     }
+}
+
+std::unique_ptr<Item> Armor::copy() {
+    return std::make_unique<Armor>(this);
 }
