@@ -26,6 +26,6 @@ class Battle : public Scene, public Menu {
     void dispatch(int64_t i) override;
 
   public:
-    explicit Battle(std::string);
+    explicit Battle(std::string, int64_t nice);
     void run() override;
 };

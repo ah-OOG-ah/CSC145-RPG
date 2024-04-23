@@ -4,7 +4,7 @@
 #include "game.h"
 
 
-SafeRoom::SafeRoom(std::shared_ptr<Movement> m, uint8_t mask) : Room("Safe", std::move(m), mask) {
+SafeRoom::SafeRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t nice) : Room("Safe", std::move(m), mask, nice) {
     switch (randUint() % 4) {
         case 0:
             description = "You enter a blank room with a small lantern hanging form the ceiling in the center";

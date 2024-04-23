@@ -2,7 +2,7 @@
 #include "game.h"
 
 
-EmptyRoom::EmptyRoom(std::shared_ptr<Movement> m, uint8_t mask) : Room("Empty", std::move(m), mask) {
+EmptyRoom::EmptyRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t nice) : Room("Empty", std::move(m), mask, nice) {
     switch (randUint() % 4) {
         case 1:
             description = "You enter a blank room with a small lantern hanging form the ceiling in the center";

@@ -4,14 +4,17 @@
 #include "Entity.h"
 
 
-void DefaultAI(Enemy* user, Entity* target);
+namespace EAI {
 
-void AttackOnly(Enemy* user, Entity* target);
+    void DefaultAI(Enemy *user, Entity *target);
 
-void MidLevelAI(Enemy* user, Entity* target);
+    void AttackOnly(Enemy *user, Entity *target);
 
-void HighLevelAI(Enemy* user, Entity* target);
+    void MidLevelAI(Enemy *user, Entity *target);
 
-void HealHappy(Enemy* user, Entity* target);
+    void HighLevelAI(Enemy *user, Entity *target);
 
-void ItemHappy(Enemy* user, Entity* target);
+    void HealHappy(Enemy *user, Entity *target);
+
+    void ItemHappy(Enemy *user, Entity *target);
+}

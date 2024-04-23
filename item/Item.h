@@ -5,6 +5,7 @@
 #include "Menu.h"
 #include "Entity.h"
 #include <vector>
+#include <memory>
 
 
 class Item : public Menu {
@@ -24,6 +25,9 @@ class Item : public Menu {
     Item(std::string itemName, int64_t price, int64_t amnt, std::string desc);
     Item(std::string itemName, int64_t price, std::string desc);
     explicit Item(Item* i);
+
+    // C++ doesn't have virtual constructors, but I don't care
+    virtual std::unique_ptr<Item> copy() = 0;
 
     //Getters
     std::string GetName();

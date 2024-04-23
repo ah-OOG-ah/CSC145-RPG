@@ -11,6 +11,8 @@ class RegularItem : public Item {
     RegularItem(std::string itemName, int64_t price, std::string desc, int64_t amnt = 1);
     explicit RegularItem(RegularItem *);
 
+    std::unique_ptr<Item> copy() override;
+
     std::string GetAmntText() override;
 };
 

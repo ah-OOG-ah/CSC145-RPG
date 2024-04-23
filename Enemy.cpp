@@ -24,6 +24,14 @@ Enemy::Enemy(Enemy* en) : EquippedEntity(en) {
     this->extraLoot = en->getExtraLoot();
 }
 
+Enemy::Enemy(const std::shared_ptr<Enemy>& en) : EquippedEntity(en.get()) {
+    this->enemySprite = en->getSprite();
+    this->currentWeapon = en->currentWeapon;
+    this->armor = en->armor;
+    this->Inven = en->Inven;
+    this->extraLoot = en->getExtraLoot();
+}
+
 std::string Enemy::getSprite() const { return enemySprite; }
 std::vector<Item*> Enemy::getExtraLoot() { return extraLoot; }
 

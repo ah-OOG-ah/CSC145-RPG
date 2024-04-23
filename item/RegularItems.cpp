@@ -14,6 +14,10 @@ std::string RegularItem::GetAmntText() {
     return "x";
 }
 
+std::unique_ptr<Item> RegularItem::copy() {
+    return std::make_unique<RegularItem>(name, price, description, amount);
+}
+
 
 AttackItem::AttackItem(std::string itemName, int64_t dmg, int64_t price, std::string desc, const Status* effect, int64_t chance, bool spread) : RegularItem(std::move(itemName), price, std::move(desc)) {
     damage = dmg;

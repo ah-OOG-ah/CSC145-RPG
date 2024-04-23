@@ -8,5 +8,5 @@ class EmptyRoom : public Room {
     std::string mapDisplay = "-";
 
   public:
-    explicit EmptyRoom(std::shared_ptr<Movement> m, uint8_t mask);
+    EmptyRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t nice);
 };

@@ -15,7 +15,7 @@ void DebugMenu::returnToOverworld() {
 void DebugMenu::enterBattle() {
 
     std::cout << "To battle!" << std::endl;
-    Battle battle(std::string("debug_fight"));
+    Battle battle(std::string("debug_fight"), 10);
     battle.run();
     this->display();
 }
