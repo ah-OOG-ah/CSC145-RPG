@@ -13,20 +13,20 @@ namespace ITiers {
     static const std::vector<StatusItem> noStatusItems = {};
     static const std::vector<AttackItem> bombsOnly = {bomb, bomb, gorillaBomb};
     static const std::vector<AttackItem> powerfulAttkItems = {gorillaBomb, gorillaBomb, oilDrumOfSludge, lightningBottle};
-    static const std::vector<AttackItem> basicAttkItems = {rock, rock, dart, dart};
+    static const Inventory basicAttkItems({rock, rock, dart, dart});
     static const std::vector<AttackItem> betterAttkItems = {throwingAxe, bomb, throwingAxe, bomb, gorillaBomb, flute,
                                                bucketOfSludge};
-    static const std::vector<StatusItem> mummyItems = {anubisAmulet, anubisAmulet, setAmulet};
-    static const std::vector<StatusItem> shieldOnly = {magicShield};
+    static const Inventory mummyItems({anubisAmulet, anubisAmulet, setAmulet});
+    static const Inventory shieldOnly({magicShield});
     static const std::vector<HealItem> basicHealItems = {pureWater, cookie, cookie, cookie, banana, banana};
     static const std::vector<AttackItem> greatAttkItems = {throwingAxe, gorillaBomb, toaster, bucketOfSludge, oilDrumOfSludge};
     static const std::vector<AttackItem> poisonItems = {bucketOfSludge, bucketOfSludge, oilDrumOfSludge};
     static const std::vector<HealItem> betterHealItems = {elixir, elixir, pureWater, pureWater, rubberFruit};
     static const Inventory basicRoids({roids});
-    static const Inventory allRoids(roids, roids, superRoids);
-    static const std::vector<StatusItem> goodStatusItems = {ninjaBand, superRoids, magicShield};
-    static const std::vector<StatusItem> sleepingPillsOnly = {sleepingPill};
-    static const std::vector<AttackItem> rocksOnly = {rock};
+    static const Inventory allRoids({ roids, roids, superRoids });
+    static const Inventory goodStatusItems({ninjaBand, superRoids, magicShield});
+    static const Inventory sleepingPillsOnly({sleepingPill});
+    static const Inventory rocksOnly({rock});
     static const std::vector<Weapon *> noWeapons = {nullptr};
     static const std::vector<Weapon *> basicWeapons = {&sword, &spear, &whip, &staff, nullptr};
     static const std::vector<Weapon *> rareWeapons = {&katana, &hammer, &goldSword, &bottle};

@@ -21,7 +21,7 @@ void Floor::run() {
 
     // Generate rooms
     // First one is safe
-    rooms.push_back(std::make_shared<SafeRoom>(movement, 0b0101));
+    rooms.push_back(std::make_shared<SafeRoom>(movement, 0b0101, level));
 
     // For now, every other room is a battle
     for (int64_t i = 1; i < size * size; ++i) {
@@ -46,15 +46,15 @@ void Floor::run() {
         bool friendly = randUint() % 20 > nice + 10;
         if (friendly) {
             if (randBool()) {
-                rooms.push_back(std::make_shared<TreasureRoom>(movement, mask));
+                rooms.push_back(std::make_shared<TreasureRoom>(movement, mask, nice));
             } else {
-                rooms.push_back(std::make_shared<ShopRoom>(movement, mask));
+                rooms.push_back(std::make_shared<ShopRoom>(movement, mask, nice));
             }
         } else {
             if (randBool()) {
-                rooms.push_back(std::make_shared<BattleRoom>(movement, mask));
+                rooms.push_back(std::make_shared<BattleRoom>(movement, mask, nice));
             } else {
-                rooms.push_back(std::make_shared<EmptyRoom>(movement, mask));
+                rooms.push_back(std::make_shared<EmptyRoom>(movement, mask, nice));
             }
         }
     }

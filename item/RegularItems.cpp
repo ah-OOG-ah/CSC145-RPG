@@ -8,7 +8,7 @@
 
 RegularItem::RegularItem(std::string itemName, int64_t price, std::string desc, int64_t amnt)
         : Item(std::move(itemName), price, amnt, std::move(desc)) {}
-RegularItem::RegularItem(RegularItem* src) : Item(src) {}
+RegularItem::RegularItem(const RegularItem* src) : Item(src) {}
 
 std::string RegularItem::GetAmntText() {
     return "x";
@@ -113,7 +113,7 @@ HealItem::HealItem(std::string itemName, int64_t hp, int64_t price, std::string 
     this->healedStatus = cure;
     type = "HEAL";
 }
-HealItem::HealItem(HealItem* ht) : RegularItem(ht) {
+HealItem::HealItem(const HealItem* ht) : RegularItem(ht) {
     this->hpAmnt = ht->GetHpAmnt();
     auto* cure = new Status(ht->GetHealedStatus());
     this->healedStatus = cure;
@@ -124,7 +124,7 @@ void HealItem::SetHpAmnt(int64_t hp) { hpAmnt = hp; }
 void HealItem::SetHealedStatus(Status* status) { healedStatus = status; }
 
 int64_t HealItem::GetHpAmnt() const { return hpAmnt; }
-Status* HealItem::GetHealedStatus() { return healedStatus; }
+Status* HealItem::GetHealedStatus() const { return healedStatus; }
 
 void HealItem::display()
 {

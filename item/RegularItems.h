@@ -9,7 +9,7 @@
 class RegularItem : public Item {
   public:
     RegularItem(std::string itemName, int64_t price, std::string desc, int64_t amnt = 1);
-    explicit RegularItem(RegularItem *);
+    explicit RegularItem(const RegularItem *);
 
     std::unique_ptr<Item> copy() override;
 
@@ -51,7 +51,7 @@ class HealItem : public RegularItem {
   public:
     HealItem(std::string itemName, int64_t hp, int64_t price, std::string desc, const Status* effect);
     HealItem(std::string itemName, int64_t hp, int64_t price, std::string desc, int64_t amnt = 1);
-    explicit HealItem(HealItem*);
+    explicit HealItem(const HealItem*);
 
     std::unique_ptr<Item> copy() override;
 
@@ -59,7 +59,7 @@ class HealItem : public RegularItem {
     void SetHealedStatus(Status* status);
 
     [[nodiscard]] int64_t GetHpAmnt() const;
-    Status* GetHealedStatus();
+    Status* GetHealedStatus() const;
 
     void display() override;
 

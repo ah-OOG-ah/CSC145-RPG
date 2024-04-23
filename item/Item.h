@@ -24,16 +24,16 @@ class Item : public Menu {
     //Constructor
     Item(std::string itemName, int64_t price, int64_t amnt, std::string desc);
     Item(std::string itemName, int64_t price, std::string desc);
-    explicit Item(Item* i);
+    explicit Item(const Item* i);
 
     // C++ doesn't have virtual constructors, but I don't care
     virtual std::unique_ptr<Item> copy() = 0;
 
     //Getters
-    std::string GetName();
-    std::string GetType();
+    [[nodiscard]] std::string GetName() const;
+    [[nodiscard]] std::string GetType() const;
     virtual std::string GetAmntText() = 0;
-    std::string GetDesc();
+    [[nodiscard]] std::string GetDesc() const;
     [[nodiscard]] int64_t GetAmount() const;
     [[nodiscard]] int64_t GetPrice() const;
     [[nodiscard]] bool isStackable() const;

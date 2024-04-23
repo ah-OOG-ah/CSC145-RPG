@@ -9,7 +9,7 @@
 
 std::string ShopRoom::GetMerchant() const { return merchantName; }
 
-Item* ShopRoom::GetPurchase(int64_t selection) {
+std::shared_ptr<Item> ShopRoom::GetPurchase(int64_t selection) {
     switch(selection) {
         case 1:
             return purchase1;
@@ -44,11 +44,11 @@ ShopRoom::ShopRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t nice) : Ro
 
     switch (randUint() % 4) {
         case 0:
-            purchase1 = new AttackItem(IDefs::dart);
+            purchase1 = IDefs::dart->copy();
             purchase1->copy(3);
             break;
         case 1:
-            purchase1 = new HealItem(IDefs::cookie);
+            purchase1 = IDefs::cookie->copy();
             purchase1->copy(5);
             break;
         case 2:
