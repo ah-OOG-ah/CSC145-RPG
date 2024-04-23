@@ -7,7 +7,7 @@ Inventory::Inventory() = default;
 Inventory::Inventory(size_t itemCap) : numElements(itemCap) { }
 Inventory::Inventory(const std::vector<std::shared_ptr<Item>>& items) : numElements(items.size()), usedElements(numElements) {
     for (size_t i = 0; i < numElements; ++i) {
-        start.emplace_back()
+        start.emplace_back(items[i]->copy());
     }
 }
 

@@ -13,7 +13,10 @@ class Equipment : public Item {
   public:
     Equipment(std::string itemName, int64_t durab, int64_t price);
     Equipment(std::string itemName, int64_t durab, int64_t price, std::string desc);
-    Equipment(Equipment* e);
+    explicit Equipment(Equipment* e);
+
+    std::unique_ptr<Item> copy() override;
+
     [[nodiscard]] int64_t GetDurab() const;
     void ChangeDurab(int64_t);
     std::string GetAmntText() override;
@@ -26,7 +29,10 @@ class Weapon : public Equipment {
   public:
     Weapon(std::string itemName, int64_t durab, double dmg, int64_t price);
     Weapon(std::string itemName, int64_t durab, double dmg, int64_t price, std::string desc);
-    Weapon(Weapon* w);
+    explicit Weapon(Weapon* w);
+
+    std::unique_ptr<Item> copy() override;
+
     [[nodiscard]] double GetDamage() const;
     void SetDamage(double dmg);
     void Use(Entity*, std::vector<Entity*>) override;
@@ -49,7 +55,10 @@ class Armor : public Equipment {
     //Constructors with Descriptions
     Armor(std::string itemName, int64_t durab, double pDef, int64_t sDef, int64_t price, ArmorType mold, std::string desc);
     Armor(std::string itemName, int64_t durab, double pDef, int64_t sDef, double dmg, int64_t price, ArmorType mold, std::string desc);
-    Armor(Armor* a);
+    explicit Armor(Armor* a);
+
+    std::unique_ptr<Item> copy() override;
+
     [[nodiscard]] double GetPercDef() const;
     [[nodiscard]] int64_t GetStaticDef() const;
     [[nodiscard]] double GetDmgMult() const;
