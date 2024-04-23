@@ -17,8 +17,8 @@ class Status {
     Status(std::string n, int64_t turns, std::function<void(Entity* , Status* )> func);
     Status(Status*);
     std::string GetName();
-    int64_t GetRemainingTurns();
-    int64_t GetMaxTurns();
+    int64_t GetRemainingTurns() const;
+    int64_t GetMaxTurns() const;
     void ReduceTurn();
     void effect(Entity* victim);
     std::function<void(Entity* , Status* )> getFunc();

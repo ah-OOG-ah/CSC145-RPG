@@ -1,16 +1,15 @@
 #include "Status.h"
 
 #include <cstdint>
+#include <utility>
 
-Status::Status(std::string n, int64_t turns, std::function<void(Entity*, Status*)> func)
-{
-    name = n;
+Status::Status(std::string n, int64_t turns, std::function<void(Entity*, Status*)> func) {
+    name = std::move(n);
     maxTurns = turns;
-    this->statusFunction = func;
+    this->statusFunction = std::move(func);
 }
 
-Status::Status(Status* st)
-{
+Status::Status(Status* st) {
     this->name = st->GetName();
     this->maxTurns = st->GetMaxTurns();
     this->statusFunction = this->getFunc();
@@ -18,18 +17,16 @@ Status::Status(Status* st)
 
 std::string Status::GetName() { return name; }
 
-int64_t Status::GetRemainingTurns() { return remainingTurns; }
+int64_t Status::GetRemainingTurns() const { return remainingTurns; }
 
-int64_t Status::GetMaxTurns() { return maxTurns; }
+int64_t Status::GetMaxTurns() const { return maxTurns; }
 
 void Status::ReduceTurn() { this->remainingTurns -=1; }
 
-void Status::effect(Entity* victim)
-{
+void Status::effect(Entity* victim) {
     this->statusFunction(victim, this);
 }
 
-std::function<void(Entity*, Status*)> Status::getFunc()
-{
-    this->statusFunction;
+std::function<void(Entity*, Status*)> Status::getFunc() {
+    return statusFunction;
 }
