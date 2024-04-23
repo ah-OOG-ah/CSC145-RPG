@@ -4,7 +4,7 @@
 
 void DefaultAI(Enemy* user, EquippedEntity* target)
 {
-    int64_t attkOrItem = getRand() % 2;
+    int64_t attkOrItem = randUint() % 2;
     if(attkOrItem == 0)
     {
         double weaponDmg = 1.0;
@@ -16,7 +16,7 @@ void DefaultAI(Enemy* user, EquippedEntity* target)
     }
     else
     {
-        user->Inven.GetItem(getRand() % user->Inven.GetUsedElements());
+        user->Inven.GetItem(randUint() % user->Inven.GetUsedElements());
     }
 }
 
@@ -37,14 +37,14 @@ void MidLevelAI(Enemy* user, EquippedEntity* target)
     {
         weaponDmg = user->currentWeapon->GetDamage();
     }
-    int64_t fleeChance = getRand() % 100;
+    int64_t fleeChance = randUint() % 100;
     if(fleeChance <=10)
     {
         //Flee code
     }
     if(user->getCurrentHp() < (user->getMaxHp() / 2.0))
     {
-        int64_t healOrDef = getRand() % 3;
+        int64_t healOrDef = randUint() % 3;
         if(healOrDef < 2)
         {
             for(int i = 0; i < user->Inven.GetUsedElements(); i++)
@@ -85,14 +85,14 @@ void MidLevelAI(Enemy* user, EquippedEntity* target)
     }
     else
     {
-        int64_t attkOrItem = getRand() % 2;
+        int64_t attkOrItem = randUint() % 2;
         if(attkOrItem == 0)
         {
             target->changeHP(-1 * user->getAttk() * weaponDmg);
         }
         else
         {
-            user->Inven.GetItem(getRand() % user->Inven.GetUsedElements());
+            user->Inven.GetItem(randUint() % user->Inven.GetUsedElements());
         }
     }
 }
@@ -104,7 +104,7 @@ void HighLevelAI(Enemy* user, EquippedEntity* target)
     {
         weaponDmg = user->currentWeapon->GetDamage();
     }
-    int64_t fleeChance = getRand() % 100;
+    int64_t fleeChance = randUint() % 100;
     if(fleeChance <=10)
     {
         //Flee code
@@ -144,7 +144,7 @@ void HighLevelAI(Enemy* user, EquippedEntity* target)
     }
     else
     {
-        int64_t armorChoice = getRand() % user->armorArray.size();
+        int64_t armorChoice = randUint() % user->armorArray.size();
         if(user->armorArray[armorChoice]->GetPercDef() < user->armorArray[armorChoice]->GetPercDef() || user->armorArray[armorChoice]->GetStaticDef() < user->armorArray[armorChoice]->GetStaticDef() || user->armorArray[armorChoice]->GetDurab() < 14)
         {
             for(int i = 0; i < user->Inven.GetUsedElements(); i++)
@@ -156,14 +156,14 @@ void HighLevelAI(Enemy* user, EquippedEntity* target)
                 } 
             }
         }
-        int64_t attkOrItem = getRand() % 5;
+        int64_t attkOrItem = randUint() % 5;
         if(attkOrItem > 0)
         {
             target->changeHP(-1 * user->getAttk() * weaponDmg);
         }
         else
         {
-            user->Inven.GetItem(getRand() % user->Inven.GetUsedElements());
+            user->Inven.GetItem(randUint() % user->Inven.GetUsedElements());
         }
     }
 }
@@ -175,7 +175,7 @@ void HealHappy(Enemy* user, EquippedEntity* target)
     {
         weaponDmg = user->currentWeapon->GetDamage();
     }
-    int64_t healChance = getRand() % 3;
+    int64_t healChance = randUint() % 3;
     if(healChance < 2)
     {
         for(int i = 0; i < user->Inven.GetUsedElements(); i++)
@@ -204,7 +204,7 @@ void ItemHappy(Enemy* user, EquippedEntity* target)
     int64_t invenSize = user->Inven.GetUsedElements();
     if(invenSize > 0)
     {
-        user->Inven.GetItem(getRand() % invenSize);
+        user->Inven.GetItem(randUint() % invenSize);
     }
     else
     {

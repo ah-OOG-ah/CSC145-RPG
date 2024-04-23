@@ -24,7 +24,7 @@ void stypes::paralyzeEffect(Entity* victim, Status* ailment) {
     } else {
         victim->changeSpd(-10);
         ailment->ReduceTurn();
-        int64_t paralyzeChance = getRand() % 3;
+        int64_t paralyzeChance = randUint() % 3;
         if (paralyzeChance == 2) {
             victim->setCanAct(false);
             std::cout << victim->getName() << " can\'t act due to " << ailment->GetName() << std::endl;

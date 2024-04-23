@@ -10,4 +10,6 @@ std::shared_ptr<Player> getPlayer();
 
 std::shared_ptr<Scene> getScene();
 
-uint64_t getRand();
+uint64_t randUint();
+int64_t randInt();
+bool randBool();

@@ -5,7 +5,7 @@
 
 
 BattleRoom::BattleRoom(std::shared_ptr<Movement> m, uint8_t mask) : Room("Battle", std::move(m), mask) {
-    auto rand = getRand() % 4;
+    auto rand = randUint() % 4;
 
     switch (rand) {
         case 0:
