@@ -11,7 +11,7 @@ class BattleRoom : public Room {
     Item* treasure = nullptr;
 
   public:
-    BattleRoom(std::shared_ptr<Movement> m, uint8_t mask);
+    BattleRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t nice);
 
     void specialAction() override;
 

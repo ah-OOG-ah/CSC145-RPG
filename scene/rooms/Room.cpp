@@ -1,7 +1,6 @@
 #include <string>
 #include <utility>
 #include "Room.h"
-#include "game.h"
 
 
 const std::vector<Direction> Room :: directions ({
@@ -11,9 +10,9 @@ const std::vector<Direction> Room :: directions ({
     Direction("West", [](const std::shared_ptr<Movement>& m){ m->isX = true; m->incX = true; })
 });
 
-Room::Room(std::string name, std::shared_ptr<Movement> m, uint8_t mask) : Room(std::move(name), "", std::move(m), mask) { }
-Room::Room(std::string name, std::string description, std::shared_ptr<Movement> m, uint8_t mask)
-    : Menu(std::vector<std::string>()), roomName(std::move(name)), description(std::move(description)), movement(std::move(m)) {
+Room::Room(std::string name, std::shared_ptr<Movement> m, uint8_t mask, int64_t nice) : Room(std::move(name), "", std::move(m), mask, nice) { }
+Room::Room(std::string name, std::string description, std::shared_ptr<Movement> m, uint8_t mask, int64_t nice)
+    : Menu(std::vector<std::string>()), roomName(std::move(name)), description(std::move(description)), nice(nice), movement(std::move(m)) {
 
     // By default, doesn't add a special action
     // That's handled by the room instances

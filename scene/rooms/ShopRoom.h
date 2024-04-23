@@ -37,7 +37,7 @@ class ShopRoom : public Room {
     */ 
 
   public:
-    explicit ShopRoom(std::shared_ptr<Movement> m, uint8_t mask);
+    ShopRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t nice);
 
     /*
     Name: GetMerchant

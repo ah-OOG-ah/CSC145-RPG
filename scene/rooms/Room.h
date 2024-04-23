@@ -22,6 +22,7 @@ class Room : public Menu {
     std::string roomName;
     std::string description;
     std::string mapDisplay = " ";
+    int64_t nice;
 
     bool isExplored = false;
     bool isEntrance = false;
@@ -32,8 +33,8 @@ class Room : public Menu {
     std::vector<std::function<void()>> funcs;
 
   public:
-    Room(std::string name, std::shared_ptr<Movement> m, uint8_t mask);
-    Room(std::string name, std::string description, std::shared_ptr<Movement> m, uint8_t mask);
+    Room(std::string name, std::shared_ptr<Movement> m, uint8_t mask, int64_t nice);
+    Room(std::string name, std::string description, std::shared_ptr<Movement> m, uint8_t mask, int64_t nice);
     virtual ~Room();
 
     void dispatch(int64_t i) override;

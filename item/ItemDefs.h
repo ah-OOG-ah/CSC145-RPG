@@ -58,7 +58,7 @@ namespace IDefs {
     static const std::string ninjaBandDesc = "The headband of a ninja. It causes you to put your arms straight behind you as you run, increasing your speed";
     static const std::string cryptoHeartDesc = "The heart of a cryptogriph. A strange power from within makes your skin like steel";
     static const std::string sleepingPillDesc = "A pill to help you fall asleep. Boosts StaticDef";
-    static const StatusItem roids("'Roids", 15, 2, attack, roidsDesc);
+    static const auto roids = std::make_shared<StatusItem>("'Roids", 15, 2, attack, roidsDesc);
     static const StatusItem superRoids("Super 'Roids", 60, 15, attack, superRoidsDesc, &stypes::paralysis, 10);
     static const StatusItem anubisAmulet("Amulet of Anubis", 45, 5, staticdef, anubisAmuletDesc);
     static const StatusItem setAmulet("Amulet of Set", 45, 10, staticdef, setAmuletDesc, &stypes::poison, 10);

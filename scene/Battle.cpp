@@ -2,19 +2,26 @@
 #include "Enemy.h"
 #include "scene/Scene.h"
 #include "game.h"
+#include "enemytiers.h"
 #include <string>
 #include <utility>
 #include <vector>
 #include <iostream>
 
-Battle::Battle(std::string name) : Scene(std::move(name)), Menu(std::vector<std::string>({
+Battle::Battle(std::string name, int64_t nice) : Scene(std::move(name)), Menu(std::vector<std::string>({
     "Attack",
     "Escape"
 })) {
 
     this->player = getPlayer();
     this->enemy = std::vector<Enemy>();
-    //this->enemy.emplace_back(10);
+
+    auto numEnemy = randUint() % nice;
+    auto src = ETiers::get(nice);
+
+    for (uint64_t i = 0; i < numEnemy; ++i) {
+        this->enemy.emplace_back(src[randUint() % src.size()]);
+    }
 }
 
 /**
@@ -47,7 +54,7 @@ void Battle::run() {
 }
 
 void Battle::listEnemies() {
-    for (Enemy e : enemy)
+    for (const Enemy& e : enemy)
         std::cout << e.toString() << std::endl;
 }
 
@@ -55,7 +62,7 @@ void Battle::attack() {
 
     player->attackEntity(&enemy.at(0));
     this->listEnemies();
-    std::erase_if(enemy, [](Enemy e){ return !e.getAlive(); });
+    std::erase_if(enemy, [](const Enemy& e){ return !e.getAlive(); });
 }
 
 void Battle::escape() {

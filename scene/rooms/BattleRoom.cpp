@@ -4,7 +4,7 @@
 #include "scene/Battle.h"
 
 
-BattleRoom::BattleRoom(std::shared_ptr<Movement> m, uint8_t mask) : Room("Battle", std::move(m), mask) {
+BattleRoom::BattleRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t nice) : Room("Battle", std::move(m), mask) {
     auto rand = randUint() % 4;
 
     switch (rand) {
@@ -29,6 +29,6 @@ BattleRoom::BattleRoom(std::shared_ptr<Movement> m, uint8_t mask) : Room("Battle
 Item* BattleRoom::GetTreasure() { return treasure; }
 
 void BattleRoom::specialAction() {
-    Battle b(roomName);
+    Battle b(roomName, );
     b.run();
 }
