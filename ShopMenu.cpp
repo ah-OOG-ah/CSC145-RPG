@@ -64,8 +64,7 @@ void ShopMenu::Sell()
         getPlayer()->Inven.PrintItems(1); //Used to print items with numbers by them
         int64_t choice = 0;
         std::cin>>choice; //Choice will substracted by one to account for the fact that array starts as zero but inventory numbers at 1
-        if(choice > 0 && choice <= getPlayer()->Inven.GetUsedElements())
-        {
+        if (choice > 0 && choice <= getPlayer()->Inven.GetUsedElements()) {
             int64_t sellAmnt = 1;
             if(getPlayer()->Inven.GetItem(choice)->isStackable())
             {
@@ -139,75 +138,52 @@ void ShopMenu::display()
     std::cout << merchantName<< ": " << entries[12] <<std::endl;
 }
 
-void ShopMenu::dispatch(int64_t choice)
-{
-    switch(choice)
-    {
+void ShopMenu::dispatch(int64_t choice) {
+    switch(choice) {
         case 1:
-            if(getPlayer()->Inven.GetGold() < purchase1->GetPrice())
-            {
+            if(getPlayer()->Inven.GetGold() < purchase1->GetPrice()) {
                 std::cout << merchantName<< ": " << entries[7] <<std::endl;
                 return;
-            }
-            else 
-            {
-                Item* newItem(purchase1);
-                if(getPlayer()->Inven.AddItem(newItem))
-                {
+            } else {
+                if (getPlayer()->Inven.AddItem(purchase1->copy())) {
                     getPlayer()->Inven.AddGold(-1 * purchase1->GetPrice());
                     purchase1->ChangeAmount(-1);
                     std::cout << purchase1->GetName() << " Added to Inventory" << std::endl;
                     std::cout << purchase1->GetPrice() << " Given to " << merchantName << std::endl;
                     std::cout << merchantName<< ": " << entries[5] << std::endl;
-                }
-                else
-                {
+                } else {
                     std::cout << merchantName<< ": " << entries[13] << std::endl;
                 }
             }
             break;
         case 2:
-            if(getPlayer()->Inven.GetGold() < purchase2->GetPrice())
-            {
+            if (getPlayer()->Inven.GetGold() < purchase2->GetPrice()) {
                 std::cout << merchantName<< ": " << entries[7] <<std::endl;
                 return;
-            }
-            else 
-            {
-                Item* newItem(purchase2);
-                if(getPlayer()->Inven.AddItem(newItem))
-                {
+            } else {
+                if (getPlayer()->Inven.AddItem(purchase2->copy())) {
                     getPlayer()->Inven.AddGold(-1 * purchase1->GetPrice());
                     purchase1->ChangeAmount(-1);
                     std::cout << purchase2->GetName() << " Added to Inventory" << std::endl;
                     std::cout << purchase2->GetPrice() << " Given to " << merchantName << std::endl;
                     std::cout << merchantName<< ": " << entries[5] << std::endl;
-                }
-                else //Player replaced no item with purchased item when inventory full
-                {
+                } else { //Player replaced no item with purchased item when inventory full
                     std::cout << merchantName<< ": " << entries[13] << std::endl;
                 }
             }
             break;
         case 3:
-            if(getPlayer()->Inven.GetGold() < purchase1->GetPrice())
-            {
+            if (getPlayer()->Inven.GetGold() < purchase1->GetPrice()) {
                 std::cout << merchantName<< ": " << entries[7] <<std::endl;
                 return;
-            }
-            else 
-            {
-                Item* newItem(purchase3);
-                if(getPlayer()->Inven.AddItem(newItem))
-                {
+            } else {
+                if (getPlayer()->Inven.AddItem(purchase3->copy())) {
                     getPlayer()->Inven.AddGold(-1 * purchase3->GetPrice());
                     purchase3->ChangeAmount(-1);
                     std::cout << purchase3->GetName() << " Added to Inventory" << std::endl;
                     std::cout << purchase3->GetPrice() << " Given to " << merchantName << std::endl;
                     std::cout << merchantName<< ": " << entries[5] << std::endl;
-                }
-                else //Player replaced no item with purchased item when inventory full
-                {
+                } else { //Player replaced no item with purchased item when inventory full
                     std::cout << merchantName<< ": " << entries[13] << std::endl;
                 }
             }

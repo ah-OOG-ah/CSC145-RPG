@@ -21,6 +21,7 @@ class Inventory {
     Inventory();
     explicit Inventory(size_t);
     explicit Inventory(const std::vector<std::shared_ptr<Item>>&);
+    explicit Inventory(const Inventory&);
 
     size_t GetPos(const std::shared_ptr<Item>&);
     std::shared_ptr<Item> GetItem(int64_t);

@@ -11,6 +11,12 @@ Inventory::Inventory(const std::vector<std::shared_ptr<Item>>& items) : numEleme
     }
 }
 
+Inventory::Inventory(const Inventory& inv) : numElements(inv.numElements), usedElements(inv.usedElements) {
+    for (size_t i = 0; i < usedElements; ++i) {
+        start.emplace_back(inv.start[i]->copy());
+    }
+}
+
 size_t Inventory::GetPos(const std::shared_ptr<Item>& checkItem) {
     for (size_t i = 0; i < numElements; i++) {
         if (start[i]->GetName() == checkItem->GetName()) {

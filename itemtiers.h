@@ -18,10 +18,10 @@ namespace ITiers {
                                                bucketOfSludge};
     static const Inventory mummyItems({anubisAmulet, anubisAmulet, setAmulet});
     static const Inventory shieldOnly({magicShield});
-    static const std::vector<HealItem> basicHealItems = {pureWater, cookie, cookie, cookie, banana, banana};
+    static const Inventory basicHealItems({pureWater, cookie, cookie, cookie, banana, banana});
     static const std::vector<AttackItem> greatAttkItems = {throwingAxe, gorillaBomb, toaster, bucketOfSludge, oilDrumOfSludge};
     static const std::vector<AttackItem> poisonItems = {bucketOfSludge, bucketOfSludge, oilDrumOfSludge};
-    static const std::vector<HealItem> betterHealItems = {elixir, elixir, pureWater, pureWater, rubberFruit};
+    static const Inventory betterHealItems({elixir, elixir, pureWater, pureWater, rubberFruit});
     static const Inventory basicRoids({roids});
     static const Inventory allRoids({ roids, roids, superRoids });
     static const Inventory goodStatusItems({ninjaBand, superRoids, magicShield});
