@@ -15,10 +15,10 @@ class Status {
 
   public:
     Status(std::string n, int64_t turns, std::function<void(Entity* , Status* )> func);
-    Status(Status*);
-    std::string GetName();
-    int64_t GetRemainingTurns() const;
-    int64_t GetMaxTurns() const;
+    explicit Status(const Status*);
+    [[nodiscard]] std::string GetName() const;
+    [[nodiscard]] int64_t GetRemainingTurns() const;
+    [[nodiscard]] int64_t GetMaxTurns() const;
     void ReduceTurn();
     void effect(Entity* victim);
     std::function<void(Entity* , Status* )> getFunc();

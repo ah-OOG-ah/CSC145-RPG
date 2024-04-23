@@ -23,7 +23,7 @@ class AttackItem : public RegularItem {
 
   public:
     AttackItem(std::string itemName, int64_t dmg, int64_t price, std::string desc, int64_t amnt = 1, bool spread = false);
-    AttackItem(std::string itemName, int64_t dmg, int64_t price, std::string desc, Status* effect, int64_t chance, bool spread = false);
+    AttackItem(std::string itemName, int64_t dmg, int64_t price, std::string desc, const Status* effect, int64_t chance, bool spread = false);
 
     void SetDamage(int64_t dmg);
     void SetStatus(Status* effect);
@@ -45,7 +45,7 @@ class HealItem : public RegularItem {
     //void dispatch(int64_t i) override;
 
   public:
-    HealItem(std::string itemName, int64_t hp, int64_t price, std::string desc, Status* effect);
+    HealItem(std::string itemName, int64_t hp, int64_t price, std::string desc, const Status* effect);
     HealItem(std::string itemName, int64_t hp, int64_t price, std::string desc, int64_t amnt = 1);
     explicit HealItem(HealItem*);
 
@@ -71,8 +71,8 @@ class StatusItem : public RegularItem {
 
   public:
     StatusItem(std::string itemName, int64_t price, int64_t boost, statBoost stat, std::string desc, int64_t amnt = 1);
-    StatusItem(std::string itemName, int64_t price, int64_t boost, statBoost stat, std::string desc, Status* effect, int64_t chance);
-    StatusItem(StatusItem* st);
+    StatusItem(std::string itemName, int64_t price, int64_t boost, statBoost stat, std::string desc, const Status* effect, int64_t chance);
+    explicit StatusItem(StatusItem* st);
 
     void SetBoost(int64_t boost);
     void SetStat(statBoost stat);

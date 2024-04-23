@@ -4,7 +4,7 @@
 #include "Item.h"
 #include "ShopMenu.h"
 #include "game.h"
-#include "itemlist.h"
+#include "ItemDefs.h"
 
 
 std::string ShopRoom::GetMerchant() const { return merchantName; }
@@ -44,19 +44,19 @@ ShopRoom::ShopRoom(std::shared_ptr<Movement> m, uint8_t mask) : Room("Shop", std
 
     switch (getRand() % 4) {
         case 0:
-            purchase1 = new AttackItem(dart);
+            purchase1 = new AttackItem(IDefs::dart);
             purchase1->copy(3);
             break;
         case 1:
-            purchase1 = new HealItem(cookie);
+            purchase1 = new HealItem(IDefs::cookie);
             purchase1->copy(5);
             break;
         case 2:
-            purchase1 = new Weapon(spear);
+            purchase1 = new Weapon(IDefs::spear);
             purchase1->copy(2);
             break;
         case 3:
-            purchase1 = new Weapon(hammer);
+            purchase1 = new Weapon(IDefs::hammer);
             break;
     }
 

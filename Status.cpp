@@ -9,13 +9,13 @@ Status::Status(std::string n, int64_t turns, std::function<void(Entity*, Status*
     this->statusFunction = std::move(func);
 }
 
-Status::Status(Status* st) {
+Status::Status(const Status* st) {
     this->name = st->GetName();
     this->maxTurns = st->GetMaxTurns();
     this->statusFunction = this->getFunc();
 }
 
-std::string Status::GetName() { return name; }
+std::string Status::GetName() const { return name; }
 
 int64_t Status::GetRemainingTurns() const { return remainingTurns; }
 
