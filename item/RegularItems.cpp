@@ -15,7 +15,7 @@ std::string RegularItem::GetAmntText() {
 }
 
 
-AttackItem::AttackItem(std::string itemName, int64_t dmg, int64_t price, std::string desc, Status* effect, int64_t chance, bool spread) : RegularItem(std::move(itemName), price, std::move(desc)) {
+AttackItem::AttackItem(std::string itemName, int64_t dmg, int64_t price, std::string desc, const Status* effect, int64_t chance, bool spread) : RegularItem(std::move(itemName), price, std::move(desc)) {
     damage = dmg;
     auto* ailment = new Status(effect);
     status = ailment;
@@ -95,7 +95,7 @@ HealItem::HealItem(std::string itemName, int64_t hp, int64_t price, std::string 
     hpAmnt = hp;
     type = "HEAL";
 }
-HealItem::HealItem(std::string itemName, int64_t hp, int64_t price, std::string desc, Status* effect) : RegularItem(std::move(itemName), price, std::move(desc)) {
+HealItem::HealItem(std::string itemName, int64_t hp, int64_t price, std::string desc, const Status* effect) : RegularItem(std::move(itemName), price, std::move(desc)) {
     hpAmnt = hp;
     auto* cure = new Status(effect);
     this->healedStatus = cure;
@@ -172,9 +172,9 @@ StatusItem::StatusItem(std::string itemName, int64_t price, int64_t boost, statB
     : RegularItem(std::move(itemName), price, std::move(desc), amnt), boost(boost), stat(stat) {
     type = "STATUS";
 }
-StatusItem::StatusItem(std::string itemName, int64_t price, int64_t boost, statBoost stat, std::string desc, Status* effect, int64_t chance)
+StatusItem::StatusItem(std::string itemName, int64_t price, int64_t boost, statBoost stat, std::string desc, const Status* effect, int64_t chance)
     : StatusItem(std::move(itemName), price, boost, stat, std::move(desc)) {
-    Status* cure = effect;
+    auto* cure = new Status(effect);
     this->status = cure;
 }
 
