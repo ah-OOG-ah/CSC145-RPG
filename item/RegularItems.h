@@ -9,6 +9,8 @@
 class RegularItem : public Item {
   public:
     RegularItem(std::string itemName, int64_t price, std::string desc, int64_t amnt = 1);
+    explicit RegularItem(RegularItem *);
+
     std::string GetAmntText() override;
 };
 
@@ -20,8 +22,8 @@ class AttackItem : public RegularItem {
     bool spreadDamage = false;
 
   public:
-    AttackItem(std::string itemName, int64_t dmg, int64_t price, std::string desc, int64_t amnt = 1);
-    AttackItem(std::string itemName, int64_t dmg, int64_t price, std::string desc, Status* effect, int64_t chance);
+    AttackItem(std::string itemName, int64_t dmg, int64_t price, std::string desc, int64_t amnt = 1, bool spread = false);
+    AttackItem(std::string itemName, int64_t dmg, int64_t price, std::string desc, Status* effect, int64_t chance, bool spread = false);
 
     void SetDamage(int64_t dmg);
     void SetStatus(Status* effect);
@@ -43,7 +45,9 @@ class HealItem : public RegularItem {
     //void dispatch(int64_t i) override;
 
   public:
+    HealItem(std::string itemName, int64_t hp, int64_t price, std::string desc, Status* effect);
     HealItem(std::string itemName, int64_t hp, int64_t price, std::string desc, int64_t amnt = 1);
+    explicit HealItem(HealItem*);
 
     void SetHpAmnt(int64_t hp);
     void SetHealedStatus(Status* status);
@@ -66,13 +70,8 @@ class StatusItem : public RegularItem {
     int64_t effectChance = 0;
 
   public:
-    StatusItem(std::string itemName, int64_t boost, statBoost stat, int64_t price, Status* effect, int64_t chance);
-    StatusItem(std::string itemName, int64_t boost, statBoost stat, int64_t price, int64_t amnt);
-    StatusItem(std::string itemName, int64_t boost, statBoost stat, int64_t price);
-    //Constructors with descriptions
-    StatusItem(std::string itemName, int64_t boost, statBoost stat, int64_t price, Status* effect, int64_t chance, std::string desc);
-    StatusItem(std::string itemName, int64_t boost, statBoost stat, int64_t price, int64_t amnt, std::string desc);
-    StatusItem(std::string itemName, int64_t boost, statBoost stat, int64_t price, std::string desc);
+    StatusItem(std::string itemName, int64_t price, int64_t boost, statBoost stat, std::string desc, int64_t amnt = 1);
+    StatusItem(std::string itemName, int64_t price, int64_t boost, statBoost stat, std::string desc, Status* effect, int64_t chance);
     StatusItem(StatusItem* st);
 
     void SetBoost(int64_t boost);

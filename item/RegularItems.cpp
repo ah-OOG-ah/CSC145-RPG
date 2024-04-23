@@ -8,6 +8,7 @@
 
 RegularItem::RegularItem(std::string itemName, int64_t price, std::string desc, int64_t amnt)
         : Item(std::move(itemName), price, amnt, std::move(desc)) {}
+RegularItem::RegularItem(RegularItem* src) : Item(src) {}
 
 std::string RegularItem::GetAmntText() {
     return "x";
@@ -16,7 +17,7 @@ std::string RegularItem::GetAmntText() {
 
 AttackItem::AttackItem(std::string itemName, int64_t dmg, int64_t price, std::string desc, Status* effect, int64_t chance, bool spread) : RegularItem(std::move(itemName), price, std::move(desc)) {
     damage = dmg;
-    Status* ailment = new Status(effect);
+    auto* ailment = new Status(effect);
     status = ailment;
     effectChance = chance;
     this->spreadDamage = spread;
@@ -38,65 +39,51 @@ Status* AttackItem::GetStatus() { return status; }
 int64_t AttackItem::GetChance() const { return effectChance; }
 bool AttackItem::canSpread() const { return spreadDamage; }
 
-void AttackItem::display()
-{
+void AttackItem::display() {
+
     std::cout << entries[0] << std::endl;
     std::cout << "Price: " << this->GetPrice() << std::endl;
     std::cout << "Damage: " << this->GetDamage() << std::endl;
-    if(this->status != nullptr)
-    {
+    if (this->status != nullptr) {
         std::cout << "Causes: " << this->GetStatus()->GetName() << std::endl;
     }
-    if(this->spreadDamage)
-    {
-        std::cout << "Multi-Target" << std::endl;
-    }
-    else
-    {
-        std::cout << "Single-Target" << std::endl;
-    }
+    std::cout << (spreadDamage ? "Multi-Target" : "Single-Target") << std::endl;
     std::cout << entries[1] << std::endl;
     std::cout << "Enter any key to exit " << std::endl;
     std::string choice;
     std::getline(std::cin, choice);
-    return;
 }
 
-void AttackItem::Use(Entity* user, std::vector<Entity*> opponents)
-{
-    if(this->amount <= 0) { return;}
-    if(this->spreadDamage)
-    {
+void AttackItem::Use(Entity* user, std::vector<Entity*> opponents) {
+    if (this->amount <= 0) return;
+
+    if (this->spreadDamage) {
         std::cout << user->getName() << " used " << this->GetName() << std::endl;
-        for(Entity* target : opponents)
-        {
+        for (Entity* target : opponents) {
+
             target->changeHP(-1 * this->GetDamage());
             std::cout << target->getName() << " took " << this->GetDamage() << " damage " << std::endl;
-            if(this->status != nullptr)
-            {
+            if (this->status != nullptr) {
+
                 int64_t chance = getRand() % 10;
-                if(chance <= this->effectChance)
-                {
+                if (chance <= this->effectChance) {
                     Status* ailment = new Status(this->status);
-                    target->setStatus(ailment);
+                    //target->setStatus(ailment);
                     std::cout << target->getName() << " was afflicted by " << this->status->GetName() << std::endl;
                 }
             }
         }
         this->amount -1;
-    }
-    else
-    {
+    } else {
+
         opponents[0]->changeHP(-1 * this->GetDamage());
         std::cout << user->getName() << " used " << this->GetName() << std::endl;
         std::cout << opponents[0]->getName() << " took " << this->GetDamage() << " damage " << std::endl;
-        if(this->status != nullptr)
-        {
+        if (this->status != nullptr) {
             int64_t chance = getRand() % 10;
-            if(chance <= this->effectChance)
-            {
+            if(chance <= this->effectChance) {
                 Status* ailment = new Status(this->status);
-                opponents[0]->setStatus(ailment);
+                //opponents[0]->setStatus(ailment);
                 std::cout << opponents[0]->getName() << " was afflicted by " << this->status->GetName() << std::endl;
             }
         }
@@ -108,15 +95,15 @@ HealItem::HealItem(std::string itemName, int64_t hp, int64_t price, std::string 
     hpAmnt = hp;
     type = "HEAL";
 }
-HealItem::HealItem(std::string itemName, int64_t hp, int64_t price, Status* effect, std::string desc) : RegularItem(std::move(itemName), price, std::move(desc)) {
+HealItem::HealItem(std::string itemName, int64_t hp, int64_t price, std::string desc, Status* effect) : RegularItem(std::move(itemName), price, std::move(desc)) {
     hpAmnt = hp;
-    Status* cure = new Status(effect);
+    auto* cure = new Status(effect);
     this->healedStatus = cure;
     type = "HEAL";
 }
 HealItem::HealItem(HealItem* ht) : RegularItem(ht) {
     this->hpAmnt = ht->GetHpAmnt();
-    Status* cure = new Status(ht->GetHealedStatus());
+    auto* cure = new Status(ht->GetHealedStatus());
     this->healedStatus = cure;
     type = "HEAL";
 }
@@ -156,63 +143,45 @@ void HealItem::display()
             std::cout << "Invalid input. Please input again. " << std::endl;
         }
     }
-    return;
 }
 
-void HealItem::Use(Entity* user, std::vector<Entity*> opponents)
-{
-    if(this->amount <= 0) { return;}
+void HealItem::Use(Entity* user, std::vector<Entity*> opponents) {
+    if (this->amount <= 0) return;
+
     int64_t healedAmnt = this->hpAmnt;
-    if((healedAmnt + user->getCurrentHp()) > user->getMaxHp())
-    {
+    if ((healedAmnt + user->getCurrentHp()) > user->getMaxHp()) {
         healedAmnt = user->getMaxHp() - user->getCurrentHp();
     }
+
     user->changeHP(healedAmnt);
     this->amount -1;
     std::cout << user->getName() << " used " << this->GetName() << std::endl;
-    if(hpAmnt != 0)
-    {
+    if(hpAmnt != 0) {
         std::cout << user->getName() << " HP was restored by " << healedAmnt << "HP" << std::endl;
     }
-    if(this->healedStatus != nullptr)
-    {
-        if(this->healedStatus->GetName() == user->getStatus()->GetName()) {
+
+    if(this->healedStatus != nullptr) {
+        /*if(this->healedStatus->GetName() == user->getStatus()->GetName()) {
             user->setStatus(nullptr);
             std::cout << user->getName() << " was cured of " << this->healedStatus->GetName() << std::endl;
-        }
+        }*/
     }
 }
 
-StatusItem::StatusItem(std::string itemName, int64_t boost, statBoost stat, int64_t price, Status* effect, int64_t chance) : StatusItem(itemName, boost, stat, price, effect, chance, "NONE") {}
-
-StatusItem::StatusItem(std::string itemName, int64_t boost, statBoost stat, int64_t price, int64_t amnt) : StatusItem(itemName, boost, stat, price, amnt, "NONE") {}
-StatusItem::StatusItem(std::string itemName, int64_t boost, statBoost stat, int64_t price) : StatusItem(itemName, boost, stat, price, "NONE") {}
-//Constructors with descriptions
-StatusItem::StatusItem(std::string itemName, int64_t boost, statBoost stat, int64_t price, Status* effect, int64_t chance, std::string desc) : RegularItem(itemName, price, desc)
-{
-    this->boost = boost;
-    this->stat = stat;
+StatusItem::StatusItem(std::string itemName, int64_t price, int64_t boost, statBoost stat, std::string desc, int64_t amnt)
+    : RegularItem(std::move(itemName), price, std::move(desc), amnt), boost(boost), stat(stat) {
+    type = "STATUS";
+}
+StatusItem::StatusItem(std::string itemName, int64_t price, int64_t boost, statBoost stat, std::string desc, Status* effect, int64_t chance)
+    : StatusItem(std::move(itemName), price, boost, stat, std::move(desc)) {
     Status* cure = effect;
     this->status = cure;
-    type = "STATUS";
 }
-StatusItem::StatusItem(std::string itemName, int64_t boost, statBoost stat, int64_t price, int64_t amnt, std::string desc) : RegularItem(itemName, price, amnt, desc)
-{
-    this->boost = boost;
-    this->stat = stat;
-    type = "STATUS";
-}
-StatusItem::StatusItem(std::string itemName, int64_t boost, statBoost stat, int64_t price, std::string desc) : RegularItem(itemName, price, desc)
-{
-    this->boost = boost;
-    this->stat = stat;
-    type = "STATUS";
-}
-StatusItem::StatusItem(StatusItem* st) : RegularItem(st)
-{
+
+StatusItem::StatusItem(StatusItem* st) : RegularItem(st) {
     this->boost =st->GetBoost();
     this->stat = st->GetStat();
-    Status* cure = new Status(st->GetStatus());
+    auto* cure = new Status(st->GetStatus());
     this->status = cure;
     type = "STATUS";
 }
