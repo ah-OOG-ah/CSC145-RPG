@@ -12,6 +12,7 @@ game_src = [
   'Enemy.cpp',
   'enemyai.cpp',
   'Entity.cpp',
+  'EquippedEntity.cpp',
   'game.cpp',
   'inventory.cpp',
   'item/Equipment.cpp',

@@ -49,8 +49,9 @@ double Weapon::GetDamage() const { return dmgMultiplier; };
 
 void Weapon::SetDamage(double dmg) { dmgMultiplier = dmg; };
 
-void Weapon::Use(EquippedEntity* user, std::vector<EquippedEntity*> opponents)
-{
+void Weapon::Use(Entity* user, std::vector<Entity*> opponents) {
+
+    /*
     Weapon* oldWeapon = user->currentWeapon;
     user->currentWeapon = this;
     if(oldWeapon != nullptr)
@@ -59,11 +60,10 @@ void Weapon::Use(EquippedEntity* user, std::vector<EquippedEntity*> opponents)
     }
     std::cout << user->getName() << " equipped " << this->GetName() << std::endl;
     user->Inven.RemoveItem(this);
-    user->Inven.AddItem(oldWeapon);
+    user->Inven.AddItem(oldWeapon);*/
 }
 
-void Weapon::display()
-{
+void Weapon::display() {
     std::cout << entries[0] << std::endl;
     std::cout << "WEAPON" << std::endl;
     std::cout << "Price: " << this->GetPrice() << std::endl;
@@ -85,7 +85,7 @@ void Weapon::display()
         std::getline(std::cin, choice);
         if(choice == "EQUIP") 
         {
-            this->Use(getPlayer().get(), std::vector<EquippedEntity*>{nullptr});
+            this->Use(getPlayer().get(), std::vector<Entity*>{nullptr});
             if(this->GetAmount() <= 0)
             {
                 return;
@@ -96,7 +96,6 @@ void Weapon::display()
             std::cout << "Invalid input. Please input again. " << std::endl;
         }
     }
-    return;
 }
 
 Armor::Armor(std::string itemName, int64_t durab, double pDef, int64_t sDef, int64_t price, ArmorType mold) : Armor(std::move(itemName), durab, pDef, sDef, 1.0 , price, mold) {
@@ -144,8 +143,8 @@ void Armor::SetStaticDef(int64_t def) { staticDef = def; }
 void Armor::SetDmgMult(double dmg) { dmgMultiplier = dmg; }
 void Armor::SetArmorType(ArmorType mold) { cast = mold; }
 
-void Armor::Use(EquippedEntity* user, std::vector<EquippedEntity*> opponents)
-{
+void Armor::Use(Entity* user, std::vector<Entity*> opponents) {
+    /*
     Armor* oldArmor = nullptr;
     if(this->cast == Helmet)
     {
@@ -173,7 +172,7 @@ void Armor::Use(EquippedEntity* user, std::vector<EquippedEntity*> opponents)
     }
     std::cout << user->getName() << " equipped " << this->GetName() << std::endl;
     user->Inven.RemoveItem(this);
-    user->Inven.AddItem(oldArmor);
+    user->Inven.AddItem(oldArmor);*/
 }
 
 void Armor::display()
@@ -218,7 +217,7 @@ void Armor::display()
         std::getline(std::cin, choice);
         if(choice == "EQUIP") 
         {
-            this->Use(getPlayer().get(), std::vector<EquippedEntity*>{nullptr});
+            this->Use(getPlayer().get(), std::vector<Entity*>{nullptr});
             if(this->GetAmount() <= 0)
             {
                 return;
