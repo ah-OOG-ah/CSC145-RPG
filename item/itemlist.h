@@ -18,16 +18,16 @@ std::string oilDrumSludgeDesc = "A entire oil drum of sludge. How does it do no 
 std::string fluteDesc = "A lovely wooden flute. Makes even the most hardcore beast fall asleep";
 std::string toasterDesc = "A NAV-116 model toaster by ReynoldsTech. Good for throwing and making toast. Can paralyze opponents.";
 std::string lightningBottleDesc = "Release a powerful lighting bolt to strike an enemy. A very effective attack and can cause paralysis. It\'s lightning in a bottle!";
-AttackItem rock("Rock", 10, 2, false, rockDesc);
-AttackItem dart("Dart", 15, 5, &poison, 2, false, dartDesc);
-AttackItem throwingAxe("Throwing Axe", 20, 15, false, throwingAxeDesc);
-AttackItem bomb("Bomb", 20, 25, true, bombDesc);
-AttackItem gorillaBomb("Gorilla Bomb", 50, 80, true, gorillaBombDesc);
-AttackItem bucketOfSludge("Bucket of Sludge", 0, 15, &poison, 4, false, bucketOfSludgeDesc);
-AttackItem oilDrumOfSludge("Oil Drum of Sludge", 0, 50, &poison, 5, true, oilDrumSludgeDesc);
-AttackItem flute("Flute", 0, 20, &sleep, 10, false, fluteDesc);
-AttackItem toaster("Toaster", 15, 50, &paralysis, 5, false, toasterDesc);
-AttackItem lightningBottle("Lightning in a Bottle", 50, 120, &paralysis, 8, false, lightningBottleDesc);
+AttackItem rock("Rock", 10, 2, rockDesc);
+AttackItem dart("Dart", 15, 5, dartDesc, &stypes::poison, 2);
+AttackItem throwingAxe("Throwing Axe", 20, 15, throwingAxeDesc);
+AttackItem bomb("Bomb", 20, 25, bombDesc, 1,true);
+AttackItem gorillaBomb("Gorilla Bomb", 50, 80, gorillaBombDesc, 1, true);
+AttackItem bucketOfSludge("Bucket of Sludge", 0, 15, bucketOfSludgeDesc, &stypes::poison, 4);
+AttackItem oilDrumOfSludge("Oil Drum of Sludge", 0, 50, oilDrumSludgeDesc, &stypes::poison, 5, true);
+AttackItem flute("Flute", 0, 20, fluteDesc, &stypes::sleep, 10);
+AttackItem toaster("Toaster", 15, 50, toasterDesc, &stypes::paralysis, 5);
+AttackItem lightningBottle("Lightning in a Bottle", 50, 120, lightningBottleDesc, &stypes::paralysis, 8);
 
 //HealItem(Name, healAmnt, price, description)
 //HealItem(Name, healAmnt, price, status, description)
@@ -38,13 +38,13 @@ std::string ectoplasmDesc = "Residue from a ghost. Seems able heal but the glow 
 std::string zombieBloodDesc = "Blood from a decaying corpse. 0/10, would not recommend";
 std::string cookieDesc = "A delicous cookie. Not too good for health but healps";
 std::string rubberFruitDesc = "Fruit with rubber-like flesh. Eating it cures paralysis.";
-HealItem pureWater("Pure Water", 20, 9, &poison, waterDesc);
+HealItem pureWater("Pure Water", 20, 9, waterDesc, &stypes::poison);
 HealItem banana("Banana", 10, 5, bananaDesc);
-HealItem ectoplasm("Ectoplasm", 25, 50, &paralysis, ectoplasmDesc);
+HealItem ectoplasm("Ectoplasm", 25, 50, ectoplasmDesc, &stypes::paralysis);
 HealItem zombieBlood("Zombie Blood", -10, 5, zombieBloodDesc);
-HealItem elixir("Elixir", 40, 25, &poison, elixirDesc);
+HealItem elixir("Elixir", 40, 25, elixirDesc, &stypes::poison);
 HealItem cookie("Cookie", 5, 3, cookieDesc);
-HealItem rubberFruit("Rubber Fruit", 0, 15, &paralysis, rubberFruitDesc);
+HealItem rubberFruit("Rubber Fruit", 0, 15, rubberFruitDesc, &stypes::paralysis);
 
 //StatusItem(name, boost, stat, price, description)
 //StatusItem(name, boost, stat, price, Status, chance, description)
@@ -57,15 +57,15 @@ std::string sentryHeadDesc = "The head of a sentry. Its strength flows through y
 std::string ninjaBandDesc = "The headband of a ninja. It causes you to put your arms straight behind you as you run, increasing your speed";
 std::string cryptoHeartDesc = "The heart of a cryptogriph. A strange power from within makes your skin like steel";
 std::string sleepingPillDesc = "A pill to help you fall asleep. Boosts StaticDef";
-StatusItem roids("'Roids", 2, attack, 15, roidsDesc);
-StatusItem superRoids("Super 'Roids", 15, attack, 60, &paralysis, 10, superRoidsDesc);
-StatusItem anubisAmulet("Amulet of Anubis", 5, staticdef, 45, anubisAmuletDesc);
-StatusItem setAmulet("Amulet of Set", 10, staticdef, 45, &poison, 10, setAmuletDesc);
-StatusItem magicShield("Magic Shield", 5, percdef, 30, magicShieldDesc);
-StatusItem sentryHead("Sentry Head", 10, attack, 50, sentryHeadDesc);
-StatusItem ninjaBand("Ninja Band", 15, speed, 25, ninjaBandDesc);
-StatusItem cryptoHeart("Cryptogriph Heart", 15, staticdef, 60, &paralysis, 4, cryptoHeartDesc);
-StatusItem sleepingPill("Sleeping Pill", 9, staticdef, 15, &sleep, 10, sleepingPillDesc);
+StatusItem roids("'Roids", 15, 2, attack, roidsDesc);
+StatusItem superRoids("Super 'Roids", 60, 15, attack, superRoidsDesc, &stypes::paralysis, 10);
+StatusItem anubisAmulet("Amulet of Anubis", 45, 5, staticdef, anubisAmuletDesc);
+StatusItem setAmulet("Amulet of Set", 45, 10, staticdef, setAmuletDesc, &stypes::poison, 10);
+StatusItem magicShield("Magic Shield", 30, 5, percdef, magicShieldDesc);
+StatusItem sentryHead("Sentry Head", 50, 10, attack, sentryHeadDesc);
+StatusItem ninjaBand("Ninja Band", 25, 15, speed, ninjaBandDesc);
+StatusItem cryptoHeart("Cryptogriph Heart", 60, 15, staticdef, cryptoHeartDesc, &stypes::paralysis, 4);
+StatusItem sleepingPill("Sleeping Pill", 15, 9, staticdef, sleepingPillDesc, &stypes::sleep, 10);
 
 
 
@@ -100,8 +100,8 @@ std::string steelBootsDesc = "Boots made of steel. It would be perfect for stomp
 
 Armor steelHelm("Steel Helmet", 50, .2, 6, 30, Helmet, steelHelmDesc);
 Armor steelChest("Steel Chestplate", 40, .4, 10, 50, Chestplate, steelChestDesc);
-Armor steelLegg("Steel Leggins", 40, 6, .2, 40, Leggings, steelLeggDesc);
-Armor steelBoots("Steel Boots", 50, 4, .2, 30, Boots, steelBootsDesc);
+Armor steelLegg("Steel Leggins", 40, .2, 6, 40, Leggings, steelLeggDesc);
+Armor steelBoots("Steel Boots", 50, .2, 4, 30, Boots, steelBootsDesc);
 
 std::string chainHelmDesc = "A helmet made of chainmeal. Blocks high percentage of damage but does not have high upfront resistance.";
 std::string chainChestDesc = "Chestplate made of chain links. Does not negate much damage but reduces amount taken greatly.";
@@ -109,8 +109,8 @@ std::string chainLeggDesc = "Leggins made of chainmeal. Good armor, just not ver
 std::string chainBootsDesc = "Boots made of chain. Just don\'t question it.";
 Armor chainHelm("Chainmeal Helmet", 35, .20, 8, 25, Helmet, chainHelmDesc);
 Armor chainChest("Chainmeal Chestplate", 35, .20, 8, 25, Chestplate, chainChestDesc);
-Armor chainLegg("Chainmeal Leggings", 35, 20, .1, 25, Leggings, chainLeggDesc);
-Armor chainBoots("Chainmeal Boots", 35, 20, .1, 25, Boots, chainBootsDesc);
+Armor chainLegg("Chainmeal Leggings", 35, .1, 20, 25, Leggings, chainLeggDesc);
+Armor chainBoots("Chainmeal Boots", 35, .1, 20, 25, Boots, chainBootsDesc);
 
 std::string rockHelmDesc = "A rock helmet to protect your big brain.";
 std::string rockChestDesc = "The name kind of says it all.";
@@ -136,6 +136,6 @@ Armor toughVest("Tough Vest", 75, .15, 10, 30, Chestplate, vestDesc);
 std::string baboomArmorDesc = "Rare armor that gives you the fighting spirit of a baboon.";
 std::string armyVestDesc = "An bulletproof vest that has the Marines emblem on it. Increases manliness.";
 std::string mBobArmorDesc = "With this armor, you will be coming for Monkey Bob. MAY PUTIN BE EVER IN YOUR FAVOR.";
-Armor baboonArmor("Baboon Armor", 50, .4, 5, 25, 1.50, Chestplate, baboomArmorDesc);
-Armor armyVest("Marine Vest", 75, .6, 10, 5, 1.40, Chestplate, armyVestDesc);
+Armor baboonArmor("Baboon Armor", 50, .4, 5, 1.5, 25, Chestplate, baboomArmorDesc);
+Armor armyVest("Marine Vest", 75, .6, 10, 1.4, 5, Chestplate, armyVestDesc);
 Armor monkeyBobArmor("Monkey Bob's Armor", 999999, .25, 25, 1.75, 350, Chestplate, mBobArmorDesc);

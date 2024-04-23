@@ -5,6 +5,7 @@
 #include "Item.h"
 #include "Status.h"
 
+
 class Equipment : public Item {
   protected:
     int64_t durability;

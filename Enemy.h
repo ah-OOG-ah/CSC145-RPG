@@ -4,6 +4,7 @@
 #include <vector>
 #include "itemtiers.h"
 
+
 class Enemy : public EquippedEntity {
   std::function<void(Enemy*, EquippedEntity*)> behaviorFunction;
   protected:

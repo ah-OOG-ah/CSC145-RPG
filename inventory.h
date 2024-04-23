@@ -6,6 +6,7 @@
 #include "RegularItems.h"
 #include "Equipment.h"
 
+
 class Inventory
 {
     protected:

@@ -5,6 +5,7 @@
 #include <cstdint>
 #include <iostream>
 
+
 Enemy::Enemy(std::string name, int64_t hp, int64_t attk, int64_t percDef, int64_t staticDef, int64_t spd, std::vector<AttackItem> attkSlots, std::vector<HealItem> healSlots, std::vector<StatusItem> statusSlots, std::vector<Weapon*> weaponSlots, std::vector<Armor*> armorSlots, std::function<void(Enemy*, EquippedEntity*)> behavior )
  : Enemy(name, hp, attk, percDef, staticDef, spd, attkSlots, healSlots, statusSlots, weaponSlots, armorSlots, "", behavior) {}
 

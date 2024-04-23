@@ -3,6 +3,7 @@
 #include "EquippedEntity.h"
 #include <cstdint>
 
+
 class Player : public EquippedEntity {
 
   public:

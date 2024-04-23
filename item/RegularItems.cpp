@@ -225,43 +225,36 @@ void StatusItem::display()
             std::cout << "Invalid input. Please input again. " << std::endl;
         }
     }
-    return;
 }
 
-void StatusItem::Use(Entity* user, std::vector<Entity*> opponents)
-{
-    if(this->amount <= 0) { return;}
-    if(this->stat == attack)
-    {
+void StatusItem::Use(Entity* user, std::vector<Entity*> opponents) {
+    if (this->amount <= 0) return;
+
+    if (this->stat == attack) {
         user->changeAttk(this->boost);
         std::cout << user->getName() << " used " << this->name << std::endl;
         std::cout << user->getName() <<"'s Attack was boosted " << this->boost << " points!" << std::endl;
     }
-    if(this->stat == percdef)
-    {
+    if (this->stat == percdef) {
         user->changePercDef(this->boost);
         std::cout << user->getName() << " used " << this->name << std::endl;
         std::cout << user->getName() <<"'s PercDef was boosted " << this->boost << " points!" << std::endl;
     }
-    if(this->stat == staticdef)
-    {
+    if (this->stat == staticdef) {
         user->changeStaticDef(this->boost);
         std::cout << user->getName() << " used " << this->name << std::endl;
         std::cout << user->getName() <<"'s StaticDef was boosted " << this->boost << " points!" << std::endl;
     }
-    if(this->stat == speed)
-    {
+    if (this->stat == speed) {
         user->changeSpd(this->boost);
         std::cout << user->getName() << " used " << this->name << std::endl;
         std::cout << user->getName() <<"'s Speed was boosted " << this->boost << " points!" << std::endl;
     }
-    if(this->status != nullptr)
-    {
+    if (this->status != nullptr) {
         int64_t chance = getRand() % 10;
-        if(chance <= this->effectChance)
-        {
+        if (chance <= this->effectChance) {
             Status* ailment = new Status(this->status);
-            user->setStatus(ailment);
+            //user->setStatus(ailment);
             std::cout << user->getName() << " was afflicted by " << this->status->GetName() << std::endl;
         }
     }
