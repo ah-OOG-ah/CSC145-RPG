@@ -17,10 +17,11 @@
         }
         return -1;
     }
-    Item* Inventory::GetItem(int64_t pos)
-    {
+
+    Item* Inventory::GetItem(int64_t pos) {
         return start[pos];
     }
+
     Item* Inventory::GetItem(std::string name)
     {
         for(int i = 0; i < numElements; i++)
