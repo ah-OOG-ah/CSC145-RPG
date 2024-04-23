@@ -8,7 +8,6 @@ includes = [
 ]
 
 game_src = [
-  'BattleMenu.cpp',
   'DebugMenu.cpp',
   'Enemy.cpp',
   'enemyai.cpp',
