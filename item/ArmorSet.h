@@ -18,4 +18,6 @@ struct ArmorSet {
             default: return feet;
         }
     }
+
+    std::shared_ptr<Armor> operator[] (std::size_t idx) const { return get(idx); }
 };

@@ -4,6 +4,7 @@
 #include <iostream>
 #include "game.h"
 
+
 Equipment::Equipment(std::string itemName, int64_t durab, int64_t price) : Item(std::move(itemName), price, "FIXME") {
     this->durability = durab;
     this->stackable = false;
@@ -69,30 +70,22 @@ void Weapon::display() {
     std::cout << "Price: " << this->GetPrice() << std::endl;
     std::cout << "Strength: " << this->GetDamage() << std::endl;
     std::cout << "Durability: " << this->GetDurab() << std::endl;
-    if(getPlayer()->currentWeapon == this)
-    {
+    if(getPlayer()->currentWeapon.get() == this) {
         std::cout<< "EQUIPPED" << std::endl;
-    }
-    else
-    {
-        std::cout << "EQUIPABLE" << std::endl;
+    } else {
+        std::cout << "EQUIPPABLE" << std::endl;
     }
     std::cout << entries[1] << std::endl;
     std::cout << "Enter EXIT to exit or EQUIP to equip this item" << std::endl;
     std::string choice;
-    while(choice != "EXIT")
-    {
+    while (choice != "EXIT") {
         std::getline(std::cin, choice);
-        if(choice == "EQUIP") 
-        {
+        if (choice == "EQUIP") {
             this->Use(getPlayer().get(), std::vector<Entity*>{nullptr});
-            if(this->GetAmount() <= 0)
-            {
+            if (this->GetAmount() <= 0) {
                 return;
             }
-        }
-        else if(choice != "EXIT")
-        {
+        } else if (choice != "EXIT") {
             std::cout << "Invalid input. Please input again. " << std::endl;
         }
     }
@@ -198,35 +191,26 @@ void Armor::display()
     std::cout << "Percentage Defense: " << this->GetPercDef() << std::endl;
     std::cout << "Static Defense: " << this->GetStaticDef() << std::endl;
     std::cout << "Durability: " << this->GetDurab() << std::endl;
-    for( Armor* it : getPlayer()->armorArray)
-    {
-        if(it == this)
-        {
+    for(int i = 0; i < 4; ++i) {
+        auto it = getPlayer()->armor.get(i).get();
+        if(it == this) {
             std::cout<< "EQUIPPED" << std::endl;
-        }
-        else if(it == getPlayer()->armorArray[getPlayer()->armorArray.size() - 1])
-        {
+        } /*else if (it == getPlayer()->armor.get(3)) {
             std::cout << "EQUIPABLE" << std::endl;
-        }
+        }*/
     }
     std::cout << entries[1] << std::endl;
     std::cout << "Enter EXIT to exit or EQUIP to equip this item" << std::endl;
     std::string choice;
-    while(choice != "EXIT")
-    {
+    while (choice != "EXIT") {
         std::getline(std::cin, choice);
-        if(choice == "EQUIP") 
-        {
+        if (choice == "EQUIP") {
             this->Use(getPlayer().get(), std::vector<Entity*>{nullptr});
-            if(this->GetAmount() <= 0)
-            {
+            if(this->GetAmount() <= 0) {
                 return;
             }
-        }
-        else if(choice != "EXIT")
-        {
+        } else if (choice != "EXIT") {
             std::cout << "Invalid input. Please input again. " << std::endl;
         }
     }
-    return;
 }
