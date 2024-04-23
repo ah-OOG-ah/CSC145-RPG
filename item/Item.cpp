@@ -24,6 +24,7 @@ int64_t Item::GetAmount() const { return amount; }
 int64_t Item::GetPrice() const { return price; }
 bool Item::isStackable() const { return stackable; }
 bool Item::isEquipment() const { return equipable; }
+bool Item::isOffense() const { return offense; }
 
 void Item::ChangeAmount(int64_t addAmnt) {
     amount += addAmnt;
@@ -45,9 +46,6 @@ void Item::display()
     return;
 }
 
-void Item::dispatch(int64_t i)
-{
-    return;
-}
+void Item::dispatch(int64_t i) { }
 
-void Item::Use(Entity* user, std::vector<Entity*> opponents) { return; }
+void Item::Use(Entity* user, std::vector<Entity*> opponents) { }

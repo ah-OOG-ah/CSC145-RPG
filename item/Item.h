@@ -15,8 +15,10 @@ class Item : public Menu{
     int64_t price = 10;
     bool stackable = true;
     bool equipable = false;
+    bool offense = true;
     std::string description;
     void dispatch(int64_t i) override;
+
   public:
     //Constructor
     Item(std::string itemName, int64_t price, int64_t amnt, std::string desc);
@@ -32,6 +34,7 @@ class Item : public Menu{
     [[nodiscard]] int64_t GetPrice() const;
     [[nodiscard]] bool isStackable() const;
     [[nodiscard]] bool isEquipment() const;
+    [[nodiscard]] bool isOffense() const;
 
     //Setters
     virtual void ChangeAmount(int64_t addAmnt);
