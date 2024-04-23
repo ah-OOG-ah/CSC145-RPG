@@ -42,8 +42,6 @@ int64_t Entity::getSpd() const { return spd; }
 
 int64_t Entity::getMp() const { return mp; }
 
-Status* Entity::getStatus() { return this->currentStatus; }
-
 bool Entity::getFleeing() const { return this->isFleeing; }
 
 bool Entity::getCanAct() const { return this->canAct; }
@@ -73,8 +71,6 @@ void Entity::changeStaticDef(int64_t amnt){
 void Entity::changeSpd(int64_t amnt){
     this->spd += amnt; 
 }
-
-void Entity::setStatus(Status* ailment) { this->currentStatus = ailment; }
 
 void Entity::attackEntity(Entity* enemy) {
     enemy->changeHP(-1 * this->getAttk());
