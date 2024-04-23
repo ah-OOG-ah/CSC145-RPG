@@ -15,7 +15,7 @@ std::string RegularItem::GetAmntText() {
 }
 
 std::unique_ptr<Item> RegularItem::copy() {
-    return std::make_unique<RegularItem>(name, price, description, amount);
+    return std::make_unique<RegularItem>(this);
 }
 
 
@@ -95,6 +95,14 @@ void AttackItem::Use(Entity* user, std::vector<Entity*> opponents) {
     }
 }
 
+std::unique_ptr<Item> AttackItem::copy() {
+    auto ret = std::make_unique<AttackItem>(name, damage, price, description, amount, spreadDamage);
+    ret->status = status;
+    ret->effectChance = effectChance;
+    return ret;
+}
+
+
 HealItem::HealItem(std::string itemName, int64_t hp, int64_t price, std::string desc, int64_t amnt) : RegularItem(std::move(itemName), price, std::move(desc), amnt) {
     hpAmnt = hp;
     type = "HEAL";
@@ -171,6 +179,11 @@ void HealItem::Use(Entity* user, std::vector<Entity*> opponents) {
         }*/
     }
 }
+
+std::unique_ptr<Item> HealItem::copy() {
+    return std::make_unique<HealItem>(this);
+}
+
 
 StatusItem::StatusItem(std::string itemName, int64_t price, int64_t boost, statBoost stat, std::string desc, int64_t amnt)
     : RegularItem(std::move(itemName), price, std::move(desc), amnt), boost(boost), stat(stat) {
@@ -263,4 +276,8 @@ void StatusItem::Use(Entity* user, std::vector<Entity*> opponents) {
         }
     }
     this->amount -1;
+}
+
+std::unique_ptr<Item> StatusItem::copy() {
+    return std::make_unique<StatusItem>(this);
 }
