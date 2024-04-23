@@ -5,12 +5,12 @@
 #include <string>
 #include <utility>
 
+
 Item::Item(std::string itemName, int64_t price, std::string desc)
         : Item(std::move(itemName), price, 1, std::move(desc)) { }
 Item::Item(std::string itemName, int64_t price, int64_t amnt, std::string desc)
-: name(std::move(itemName)), amount(amnt), price(price), description(std::move(desc)), Menu(std::vector<std::string>({itemName,  desc})) { }
-Item::Item(Item* i) : Menu(std::vector<std::string>({i->GetName(), i->GetDesc()}))
-{
+: Menu(std::vector<std::string>({itemName,  desc})), name(std::move(itemName)), amount(amnt), price(price), description(std::move(desc)) { }
+Item::Item(Item* i) : Menu(std::vector<std::string>({i->GetName(), i->GetDesc()})) {
     this->amount = i->GetAmount();
     this->name = i->GetName();
     this->price = i->GetPrice();
@@ -35,15 +35,13 @@ void Item::SetName(std::string newName) { name = std::move(newName); }
 
 void Item::copy(int64_t times) { amount *= times; }
 
-void Item::display()
-{
+void Item::display() {
     std::cout << entries[0] << std::endl;
     std::cout << "Price: " << this->GetPrice() << std::endl;
     std::cout << entries[1] << std::endl;
     std::cout << "Enter any key to exit " << std::endl;
     std::string choice;
     std::getline(std::cin, choice);
-    return;
 }
 
 void Item::dispatch(int64_t i) { }

@@ -7,7 +7,7 @@
 #include <vector>
 
 
-class Item : public Menu{
+class Item : public Menu {
   protected:
     std::string name;
     std::string type = "NONE";
@@ -23,7 +23,7 @@ class Item : public Menu{
     //Constructor
     Item(std::string itemName, int64_t price, int64_t amnt, std::string desc);
     Item(std::string itemName, int64_t price, std::string desc);
-    Item(Item* i);
+    explicit Item(Item* i);
 
     //Getters
     std::string GetName();

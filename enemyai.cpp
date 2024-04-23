@@ -144,8 +144,8 @@ void HighLevelAI(Enemy* user, EquippedEntity* target)
     }
     else
     {
-        int64_t armorChoice = randUint() % user->armorArray.size();
-        if(user->armorArray[armorChoice]->GetPercDef() < user->armorArray[armorChoice]->GetPercDef() || user->armorArray[armorChoice]->GetStaticDef() < user->armorArray[armorChoice]->GetStaticDef() || user->armorArray[armorChoice]->GetDurab() < 14)
+        uint64_t armorChoice = randUint() % 4;
+        if(user->armor[armorChoice]->GetPercDef() < user->armor[armorChoice]->GetPercDef() || user->armor[armorChoice]->GetStaticDef() < user->armor[armorChoice]->GetStaticDef() || user->armor[armorChoice]->GetDurab() < 14)
         {
             for(int i = 0; i < user->Inven.GetUsedElements(); i++)
             {
