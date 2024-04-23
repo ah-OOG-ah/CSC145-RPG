@@ -42,7 +42,7 @@ ShopRoom::ShopRoom(std::shared_ptr<Movement> m, uint8_t mask) : Room("Shop", std
     std::string failedSale;
     std::string howMany;
 
-    switch (getRand() % 4) {
+    switch (randUint() % 4) {
         case 0:
             purchase1 = new AttackItem(IDefs::dart);
             purchase1->copy(3);
@@ -61,8 +61,8 @@ ShopRoom::ShopRoom(std::shared_ptr<Movement> m, uint8_t mask) : Room("Shop", std
     }
 
     //Multi switch statement to determine merchant's name
-    auto rand1 = getRand() % 4;
-    auto rand2 = getRand() % 4;
+    auto rand1 = randUint() % 4;
+    auto rand2 = randUint() % 4;
     switch(rand1) {
         case 1:
             enterString = "Hello me chum, welcome to me shop.";

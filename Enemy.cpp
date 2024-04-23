@@ -14,34 +14,34 @@ Enemy::Enemy(std::string name, int64_t hp, int64_t attk, int64_t percDef, int64_
 {
     this->enemySprite = sprite;
     //Choosing items for inven
-    double amntOfAttk = getRand() % 4;
+    double amntOfAttk = randUint() % 4;
     if(!attkSlots.empty())
     {
         for(int i = 0; i < amntOfAttk; i++)
         {
-            this->Inven.AddItem(&(attkSlots[getRand() % attkSlots.size()]));
+            this->Inven.AddItem(&(attkSlots[randUint() % attkSlots.size()]));
         }
     }
     if(!healSlots.empty())
     {
-        double amntOfHeal = (getRand() % 5) * (1.0/amntOfAttk);
+        double amntOfHeal = (randUint() % 5) * (1.0 / amntOfAttk);
         for(int i = 0; i < amntOfHeal; i++)
         {
-            this->Inven.AddItem(&(healSlots[getRand() % healSlots.size()]));
+            this->Inven.AddItem(&(healSlots[randUint() % healSlots.size()]));
         }
     }
     if(!statusSlots.empty())
     {
-        double amntOfStatus = getRand() % 3;
+        double amntOfStatus = randUint() % 3;
         for(int i = 0; i < amntOfStatus; i++)
         {
-            this->Inven.AddItem(&(statusSlots[getRand() % statusSlots.size()]));
+            this->Inven.AddItem(&(statusSlots[randUint() % statusSlots.size()]));
         }
     }
-    int64_t numWeapons = getRand() % 2;
+    int64_t numWeapons = randUint() % 2;
     for(int j = 0; j <= numWeapons; j++)
     {
-        Weapon* newWeapon = new Weapon(weaponSlots[getRand() % weaponSlots.size()]);
+        Weapon* newWeapon = new Weapon(weaponSlots[randUint() % weaponSlots.size()]);
         if(newWeapon != nullptr)
         {
             newWeapon->Use(this, std::vector<Entity*>{nullptr});
@@ -49,7 +49,7 @@ Enemy::Enemy(std::string name, int64_t hp, int64_t attk, int64_t percDef, int64_
     }
     for(int k = 0; k < 4; k++)
     {
-        Armor* newArmor = new Armor(armorSlots[getRand() % armorSlots.size()]); 
+        Armor* newArmor = new Armor(armorSlots[randUint() % armorSlots.size()]);
         if(newArmor != nullptr)
         {
             newArmor->Use(this, std::vector<Entity*>{nullptr});
@@ -103,12 +103,12 @@ void Enemy::dropLoot(EquippedEntity* player)
         lootVector.insert(lootVector.begin(), armor);
     }
     lootVector.insert(lootVector.begin(), this->currentWeapon);
-    int64_t amntOfLoot = getRand() % 4; //Gives loot 1 to 4
+    int64_t amntOfLoot = randUint() % 4; //Gives loot 1 to 4
     std::vector<Item*> droppedLoot;
     std::cout<< this->name << " dropped ";
     for(int j = 0; j < amntOfLoot; j++)
     {
-        int64_t pos = getRand() % lootVector.size();
+        int64_t pos = randUint() % lootVector.size();
         if(lootVector[pos] == nullptr)
         {
             continue;

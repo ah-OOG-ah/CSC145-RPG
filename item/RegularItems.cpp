@@ -65,7 +65,7 @@ void AttackItem::Use(Entity* user, std::vector<Entity*> opponents) {
             std::cout << target->getName() << " took " << this->GetDamage() << " damage " << std::endl;
             if (this->status != nullptr) {
 
-                int64_t chance = getRand() % 10;
+                int64_t chance = randUint() % 10;
                 if (chance <= this->effectChance) {
                     Status* ailment = new Status(this->status);
                     //target->setStatus(ailment);
@@ -80,7 +80,7 @@ void AttackItem::Use(Entity* user, std::vector<Entity*> opponents) {
         std::cout << user->getName() << " used " << this->GetName() << std::endl;
         std::cout << opponents[0]->getName() << " took " << this->GetDamage() << " damage " << std::endl;
         if (this->status != nullptr) {
-            int64_t chance = getRand() % 10;
+            int64_t chance = randUint() % 10;
             if(chance <= this->effectChance) {
                 Status* ailment = new Status(this->status);
                 //opponents[0]->setStatus(ailment);
@@ -251,7 +251,7 @@ void StatusItem::Use(Entity* user, std::vector<Entity*> opponents) {
         std::cout << user->getName() <<"'s Speed was boosted " << this->boost << " points!" << std::endl;
     }
     if (this->status != nullptr) {
-        int64_t chance = getRand() % 10;
+        int64_t chance = randUint() % 10;
         if (chance <= this->effectChance) {
             Status* ailment = new Status(this->status);
             //user->setStatus(ailment);

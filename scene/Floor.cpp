@@ -3,6 +3,9 @@
 #include "scene/rooms/SafeRoom.h"
 #include "scene/rooms/Movement.h"
 #include "game.h"
+#include "scene/rooms/TreasureRoom.h"
+#include "scene/rooms/ShopRoom.h"
+#include "scene/rooms/EmptyRoom.h"
 
 #include <utility>
 #include <iostream>
@@ -10,7 +13,7 @@
 
 size_t Floor::index(int64_t x, int64_t y) const { return x + y * size; }
 
-Floor::Floor(std::string name, int64_t level) : Scene(std::move(name)), level(level), size(5) { }
+Floor::Floor(std::string name, uint64_t level) : Scene(std::move(name)), level(level), size(5) { }
 
 void Floor::run() {
     auto movement = std::make_shared<Movement>();
@@ -36,7 +39,24 @@ void Floor::run() {
         // Not on the right edge
         if (i % 5 != 4) { mask |= 0b0001; }
 
-        rooms.push_back(std::make_shared<BattleRoom>(movement, mask));
+        // Now pick the room
+        // We use a "niceness" value ranging from 1 to 10 - at 1, there's an roughly even mix of battle/empty (hostile) and
+        // treasure/shop (friendly). At 10, there are NO friendly rooms.
+        auto nice = std::min(std::max(1ul, level), 10ul);
+        bool friendly = randUint() % 20 > nice + 10;
+        if (friendly) {
+            if (randBool()) {
+                rooms.push_back(std::make_shared<TreasureRoom>(movement, mask));
+            } else {
+                rooms.push_back(std::make_shared<ShopRoom>(movement, mask));
+            }
+        } else {
+            if (randBool()) {
+                rooms.push_back(std::make_shared<BattleRoom>(movement, mask));
+            } else {
+                rooms.push_back(std::make_shared<EmptyRoom>(movement, mask));
+            }
+        }
     }
 
     // Enter the room
