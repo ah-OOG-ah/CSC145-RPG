@@ -14,7 +14,7 @@ Battle::Battle(std::string name) : Scene(std::move(name)), Menu(std::vector<std:
 
     this->player = getPlayer();
     this->enemy = std::vector<Enemy>();
-    this->enemy.emplace_back(10);
+    //this->enemy.emplace_back(10);
 }
 
 /**

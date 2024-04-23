@@ -51,7 +51,7 @@ void MidLevelAI(Enemy* user, EquippedEntity* target)
             {
                 if(user->Inven.GetItem(i)->GetType() == "HEAL")
                 {
-                    user->Inven.GetItem(i)->Use(user, std::vector<EquippedEntity*>{target});
+                    user->Inven.GetItem(i)->Use(user, std::vector<Entity*>{target});
                     return;
                 }
                 }
@@ -63,7 +63,7 @@ void MidLevelAI(Enemy* user, EquippedEntity* target)
             {
                 if(user->Inven.GetItem(i)->GetType() == "STATUS")
                 {
-                    user->Inven.GetItem(i)->Use(user, std::vector<EquippedEntity*>{target});
+                    user->Inven.GetItem(i)->Use(user, std::vector<Entity*>{target});
                     return;
                 }
                 }
@@ -76,7 +76,7 @@ void MidLevelAI(Enemy* user, EquippedEntity* target)
         {
             if(user->Inven.GetItem(i)->GetType() == "STATUS")
             {
-                user->Inven.GetItem(i)->Use(user, std::vector<EquippedEntity*>{target});
+                user->Inven.GetItem(i)->Use(user, std::vector<Entity*>{target});
                 return;
             }
             
@@ -115,7 +115,7 @@ void HighLevelAI(Enemy* user, EquippedEntity* target)
         {
             if(user->Inven.GetItem(i)->GetType() == "HEAL")
             {
-                user->Inven.GetItem(i)->Use(user, std::vector<EquippedEntity*>{target});
+                user->Inven.GetItem(i)->Use(user, std::vector<Entity*>{target});
                 return;
             }
             
@@ -128,7 +128,7 @@ void HighLevelAI(Enemy* user, EquippedEntity* target)
         {
             if(user->Inven.GetItem(i)->GetType() == "WEAPON")
             {
-                user->Inven.GetItem(i)->Use(user, std::vector<EquippedEntity*>{target});
+                user->Inven.GetItem(i)->Use(user, std::vector<Entity*>{target});
                 return;
             } 
         }
@@ -136,7 +136,7 @@ void HighLevelAI(Enemy* user, EquippedEntity* target)
         {
             if(user->Inven.GetItem(i)->GetType() == "Status")
             {
-                user->Inven.GetItem(i)->Use(user, std::vector<EquippedEntity*>{target});
+                user->Inven.GetItem(i)->Use(user, std::vector<Entity*>{target});
                 return;
             } 
         }
@@ -151,7 +151,7 @@ void HighLevelAI(Enemy* user, EquippedEntity* target)
             {
                 if(user->Inven.GetItem(i)->GetType() == "ARMOR")
                 {
-                    user->Inven.GetItem(i)->Use(user, std::vector<EquippedEntity*>{target});
+                    user->Inven.GetItem(i)->Use(user, std::vector<Entity*>{target});
                     return;
                 } 
             }
@@ -182,7 +182,7 @@ void HealHappy(Enemy* user, EquippedEntity* target)
         {
             if(user->Inven.GetItem(i)->GetType() == "HEAL")
             {
-                user->Inven.GetItem(i)->Use(user, std::vector<EquippedEntity*>{target});
+                user->Inven.GetItem(i)->Use(user, std::vector<Entity*>{target});
                 return;
             }
         }

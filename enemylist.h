@@ -5,6 +5,7 @@
 #include <string>
 #include "enemyai.h"
 
+
 std::string spiderSprite = 
 "     \n"  
 "     \n"

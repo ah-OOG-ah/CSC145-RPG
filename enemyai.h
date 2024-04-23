@@ -3,6 +3,7 @@
 #include "Enemy.h"
 #include "Entity.h"
 
+
 void DefaultAI(Enemy* user, Entity* target);
 
 void AttackOnly(Enemy* user, Entity* target);

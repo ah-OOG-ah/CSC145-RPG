@@ -6,6 +6,7 @@
 #include <cstdint>
 #include <string>
 
+
 class ShopMenu : public Menu {
 
   public:

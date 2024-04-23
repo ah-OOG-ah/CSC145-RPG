@@ -8,6 +8,7 @@
 #include <memory>
 #include <vector>
 
+
 /**
  * This scene is entered for combat.
  */

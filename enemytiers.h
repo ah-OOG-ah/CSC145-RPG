@@ -3,6 +3,7 @@
 #include "enemylist.h"
 #include <vector>
 
+
 std::vector<Enemy*> basicEnemies = {&wideSpider, &wideSpider, &baboon, &basedBat, &baboon, &angryBaboon };
 std::vector<Enemy*> sentriesOnly = {&smallSentry, &smallSentry, &sentry, &sentry, &sentry, &steelSentry };
 std::vector<Enemy*> monkeysOnly = {&baboon, &baboon, &angryBaboon, &angryBaboon, &monkeyGhoul };
