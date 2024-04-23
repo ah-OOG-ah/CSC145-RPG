@@ -12,9 +12,9 @@ class ShopRoom : public Room {
   protected:
     std::string mapDisplay = "S";
     std::string merchantName;
-    Item* purchase1 = nullptr;
-    Item* purchase2 = nullptr;
-    Item* purchase3 = nullptr;
+    std::shared_ptr<Item> purchase1 = nullptr;
+    std::shared_ptr<Item> purchase2 = nullptr;
+    std::shared_ptr<Item> purchase3 = nullptr;
 
     std::vector<std::string> entries;
     /*
@@ -52,7 +52,7 @@ class ShopRoom : public Room {
     Arguments: An int64_t integer from 1-3
     Use: Takes in an integer and returns one of the "purchase" Item pointers based on the integer
     */
-    Item* GetPurchase(int64_t);
+    std::shared_ptr<Item> GetPurchase(int64_t);
     /*
     Name: GetPurchase
     Return type: string

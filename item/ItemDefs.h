@@ -19,8 +19,8 @@ namespace IDefs {
     static const std::string fluteDesc = "A lovely wooden flute. Makes even the most hardcore beast fall asleep";
     static const std::string toasterDesc = "A NAV-116 model toaster by ReynoldsTech. Good for throwing and making toast. Can paralyze opponents.";
     static const std::string lightningBottleDesc = "Release a powerful lighting bolt to strike an enemy. A very effective attack and can cause paralysis. It\'s lightning in a bottle!";
-    static const AttackItem rock("Rock", 10, 2, rockDesc);
-    static const AttackItem dart("Dart", 15, 5, dartDesc, &stypes::poison, 2);
+    static const auto rock = std::make_shared<AttackItem>("Rock", 10, 2, rockDesc);
+    static const auto dart = std::make_shared<AttackItem>("Dart", 15, 5, dartDesc, &stypes::poison, 2);
     static const AttackItem throwingAxe("Throwing Axe", 20, 15, throwingAxeDesc);
     static const AttackItem bomb("Bomb", 20, 25, bombDesc, 1, true);
     static const AttackItem gorillaBomb("Gorilla Bomb", 50, 80, gorillaBombDesc, 1, true);
@@ -59,14 +59,14 @@ namespace IDefs {
     static const std::string cryptoHeartDesc = "The heart of a cryptogriph. A strange power from within makes your skin like steel";
     static const std::string sleepingPillDesc = "A pill to help you fall asleep. Boosts StaticDef";
     static const auto roids = std::make_shared<StatusItem>("'Roids", 15, 2, attack, roidsDesc);
-    static const StatusItem superRoids("Super 'Roids", 60, 15, attack, superRoidsDesc, &stypes::paralysis, 10);
-    static const StatusItem anubisAmulet("Amulet of Anubis", 45, 5, staticdef, anubisAmuletDesc);
-    static const StatusItem setAmulet("Amulet of Set", 45, 10, staticdef, setAmuletDesc, &stypes::poison, 10);
-    static const StatusItem magicShield("Magic Shield", 30, 5, percdef, magicShieldDesc);
-    static const StatusItem sentryHead("Sentry Head", 50, 10, attack, sentryHeadDesc);
-    static const StatusItem ninjaBand("Ninja Band", 25, 15, speed, ninjaBandDesc);
-    static const StatusItem cryptoHeart("Cryptogriph Heart", 60, 15, staticdef, cryptoHeartDesc, &stypes::paralysis, 4);
-    static const StatusItem sleepingPill("Sleeping Pill", 15, 9, staticdef, sleepingPillDesc, &stypes::sleep, 10);
+    static const auto superRoids = std::make_shared<StatusItem>("Super 'Roids", 60, 15, attack, superRoidsDesc, &stypes::paralysis, 10);
+    static const auto anubisAmulet = std::make_shared<StatusItem>("Amulet of Anubis", 45, 5, staticdef, anubisAmuletDesc);
+    static const auto setAmulet = std::make_shared<StatusItem>("Amulet of Set", 45, 10, staticdef, setAmuletDesc, &stypes::poison, 10);
+    static const auto magicShield = std::make_shared<StatusItem>("Magic Shield", 30, 5, percdef, magicShieldDesc);
+    static const auto sentryHead = std::make_shared<StatusItem>("Sentry Head", 50, 10, attack, sentryHeadDesc);
+    static const auto ninjaBand = std::make_shared<StatusItem>("Ninja Band", 25, 15, speed, ninjaBandDesc);
+    static const auto cryptoHeart = std::make_shared<StatusItem>("Cryptogriph Heart", 60, 15, staticdef, cryptoHeartDesc, &stypes::paralysis, 4);
+    static const auto sleepingPill = std::make_shared<StatusItem>("Sleeping Pill", 15, 9, staticdef, sleepingPillDesc, &stypes::sleep, 10);
 
 
     //Weapon(Name, durability, damageMultiplier, price, description)
