@@ -1,7 +1,7 @@
 #include "BattleRoom.h"
-
 #include <utility>
 #include "game.h"
+#include "scene/Battle.h"
 
 
 BattleRoom::BattleRoom(std::shared_ptr<Movement> m, uint8_t mask) : Room("Battle", std::move(m), mask) {
@@ -27,3 +27,8 @@ BattleRoom::BattleRoom(std::shared_ptr<Movement> m, uint8_t mask) : Room("Battle
 }
 
 Item* BattleRoom::GetTreasure() { return treasure; }
+
+void BattleRoom::specialAction() {
+    Battle b(roomName);
+    b.run();
+}

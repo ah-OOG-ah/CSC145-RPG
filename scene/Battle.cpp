@@ -25,6 +25,8 @@ Battle::Battle(std::string name) : Scene(std::move(name)), Menu(std::vector<std:
  */
 void Battle::run() {
 
+    std::cout << "The battle of " << name << " begins!" << std::endl;
+
     while (true) {
 
         std::cout << "\nYou see the enemy: " << std::endl;

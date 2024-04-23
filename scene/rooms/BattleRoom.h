@@ -13,6 +13,8 @@ class BattleRoom : public Room {
   public:
     BattleRoom(std::shared_ptr<Movement> m, uint8_t mask);
 
+    void specialAction() override;
+
     /*
     Name: GetTreasure
     Return type: Item pointer
