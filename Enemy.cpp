@@ -4,21 +4,20 @@
 #include <string>
 #include <cstdint>
 #include <iostream>
+#include <utility>
 
 
-Enemy::Enemy(std::string name, int64_t hp, int64_t attk, int64_t percDef, int64_t staticDef, int64_t spd, std::vector<AttackItem> attkSlots, std::vector<HealItem> healSlots, std::vector<StatusItem> statusSlots, std::vector<Weapon*> weaponSlots, std::vector<Armor*> armorSlots, std::function<void(Enemy*, EquippedEntity*)> behavior )
- : Enemy(name, hp, attk, percDef, staticDef, spd, attkSlots, healSlots, statusSlots, weaponSlots, armorSlots, "", behavior) {}
+Enemy::Enemy(std::string name, int64_t hp, int64_t attk, double percDef, int64_t staticDef, int64_t spd, std::vector<AttackItem> attkSlots, std::vector<HealItem> healSlots, std::vector<StatusItem> statusSlots, std::vector<Weapon*> weaponSlots, std::vector<Armor*> armorSlots, std::function<void(Enemy*, EquippedEntity*)> behavior )
+ : Enemy(std::move(name), hp, attk, percDef, staticDef, spd, std::move(attkSlots), std::move(healSlots), std::move(statusSlots), std::move(weaponSlots), std::move(armorSlots), "", std::move(behavior)) {}
 
-Enemy::Enemy(std::string name, int64_t hp, int64_t attk, int64_t percDef, int64_t staticDef, int64_t spd, std::vector<AttackItem> attkSlots, std::vector<HealItem> healSlots, std::vector<StatusItem> statusSlots, std::vector<Weapon*> weaponSlots, std::vector<Armor*> armorSlots, std::string sprite, std::function<void(Enemy*, EquippedEntity*)> behavior)
- : EquippedEntity(name, hp, attk, percDef, staticDef, spd)
-{
-    this->enemySprite = sprite;
+Enemy::Enemy(std::string name, int64_t hp, int64_t attk, double percDef, int64_t staticDef, int64_t spd, std::vector<AttackItem> attkSlots, std::vector<HealItem> healSlots, std::vector<StatusItem> statusSlots, std::vector<Weapon*> weaponSlots, std::vector<Armor*> armorSlots, std::string sprite, std::function<void(Enemy*, EquippedEntity*)> behavior)
+ : EquippedEntity(std::move(name), hp, attk, percDef, staticDef, spd) {
+
+    this->enemySprite = std::move(sprite);
     //Choosing items for inven
     double amntOfAttk = randUint() % 4;
-    if(!attkSlots.empty())
-    {
-        for(int i = 0; i < amntOfAttk; i++)
-        {
+    if (!attkSlots.empty()) {
+        for(int i = 0; i < amntOfAttk; i++) {
             this->Inven.AddItem(&(attkSlots[randUint() % attkSlots.size()]));
         }
     }

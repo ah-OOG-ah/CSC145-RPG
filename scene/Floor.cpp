@@ -40,7 +40,7 @@ void Floor::run() {
         if (i % 5 != 4) { mask |= 0b0001; }
 
         // Now pick the room
-        // We use a "niceness" value ranging from 1 to 10 - at 1, there's an roughly even mix of battle/empty (hostile) and
+        // We use a "niceness" value ranging from 1 to 10 - at 1, there's a roughly even mix of battle/empty (hostile) and
         // treasure/shop (friendly). At 10, there are NO friendly rooms.
         auto nice = std::min(std::max(1ul, level), 10ul);
         bool friendly = randUint() % 20 > nice + 10;
@@ -63,6 +63,7 @@ void Floor::run() {
     while (p->x != 4 || p->y != 4) {
         auto room = rooms[index(p->x, p->y)];
         std::cout << room->GetDesc() << std::endl;
+        room->specialAction();
         room->display();
 
         std::cout << "Movement: " << movement->toString() << std::endl;
