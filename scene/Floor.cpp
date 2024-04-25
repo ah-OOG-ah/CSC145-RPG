@@ -44,7 +44,7 @@ void Floor::run() {
         // Now pick the room
         // We use a "niceness" value ranging from 1 to 10 - at 1, there's a roughly even mix of battle/empty (hostile) and
         // treasure/shop (friendly). At 10, there are NO friendly rooms.
-        auto nice = std::min(std::max(1ul, level), 10ul);
+        auto nice = std::min(std::max(static_cast<uint64_t>(1), level), static_cast<uint64_t>(10));
         bool friendly = randUint() % 20 > nice + 10;
         if (friendly) {
             if (randBool()) {
