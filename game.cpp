@@ -3,6 +3,7 @@
 #include "Player.h"
 #include <memory>
 #include <random>
+#include <iostream>
 #include "game.h"
 #include "scene/Tower.h"
 
@@ -38,6 +39,10 @@ bool getPFlee() { return player->getFleeing(); }
 void setPFlee(bool b) { player->setFleeing(b); }
 
 void pAttack(Entity* e) { player->attackEntity(e); }
+
+void saveGame() {
+    std::cout << "Not imeplemented yet." << std::endl;
+}
 
 int main() {
     initRng();

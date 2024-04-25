@@ -4,7 +4,8 @@
 #include "scene/Battle.h"
 
 
-BattleRoom::BattleRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t nice) : Room("Battle", std::move(m), mask, nice) {
+BattleRoom::BattleRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t nice)
+    : Room("Battle", std::move(m), mask, nice), b(roomName, nice) {
     auto rand = randUint() % 4;
 
     switch (rand) {
@@ -21,7 +22,6 @@ BattleRoom::BattleRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t nice) 
             description = "You enter a room with a mop. Not much to look at";
             break;
     }
-    //Switch statement for spawn table
 
     //Switch statement for treasure
 }
@@ -29,6 +29,5 @@ BattleRoom::BattleRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t nice) 
 Item* BattleRoom::GetTreasure() { return treasure; }
 
 void BattleRoom::specialAction() {
-    Battle b(roomName, nice);
     b.run();
 }

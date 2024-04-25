@@ -16,4 +16,6 @@ void Movement::reset() {
     isY = false;
     incX = false;
     incY = false;
+
+    leaveFloor = false;
 }

@@ -9,7 +9,7 @@ Tower::Tower(std::string name) : Scene(std::move(name)) { }
 void Tower::run() {
 
     // Run and enter the floor
-    for (int64_t level = 1; level <= 100; ++level) {
+    for (int64_t level = 1; level <= 10; ++level) {
         floors.emplace_back("Floor " + std::to_string(level), level);
 
         std::cout << "You enter Floor " << level << std::endl;

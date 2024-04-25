@@ -62,17 +62,24 @@ void Floor::run() {
     }
 
     // Enter the room
-    while (p->x != 4 || p->y != 4) {
+    bool exit = false;
+    while (!exit) {
+        std::cout << "You are at: " << p->x << ", " << p->y << std::endl;
         auto room = rooms[index(p->x, p->y)];
         std::cout << room->GetDesc() << std::endl;
         room->specialAction();
         room->display();
 
         std::cout << "Movement: " << movement->toString() << std::endl;
+
+        if (movement->leaveFloor) {
+            exit = true;
+
+        }
+
         if (movement->isX) p->x += movement->incX ? 1 : -1;
         if (movement->isY) p->y += movement->incY ? 1 : -1;
         movement->reset();
-        std::cout << "You are at: " << p->x << ", " << p->y << std::endl;
     }
 
     std::cout << "TODO: implement floor" << std::endl;
