@@ -50,5 +50,7 @@ class Entity {
     void changeStaticDef(int64_t);
     void changeSpd(int64_t);
 
+    virtual void takeDamage(double hpAmnt);
+
     [[nodiscard]] virtual std::string toString() const;
 };
