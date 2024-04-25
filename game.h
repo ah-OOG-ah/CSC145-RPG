@@ -7,6 +7,12 @@
 
 
 std::shared_ptr<Player> getPlayer();
+int64_t getPHP();
+bool getPFlee();
+
+void setPFlee(bool);
+
+void pAttack(Entity*);
 
 std::shared_ptr<Scene> getScene();
 

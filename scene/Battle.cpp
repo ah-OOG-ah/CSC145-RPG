@@ -12,11 +12,9 @@ Battle::Battle(std::string name, int64_t nice) : Scene(std::move(name)), Menu(st
     "Attack",
     "Escape"
 })) {
-
-    this->player = getPlayer();
     this->enemy = std::vector<Enemy>();
 
-    auto numEnemy = randUint() % nice;
+    auto numEnemy = randUint() % nice + 5;
     auto src = ETiers::get(nice);
 
     for (uint64_t i = 0; i < numEnemy; ++i) {
@@ -41,8 +39,8 @@ void Battle::run() {
 
         this->display();
 
-        if (this->player->getFleeing() || this->player->getCurrentHp() < 1) {
-            this->player->setFleeing(false);
+        if (getPFlee() || getPHP() < 1) {
+            setPFlee(false);
             std::cout << "You have been defeated." << std::endl;
             // TODO: monkey bob reference?
             break;
@@ -60,20 +58,17 @@ void Battle::listEnemies() {
 
 void Battle::attack() {
 
-    player->attackEntity(&enemy.at(0));
+    pAttack(&enemy.at(0));
     this->listEnemies();
     std::erase_if(enemy, [](const Enemy& e){ return !e.getAlive(); });
 }
 
-void Battle::escape() {
-
-    this->player->setFleeing(true);
-}
+void Battle::escape() { setPFlee(true); }
 
 void Battle::dispatch(int64_t i) {
     switch (i) {
         case 0: this->attack(); break;
-        case 1: this->escape(); break;
+        case 1: Battle::escape(); break;
         default: {
             std::cout << "Unexpected state! Things may break!" << std::endl;
         }
