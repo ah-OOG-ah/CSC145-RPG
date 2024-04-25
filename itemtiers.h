@@ -61,7 +61,7 @@ namespace ITiers {
     static const ArmorSet rockSet = {rockHelm, rockChest, rockLegg, rockBoots };
 
     // Armor pools
-    static const std::vector<std::shared_ptr<Armor>> basicArmor = { steelHelm, nullptr, chainChest, chainBoots, chainLegg, chainHelm, rockChest, toughVest };
+    static const std::vector<std::shared_ptr<Armor>> basicArmor = { steelHelm, chainChest, chainBoots, chainLegg, chainHelm, rockChest, toughVest };
     static const std::vector<std::shared_ptr<Armor>> betterArmor = { steelHelm, steelChest, steelLegg, steelBoots, goldChest, goldBoots, goldLegg, goldHelm, rockHelm, rockChest, rockLegg, rockBoots, toughVest, armyVest };
     static const std::vector<std::shared_ptr<Armor>> topTierArmor = { steelHelm, armyVest, toughVest, steelChest, baboonArmor, steelLegg, steelBoots };
 

@@ -34,7 +34,7 @@ struct UtilI {
         return Inventory(draw(il, num));
     }
 
-    static ArmorSet drawA(std::vector<std::shared_ptr<Armor>> a) {
+    static ArmorSet drawA(const std::vector<std::shared_ptr<Armor>>& a) {
         ArmorSet ret {};
         for (int i = 0; i < 4; ++i)
             ret.set(Util<Armor>::draw(a));
