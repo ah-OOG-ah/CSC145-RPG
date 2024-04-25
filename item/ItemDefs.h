@@ -21,14 +21,14 @@ namespace IDefs {
     static const std::string lightningBottleDesc = "Release a powerful lighting bolt to strike an enemy. A very effective attack and can cause paralysis. It\'s lightning in a bottle!";
     static const auto rock = std::make_shared<AttackItem>("Rock", 10, 2, rockDesc);
     static const auto dart = std::make_shared<AttackItem>("Dart", 15, 5, dartDesc, &stypes::poison, 2);
-    static const AttackItem throwingAxe("Throwing Axe", 20, 15, throwingAxeDesc);
-    static const AttackItem bomb("Bomb", 20, 25, bombDesc, 1, true);
-    static const AttackItem gorillaBomb("Gorilla Bomb", 50, 80, gorillaBombDesc, 1, true);
-    static const AttackItem bucketOfSludge("Bucket of Sludge", 0, 15, bucketOfSludgeDesc, &stypes::poison, 4);
-    static const AttackItem oilDrumOfSludge("Oil Drum of Sludge", 0, 50, oilDrumSludgeDesc, &stypes::poison, 5, true);
-    static const AttackItem flute("Flute", 0, 20, fluteDesc, &stypes::sleep, 10);
-    static const AttackItem toaster("Toaster", 15, 50, toasterDesc, &stypes::paralysis, 5);
-    static const AttackItem lightningBottle("Lightning in a Bottle", 50, 120, lightningBottleDesc, &stypes::paralysis, 8);
+    static const auto throwingAxe = std::make_shared<AttackItem>("Throwing Axe", 20, 15, throwingAxeDesc);
+    static const auto bomb = std::make_shared<AttackItem>("Bomb", 20, 25, bombDesc, 1, true);
+    static const auto gorillaBomb = std::make_shared<AttackItem>("Gorilla Bomb", 50, 80, gorillaBombDesc, 1, true);
+    static const auto bucketOfSludge = std::make_shared<AttackItem>("Bucket of Sludge", 0, 15, bucketOfSludgeDesc, &stypes::poison, 4);
+    static const auto oilDrumOfSludge = std::make_shared<AttackItem>("Oil Drum of Sludge", 0, 50, oilDrumSludgeDesc, &stypes::poison, 5, true);
+    static const auto flute = std::make_shared<AttackItem>("Flute", 0, 20, fluteDesc, &stypes::sleep, 10);
+    static const auto toaster = std::make_shared<AttackItem>("Toaster", 15, 50, toasterDesc, &stypes::paralysis, 5);
+    static const auto lightningBottle = std::make_shared<AttackItem>("Lightning in a Bottle", 50, 120, lightningBottleDesc, &stypes::paralysis, 8);
 
     //HealItem(Name, healAmnt, price, description)
     //HealItem(Name, healAmnt, price, status, description)
@@ -80,16 +80,16 @@ namespace IDefs {
     static const std::string undeadBladeDesc = "A sharp blade that reaks of death. Every second you hold it, the more it feels like the souls of the dead surround you";
     static const std::string boneDesc = "A thick bone that seems to come from a femur. The bone looks oddly human-like.";
     static const std::string katanaDesc = "A sharp, one-edged sword. So sharp, that even running your finger across it seems risky";
-    static Weapon sword("Sword", 20, 1.25, 20, swordDesc);
-    static Weapon spear("Spear", 10, 1.20, 15, spearDesc);
-    static Weapon hammer("Gorilla Hammer", 30, 1.50, 45, hammerDesc);
-    static Weapon staff("Staff", 10, 1.10, 8, staffDesc);
-    static Weapon bottle("Broken Bottle", 3, 1.70, 4, bottleDesc);
-    static Weapon goldSword("Gold Sword", 5, 1.2, 100, goldSwordDesc);
-    static Weapon whip("Orphan Whip", 40, 1.2, 20, whipDesc);
-    static Weapon undeadBlade("Undead Blade", 30, 1.30, 70, undeadBladeDesc);
-    static Weapon bone("Bone", 10, 1.20, 10, boneDesc);
-    static Weapon katana("Katana", 18, 1.4, 30, katanaDesc);
+    static const auto sword = std::make_shared<Weapon>("Sword", 20, 1.25, 20, swordDesc);
+    static const auto spear = std::make_shared<Weapon>("Spear", 10, 1.20, 15, spearDesc);
+    static const auto hammer = std::make_shared<Weapon>("Gorilla Hammer", 30, 1.50, 45, hammerDesc);
+    static const auto staff = std::make_shared<Weapon>("Staff", 10, 1.10, 8, staffDesc);
+    static const auto bottle = std::make_shared<Weapon>("Broken Bottle", 3, 1.70, 4, bottleDesc);
+    static const auto goldSword = std::make_shared<Weapon>("Gold Sword", 5, 1.2, 100, goldSwordDesc);
+    static const auto whip = std::make_shared<Weapon>("Orphan Whip", 40, 1.2, 20, whipDesc);
+    static const auto undeadBlade = std::make_shared<Weapon>("Undead Blade", 30, 1.30, 70, undeadBladeDesc);
+    static const auto bone = std::make_shared<Weapon>("Bone", 10, 1.20, 10, boneDesc);
+    static const auto katana = std::make_shared<Weapon>("Katana", 18, 1.4, 30, katanaDesc);
 
 
     //Armor(Name, durability, percentageDef, staticDef, price, ArmorType (enum), description)
@@ -98,45 +98,45 @@ namespace IDefs {
     static const std::string steelLeggDesc = "Steel leggings, great for defending you. Not very comfortable though...";
     static const std::string steelBootsDesc = "Boots made of steel. It would be perfect for stomping on enemies but that is a different game.";
 
-    static Armor steelHelm("Steel Helmet", 50, .2, 6, 30, Helmet, steelHelmDesc);
-    static Armor steelChest("Steel Chestplate", 40, .4, 10, 50, Chestplate, steelChestDesc);
-    static Armor steelLegg("Steel Leggins", 40, .2, 6, 40, Leggings, steelLeggDesc);
-    static Armor steelBoots("Steel Boots", 50, .2, 4, 30, Boots, steelBootsDesc);
+    static auto steelHelm = std::make_shared<Armor>("Steel Helmet", 50, .2, 6, 30, Helmet, steelHelmDesc);
+    static auto steelChest = std::make_shared<Armor>("Steel Chestplate", 40, .4, 10, 50, Chestplate, steelChestDesc);
+    static auto steelLegg = std::make_shared<Armor>("Steel Leggins", 40, .2, 6, 40, Leggings, steelLeggDesc);
+    static auto steelBoots = std::make_shared<Armor>("Steel Boots", 50, .2, 4, 30, Boots, steelBootsDesc);
 
     static const std::string chainHelmDesc = "A helmet made of chainmeal. Blocks high percentage of damage but does not have high upfront resistance.";
     static const std::string chainChestDesc = "Chestplate made of chain links. Does not negate much damage but reduces amount taken greatly.";
     static const std::string chainLeggDesc = "Leggins made of chainmeal. Good armor, just not very stylish though.";
     static const std::string chainBootsDesc = "Boots made of chain. Just don\'t question it.";
-    static Armor chainHelm("Chainmeal Helmet", 35, .20, 8, 25, Helmet, chainHelmDesc);
-    static Armor chainChest("Chainmeal Chestplate", 35, .20, 8, 25, Chestplate, chainChestDesc);
-    static Armor chainLegg("Chainmeal Leggings", 35, .1, 20, 25, Leggings, chainLeggDesc);
-    static Armor chainBoots("Chainmeal Boots", 35, .1, 20, 25, Boots, chainBootsDesc);
+    static auto chainHelm = std::make_shared<Armor>("Chainmeal Helmet", 35, .20, 8, 25, Helmet, chainHelmDesc);
+    static auto chainChest = std::make_shared<Armor>("Chainmeal Chestplate", 35, .20, 8, 25, Chestplate, chainChestDesc);
+    static auto chainLegg = std::make_shared<Armor>("Chainmeal Leggings", 35, .1, 20, 25, Leggings, chainLeggDesc);
+    static auto chainBoots = std::make_shared<Armor>("Chainmeal Boots", 35, .1, 20, 25, Boots, chainBootsDesc);
 
     static const std::string rockHelmDesc = "A rock helmet to protect your big brain.";
     static const std::string rockChestDesc = "The name kind of says it all.";
     static const std::string rockLeggDesc = "Don\'t even ask how you walk in these.";
     static const std::string rockBootsDesc = "Impractical but effective.";
-    static Armor rockHelm("Helmet Made Of Rocks", 10, .10, 16, 20, Helmet, rockHelmDesc);
-    static Armor rockChest("Chestplate Made Of Rocks", 10, .10, 30, 20, Chestplate, rockChestDesc);
-    static Armor rockLegg("Leggings Made Of Rocks", 15, .10, 8, 15, Leggings, rockLeggDesc);
-    static Armor rockBoots("Shoes Made Of Rocks", 20, .05, 10, 14, Boots, rockBootsDesc);
+    static auto rockHelm = std::make_shared<Armor>("Helmet Made Of Rocks", 10, .10, 16, 20, Helmet, rockHelmDesc);
+    static auto rockChest = std::make_shared<Armor>("Chestplate Made Of Rocks", 10, .10, 30, 20, Chestplate, rockChestDesc);
+    static auto rockLegg = std::make_shared<Armor>("Leggings Made Of Rocks", 15, .10, 8, 15, Leggings, rockLeggDesc);
+    static auto rockBoots = std::make_shared<Armor>("Shoes Made Of Rocks", 20, .05, 10, 14, Boots, rockBootsDesc);
 
     static const std::string goldHelmDesc = "A nice and shiny helmet to protect your head. Too bad its stats are garbage.";
     static const std::string goldChestDesc = "A weak chestplate made of gold. Rare and valuable.";
     static const std::string goldLeggDesc = "May not be strong but it looks nice!";
     static const std::string goldBootsDesc = "What it lacks in defense it makes up in drip.";
-    static Armor goldHelm("Gold Armor", 15, .2, 5, 120, Helmet, goldHelmDesc);
-    static Armor goldChest("Gold Armor", 15, .3, 5, 150, Chestplate, goldChestDesc);
-    static Armor goldLegg("Gold Armor", 15, .2, 5, 100, Leggings, goldLeggDesc);
-    static Armor goldBoots("Gold Armor", 15, .2, 5, 120, Boots, goldBootsDesc);
+    static auto goldHelm = std::make_shared<Armor>("Gold Armor", 15, .2, 5, 120, Helmet, goldHelmDesc);
+    static auto goldChest = std::make_shared<Armor>("Gold Armor", 15, .3, 5, 150, Chestplate, goldChestDesc);
+    static auto goldLegg = std::make_shared<Armor>("Gold Armor", 15, .2, 5, 100, Leggings, goldLeggDesc);
+    static auto goldBoots = std::make_shared<Armor>("Gold Armor", 15, .2, 5, 120, Boots, goldBootsDesc);
 
     static const std::string vestDesc = "A tough and durable bulletproof vest.";
-    static Armor toughVest("Tough Vest", 75, .15, 10, 30, Chestplate, vestDesc);
+    static auto toughVest = std::make_shared<Armor>("Tough Vest", 75, .15, 10, 30, Chestplate, vestDesc);
 
     static const std::string baboomArmorDesc = "Rare armor that gives you the fighting spirit of a baboon.";
     static const std::string armyVestDesc = "An bulletproof vest that has the Marines emblem on it. Increases manliness.";
     static const std::string mBobArmorDesc = "With this armor, you will be coming for Monkey Bob. MAY PUTIN BE EVER IN YOUR FAVOR.";
-    static Armor baboonArmor("Baboon Armor", 50, .4, 5, 1.5, 25, Chestplate, baboomArmorDesc);
-    static Armor armyVest("Marine Vest", 75, .6, 10, 1.4, 5, Chestplate, armyVestDesc);
-    static Armor monkeyBobArmor("Monkey Bob's Armor", 999999, .25, 25, 1.75, 350, Chestplate, mBobArmorDesc);
+    static auto baboonArmor = std::make_shared<Armor>("Baboon Armor", 50, .4, 5, 1.5, 25, Chestplate, baboomArmorDesc);
+    static auto armyVest = std::make_shared<Armor>("Marine Vest", 75, .6, 10, 1.4, 5, Chestplate, armyVestDesc);
+    static auto monkeyBobArmor = std::make_shared<Armor>("Monkey Bob's Armor", 999999, .25, 25, 1.75, 350, Chestplate, mBobArmorDesc);
 }

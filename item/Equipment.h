@@ -39,7 +39,7 @@ class Weapon : public Equipment {
     void display() override;
 };
 
-enum ArmorType { Helmet, Chestplate, Leggings, Boots};
+enum ArmorType { Helmet, Chestplate, Leggings, Boots };
 
 class Armor : public Equipment {
   protected:

@@ -10,10 +10,9 @@ Inventory::Inventory(const std::vector<std::shared_ptr<Item>>& items) : numEleme
         start.emplace_back(items[i]->copy());
     }
 }
-
-Inventory::Inventory(const Inventory& inv) : numElements(inv.numElements), usedElements(inv.usedElements) {
-    for (size_t i = 0; i < usedElements; ++i) {
-        start.emplace_back(inv.start[i]->copy());
+Inventory::Inventory(std::initializer_list<const std::shared_ptr<Item>> il) : numElements(il.size()), usedElements(numElements) {
+    for (const auto& i : il) {
+        start.emplace_back(i->copy());
     }
 }
 
@@ -26,11 +25,11 @@ size_t Inventory::GetPos(const std::shared_ptr<Item>& checkItem) {
     return -1;
 }
 
-std::shared_ptr<Item> Inventory::GetItem(int64_t pos) {
+std::shared_ptr<Item> Inventory::GetItem(size_t pos) {
     return start[pos];
 }
 
-std::shared_ptr<Item> Inventory::GetItem(std::string name) {
+std::shared_ptr<Item> Inventory::GetItem(const std::string& name) {
     for (size_t i = 0; i < numElements; i++) {
         if (start[i]->GetName() == name) {
             return start[i];
