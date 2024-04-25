@@ -20,7 +20,7 @@ namespace ETiers {
     static const std::vector<Enemy*> batsOnly = {&basedBat, &basedBat, &basedBat, &veryBasedBat, &veryBasedBat, &tradBasedBat};
 
     std::vector<Enemy*> get(int64_t i) {
-        switch (std::min(std::max(0l, i - 1), 6l)) {
+        switch (std::min(std::max(int64_t(0), i - 1), int64_t(6))) {
             case 0: return basicEnemies;
             case 1: return sentriesOnly;
             case 2: return monkeysOnly;
