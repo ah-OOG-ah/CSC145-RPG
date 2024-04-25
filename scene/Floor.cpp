@@ -82,6 +82,4 @@ void Floor::run() {
         if (movement->isY) p->y += movement->incY ? 1 : -1;
         movement->reset();
     }
-
-    std::cout << "TODO: implement floor" << std::endl;
 }
