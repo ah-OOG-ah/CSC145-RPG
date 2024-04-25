@@ -19,27 +19,18 @@ std::unique_ptr<Item> RegularItem::copy() {
 }
 
 
-AttackItem::AttackItem(std::string itemName, int64_t dmg, int64_t price, std::string desc, const Status* effect, int64_t chance, bool spread) : RegularItem(std::move(itemName), price, std::move(desc)) {
-    damage = dmg;
-    auto* ailment = new Status(effect);
-    status = ailment;
-    effectChance = chance;
-    this->spreadDamage = spread;
-    type = "ATTACK";
-}
-AttackItem::AttackItem(std::string itemName, int64_t dmg, int64_t price, std::string desc, int64_t amnt, bool spread) : RegularItem(std::move(itemName), price, std::move(desc), amnt) {
-    damage = dmg;
-    this->spreadDamage = spread;
+AttackItem::AttackItem(std::string itemName, int64_t dmg, int64_t price, std::string desc, bool spread, int64_t amnt, const std::shared_ptr<Status>& effect, int64_t chance)
+    : RegularItem(std::move(itemName), price, std::move(desc)), damage(dmg), status(std::make_shared<Status>(effect)), effectChance(chance), spreadDamage(spread) {
     type = "ATTACK";
 }
 
 void AttackItem::SetDamage(int64_t dmg) { damage = dmg; }
-void AttackItem::SetStatus(Status* effect) { status = effect; }
+void AttackItem::SetStatus(std::shared_ptr<Status> effect) { status = std::move(effect); }
 void AttackItem::SetChance(int64_t chance) { effectChance = chance; }
 void AttackItem::SetSpread(bool spread) { spreadDamage = spread; }
 
 int64_t AttackItem::GetDamage() const { return damage; }
-Status* AttackItem::GetStatus() { return status; }
+std::shared_ptr<Status> AttackItem::GetStatus() { return status; }
 int64_t AttackItem::GetChance() const { return effectChance; }
 bool AttackItem::canSpread() const { return spreadDamage; }
 
@@ -103,55 +94,38 @@ std::unique_ptr<Item> AttackItem::copy() {
 }
 
 
-HealItem::HealItem(std::string itemName, int64_t hp, int64_t price, std::string desc, int64_t amnt) : RegularItem(std::move(itemName), price, std::move(desc), amnt) {
-    hpAmnt = hp;
+HealItem::HealItem(std::string itemName, int64_t hp, int64_t price, std::string desc, int64_t amnt, const std::shared_ptr<Status>& effect)
+    : RegularItem(std::move(itemName), price, std::move(desc), amnt), hpAmnt(hp), healedStatus(std::make_shared<Status>(effect)) {
     type = "HEAL";
 }
-HealItem::HealItem(std::string itemName, int64_t hp, int64_t price, std::string desc, const Status* effect) : RegularItem(std::move(itemName), price, std::move(desc)) {
-    hpAmnt = hp;
-    auto* cure = new Status(effect);
-    this->healedStatus = cure;
-    type = "HEAL";
-}
-HealItem::HealItem(const HealItem* ht) : RegularItem(ht) {
-    this->hpAmnt = ht->GetHpAmnt();
-    auto* cure = new Status(ht->GetHealedStatus());
-    this->healedStatus = cure;
-    type = "HEAL";
-}
+HealItem::HealItem(const HealItem* ht) : HealItem(ht->name, ht->hpAmnt, ht->price, ht->description, ht->amount, ht->healedStatus) { }
 
 void HealItem::SetHpAmnt(int64_t hp) { hpAmnt = hp; }
-void HealItem::SetHealedStatus(Status* status) { healedStatus = status; }
+void HealItem::SetHealedStatus(std::shared_ptr<Status> status) { healedStatus = status; }
 
 int64_t HealItem::GetHpAmnt() const { return hpAmnt; }
-Status* HealItem::GetHealedStatus() const { return healedStatus; }
+std::shared_ptr<Status> HealItem::GetHealedStatus() const { return healedStatus; }
 
-void HealItem::display()
-{
+void HealItem::display() {
     std::cout << entries[0] << std::endl;
     std::cout << "Price: " << this->GetPrice() << std::endl;
     std::cout << "Heals: " << this->GetHpAmnt() << std::endl;
-    if(this->healedStatus != nullptr)
-    {
+    if (this->healedStatus != nullptr) {
         std::cout << "Cures: " << this->GetHealedStatus()->GetName() << std::endl;
     }
+
     std::cout << "Amount: " << this->GetAmount() << this->GetAmntText() << std::endl;
     std::cout << entries[1] << std::endl;
     std::cout << "Enter EXIT to exit or HEAL to heal with this item" << std::endl;
     std::string choice;
-    while(choice != "EXIT")
-    {
+    while (choice != "EXIT") {
         std::getline(std::cin, choice);
-        if(choice == "HEAL")
-        {
+        if (choice == "HEAL") {
             this->Use(getPlayer().get(), std::vector<Entity*>{nullptr});
-            if(this->GetAmount() <= 0)
-            {
+            if (this->GetAmount() <= 0) {
                 return;
             }
-        }
-        else if(choice != "EXIT")
-        {
+        } else if(choice != "EXIT") {
             std::cout << "Invalid input. Please input again. " << std::endl;
         }
     }
@@ -185,60 +159,45 @@ std::unique_ptr<Item> HealItem::copy() {
 }
 
 
-StatusItem::StatusItem(std::string itemName, int64_t price, int64_t boost, statBoost stat, std::string desc, int64_t amnt)
+StatusItem::StatusItem(std::string itemName, int64_t price, int64_t boost, statBoost stat, std::string desc, int64_t chance, const std::shared_ptr<Status>& effect, int64_t amnt)
     : RegularItem(std::move(itemName), price, std::move(desc), amnt), boost(boost), stat(stat) {
-    type = "STATUS";
-}
-StatusItem::StatusItem(std::string itemName, int64_t price, int64_t boost, statBoost stat, std::string desc, const Status* effect, int64_t chance)
-    : StatusItem(std::move(itemName), price, boost, stat, std::move(desc)) {
-    auto* cure = new Status(effect);
-    this->status = cure;
-}
-
-StatusItem::StatusItem(StatusItem* st) : RegularItem(st) {
-    this->boost =st->GetBoost();
-    this->stat = st->GetStat();
-    auto* cure = new Status(st->GetStatus());
-    this->status = cure;
+    this->status = std::make_shared<Status>(effect);
     type = "STATUS";
 }
 
-void StatusItem::SetBoost(int64_t boost) { this->boost = boost; }
-void StatusItem::SetStat(statBoost stat) { this->stat = stat; }
-void StatusItem::SetStatus(Status* effect) { status = effect; }
+StatusItem::StatusItem(StatusItem* st) : RegularItem(st), boost(st->boost), stat(st->stat), status(std::make_shared<Status>(st->status)) {
+    type = "STATUS";
+}
+
+void StatusItem::SetBoost(int64_t val) { boost = val; }
+void StatusItem::SetStat(statBoost val) { stat = val; }
+void StatusItem::SetStatus(std::shared_ptr<Status> effect) { status = std::move(effect); }
 void StatusItem::SetChance(int64_t chance) { effectChance = chance; }
 
 int64_t StatusItem::GetBoost() const { return this->boost; }
 statBoost StatusItem::GetStat() const { return this->stat; }
-Status* StatusItem::GetStatus() { return this->status; }
+std::shared_ptr<Status> StatusItem::GetStatus() { return status; }
 int64_t StatusItem::GetChance() const { return this->effectChance; }
 
-void StatusItem::display()
-{
+void StatusItem::display() {
     std::cout << entries[0] << std::endl;
     std::cout << "Price: " << this->GetPrice() << std::endl;
     std::cout << "Boosts: " << this->GetStat() << " by " << this->GetBoost() << " Points" << std::endl;
-    if(this->status != nullptr)
-    {
+    if (this->status != nullptr) {
         std::cout <<"Causes: " << this->status << std::endl;
     }
     std::cout << "Amount: " << this->GetAmount() << this->GetAmntText() << std::endl;
     std::cout << entries[1] << std::endl;
     std::cout << "Enter EXIT to exit or USE to use this item" << std::endl;
     std::string choice;
-    while(choice != "EXIT")
-    {
+    while (choice != "EXIT") {
         std::getline(std::cin, choice);
-        if(choice == "USE")
-        {
+        if (choice == "USE") {
             this->Use(getPlayer().get(), std::vector<Entity*>{nullptr});
-            if(this->GetAmount() <= 0)
-            {
+            if (this->GetAmount() <= 0) {
                 return;
             }
-        }
-        else if(choice != "EXIT")
-        {
+        } else if (choice != "EXIT") {
             std::cout << "Invalid input. Please input again. " << std::endl;
         }
     }

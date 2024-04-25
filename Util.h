@@ -23,7 +23,7 @@ struct UtilI {
             }
         }
 
-        std::vector<shpI> ret(num);
+        std::vector<shpI> ret;
         for (uint64_t i = 0; i < num; ++i) {
             ret.emplace_back(pool[randUint() % pool.size()]);
         }
