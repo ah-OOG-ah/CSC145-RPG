@@ -30,6 +30,9 @@ Battle::Battle(std::string name, int64_t nice) : Scene(std::move(name)), Menu(st
  */
 void Battle::run() {
 
+    // TODO: change this
+    if (over) return;
+
     std::cout << "The battle of " << name << " begins!" << std::endl;
 
     while (true) {
@@ -49,6 +52,8 @@ void Battle::run() {
             break;
         }
     }
+
+    over = true;
 }
 
 void Battle::listEnemies() {

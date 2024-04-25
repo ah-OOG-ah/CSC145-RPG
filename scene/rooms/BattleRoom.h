@@ -2,6 +2,7 @@
 
 #include "Item.h"
 #include "Room.h"
+#include "scene/Battle.h"
 
 
 class BattleRoom : public Room {
@@ -9,6 +10,7 @@ class BattleRoom : public Room {
     //SpawnTable
     std::string mapDisplay = "B";
     Item* treasure = nullptr;
+    Battle b;
 
   public:
     BattleRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t nice);

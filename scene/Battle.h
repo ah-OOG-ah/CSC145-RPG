@@ -16,6 +16,7 @@ class Battle : public Scene, public Menu {
 
   private:
     std::vector<Enemy> enemy;
+    bool over = false;
 
     void attack();
     static void escape();

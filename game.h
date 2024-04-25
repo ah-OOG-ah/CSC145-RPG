@@ -19,3 +19,5 @@ std::shared_ptr<Scene> getScene();
 uint64_t randUint();
 int64_t randInt();
 bool randBool();
+
+void saveGame();

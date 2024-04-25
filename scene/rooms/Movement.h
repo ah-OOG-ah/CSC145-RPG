@@ -10,6 +10,8 @@ struct Movement {
     bool isY = false;
     bool incY = false;
 
+    bool leaveFloor = false;
+
     [[nodiscard]] std::string toString() const;
     void reset();
 };
