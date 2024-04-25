@@ -9,11 +9,8 @@ Status::Status(std::string n, int64_t turns, std::function<void(Entity*, Status*
     this->statusFunction = std::move(func);
 }
 
-Status::Status(const Status* st) {
-    this->name = st->GetName();
-    this->maxTurns = st->GetMaxTurns();
-    this->statusFunction = this->getFunc();
-}
+Status::Status(const std::shared_ptr<Status>& st)
+    : statusFunction(st->statusFunction), name(st->name), remainingTurns(st->remainingTurns), maxTurns(st->maxTurns) { }
 
 std::string Status::GetName() const { return name; }
 

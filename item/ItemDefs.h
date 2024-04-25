@@ -20,15 +20,15 @@ namespace IDefs {
     static const std::string toasterDesc = "A NAV-116 model toaster by ReynoldsTech. Good for throwing and making toast. Can paralyze opponents.";
     static const std::string lightningBottleDesc = "Release a powerful lighting bolt to strike an enemy. A very effective attack and can cause paralysis. It\'s lightning in a bottle!";
     static const auto rock = std::make_shared<AttackItem>("Rock", 10, 2, rockDesc);
-    static const auto dart = std::make_shared<AttackItem>("Dart", 15, 5, dartDesc, &stypes::poison, 2);
+    static const auto dart = std::make_shared<AttackItem>("Dart", 15, 5, dartDesc, false, 1, stypes::poison, 2);
     static const auto throwingAxe = std::make_shared<AttackItem>("Throwing Axe", 20, 15, throwingAxeDesc);
-    static const auto bomb = std::make_shared<AttackItem>("Bomb", 20, 25, bombDesc, 1, true);
-    static const auto gorillaBomb = std::make_shared<AttackItem>("Gorilla Bomb", 50, 80, gorillaBombDesc, 1, true);
-    static const auto bucketOfSludge = std::make_shared<AttackItem>("Bucket of Sludge", 0, 15, bucketOfSludgeDesc, &stypes::poison, 4);
-    static const auto oilDrumOfSludge = std::make_shared<AttackItem>("Oil Drum of Sludge", 0, 50, oilDrumSludgeDesc, &stypes::poison, 5, true);
-    static const auto flute = std::make_shared<AttackItem>("Flute", 0, 20, fluteDesc, &stypes::sleep, 10);
-    static const auto toaster = std::make_shared<AttackItem>("Toaster", 15, 50, toasterDesc, &stypes::paralysis, 5);
-    static const auto lightningBottle = std::make_shared<AttackItem>("Lightning in a Bottle", 50, 120, lightningBottleDesc, &stypes::paralysis, 8);
+    static const auto bomb = std::make_shared<AttackItem>("Bomb", 20, 25, bombDesc, true);
+    static const auto gorillaBomb = std::make_shared<AttackItem>("Gorilla Bomb", 50, 80, gorillaBombDesc, true);
+    static const auto bucketOfSludge = std::make_shared<AttackItem>("Bucket of Sludge", 0, 15, bucketOfSludgeDesc, false, 1, stypes::poison, 4);
+    static const auto oilDrumOfSludge = std::make_shared<AttackItem>("Oil Drum of Sludge", 0, 50, oilDrumSludgeDesc, true, 1, stypes::poison, 5);
+    static const auto flute = std::make_shared<AttackItem>("Flute", 0, 20, fluteDesc, false, 1, stypes::sleep, 10);
+    static const auto toaster = std::make_shared<AttackItem>("Toaster", 15, 50, toasterDesc, false, 1, stypes::paralysis, 5);
+    static const auto lightningBottle = std::make_shared<AttackItem>("Lightning in a Bottle", 50, 120, lightningBottleDesc, false, 1, stypes::paralysis, 8);
 
     //HealItem(Name, healAmnt, price, description)
     //HealItem(Name, healAmnt, price, status, description)
@@ -39,13 +39,13 @@ namespace IDefs {
     static const std::string zombieBloodDesc = "Blood from a decaying corpse. 0/10, would not recommend";
     static const std::string cookieDesc = "A delicous cookie. Not too good for health but healps";
     static const std::string rubberFruitDesc = "Fruit with rubber-like flesh. Eating it cures paralysis.";
-    static const auto pureWater = std::make_shared<HealItem>("Pure Water", 20, 9, waterDesc, &stypes::poison);
+    static const auto pureWater = std::make_shared<HealItem>("Pure Water", 20, 9, waterDesc, 1, stypes::poison);
     static const auto banana = std::make_shared<HealItem>("Banana", 10, 5, bananaDesc);
-    static const auto ectoplasm = std::make_shared<HealItem>("Ectoplasm", 25, 50, ectoplasmDesc, &stypes::paralysis);
+    static const auto ectoplasm = std::make_shared<HealItem>("Ectoplasm", 25, 50, ectoplasmDesc, 1, stypes::paralysis);
     static const auto zombieBlood = std::make_shared<HealItem>("Zombie Blood", -10, 5, zombieBloodDesc);
-    static const auto elixir = std::make_shared<HealItem>("Elixir", 40, 25, elixirDesc, &stypes::poison);
+    static const auto elixir = std::make_shared<HealItem>("Elixir", 40, 25, elixirDesc, 1, stypes::poison);
     static const auto cookie = std::make_shared<HealItem>("Cookie", 5, 3, cookieDesc);
-    static const auto rubberFruit = std::make_shared<HealItem>("Rubber Fruit", 0, 15, rubberFruitDesc, &stypes::paralysis);
+    static const auto rubberFruit = std::make_shared<HealItem>("Rubber Fruit", 0, 15, rubberFruitDesc, 1, stypes::paralysis);
 
     //StatusItem(name, boost, stat, price, description)
     //StatusItem(name, boost, stat, price, Status, chance, description)

@@ -4,6 +4,7 @@
 #include <cstdint>
 #include <string>
 #include <functional>
+#include <memory>
 
 
 class Status {
@@ -15,11 +16,13 @@ class Status {
 
   public:
     Status(std::string n, int64_t turns, std::function<void(Entity* , Status* )> func);
-    explicit Status(const Status*);
+    explicit Status(const std::shared_ptr<Status>&);
+
     [[nodiscard]] std::string GetName() const;
     [[nodiscard]] int64_t GetRemainingTurns() const;
     [[nodiscard]] int64_t GetMaxTurns() const;
+    std::function<void(Entity* , Status* )> getFunc();
+
     void ReduceTurn();
     void effect(Entity* victim);
-    std::function<void(Entity* , Status* )> getFunc();
 };
