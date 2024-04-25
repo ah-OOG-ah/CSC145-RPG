@@ -8,7 +8,7 @@
 
 
 DebugMenu debugMenu = DebugMenu();
-Player player = Player(10);
+auto player = std::make_shared<Player>(10);
 std::shared_ptr<Scene> scene;
 
 typedef std::mt19937 RNG;
@@ -30,8 +30,14 @@ std::shared_ptr<Scene> getScene() {
 }
 
 std::shared_ptr<Player> getPlayer() {
-    return std::shared_ptr<Player>(&player);
+    return player;
 }
+int64_t getPHP() { return player->getCurrentHp(); }
+bool getPFlee() { return player->getFleeing(); }
+
+void setPFlee(bool b) { player->setFleeing(b); }
+
+void pAttack(Entity* e) { player->attackEntity(e); }
 
 int main() {
     initRng();

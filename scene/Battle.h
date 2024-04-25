@@ -16,16 +16,15 @@ class Battle : public Scene, public Menu {
 
   private:
     std::vector<Enemy> enemy;
-    std::shared_ptr<Player> player;
 
     void attack();
-    void escape();
+    static void escape();
     void listEnemies();
 
   protected:
     void dispatch(int64_t i) override;
 
   public:
-    explicit Battle(std::string, int64_t nice);
+    Battle(std::string, int64_t nice);
     void run() override;
 };
