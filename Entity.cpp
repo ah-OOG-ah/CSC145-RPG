@@ -73,11 +73,17 @@ void Entity::changeSpd(int64_t amnt){
 }
 
 void Entity::attackEntity(Entity* enemy) {
-    enemy->changeHP(-1 * this->getAttk());
+    enemy->takeDamage(this->getAttk());
 }
 
 std::string Entity::toString() const {
     if (this->hp > 0)
         return "{hp: " + std::to_string(this->hp) + ", atk: " + std::to_string(this->attk) + "}";
     return "{DEAD, atk: " + std::to_string(this->attk) + "}";
+}
+
+void Entity::takeDamage(double amnt) {
+    amnt -= this->staticDef;
+    amnt *= this->percDef;
+    this->hp -= amnt;
 }

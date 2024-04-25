@@ -16,4 +16,7 @@ class EquippedEntity : public Entity {
     Inventory Inven;
     std::shared_ptr<Weapon> currentWeapon{};
     ArmorSet armor; //Index of arrays are ordered just like ArmorType enum
+
+    void takeDamage(double amnt) override;
+    void attackEntity(Entity* enemy) override;
 };
