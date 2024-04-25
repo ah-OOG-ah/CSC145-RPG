@@ -74,7 +74,8 @@ void Floor::run() {
 
         if (movement->leaveFloor) {
             exit = true;
-
+            p->x = 0;
+            p->y = 0;
         }
 
         if (movement->isX) p->x += movement->incX ? 1 : -1;
