@@ -10,7 +10,7 @@
 
 class Inventory {
   protected:
-    const size_t numElements = 30;
+    size_t numElements = 30;
     size_t usedElements = 0;
     std::vector<std::shared_ptr<Item>> start = std::vector<std::shared_ptr<Item>>(numElements, nullptr);
 
@@ -21,11 +21,11 @@ class Inventory {
     Inventory();
     explicit Inventory(size_t);
     explicit Inventory(const std::vector<std::shared_ptr<Item>>&);
-    explicit Inventory(const Inventory&);
+    Inventory(std::initializer_list<const std::shared_ptr<Item>>);
 
     size_t GetPos(const std::shared_ptr<Item>&);
-    std::shared_ptr<Item> GetItem(int64_t);
-    std::shared_ptr<Item> GetItem(std::string);
+    std::shared_ptr<Item> GetItem(size_t);
+    std::shared_ptr<Item> GetItem(const std::string&);
     [[nodiscard]] int64_t GetGold() const;
     bool AddItem(const std::shared_ptr<Item>&); //Adds to amount if Item already is in Inventory. Bool to see if adding was successful
     bool ReplaceItem(const std::shared_ptr<Item>&); //function called by AddItem when inventory is full. True if item is replaced, else false

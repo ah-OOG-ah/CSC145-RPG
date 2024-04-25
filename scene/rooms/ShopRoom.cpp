@@ -52,11 +52,11 @@ ShopRoom::ShopRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t nice) : Ro
             purchase1->copy(5);
             break;
         case 2:
-            purchase1 = new Weapon(IDefs::spear);
+            purchase1 = IDefs::spear->copy();
             purchase1->copy(2);
             break;
         case 3:
-            purchase1 = new Weapon(IDefs::hammer);
+            purchase1 = IDefs::hammer->copy();
             break;
     }
 

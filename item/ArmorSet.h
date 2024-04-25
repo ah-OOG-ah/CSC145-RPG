@@ -20,4 +20,16 @@ struct ArmorSet {
     }
 
     std::shared_ptr<Armor> operator[] (std::size_t idx) const { return get(idx); }
+
+    void set(std::shared_ptr<Armor> a) {
+        switch (a->GetArmorType()) {
+            case Helmet: head = a;
+                break;
+            case Chestplate: chest = a;
+                break;
+            case Leggings: legs = a;
+                break;
+            case Boots: feet = a;
+        }
+    }
 };

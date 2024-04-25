@@ -6,6 +6,8 @@
 
 namespace ETiers {
 
+    using namespace EList;
+
     static const std::vector<Enemy*> basicEnemies = {&wideSpider, &wideSpider, &baboon, &basedBat, &baboon, &angryBaboon};
     static const std::vector<Enemy*> sentriesOnly = {&smallSentry, &smallSentry, &sentry, &sentry, &sentry, &steelSentry};
     static const std::vector<Enemy*> monkeysOnly = {&baboon, &baboon, &angryBaboon, &angryBaboon, &monkeyGhoul};

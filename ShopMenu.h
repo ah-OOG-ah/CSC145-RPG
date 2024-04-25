@@ -10,17 +10,17 @@
 class ShopMenu : public Menu {
 
   public:
-    ShopMenu(std::string merchant, std::vector<std::string> entries, Item* stock1, Item* stock2, Item* stock3);
+    ShopMenu(std::string merchant, std::vector<std::string> entries, std::shared_ptr<Item> stock1, std::shared_ptr<Item> stock2, std::shared_ptr<Item> stock3);
    void display() override;
   protected:
-    virtual void dispatch(int64_t i) override;
+    void dispatch(int64_t i) override;
 
   private:
     std::string merchantName;
-    Item* purchase1 = nullptr;
-    Item* purchase2 = nullptr;
-    Item* purchase3 = nullptr;
-    Item* GetPurchase(int64_t);
+    std::shared_ptr<Item> purchase1 = nullptr;
+    std::shared_ptr<Item> purchase2 = nullptr;
+    std::shared_ptr<Item> purchase3 = nullptr;
+    std::shared_ptr<Item> GetPurchase(int64_t);
 
     void Buy();
     void Sell();

@@ -4,6 +4,7 @@
 #include "itemtiers.h"
 #include <string>
 #include "enemyai.h"
+#include "Util.h"
 
 
 namespace EList {
@@ -113,23 +114,23 @@ namespace EList {
 
     using namespace ITiers;
 
-    //Enemy(name,hp,attk,percDef,staticDef,spd, invenSlots, weaponSlots, armorSlots, sprite)
-    Enemy wideSpider("WIDE Spider", 20, 10, 1.0, 5, 20, noAttk, noHeal, basicRoids, noWeapons, noArmor, spiderSprite, EAI::AttackOnly);
-    Enemy rockMonster("Rock Monster", 50, 5, .30, 30, 5, rocksOnly, noHeal, basicRoids, noWeapons, rockSet, rockSprite, EAI::DefaultAI);
-    Enemy baboon("Baboon", 30, 10, .90, 10, 10, basicAttkItems, basicHealItems, allRoids, swordsOnly, noArmor, baboonSprite, EAI::MidLevelAI);
+    //Enemy(name, i64 hp, i64 attk, f64 percDef, i64 staticDef, i64 spd, inv, weapon, armor, sprite, std::function<void(Enemy*, EquippedEntity*)> behavior)
+    Enemy wideSpider("WIDE Spider", 20, 10, 1.0, 5, 20, UtilI::drawI({ basicRoids }, 1), {}, noArmor, spiderSprite, {}, EAI::AttackOnly);
+    Enemy rockMonster("Rock Monster", 50, 5, .30, 30, 5, UtilI::drawI({ rocksOnly, basicRoids }, 2), {}, rockSet, rockSprite, {}, EAI::DefaultAI);
+    Enemy baboon("Baboon", 30, 10, .90, 10, 10, UtilI::drawI({basicAttkItems, basicHealItems, allRoids}, 3), Util<Weapon>::draw(basicWeapons), noArmor, baboonSprite, {}, EAI::MidLevelAI);
     //Only difference between two baboons is behavior and sprite
-    Enemy angryBaboon("Angry Baboon", 40, 10, .90, 10, 10, basicAttkItems, basicHealItems, allRoids, swordsOnly, noArmor, angryBaboonSprite, EAI::AttackOnly);
-    Enemy smallSentry("Mini Sentry", 50, 25, .80, 12, 15, basicAttkItems, betterHealItems, shieldOnly, rareWeapons, chainSet, std::vector<Item *>{&sentryHead}, smallSentrySprite, EAI::MidLevelAI);
-    Enemy sentry("Sentry", 80, 30, .75, 12, 5, betterAttkItems, betterHealItems, shieldOnly, rareWeapons, betterArmor, std::vector<Item *>{&sentryHead}, sentrySprite, EAI::HighLevelAI);
-    Enemy steelSentry("Steel sentry", 100, 30, .70, 12, 5, betterAttkItems, betterHealItems, shieldOnly, rareWeapons, steelSet, std::vector<Item *>{&sentryHead}, steelSentrySprite, EAI::HighLevelAI);
-    Enemy basedBat("Based Bat", 35, 15, 1.0, 7, 30, basicAttkItems, noHeal, basicRoids, basicWeapons, basicArmor, batSprite, EAI::DefaultAI);
-    Enemy veryBasedBat("Very Based Bat", 50, 18, 1.0, 10, 35, basicAttkItems, noHeal, allRoids, basicWeapons, steelSet, batSprite, EAI::MidLevelAI);
-    Enemy tradBasedBat("Based and Trad Bat", 55, 25, 1.0, 12, 35, bombsOnly, noHeal, goodStatusItems, rareWeapons, topTierArmor, tradBatSprite, EAI::HighLevelAI);
-    Enemy mummy("Mummy", 65, 20, 1.0, 10, 12, greatAttkItems, betterHealItems, mummyItems, undeadWeapons, noArmor, std::vector<Item *>{&zombieBlood}, mummySprite, EAI::MidLevelAI);
-    Enemy zombie("Zombie", 65, 20, 1.0, 10, 12, greatAttkItems, basicHealItems, allRoids, undeadWeapons, noArmor, std::vector<Item *>{&zombieBlood}, zombieSprite, EAI::MidLevelAI);
-    Enemy ghoul("Ghoul", 60, 10, .80, 20, 30, betterAttkItems, noHeal, shieldOnly, undeadWeapons, basicArmor, ghoulSprite, EAI::MidLevelAI);
-    Enemy monkeyGhoul("Monkey Ghoul", 65, 25, .82, 15, 15, betterAttkItems, noHeal, shieldOnly, undeadWeapons, basicArmor, monkeyGhoulSprite, EAI::MidLevelAI);
-    Enemy cryptogriph("Cryptogriph", 50, 10, .60, 16, 40, powerfulAttkItems, betterHealItems, sleepingPillsOnly, swordsOnly, steelSet, std::vector<Item *>{&elixir, &goldBoots, &goldChest, &goldSword}, cryptogriphSprite, EAI::ItemHappy);
+    Enemy angryBaboon("Angry Baboon", 40, 10, .90, 10, 10, UtilI::drawI({basicAttkItems, basicHealItems, allRoids}, 3), Util<Weapon>::draw(basicWeapons), noArmor, angryBaboonSprite, {}, EAI::AttackOnly);
+    Enemy smallSentry("Mini Sentry", 50, 25, .80, 12, 15, UtilI::drawI({basicAttkItems, betterHealItems, shieldOnly}, 3), Util<Weapon>::draw(rareWeapons), chainSet, smallSentrySprite, { sentryHead }, EAI::MidLevelAI);
+    Enemy sentry("Sentry", 80, 30, .75, 12, 5, UtilI::drawI({betterAttkItems, betterHealItems, shieldOnly}, 3), Util<Weapon>::draw(rareWeapons), UtilI::drawA(betterArmor), sentrySprite, { sentryHead }, EAI::HighLevelAI);
+    Enemy steelSentry("Steel sentry", 100, 30, .70, 12, 5, UtilI::drawI({betterAttkItems, betterHealItems, shieldOnly}, 3), Util<Weapon>::draw(rareWeapons), steelSet, steelSentrySprite, { sentryHead }, EAI::HighLevelAI);
+    Enemy basedBat("Based Bat", 35, 15, 1.0, 7, 30, UtilI::drawI({basicAttkItems, noHeal, basicRoids}, 3), Util<Weapon>::draw(basicWeapons), UtilI::drawA(basicArmor), batSprite, {}, EAI::DefaultAI);
+    Enemy veryBasedBat("Very Based Bat", 50, 18, 1.0, 10, 35, UtilI::drawI({basicAttkItems, noHeal, allRoids}, 3), Util<Weapon>::draw(basicWeapons), steelSet, batSprite, {}, EAI::MidLevelAI);
+    Enemy tradBasedBat("Based and Trad Bat", 55, 25, 1.0, 12, 35, UtilI::drawI({bombsOnly, noHeal, goodStatusItems}, 3), Util<Weapon>::draw(rareWeapons), UtilI::drawA(topTierArmor), tradBatSprite, {}, EAI::HighLevelAI);
+    Enemy mummy("Mummy", 65, 20, 1.0, 10, 12, UtilI::drawI({greatAttkItems, betterHealItems, mummyItems}, 3), Util<Weapon>::draw(undeadWeapons), noArmor, mummySprite, { zombieBlood }, EAI::MidLevelAI);
+    Enemy zombie("Zombie", 65, 20, 1.0, 10, 12, UtilI::drawI({greatAttkItems, basicHealItems, allRoids}, 3), Util<Weapon>::draw(undeadWeapons), noArmor, zombieSprite, { zombieBlood }, EAI::MidLevelAI);
+    Enemy ghoul("Ghoul", 60, 10, .80, 20, 30, UtilI::drawI({betterAttkItems, noHeal, shieldOnly}, 3), Util<Weapon>::draw(undeadWeapons), UtilI::drawA(basicArmor), ghoulSprite, {}, EAI::MidLevelAI);
+    Enemy monkeyGhoul("Monkey Ghoul", 65, 25, .82, 15, 15, UtilI::drawI({betterAttkItems, noHeal, shieldOnly}, 3), Util<Weapon>::draw(undeadWeapons), UtilI::drawA(basicArmor), monkeyGhoulSprite, {}, EAI::MidLevelAI);
+    Enemy cryptogriph("Cryptogriph", 50, 10, .60, 16, 40, UtilI::drawI({powerfulAttkItems, betterHealItems, sleepingPillsOnly}, 3), Util<Weapon>::draw(swordsOnly), steelSet, cryptogriphSprite, { elixir, goldBoots, goldChest, goldSword }, EAI::ItemHappy);
 
-    Enemy MonkeyBob("Monkey Bob", 200, 40, .50, 35, 50, powerfulAttkItems, betterHealItems, std::vector<StatusItem>{superRoids}, rareWeapons, topTierArmor, MonkeyBobSprite, EAI::HighLevelAI);
+    Enemy MonkeyBob("Monkey Bob", 200, 40, .50, 35, 50, UtilI::drawI({powerfulAttkItems, betterHealItems, {superRoids}}, 10), Util<Weapon>::draw(rareWeapons), UtilI::drawA(topTierArmor), MonkeyBobSprite, {}, EAI::HighLevelAI);
 }

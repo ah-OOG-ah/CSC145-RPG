@@ -7,10 +7,8 @@
 #include <utility>
 
 
-Enemy::Enemy(std::string name, int64_t hp, int64_t attk, double percDef, int64_t staticDef, int64_t spd, Inventory inv, const std::shared_ptr<Weapon>& weapon, ArmorSet armor, std::function<void(Enemy*, EquippedEntity*)> behavior )
- : Enemy(std::move(name), hp, attk, percDef, staticDef, spd, inv, weapon, std::move(armor), "", std::move(behavior)) {}
-Enemy::Enemy(std::string name, int64_t hp, int64_t attk, double percDef, int64_t staticDef, int64_t spd, Inventory inv, const std::shared_ptr<Weapon>& weapon, ArmorSet armor, std::string sprite, std::function<void(Enemy*, EquippedEntity*)> behavior)
- : EquippedEntity(std::move(name), hp, attk, percDef, staticDef, spd) {
+Enemy::Enemy(std::string name, int64_t hp, int64_t attk, double percDef, int64_t staticDef, int64_t spd, Inventory inv, const std::shared_ptr<Weapon>& weapon, ArmorSet armor, std::string sprite, std::vector<std::shared_ptr<Item>> extraLoot, std::function<void(Enemy*, EquippedEntity*)> behavior)
+ : EquippedEntity(std::move(name), hp, attk, percDef, staticDef, spd), extraLoot(std::move(extraLoot)) {
     this->enemySprite = std::move(sprite);
     this->currentWeapon.reset(weapon.get());
     this->armor = std::move(armor);
@@ -33,7 +31,7 @@ Enemy::Enemy(const std::shared_ptr<Enemy>& en) : EquippedEntity(en.get()) {
 }
 
 std::string Enemy::getSprite() const { return enemySprite; }
-std::vector<Item*> Enemy::getExtraLoot() { return extraLoot; }
+std::vector<std::shared_ptr<Item>> Enemy::getExtraLoot() { return extraLoot; }
 
 std::string Enemy::toString() const {
     if (this->hp > 0)
@@ -44,11 +42,11 @@ std::string Enemy::toString() const {
 std::vector<std::shared_ptr<Item>> Enemy::dropLoot() {
     std::vector<std::shared_ptr<Item>> lootVector;
 
-    for (int i = 0; i < this->Inven.GetUsedElements(); i++) {
+    for (size_t i = 0; i < this->Inven.GetUsedElements(); i++) {
         lootVector.emplace_back(this->Inven.GetItem(i));
     }
 
-    for (Item* loot : this->extraLoot) {
+    for (const auto& loot : this->extraLoot) {
         lootVector.emplace_back(loot);
     }
 
