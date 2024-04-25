@@ -59,14 +59,14 @@ namespace IDefs {
     static const std::string cryptoHeartDesc = "The heart of a cryptogriph. A strange power from within makes your skin like steel";
     static const std::string sleepingPillDesc = "A pill to help you fall asleep. Boosts StaticDef";
     static const auto roids = std::make_shared<StatusItem>("'Roids", 15, 2, attack, roidsDesc);
-    static const auto superRoids = std::make_shared<StatusItem>("Super 'Roids", 60, 15, attack, superRoidsDesc, &stypes::paralysis, 10);
+    static const auto superRoids = std::make_shared<StatusItem>("Super 'Roids", 60, 15, attack, superRoidsDesc, 1, stypes::paralysis, 10);
     static const auto anubisAmulet = std::make_shared<StatusItem>("Amulet of Anubis", 45, 5, staticdef, anubisAmuletDesc);
-    static const auto setAmulet = std::make_shared<StatusItem>("Amulet of Set", 45, 10, staticdef, setAmuletDesc, &stypes::poison, 10);
+    static const auto setAmulet = std::make_shared<StatusItem>("Amulet of Set", 45, 10, staticdef, setAmuletDesc, 1, stypes::poison, 10);
     static const auto magicShield = std::make_shared<StatusItem>("Magic Shield", 30, 5, percdef, magicShieldDesc);
     static const auto sentryHead = std::make_shared<StatusItem>("Sentry Head", 50, 10, attack, sentryHeadDesc);
     static const auto ninjaBand = std::make_shared<StatusItem>("Ninja Band", 25, 15, speed, ninjaBandDesc);
-    static const auto cryptoHeart = std::make_shared<StatusItem>("Cryptogriph Heart", 60, 15, staticdef, cryptoHeartDesc, &stypes::paralysis, 4);
-    static const auto sleepingPill = std::make_shared<StatusItem>("Sleeping Pill", 15, 9, staticdef, sleepingPillDesc, &stypes::sleep, 10);
+    static const auto cryptoHeart = std::make_shared<StatusItem>("Cryptogriph Heart", 60, 15, staticdef, cryptoHeartDesc, 1, stypes::paralysis, 4);
+    static const auto sleepingPill = std::make_shared<StatusItem>("Sleeping Pill", 15, 9, staticdef, sleepingPillDesc, 1, stypes::sleep, 10);
 
 
     //Weapon(Name, durability, damageMultiplier, price, description)
