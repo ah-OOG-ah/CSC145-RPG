@@ -58,7 +58,7 @@ class HealItem : public RegularItem {
     void SetHealedStatus(std::shared_ptr<Status> status);
 
     [[nodiscard]] int64_t GetHpAmnt() const;
-    std::shared_ptr<Status> GetHealedStatus() const;
+    [[nodiscard]] std::shared_ptr<Status> GetHealedStatus() const;
 
     void display() override;
 
