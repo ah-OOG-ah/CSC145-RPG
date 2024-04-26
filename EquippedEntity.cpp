@@ -4,7 +4,7 @@
 #include "Status.h"
 
 
-EquippedEntity::EquippedEntity(std::string name, int64_t hp, int64_t attk, double percDef, int64_t staticDef, int64_t spd, const Inventory& inv)
+EquippedEntity::EquippedEntity(std::string name, double hp, double attk, double percDef, double staticDef, int64_t spd, const Inventory& inv)
     : Entity(std::move(name), hp, attk, percDef, staticDef, spd), Inven(inv), armor(ITiers::noArmor) { }
 EquippedEntity::EquippedEntity(Entity *e) : Entity(e) {}
 
@@ -12,8 +12,8 @@ void EquippedEntity::takeDamage(double amnt) {
     amnt -= this->staticDef;
     amnt *= this->percDef;
     for (int i = 0; i < 4; i++) {
-        amnt -= this->armor.get(i)->GetStaticDef();
-        amnt *= this->armor.get(i)->GetPercDef();
+        amnt -= armor[i]->GetStaticDef();
+        amnt *= armor[i]->GetPercDef();
     }
     this->hp -= amnt;
 }

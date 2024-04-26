@@ -50,17 +50,14 @@ class Armor : public Equipment {
     //Status placeholder
 
   public:
-    Armor(std::string itemName, int64_t durab, double pDef, int64_t sDef, int64_t price, ArmorType mold);
-    Armor(std::string itemName, int64_t durab, double pDef, int64_t sDef, double dmg, int64_t price, ArmorType mold);
-    //Constructors with Descriptions
-    Armor(std::string itemName, int64_t durab, double pDef, int64_t sDef, int64_t price, ArmorType mold, std::string desc);
-    Armor(std::string itemName, int64_t durab, double pDef, int64_t sDef, double dmg, int64_t price, ArmorType mold, std::string desc);
+    Armor(std::string itemName, int64_t durab, double pDef, double sDef, int64_t price, ArmorType mold, std::string desc = "");
+    Armor(std::string itemName, int64_t durab, double pDef, double sDef, int64_t price, double dmgMult, ArmorType mold, std::string desc = "");
     explicit Armor(Armor* a);
 
     std::unique_ptr<Item> copy() override;
 
     [[nodiscard]] double GetPercDef() const;
-    [[nodiscard]] int64_t GetStaticDef() const;
+    [[nodiscard]] double GetStaticDef() const;
     [[nodiscard]] double GetDmgMult() const;
     [[nodiscard]] ArmorType GetArmorType() const;
     void SetPercDef(double);

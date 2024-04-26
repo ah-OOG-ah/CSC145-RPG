@@ -94,27 +94,15 @@ std::unique_ptr<Item> Weapon::copy() {
     return std::make_unique<Weapon>(this);
 }
 
-Armor::Armor(std::string itemName, int64_t durab, double pDef, int64_t sDef, int64_t price, ArmorType mold) : Armor(std::move(itemName), durab, pDef, sDef, 1.0 , price, mold) {
-    percDef = pDef;
-    staticDef = sDef;
-    cast = mold;
-    type = "ARMOR";
-}
-Armor::Armor(std::string itemName, int64_t durab, double pDef, int64_t sDef, double dmg, int64_t price, ArmorType mold) : Equipment(std::move(itemName), durab, price) {
-    percDef = pDef;
-    staticDef = sDef;
-    dmgMultiplier = dmg;
-    cast = mold;
-    type = "ARMOR";
-}
+
 //Constructor with description
-Armor::Armor(std::string itemName, int64_t durab, double pDef, int64_t sDef, int64_t price, ArmorType mold, std::string desc) : Armor(std::move(itemName), durab, pDef, sDef, 1.0 , price, mold, std::move(desc)) {
+Armor::Armor(std::string itemName, int64_t durab, double pDef, double sDef, int64_t price, ArmorType mold, std::string desc) : Armor(std::move(itemName), durab, pDef, sDef, 1.0 , price, mold, std::move(desc)) {
     percDef = pDef;
     staticDef = sDef;
     cast = mold;
     type = "ARMOR";
 }
-Armor::Armor(std::string itemName, int64_t durab, double pDef, int64_t sDef, double dmg, int64_t price, ArmorType mold, std::string desc) : Equipment(std::move(itemName), durab, price, std::move(desc)) {
+Armor::Armor(std::string itemName, int64_t durab, double pDef, double sDef, int64_t price, double dmg, ArmorType mold, std::string desc) : Equipment(std::move(itemName), durab, price, std::move(desc)) {
     percDef = pDef;
     staticDef = sDef;
     dmgMultiplier = dmg;
@@ -124,7 +112,7 @@ Armor::Armor(std::string itemName, int64_t durab, double pDef, int64_t sDef, dou
 Armor::Armor(Armor* a) : Equipment(a), percDef(a->percDef), staticDef(a->staticDef), dmgMultiplier(a->dmgMultiplier), cast(a->cast) { }
 
 double Armor::GetPercDef() const { return percDef; }
-int64_t Armor::GetStaticDef() const { return staticDef; }
+double Armor::GetStaticDef() const { return staticDef; }
 double Armor::GetDmgMult() const { return dmgMultiplier; }
 ArmorType Armor::GetArmorType() const { return cast; }
 void Armor::SetPercDef(double def) { percDef = def; }

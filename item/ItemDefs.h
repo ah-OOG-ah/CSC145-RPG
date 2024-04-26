@@ -144,7 +144,7 @@ namespace IDefs {
     static const std::string baboomArmorDesc = "Rare armor that gives you the fighting spirit of a baboon.";
     static const std::string armyVestDesc = "An bulletproof vest that has the Marines emblem on it. Increases manliness.";
     static const std::string mBobArmorDesc = "With this armor, you will be coming for Monkey Bob. MAY PUTIN BE EVER IN YOUR FAVOR.";
-    static auto baboonArmor = std::make_shared<Armor>("Baboon Armor", 50, .4, 5, 1.5, 25, Chestplate, baboomArmorDesc);
-    static auto armyVest = std::make_shared<Armor>("Marine Vest", 75, .6, 10, 1.4, 5, Chestplate, armyVestDesc);
-    static auto monkeyBobArmor = std::make_shared<Armor>("Monkey Bob's Armor", 999999, .25, 25, 1.75, 350, Chestplate, mBobArmorDesc);
+    static auto baboonArmor = std::make_shared<Armor>("Baboon Armor", 50, .4, 5, 25, 1.5, Chestplate, baboomArmorDesc);
+    static auto armyVest = std::make_shared<Armor>("Marine Vest", 75, .6, 10, 50, 1.4, Chestplate, armyVestDesc);
+    static auto monkeyBobArmor = std::make_shared<Armor>("Monkey Bob's Armor", 999999, .25, 25, 350, 1.75, Chestplate, mBobArmorDesc);
 }
