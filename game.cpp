@@ -39,7 +39,7 @@ bool getPFlee() { return player->getFleeing(); }
 
 void setPFlee(bool b) { player->setFleeing(b); }
 
-void pAttack(std::shared_ptr<Entity> e) { player->attackEntity(std::move(e)); }
+void pAttack(const std::shared_ptr<Entity>& e) { player->attackEntity(e); }
 
 void saveGame() {
     std::cout << "Not imeplemented yet." << std::endl;

@@ -4,8 +4,8 @@
 #include "Status.h"
 
 
-EquippedEntity::EquippedEntity(std::string name, int64_t hp, int64_t attk, double percDef, int64_t staticDef, int64_t spd, Inventory inv)
-    : Entity(std::move(name), hp, attk, percDef, staticDef, spd), Inven(std::move(inv)) {}
+EquippedEntity::EquippedEntity(std::string name, int64_t hp, int64_t attk, double percDef, int64_t staticDef, int64_t spd, const Inventory& inv)
+    : Entity(std::move(name), hp, attk, percDef, staticDef, spd), Inven(inv), armor(ITiers::noArmor) { }
 EquippedEntity::EquippedEntity(Entity *e) : Entity(e) {}
 
 void EquippedEntity::takeDamage(double amnt) {
@@ -18,6 +18,6 @@ void EquippedEntity::takeDamage(double amnt) {
     this->hp -= amnt;
 }
 
-void EquippedEntity::attackEntity(std::shared_ptr<Entity> enemy) {
+void EquippedEntity::attackEntity(const std::shared_ptr<Entity>& enemy) {
     enemy->takeDamage(this->attk * this->currentWeapon->GetDamage());
 }

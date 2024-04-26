@@ -12,7 +12,7 @@ class Enemy : public EquippedEntity {
     std::vector<std::shared_ptr<Item>> extraLoot;
 
   public:
-    Enemy(std::string name, int64_t hp, int64_t attk, double percDef, int64_t staticDef, int64_t spd, const Inventory& inv = {}, const std::shared_ptr<Weapon>& weapon = IDefs::nothing, ArmorSet armor = ITiers::noArmor, std::array<std::string, 5> sprite = { "     ", "     ", "     ", "     ", "     " }, std::vector<std::shared_ptr<Item>> extraLoot = {}, const std::function<void(Enemy*, EquippedEntity*)>& behavior = [](Enemy*, EquippedEntity*){});
+    Enemy(const std::string& name, int64_t hp, int64_t attk, double percDef, int64_t staticDef, int64_t spd, const Inventory& inv = {}, const std::shared_ptr<Weapon>& weapon = IDefs::nothing, const ArmorSet& armor = ITiers::noArmor, std::array<std::string, 5> sprite = { "     ", "     ", "     ", "     ", "     " }, std::vector<std::shared_ptr<Item>> extraLoot = {}, const std::function<void(Enemy*, EquippedEntity*)>& behavior = [](Enemy*, EquippedEntity*){});
     explicit Enemy(Enemy* en);
     explicit Enemy(const std::shared_ptr<Enemy>& en);
 
