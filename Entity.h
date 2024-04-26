@@ -11,31 +11,31 @@ class Entity {
 
   protected:
     std::string name;
-    int64_t maxHp;
-    int64_t hp;
-    double attk = 10;
+    double maxHp;
+    double hp;
+    double attack = 10;
     double percDef = 0; // Reduces a specified percentage of damage from an attack after staticDef removes its amount
-    int64_t staticDef = 0; // Subtracts a set amount of damage from a hit
+    double staticDef = 0; // Subtracts a set amount of damage from a hit
     int64_t spd = 10; // Used to determine turn order
-    int64_t mp = 0; // Used to have a magic points system if we want include that
+    double mp = 0; // Used to have a magic points system if we want include that
     bool isFleeing = false;
     bool canAct = true;
 
   public:
     
     //Helmet: 0, Chestplate: 1, Leggings: 2, Boots: 3
-    explicit Entity(int64_t hp);
-    explicit Entity(std::string name, int64_t hp, int64_t attk, double percDef, int64_t staticDef, int64_t spd);
+    explicit Entity(double hp);
+    explicit Entity(std::string name, double hp, double attk, double percDef, double staticDef, int64_t spd);
     explicit Entity(Entity* e);
 
     [[nodiscard]] std::string getName() const;
-    [[nodiscard]] int64_t getMaxHp() const;
-    [[nodiscard]] int64_t getCurrentHp() const;
-    [[nodiscard]] double getAttk() const;
-    [[nodiscard]] int64_t getStaticDef() const;
+    [[nodiscard]] double getMaxHp() const;
+    [[nodiscard]] double getCurrentHp() const;
+    [[nodiscard]] double getAttack() const;
+    [[nodiscard]] double getStaticDef() const;
     [[nodiscard]] double getPercDef() const;
     [[nodiscard]] int64_t getSpd() const;
-    [[nodiscard]] int64_t getMp() const;
+    [[nodiscard]] double getMp() const;
     [[nodiscard]] bool getFleeing() const;
     [[nodiscard]] bool getCanAct() const;
     [[nodiscard]] bool getAlive() const;
@@ -46,10 +46,10 @@ class Entity {
     // Applies this entitiy's attack to the passed entity
     virtual void attackEntity(const std::shared_ptr<Entity>& enemy);
 
-    void changeHP(int64_t hpAmnt); //For item based attacks
-    void changeAttk(double);
+    void changeHP(double); //For item based attacks
+    void changeAttack(double);
     void changePercDef(double);
-    void changeStaticDef(int64_t);
+    void changeStaticDef(double);
     void changeSpd(int64_t);
 
     void setSpd(int64_t);

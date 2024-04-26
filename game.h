@@ -13,6 +13,7 @@ bool getPFlee();
 void setPFlee(bool);
 
 void pAttack(const std::shared_ptr<Entity>&);
+void pDisplay();
 
 std::shared_ptr<Scene> getScene();
 

@@ -4,86 +4,43 @@
 #include <utility>
 #include <memory>
 
-Entity::Entity(int64_t hp) {
-    this->maxHp = hp;
-    this->hp = this->maxHp;
-}
-Entity::Entity(std::string name, int64_t hp, int64_t attk, double percDef, int64_t staticDef, int64_t spd){
-    this->name = std::move(name);
-    this->maxHp = hp;
-    this->hp = this->maxHp;
-    this->attk = attk;
-    this->percDef = percDef;
-    this->staticDef = staticDef;
-    this->spd = spd;
-}
-Entity::Entity(Entity* e) {
-    this->name = e->getName();
-    this->maxHp = e->getMaxHp();
-    this->hp = this->maxHp;
-    this->attk = e->getAttk();
-    this->percDef = e->getPercDef();
-    this->staticDef = e->getStaticDef();
-    this->spd = e->getSpd();
-}
+Entity::Entity(double hp) : maxHp(hp), hp(hp) { }
+Entity::Entity(std::string name, double hp, double attk, double percDef, double staticDef, int64_t spd)
+    : name(std::move(name)), maxHp(hp), hp(hp), percDef(percDef), staticDef(staticDef), spd(spd) { }
+Entity::Entity(Entity* e)
+    : name(std::move(e->name)), maxHp(e->maxHp), hp(e->hp), percDef(e->percDef), staticDef(e->staticDef), spd(e->spd) { }
 
 std::string Entity::getName() const { return name; }
 
-int64_t Entity::getMaxHp() const { return maxHp; }
-
-int64_t Entity::getCurrentHp() const { return hp; }
-
-double Entity::getAttk() const { return attk; }
-
-int64_t Entity::getStaticDef() const { return staticDef; }
-
+double Entity::getMaxHp() const { return maxHp; }
+double Entity::getCurrentHp() const { return hp; }
+double Entity::getAttack() const { return attack; }
+double Entity::getStaticDef() const { return staticDef; }
 double Entity::getPercDef() const { return percDef; }
-
 int64_t Entity::getSpd() const { return spd; }
+double Entity::getMp() const { return mp; }
+bool Entity::getFleeing() const { return isFleeing; }
+bool Entity::getCanAct() const { return canAct; }
+bool Entity::getAlive() const { return hp > 0; }
 
-int64_t Entity::getMp() const { return mp; }
+void Entity::setFleeing(bool val) { isFleeing = val; }
+void Entity::setCanAct(bool val) { canAct = val; }
 
-bool Entity::getFleeing() const { return this->isFleeing; }
+void Entity::changeHP(double val) { hp += val; }
+void Entity::changeAttack(double amnt) { attack += amnt; }
+void Entity::changePercDef(double amnt) { percDef += amnt; }
+void Entity::changeStaticDef(double amnt) { staticDef += amnt; }
+void Entity::changeSpd(int64_t amnt){ spd += amnt; }
 
-bool Entity::getCanAct() const { return this->canAct; }
-
-bool Entity::getAlive() const { return this->hp > 0; }
-
-void Entity::setFleeing(bool val) { this->isFleeing = val; }
-
-void Entity::setCanAct(bool val) { this->canAct = val; }
-
-void Entity::changeHP(int64_t hpAmnt) {
-    this->hp += hpAmnt; 
-}
-
-void Entity::changeAttk(double amnt) {
-    this->attk += amnt; 
-}
-
-void Entity::changePercDef(double amnt) {
-    this->percDef += amnt; 
-}
-
-void Entity::changeStaticDef(int64_t amnt) {
-    this->staticDef += amnt; 
-}
-
-void Entity::changeSpd(int64_t amnt){
-    this->spd += amnt; 
-}
-
-void Entity::attackEntity(const std::shared_ptr<Entity>& enemy) {
-    enemy->takeDamage(this->getAttk());
-}
+void Entity::attackEntity(const std::shared_ptr<Entity>& enemy) { enemy->takeDamage(this->getAttack()); }
 
 std::string Entity::toString() const {
 
     std::string ret = "HP: xx.xx, ATK: xx.xx";
-    if (this->hp > 0) {
-        std::snprintf(ret.data(), 24, "HP: %5.2lf, ATK: %5.2lf", (double) hp, (double) attk);
+    if (hp > 0) {
+        std::snprintf(ret.data(), 24, "HP: %5.2lf, ATK: %5.2lf", (double) hp, getAttack());
     } else {
-        std::snprintf(ret.data(), 24, "HP: DEAD, ATK: %5.2lf", (double) hp, (double) attk);
+        std::snprintf(ret.data(), 24, "HP: DEAD, ATK: %5.2lf", getAttack());
     }
     return ret;
 }
@@ -91,7 +48,7 @@ std::string Entity::toString() const {
 void Entity::takeDamage(double amnt) {
     amnt -= this->staticDef;
     amnt *= this->percDef;
-    this->hp -= amnt;
+    hp -= amnt;
 }
 
 bool Entity::operator>(const Entity &other) const {

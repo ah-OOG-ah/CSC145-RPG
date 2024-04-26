@@ -207,7 +207,7 @@ void StatusItem::Use(Entity* user, std::vector<Entity*> opponents) {
     if (this->amount <= 0) return;
 
     if (this->stat == attack) {
-        user->changeAttk(this->boost);
+        user->changeAttack(this->boost);
         std::cout << user->getName() << " used " << this->name << std::endl;
         std::cout << user->getName() <<"'s Attack was boosted " << this->boost << " points!" << std::endl;
     }

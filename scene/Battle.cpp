@@ -8,13 +8,14 @@
 #include <utility>
 #include <vector>
 #include <iostream>
+#include <thread>
 
 
 Battle::Battle(std::string name, int64_t nice) : Scene(std::move(name)), Menu(std::vector<std::string>({
     "Attack",
     "Escape"
 })) {
-    auto numEnemy = randUint() % nice + 5;
+    auto numEnemy = randUint() % nice + 3;
     auto src = ETiers::get(nice);
 
     for (uint64_t i = 0; i < numEnemy; ++i) {
@@ -31,7 +32,6 @@ Battle::Battle(std::string name, int64_t nice) : Scene(std::move(name)), Menu(st
  */
 void Battle::run() {
 
-    // TODO: change this
     if (over) return;
 
     std::cout << "The battle of " << name << " begins!" << std::endl;
@@ -41,29 +41,33 @@ void Battle::run() {
     while (true) {
 
         std::cout << "\nYou see the enemy: " << std::endl;
-        this->listEnemies();
+        listEnemies();
+        pDisplay();
         display();
 
         for (auto& e : enemy) {
             e->attackEntity(getPlayer());
         }
 
-        if (false && (getPFlee() || getPHP() < 1)) {
+        if (getPFlee() || getPHP() < 1) {
             setPFlee(false);
             std::cout << "You have been defeated." << std::endl;
             // TODO: monkey bob reference?
             break;
         } else if (enemy.empty()) {
             std::cout << "Victory!" << std::endl;
+            over = true;
             break;
         }
     }
 
     getPlayer()->setSpd(ogspd);
-    over = true;
 }
 
 void Battle::listEnemies() {
+
+    // On POSIX-compliant terminals, resets the position to the top-left corner
+    std::cout << "\x1B[2J\x1B[H";
 
     // Enemies should fit in a 23x7 box
     // Then we add a line on each side
@@ -95,17 +99,17 @@ void Battle::listEnemies() {
     std::cout << '|' << std::endl;
 
     std::cout << std::string(len, '-') << std::endl;
+
+    // Hold for a little, so you can tell what's going on
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 }
 
 void Battle::attack() {
     pAttack(enemy[0]);
 
-    this->listEnemies();
-    for (size_t i = 0; i < enemy.size(); ++i) {
-        if (!enemy[i]->getAlive()) enemy.erase(std::next(enemy.begin(), i));
-    }
-
-    //std::erase_if(enemy, [](const std::shared_ptr<Entity>& e){ return !e->getAlive(); });
+    if (!enemy[0]->getAlive())
+        this->listEnemies();
+    std::erase_if(enemy, [](const std::shared_ptr<Entity>& e){ return !e->getAlive(); });
 }
 
 void Battle::escape() { setPFlee(true); }
