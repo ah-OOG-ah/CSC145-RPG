@@ -44,14 +44,13 @@ enum ArmorType { Helmet, Chestplate, Leggings, Boots };
 class Armor : public Equipment {
   protected:
     double percDef = 1.00; //Defense stats work like those with the player
-    int64_t staticDef;
+    double staticDef;
     double dmgMultiplier = 1.0; //Increases damage dealt when worn
     ArmorType cast;
     //Status placeholder
 
   public:
-    Armor(std::string itemName, int64_t durab, double pDef, double sDef, int64_t price, ArmorType mold, std::string desc = "");
-    Armor(std::string itemName, int64_t durab, double pDef, double sDef, int64_t price, double dmgMult, ArmorType mold, std::string desc = "");
+    Armor(std::string itemName, int64_t durab, double pDef, double sDef, int64_t price, ArmorType mold, std::string desc, double dmgMult = 1.0);
     explicit Armor(Armor* a);
 
     std::unique_ptr<Item> copy() override;
@@ -61,7 +60,7 @@ class Armor : public Equipment {
     [[nodiscard]] double GetDmgMult() const;
     [[nodiscard]] ArmorType GetArmorType() const;
     void SetPercDef(double);
-    void SetStaticDef(int64_t);
+    void SetStaticDef(double);
     void SetDmgMult(double);
     void SetArmorType(ArmorType);
     void Use(Entity*, std::vector<Entity* >) override;

@@ -45,9 +45,9 @@ Weapon::Weapon(Weapon* w) : Equipment(w)
     type = "WEAPON";
 }
 
-double Weapon::GetDamage() const { return dmgMultiplier; };
+double Weapon::GetDamage() const { return dmgMultiplier; }
 
-void Weapon::SetDamage(double dmg) { dmgMultiplier = dmg; };
+void Weapon::SetDamage(double dmg) { dmgMultiplier = dmg; }
 
 void Weapon::Use(Entity* user, std::vector<Entity*> opponents) {
 
@@ -96,13 +96,8 @@ std::unique_ptr<Item> Weapon::copy() {
 
 
 //Constructor with description
-Armor::Armor(std::string itemName, int64_t durab, double pDef, double sDef, int64_t price, ArmorType mold, std::string desc) : Armor(std::move(itemName), durab, pDef, sDef, 1.0 , price, mold, std::move(desc)) {
-    percDef = pDef;
-    staticDef = sDef;
-    cast = mold;
-    type = "ARMOR";
-}
-Armor::Armor(std::string itemName, int64_t durab, double pDef, double sDef, int64_t price, double dmg, ArmorType mold, std::string desc) : Equipment(std::move(itemName), durab, price, std::move(desc)) {
+Armor::Armor(std::string itemName, int64_t durab, double pDef, double sDef, int64_t price, ArmorType mold, std::string desc, double dmg)
+    : Equipment(std::move(itemName), durab, price, std::move(desc)) {
     percDef = pDef;
     staticDef = sDef;
     dmgMultiplier = dmg;
@@ -116,7 +111,7 @@ double Armor::GetStaticDef() const { return staticDef; }
 double Armor::GetDmgMult() const { return dmgMultiplier; }
 ArmorType Armor::GetArmorType() const { return cast; }
 void Armor::SetPercDef(double def) { percDef = def; }
-void Armor::SetStaticDef(int64_t def) { staticDef = def; }
+void Armor::SetStaticDef(double val) { staticDef = val; }
 void Armor::SetDmgMult(double dmg) { dmgMultiplier = dmg; }
 void Armor::SetArmorType(ArmorType mold) { cast = mold; }
 
