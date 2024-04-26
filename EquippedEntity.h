@@ -16,11 +16,11 @@ class EquippedEntity : public Entity {
     explicit EquippedEntity(Entity* e);
 
     Inventory Inven;
-    std::shared_ptr<Weapon> currentWeapon = IDefs::nothing; // {dynamic_cast<Weapon*>(IDefs::nothing->copy().release())};
-    ArmorSet armor; //Index of arrays are ordered just like ArmorType enum
+    std::shared_ptr<Weapon> currentWeapon = IDefs::nothing;
+    ArmorSet armor;
 
     void takeDamage(double amnt) override;
     void attackEntity(const std::shared_ptr<Entity>& enemy) override;
 
-    double getAttack() const override;
+    [[nodiscard]] double getAttack() const override;
 };
