@@ -14,7 +14,7 @@ class Item {
 
   public:
     //Constructor
-    Item(std::string itemName, int64_t price, int64_t amnt, std::string desc);
+    Item(std::string itemName,int64_t price, int64_t amnt, std::string desc);
     Item(std::string itemName, int64_t price, std::string desc);
 
     //Getters
