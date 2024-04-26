@@ -12,7 +12,7 @@ class Inventory {
   protected:
     size_t numElements = 30;
     size_t usedElements = 0;
-    std::vector<std::shared_ptr<Item>> start = std::vector<std::shared_ptr<Item>>(numElements, nullptr);
+    std::vector<std::shared_ptr<Item>> start;
 
     int64_t gold = 0;
 
@@ -20,6 +20,7 @@ class Inventory {
     //Constructors
     Inventory();
     explicit Inventory(size_t);
+    explicit Inventory(const Inventory&);
     explicit Inventory(const std::vector<std::shared_ptr<Item>>&);
     Inventory(std::initializer_list<const std::shared_ptr<Item>>);
 

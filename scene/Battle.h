@@ -17,8 +17,8 @@ class Battle : public Scene, public Menu {
 
   private:
     const std::function<bool(std::shared_ptr<Entity>, std::shared_ptr<Entity>)> compare = [](auto e, auto e2) { return e->getSpd() > e2->getSpd(); };
-    std::vector<Enemy> enemy;
-    std::vector<std::shared_ptr<Entity>> turnOrder;
+    std::vector<std::shared_ptr<Enemy>> enemy;
+    //std::vector<std::weak_ptr<Entity>> turnOrder;
     bool over = false;
 
     void attack();

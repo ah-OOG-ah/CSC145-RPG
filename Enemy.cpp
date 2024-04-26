@@ -7,11 +7,11 @@
 #include <utility>
 
 
-Enemy::Enemy(std::string name, int64_t hp, int64_t attk, double percDef, int64_t staticDef, int64_t spd, const Inventory& inv, const std::shared_ptr<Weapon>& weapon, ArmorSet armor, std::array<std::string, 5> sprite, std::vector<std::shared_ptr<Item>> extraLoot, const std::function<void(Enemy*, EquippedEntity*)>& behavior)
- : EquippedEntity(std::move(name), hp, attk, percDef, staticDef, spd, inv), extraLoot(std::move(extraLoot)) {
+Enemy::Enemy(const std::string& name, int64_t hp, int64_t attk, double percDef, int64_t staticDef, int64_t spd, const Inventory& inv, const std::shared_ptr<Weapon>& weapon, const ArmorSet& armor, std::array<std::string, 5> sprite, std::vector<std::shared_ptr<Item>> extraLoot, const std::function<void(Enemy*, EquippedEntity*)>& behavior)
+    : EquippedEntity(name, hp, attk, percDef, staticDef, spd, inv), extraLoot(std::move(extraLoot)) {
     this->enemySprite = std::move(sprite);
     this->currentWeapon.reset(weapon.get());
-    this->armor = std::move(armor);
+    this->armor = armor;
 }
 
 Enemy::Enemy(Enemy* en) : EquippedEntity(en) {

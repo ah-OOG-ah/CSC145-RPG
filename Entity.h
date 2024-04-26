@@ -44,7 +44,7 @@ class Entity {
     void setCanAct(bool);
 
     // Applies this entitiy's attack to the passed entity
-    virtual void attackEntity(std::shared_ptr<Entity> enemy);
+    virtual void attackEntity(const std::shared_ptr<Entity>& enemy);
 
     void changeHP(int64_t hpAmnt); //For item based attacks
     void changeAttk(double);

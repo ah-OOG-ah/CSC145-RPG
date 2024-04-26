@@ -55,10 +55,10 @@ namespace ITiers {
 
     // Full armors
     static const ArmorSet noArmor { noHelm, noChest, noLegg, noBoots };
-    static const ArmorSet chainSet {chainHelm, chainChest, chainLegg, chainBoots };
-    static const ArmorSet steelSet {steelHelm, steelChest, steelLegg, steelBoots };
-    static const ArmorSet goldSet {goldHelm, goldChest, goldLegg, goldBoots };
-    static const ArmorSet rockSet {rockHelm, rockChest, rockLegg, rockBoots };
+    static const ArmorSet chainSet { chainHelm, chainChest, chainLegg, chainBoots };
+    static const ArmorSet steelSet { steelHelm, steelChest, steelLegg, steelBoots };
+    static const ArmorSet goldSet { goldHelm, goldChest, goldLegg, goldBoots };
+    static const ArmorSet rockSet { rockHelm, rockChest, rockLegg, rockBoots };
 
     // Armor pools
     static const std::vector<std::shared_ptr<Armor>> basicArmor { steelHelm, chainChest, chainBoots, chainLegg, chainHelm, rockChest, toughVest };

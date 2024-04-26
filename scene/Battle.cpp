@@ -14,14 +14,13 @@ Battle::Battle(std::string name, int64_t nice) : Scene(std::move(name)), Menu(st
     "Attack",
     "Escape"
 })) {
-    this->enemy = std::vector<Enemy>();
-
     auto numEnemy = randUint() % nice + 5;
     auto src = ETiers::get(nice);
 
     for (uint64_t i = 0; i < numEnemy; ++i) {
         this->enemy.emplace_back(src[randUint() % src.size()]);
     }
+    enemy.erase(enemy.end());
 }
 
 /**
@@ -37,27 +36,16 @@ void Battle::run() {
 
     std::cout << "The battle of " << name << " begins!" << std::endl;
 
-    // Load turn queue
-    for (auto & e : enemy) { turnOrder.emplace_back(&e); }
-    turnOrder.emplace_back(getPlayer());
     auto ogspd = getPlayer()->getSpd();
 
     while (true) {
 
-
         std::cout << "\nYou see the enemy: " << std::endl;
         this->listEnemies();
+        display();
 
-        std::sort(turnOrder.begin(), turnOrder.end());
-
-        for (const auto& e : turnOrder) {
-            if (e == getPlayer()) {
-                display();
-            } else {
-                e->attackEntity(getPlayer());
-            }
-
-            e->changeSpd(-30);
+        for (auto& e : enemy) {
+            e->attackEntity(getPlayer());
         }
 
         if (false && (getPFlee() || getPHP() < 1)) {
@@ -71,7 +59,6 @@ void Battle::run() {
         }
     }
 
-    turnOrder.clear();
     getPlayer()->setSpd(ogspd);
     over = true;
 }
@@ -87,7 +74,7 @@ void Battle::listEnemies() {
     std::cout << std::string(len, '-') << std::endl;
     for (const auto& e : enemy) {
         std::cout << '|';
-        PU::print(CENTER, e.getName(), 23);
+        PU::print(CENTER, e->getName(), 23);
     }
     std::cout << '|' << std::endl;
 
@@ -95,7 +82,7 @@ void Battle::listEnemies() {
     for (int i = 0; i < 5; ++i) {
         for (const auto& e : enemy) {
             std::cout << '|';
-            PU::print(CENTER, e.getSprite()[i], 23);
+            PU::print(CENTER, e->getSprite()[i], 23);
         }
         std::cout << '|' << std::endl;
     }
@@ -103,7 +90,7 @@ void Battle::listEnemies() {
     // Print the status
     for (const auto& e : enemy) {
         std::cout << '|';
-        PU::print(CENTER, e.toString(), 23);
+        PU::print(CENTER, e->toString(), 23);
     }
     std::cout << '|' << std::endl;
 
@@ -111,11 +98,14 @@ void Battle::listEnemies() {
 }
 
 void Battle::attack() {
+    pAttack(enemy[0]);
 
-    pAttack(turnOrder[0]);
     this->listEnemies();
-    std::erase_if(turnOrder, [](const std::shared_ptr<Entity>& e){ return !e->getAlive(); });
-    std::erase_if(enemy, [](const Enemy& e){ return !e.getAlive(); });
+    for (size_t i = 0; i < enemy.size(); ++i) {
+        if (!enemy[i]->getAlive()) enemy.erase(std::next(enemy.begin(), i));
+    }
+
+    //std::erase_if(enemy, [](const std::shared_ptr<Entity>& e){ return !e->getAlive(); });
 }
 
 void Battle::escape() { setPFlee(true); }

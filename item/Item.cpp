@@ -10,12 +10,9 @@ Item::Item(std::string itemName, int64_t price, std::string desc)
         : Item(std::move(itemName), price, 1, std::move(desc)) { }
 Item::Item(std::string itemName, int64_t price, int64_t amnt, std::string desc)
 : Menu(std::vector<std::string>({itemName,  desc})), name(std::move(itemName)), amount(amnt), price(price), description(std::move(desc)) { }
-Item::Item(const Item* i) : Menu(std::vector<std::string>({i->GetName(), i->GetDesc()})) {
-    this->amount = i->GetAmount();
-    this->name = i->GetName();
-    this->price = i->GetPrice();
-    this->description = i->GetDesc();
-}
+Item::Item(const Item* i)
+    : Menu(std::vector<std::string>({i->GetName(), i->GetDesc()})),
+    name(i->name), type(i->type), amount(i->amount), price(i->price), stackable(i->stackable), equipable(i->equipable), offense(i->offense), description(i->description) { }
 
 std::string Item::GetName() const { return name; }
 std::string Item::GetType() const { return type; }

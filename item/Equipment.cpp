@@ -16,12 +16,7 @@ Equipment::Equipment(std::string itemName, int64_t durab, int64_t price, std::st
     this->stackable = false;
     this->equipable = true;
 }
-Equipment::Equipment(Equipment* e) : Item(e)
-{
-    this->durability = e->GetDurab();
-    this->stackable = false;
-    this->equipable = true;
-}
+Equipment::Equipment(Equipment* e) : Item(e), durability(e->durability) { }
 
 int64_t Equipment::GetDurab() const { return durability; }
 void Equipment::ChangeDurab(int64_t durab) { durability += durab; }
@@ -126,14 +121,7 @@ Armor::Armor(std::string itemName, int64_t durab, double pDef, int64_t sDef, dou
     cast = mold;
     type = "ARMOR";
 }
-Armor::Armor(Armor* a) : Equipment(a)
-{
-    this->percDef = a->GetPercDef();
-    this->staticDef = a->GetStaticDef();
-    this->dmgMultiplier = a->GetDmgMult();
-    this->cast = a->GetArmorType();
-    type = "ARMOR";
-}
+Armor::Armor(Armor* a) : Equipment(a), percDef(a->percDef), staticDef(a->staticDef), dmgMultiplier(a->dmgMultiplier), cast(a->cast) { }
 
 double Armor::GetPercDef() const { return percDef; }
 int64_t Armor::GetStaticDef() const { return staticDef; }
@@ -176,32 +164,25 @@ void Armor::Use(Entity* user, std::vector<Entity*> opponents) {
     user->Inven.AddItem(oldArmor);*/
 }
 
-void Armor::display()
-{
+void Armor::display() {
     std::cout << entries[0] << std::endl;
-    if(this->cast == Helmet)
-    {
-        std::cout<< "HELMET" << std::endl;
-    }
-    else if(this->cast == Chestplate)
-    {
-        std::cout<< "CHESTPLATE" << std::endl;
-    }
-    else if(this->cast == Leggings)
-    {
-        std::cout<< "LEGGINGS" << std::endl;
-    }
-    else if(this->cast == Boots)
-    {
-        std::cout<< "BOOTS" << std::endl;
+    switch (cast) {
+        case Helmet: std::cout << "HELMET" << std::endl;
+            break;
+        case Chestplate: std::cout << "CHESTPLATE" << std::endl;
+            break;
+        case Leggings: std::cout << "LEGGINGS" << std::endl;
+            break;
+        case Boots: std::cout << "BOOTS" << std::endl;
+            break;
     }
     std::cout << "Price: " << this->GetPrice() << std::endl;
     std::cout << "Percentage Defense: " << this->GetPercDef() << std::endl;
     std::cout << "Static Defense: " << this->GetStaticDef() << std::endl;
     std::cout << "Durability: " << this->GetDurab() << std::endl;
-    for(int i = 0; i < 4; ++i) {
+    for (int i = 0; i < 4; ++i) {
         auto it = getPlayer()->armor.get(i).get();
-        if(it == this) {
+        if (it == this) {
             std::cout<< "EQUIPPED" << std::endl;
         } /*else if (it == getPlayer()->armor.get(3)) {
             std::cout << "EQUIPABLE" << std::endl;
@@ -214,7 +195,7 @@ void Armor::display()
         std::getline(std::cin, choice);
         if (choice == "EQUIP") {
             this->Use(getPlayer().get(), std::vector<Entity*>{nullptr});
-            if(this->GetAmount() <= 0) {
+            if (this->GetAmount() <= 0) {
                 return;
             }
         } else if (choice != "EXIT") {

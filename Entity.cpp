@@ -73,7 +73,7 @@ void Entity::changeSpd(int64_t amnt){
     this->spd += amnt; 
 }
 
-void Entity::attackEntity(std::shared_ptr<Entity> enemy) {
+void Entity::attackEntity(const std::shared_ptr<Entity>& enemy) {
     enemy->takeDamage(this->getAttk());
 }
 

@@ -5,10 +5,27 @@
 
 
 struct ArmorSet {
-    std::shared_ptr<Armor> head{};
-    std::shared_ptr<Armor> chest{};
-    std::shared_ptr<Armor> legs{};
-    std::shared_ptr<Armor> feet{};
+
+    std::shared_ptr<Armor> head;
+    std::shared_ptr<Armor> chest;
+    std::shared_ptr<Armor> legs;
+    std::shared_ptr<Armor> feet;
+
+    ArmorSet(const std::shared_ptr<Armor>& h, const std::shared_ptr<Armor>& c, const std::shared_ptr<Armor>& l, const std::shared_ptr<Armor>& f) {
+        head.reset(dynamic_cast<Armor*>(h->copy().release()));
+        chest.reset(dynamic_cast<Armor*>(c->copy().release()));
+        legs.reset(dynamic_cast<Armor*>(l->copy().release()));
+        feet.reset(dynamic_cast<Armor*>(f->copy().release()));
+    }
+
+    ArmorSet(const ArmorSet& a) {
+        head.reset(dynamic_cast<Armor*>(a.head->copy().release()));
+        chest.reset(dynamic_cast<Armor*>(a.chest->copy().release()));
+        legs.reset(dynamic_cast<Armor*>(a.legs->copy().release()));
+        feet.reset(dynamic_cast<Armor*>(a.feet->copy().release()));
+    }
+
+    ArmorSet() = default;
 
     [[nodiscard]] std::shared_ptr<Armor> get(size_t i) const {
         switch (i) {
@@ -21,7 +38,7 @@ struct ArmorSet {
 
     std::shared_ptr<Armor> operator[] (std::size_t idx) const { return get(idx); }
 
-    void set(std::shared_ptr<Armor> a) {
+    void set(const std::shared_ptr<Armor>& a) {
         switch (a->GetArmorType()) {
             case Helmet: head = a;
                 break;
