@@ -9,108 +9,125 @@
 
 namespace EList {
 
-    std::string spiderSprite =
-            "     \n"
-            "     \n"
-            "/\\O/\\\n"
-            "     \n"
-            "     \n";
+    std::array<std::string, 5> spiderSprite {
+        "     ",
+        "     ",
+        "/\\O/\\",
+        "     ",
+        "     "
+    };
 
-    std::string rockSprite =
-            "     \n"
-            " --- \n"
-            "/  \\\n"
-            "\\   /\n"
-            " --- \n";
+    std::array<std::string, 5> rockSprite {
+        "     ",
+        " --- ",
+        "/  \\",
+        "\\   /",
+        " --- "
+    };
 
-    std::string baboonSprite =
-            "     \n"
-            "     \n"
-            " 0..0\n"
-            "  -- \n"
-            "     \n";
+    std::array<std::string, 5> baboonSprite {
+        "     ",
+        "     ",
+        " 0..0",
+        "  -- ",
+        "     "
+    };
 
-    std::string angryBaboonSprite =
-            "     \n"
-            " \\  /\n"
-            " O..O\n"
-            "  ~~ \n"
-            "     \n";
+    std::array<std::string, 5> angryBaboonSprite {
+        "     ",
+        " \\  /",
+        " O..O",
+        "  ~~ ",
+        "     "
+    };
 
-    std::string batSprite =
-            "     \n"
-            "     \n"
-            " \\o/ \n"
-            "     \n"
-            "     \n";
+    std::array<std::string, 5> batSprite {
+        "     ",
+        "     ",
+        " \\o/ ",
+        "     ",
+        "     "
+    };
 
-    std::string tradBatSprite =
-            "     \n"
-            "  +  \n"
-            " \\o/ \n"
-            "     \n"
-            "     \n";
+    std::array<std::string, 5> tradBatSprite {
+        "     ",
+        "  +  ",
+        " \\o/ ",
+        "     ",
+        "     "
+    };
 
-    std::string sentrySprite =
-            " (0) \n"
-            "-----\n"
-            "|   |\n"
-            "|   |\n"
-            "() ()\n";
+    std::array<std::string, 5> sentrySprite {
+        " (0) ",
+        "-----",
+        "|   |",
+        "|   |",
+        "() ()"
+    };
 
-    std::string steelSentrySprite =
-            " [8] \n"
-            "-----\n"
-            "|###|\n"
-            "|###|\n"
-            "() ()\n";
+    std::array<std::string, 5> steelSentrySprite {
+        " [8] ",
+        "-----",
+        "|###|",
+        "|###|",
+        "() ()"
+    };
 
-    std::string smallSentrySprite =
-            "     \n"
-            "  o  \n"
-            " --- \n"
-            " | | \n"
-            " O O \n";
+    std::array<std::string, 5> smallSentrySprite {
+        "     ",
+        "  o  ",
+        " --- ",
+        " | | ",
+        " O O "
+    };
 
-    std::string mummySprite =
-            "     \n"
-            "  O  \n"
-            " /#\\ \n"
-            "  #  \n"
-            " # # \n";
+    std::array<std::string, 5> mummySprite {
+        "     ",
+        "  O  ",
+        " /#\\ ",
+        "  #  ",
+        " # # "
+    };
 
-    std::string zombieSprite =
-            "     \n"
-            "     \n"
-            "  O  \n"
-            " /%\\ \n"
-            " / \\ \n";
+    std::array<std::string, 5> zombieSprite {
+        "     ",
+        "     ",
+        "  O  ",
+        " /%\\ ",
+        " / \\ "
+    };
 
-    std::string ghoulSprite =
-            "     \n"
-            "(* *)\n"
-            "  *  \n"
-            "  *  \n"
-            " *** \n";
+    std::array<std::string, 5> ghoulSprite {
+        "     ",
+        "(* *)",
+        "  *  ",
+        "  *  ",
+        " *** "
+    };
 
-    std::string monkeyGhoulSprite =
-            "     \n"
-            "*. .*\n"
-            " ___ \n"
-            "  *  \n"
-            " *** \n";
+    std::array<std::string, 5> monkeyGhoulSprite {
+        "     ",
+        "*. .*",
+        " ___ ",
+        "  *  ",
+        " *** "
+    };
 
-    std::string cryptogriphSprite =
-            " ^ ^ \n"
-            " ^ ^ \n"
-            "{***}\n"
-            " ### \n"
-            "@ @ @\n";
+    std::array<std::string, 5> cryptogriphSprite {
+        " ^ ^ ",
+        " ^ ^ ",
+        "{***}",
+        " ### ",
+        "@ @ @"
+    };
 
-    std::string MonkeyBobSprite =
-            "HAIL PUTIN\n"
-            "{(|)..(|)}\n"
-            "    --    \n";
+    std::array<std::string, 5> MonkeyBobSprite = {
+        "HAIL PUTIN",
+        "{(|)..(|)}",
+        "    --    ",
+        "          ",
+        "          "
+    };
 
     using namespace ITiers;
 

@@ -3,6 +3,7 @@
 #include "scene/Scene.h"
 #include "game.h"
 #include "enemytiers.h"
+#include "PU.h"
 #include <string>
 #include <utility>
 #include <vector>
@@ -76,9 +77,37 @@ void Battle::run() {
 }
 
 void Battle::listEnemies() {
+
+    // Enemies should fit in a 23x7 box
+    // Then we add a line on each side
+    // Calculate the length of everything
+    uint64_t len = enemy.size() * 24 + 1;
+
+    // Print the headers
+    std::cout << std::string(len, '-') << std::endl;
     for (const auto& e : enemy) {
-        std::cout << e.toString() << std::endl;
+        std::cout << '|';
+        PU::print(CENTER, e.getName(), 23);
     }
+    std::cout << '|' << std::endl;
+
+    // Print the sprites, line by line
+    for (int i = 0; i < 5; ++i) {
+        for (const auto& e : enemy) {
+            std::cout << '|';
+            PU::print(CENTER, e.getSprite()[i], 23);
+        }
+        std::cout << '|' << std::endl;
+    }
+
+    // Print the status
+    for (const auto& e : enemy) {
+        std::cout << '|';
+        PU::print(CENTER, e.toString(), 23);
+    }
+    std::cout << '|' << std::endl;
+
+    std::cout << std::string(len, '-') << std::endl;
 }
 
 void Battle::attack() {

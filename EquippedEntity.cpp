@@ -4,8 +4,8 @@
 #include "Status.h"
 
 
-EquippedEntity::EquippedEntity(std::string name, int64_t hp, int64_t attk, double percDef, int64_t staticDef, int64_t spd)
-    : Entity(std::move(name), hp, attk, percDef, staticDef, spd) {}
+EquippedEntity::EquippedEntity(std::string name, int64_t hp, int64_t attk, double percDef, int64_t staticDef, int64_t spd, Inventory inv)
+    : Entity(std::move(name), hp, attk, percDef, staticDef, spd), Inven(std::move(inv)) {}
 EquippedEntity::EquippedEntity(Entity *e) : Entity(e) {}
 
 void EquippedEntity::takeDamage(double amnt) {

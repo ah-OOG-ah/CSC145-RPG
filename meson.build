@@ -20,6 +20,7 @@ game_src = [
   'item/RegularItems.cpp',
   'Menu.cpp',
   'Player.cpp',
+  'PU.cpp',
   'scene/Battle.cpp',
   'scene/Floor.cpp',
   'scene/rooms/BattleRoom.cpp',
