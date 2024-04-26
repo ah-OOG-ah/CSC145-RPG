@@ -5,6 +5,8 @@
 #include "Equipment.h"
 #include "inventory.h"
 #include "ArmorSet.h"
+#include "ItemDefs.h"
+#include "itemtiers.h"
 
 
 class EquippedEntity : public Entity {
@@ -14,9 +16,9 @@ class EquippedEntity : public Entity {
     explicit EquippedEntity(Entity* e);
 
     Inventory Inven;
-    std::shared_ptr<Weapon> currentWeapon{};
-    ArmorSet armor; //Index of arrays are ordered just like ArmorType enum
+    std::shared_ptr<Weapon> currentWeapon = IDefs::nothing;
+    ArmorSet armor = ITiers::noArmor; //Index of arrays are ordered just like ArmorType enum
 
     void takeDamage(double amnt) override;
-    void attackEntity(Entity* enemy) override;
+    void attackEntity(std::shared_ptr<Entity> enemy) override;
 };
