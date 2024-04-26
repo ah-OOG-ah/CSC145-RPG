@@ -18,6 +18,6 @@ void EquippedEntity::takeDamage(double amnt) {
     this->hp -= amnt;
 }
 
-void EquippedEntity::attackEntity(Entity* enemy) {
+void EquippedEntity::attackEntity(std::shared_ptr<Entity> enemy) {
     enemy->takeDamage(this->attk * this->currentWeapon->GetDamage());
 }

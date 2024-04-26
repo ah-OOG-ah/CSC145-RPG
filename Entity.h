@@ -3,6 +3,8 @@
 #include <cstdint>
 #include <string>
 #include <array>
+#include <functional>
+#include <memory>
 
 
 class Entity {
@@ -24,7 +26,7 @@ class Entity {
     //Helmet: 0, Chestplate: 1, Leggings: 2, Boots: 3
     explicit Entity(int64_t hp);
     explicit Entity(std::string name, int64_t hp, int64_t attk, double percDef, int64_t staticDef, int64_t spd);
-    Entity(Entity* e);
+    explicit Entity(Entity* e);
 
     [[nodiscard]] std::string getName() const;
     [[nodiscard]] int64_t getMaxHp() const;
@@ -42,7 +44,7 @@ class Entity {
     void setCanAct(bool);
 
     // Applies this entitiy's attack to the passed entity
-    virtual void attackEntity(Entity* enemy);
+    virtual void attackEntity(std::shared_ptr<Entity> enemy);
 
     void changeHP(int64_t hpAmnt); //For item based attacks
     void changeAttk(double);
@@ -50,7 +52,11 @@ class Entity {
     void changeStaticDef(int64_t);
     void changeSpd(int64_t);
 
+    void setSpd(int64_t);
+
     virtual void takeDamage(double hpAmnt);
 
     [[nodiscard]] virtual std::string toString() const;
+
+    bool operator> (const Entity& other) const;
 };

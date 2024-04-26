@@ -80,6 +80,7 @@ namespace IDefs {
     static const std::string undeadBladeDesc = "A sharp blade that reaks of death. Every second you hold it, the more it feels like the souls of the dead surround you";
     static const std::string boneDesc = "A thick bone that seems to come from a femur. The bone looks oddly human-like.";
     static const std::string katanaDesc = "A sharp, one-edged sword. So sharp, that even running your finger across it seems risky";
+    static const auto nothing = std::make_shared<Weapon>("None", 0, 1.0, 0, "Literally nothing. What were you expecting?");
     static const auto sword = std::make_shared<Weapon>("Sword", 20, 1.25, 20, swordDesc);
     static const auto spear = std::make_shared<Weapon>("Spear", 10, 1.20, 15, spearDesc);
     static const auto hammer = std::make_shared<Weapon>("Gorilla Hammer", 30, 1.50, 45, hammerDesc);
@@ -93,6 +94,13 @@ namespace IDefs {
 
 
     //Armor(Name, durability, percentageDef, staticDef, price, ArmorType (enum), description)
+    static const std::string nothingDesc = "Literally nothing. What were you expecting?";
+
+    static auto noHelm  = std::make_shared<Armor>("Nothing", 0, 1.0, 0, 0, Helmet, nothingDesc);
+    static auto noChest = std::make_shared<Armor>("Nothing", 0, 1.0, 0, 0, Chestplate, nothingDesc);
+    static auto noLegg  = std::make_shared<Armor>("Nothing", 0, 1.0, 0, 0, Leggings, nothingDesc);
+    static auto noBoots = std::make_shared<Armor>("Nothing", 0, 1.0, 0, 0, Boots, nothingDesc);
+
     static const std::string steelHelmDesc = "A reliable steel helmet to protect you from concusions.";
     static const std::string steelChestDesc = "Durable armor made of pure iron.";
     static const std::string steelLeggDesc = "Steel leggings, great for defending you. Not very comfortable though...";

@@ -8,6 +8,7 @@
 #include <vector>
 #include <iostream>
 
+
 Battle::Battle(std::string name, int64_t nice) : Scene(std::move(name)), Menu(std::vector<std::string>({
     "Attack",
     "Escape"
@@ -35,14 +36,30 @@ void Battle::run() {
 
     std::cout << "The battle of " << name << " begins!" << std::endl;
 
+    // Load turn queue
+    for (auto & e : enemy) { turnOrder.emplace_back(&e); }
+    turnOrder.emplace_back(getPlayer());
+    auto ogspd = getPlayer()->getSpd();
+
     while (true) {
+
 
         std::cout << "\nYou see the enemy: " << std::endl;
         this->listEnemies();
 
-        this->display();
+        std::sort(turnOrder.begin(), turnOrder.end());
 
-        if (getPFlee() || getPHP() < 1) {
+        for (const auto& e : turnOrder) {
+            if (e == getPlayer()) {
+                display();
+            } else {
+                e->attackEntity(getPlayer());
+            }
+
+            e->changeSpd(-30);
+        }
+
+        if (false && (getPFlee() || getPHP() < 1)) {
             setPFlee(false);
             std::cout << "You have been defeated." << std::endl;
             // TODO: monkey bob reference?
@@ -53,18 +70,22 @@ void Battle::run() {
         }
     }
 
+    turnOrder.clear();
+    getPlayer()->setSpd(ogspd);
     over = true;
 }
 
 void Battle::listEnemies() {
-    for (const Enemy& e : enemy)
+    for (const auto& e : enemy) {
         std::cout << e.toString() << std::endl;
+    }
 }
 
 void Battle::attack() {
 
-    pAttack(&enemy.at(0));
+    pAttack(turnOrder[0]);
     this->listEnemies();
+    std::erase_if(turnOrder, [](const std::shared_ptr<Entity>& e){ return !e->getAlive(); });
     std::erase_if(enemy, [](const Enemy& e){ return !e.getAlive(); });
 }
 

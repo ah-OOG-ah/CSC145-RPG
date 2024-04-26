@@ -115,8 +115,8 @@ namespace EList {
     using namespace ITiers;
 
     //Enemy(name, i64 hp, i64 attk, f64 percDef, i64 staticDef, i64 spd, inv, weapon, armor, sprite, std::function<void(Enemy*, EquippedEntity*)> behavior)
-    Enemy wideSpider("WIDE Spider", 20, 10, 1.0, 5, 20, UtilI::drawI({ basicRoids }, 1), {}, noArmor, spiderSprite, {}, EAI::AttackOnly);
-    Enemy rockMonster("Rock Monster", 50, 5, .30, 30, 5, UtilI::drawI({ rocksOnly, basicRoids }, 2), {}, rockSet, rockSprite, {}, EAI::DefaultAI);
+    Enemy wideSpider("WIDE Spider", 20, 10, 1.0, 5, 20, UtilI::drawI({ basicRoids }, 1), nothing, noArmor, spiderSprite, {}, EAI::AttackOnly);
+    Enemy rockMonster("Rock Monster", 50, 5, .30, 30, 5, UtilI::drawI({ rocksOnly, basicRoids }, 2), nothing, rockSet, rockSprite, {}, EAI::DefaultAI);
     Enemy baboon("Baboon", 30, 10, .90, 10, 10, UtilI::drawI({basicAttkItems, basicHealItems, allRoids}, 3), Util<Weapon>::draw(basicWeapons), noArmor, baboonSprite, {}, EAI::MidLevelAI);
     //Only difference between two baboons is behavior and sprite
     Enemy angryBaboon("Angry Baboon", 40, 10, .90, 10, 10, UtilI::drawI({basicAttkItems, basicHealItems, allRoids}, 3), Util<Weapon>::draw(basicWeapons), noArmor, angryBaboonSprite, {}, EAI::AttackOnly);
