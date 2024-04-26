@@ -21,7 +21,6 @@ Battle::Battle(std::string name, int64_t nice) : Scene(std::move(name)), Menu(st
     for (uint64_t i = 0; i < numEnemy; ++i) {
         this->enemy.emplace_back(new Enemy(*src[randUint() % src.size()]));
     }
-    enemy.erase(enemy.end());
 }
 
 /**

@@ -10,6 +10,10 @@ template<typename T> struct Util {
     static shp draw(const std::vector<shp>& i) {
         return i[randUint() % i.size()];
     }
+
+    static std::function<std::shared_ptr<T>(void)> drawFactory(const std::vector<shp>& i) {
+        return [i]() { return Util<T>::draw(i); };
+    }
 };
 
 struct UtilI {
@@ -30,8 +34,14 @@ struct UtilI {
         return ret;
     }
 
-    static Inventory drawI(std::initializer_list<const std::vector<shpI>> il, uint64_t num) {
-        return Inventory(draw(il, num));
+    static std::function<Inventory(void)> drawI(std::initializer_list<const std::vector<shpI>> il, uint64_t num) {
+        std::vector<shpI> pool;
+        for (const auto& l : il) {
+            for (const auto& e : l) {
+                pool.push_back(e);
+            }
+        }
+        return [pool, num]() { return Inventory(draw({ pool }, num)); };
     }
 
     static ArmorSet drawA(const std::vector<std::shared_ptr<Armor>>& a) {
@@ -39,5 +49,9 @@ struct UtilI {
         for (int i = 0; i < 4; ++i)
             ret.set(Util<Armor>::draw(a));
         return ret;
+    }
+
+    static std::function<ArmorSet(void)> drawAFactory(const std::vector<std::shared_ptr<Armor>>& a) {
+        return [a]() { return drawA(a); };
     }
 };
