@@ -1,21 +1,17 @@
-#include "enemyai.h"
+#include "EnemyAI.h"
 #include "game.h"
 #include <iostream>
 
 
-void EAI::DefaultAI(Enemy* user, Entity* target) {
+void EAI::idiot(std::shared_ptr<Enemy> user, std::shared_ptr<EquippedEntity> target) {
     if (randBool()) {
-        double weaponDmg = 1.0;
-        if (user->currentWeapon != nullptr) {
-            weaponDmg = user->currentWeapon->GetDamage();
-        }
-        target->changeHP(-1 * user->getAttack() * weaponDmg);
+        user->attackEntity(target);
     } else {
-        user->Inven.GetItem(randUint() % user->Inven.GetUsedElements());
+        //user->inventory.GetItem(randUint() % user->inventory.GetUsedElements());
     }
 }
 
-void EAI::AttackOnly(Enemy* user, Entity* target) {
+void EAI::berserker(std::shared_ptr<Enemy> user, std::shared_ptr<EquippedEntity> target) {
     double weaponDmg = 1.0;
     if (user->currentWeapon != nullptr) {
         weaponDmg = user->currentWeapon->GetDamage();
@@ -23,7 +19,7 @@ void EAI::AttackOnly(Enemy* user, Entity* target) {
     target->changeHP(-1 * user->getAttack() * weaponDmg);
 }
 
-void EAI::MidLevelAI(Enemy* user, Entity* target) {
+void EAI::amateur(std::shared_ptr<Enemy> user, std::shared_ptr<EquippedEntity> target) {
     double weaponDmg = 1.0;
     if (user->currentWeapon != nullptr) {
         weaponDmg = user->currentWeapon->GetDamage();
@@ -31,26 +27,26 @@ void EAI::MidLevelAI(Enemy* user, Entity* target) {
     if (user->getCurrentHp() < (user->getMaxHp() / 2.0)) {
         int64_t healOrDef = randUint() % 3;
         if (healOrDef < 2) {
-            for (int i = 0; i < user->Inven.GetUsedElements(); i++) {
-                if (user->Inven.GetItem(i)->GetType() == "HEAL") {
-                    user->Inven.GetItem(i)->Use(user, std::vector<Entity*>{target});
+            for (int i = 0; i < user->inventory.GetUsedElements(); i++) {
+                if (user->inventory.GetItem(i)->GetType() == "HEAL") {
+                    user->inventory.GetItem(i)->Use(user, { target });
                     return;
                 }
             }
             target->changeHP(-1 * user->getAttack() * weaponDmg);
         } else {
-            for (int i = 0; i < user->Inven.GetUsedElements(); i++) {
-                if (user->Inven.GetItem(i)->GetType() == "STATUS") {
-                    user->Inven.GetItem(i)->Use(user, std::vector<Entity*>{target});
+            for (int i = 0; i < user->inventory.GetUsedElements(); i++) {
+                if (user->inventory.GetItem(i)->GetType() == "STATUS") {
+                    user->inventory.GetItem(i)->Use(user, { target });
                     return;
                 }
             }
             target->changeHP(-1 * user->getAttack() * weaponDmg);
         }
     } else if (user->getAttack() < (target->getAttack() - 15)) {
-        for (int i = 0; i < user->Inven.GetUsedElements(); i++) {
-            if (user->Inven.GetItem(i)->GetType() == "STATUS") {
-                user->Inven.GetItem(i)->Use(user, std::vector<Entity*>{target});
+        for (int i = 0; i < user->inventory.GetUsedElements(); i++) {
+            if (user->inventory.GetItem(i)->GetType() == "STATUS") {
+                user->inventory.GetItem(i)->Use(user, { target });
                 return;
             }
         }
@@ -59,20 +55,20 @@ void EAI::MidLevelAI(Enemy* user, Entity* target) {
         if (randBool()) {
             target->changeHP(-1 * user->getAttack() * weaponDmg);
         } else {
-            user->Inven.GetItem(randUint() % user->Inven.GetUsedElements());
+            user->inventory.GetItem(randUint() % user->inventory.GetUsedElements());
         }
     }
 }
 
-void EAI::HighLevelAI(Enemy* user, Entity* target) {
+void EAI::expert(std::shared_ptr<Enemy> user, std::shared_ptr<EquippedEntity> target) {
     double weaponDmg = 1.0;
     if (user->currentWeapon != nullptr) {
         weaponDmg = user->currentWeapon->GetDamage();
     }
     if (user->getCurrentHp() < (user->getMaxHp() / 2.0)) {
-        for (int i = 0; i < user->Inven.GetUsedElements(); i++) {
-            if (user->Inven.GetItem(i)->GetType() == "HEAL") {
-                user->Inven.GetItem(i)->Use(user, std::vector<Entity*>{target});
+        for (int i = 0; i < user->inventory.GetUsedElements(); i++) {
+            if (user->inventory.GetItem(i)->GetType() == "HEAL") {
+                user->inventory.GetItem(i)->Use(user, { target });
                 return;
             }
         }
@@ -96,9 +92,9 @@ void EAI::HighLevelAI(Enemy* user, Entity* target) {
         if (user->armor[armorChoice]->GetPercDef() < user->armor[armorChoice]->GetPercDef()
          || user->armor[armorChoice]->GetStaticDef() < user->armor[armorChoice]->GetStaticDef()
          || user->armor[armorChoice]->GetDurab() < 14) {
-            for (int i = 0; i < user->Inven.GetUsedElements(); i++) {
-                if (user->Inven.GetItem(i)->GetType() == "ARMOR") {
-                    user->Inven.GetItem(i)->Use(user, std::vector<Entity*>{target});
+            for (int i = 0; i < user->inventory.GetUsedElements(); i++) {
+                if (user->inventory.GetItem(i)->GetType() == "ARMOR") {
+                    user->inventory.GetItem(i)->Use(user, { target });
                     return;
                 } 
             }
@@ -107,21 +103,21 @@ void EAI::HighLevelAI(Enemy* user, Entity* target) {
         if (attkOrItem > 0) {
             target->changeHP(-1 * user->getAttack() * weaponDmg);
         } else {
-            user->Inven.GetItem(randUint() % user->Inven.GetUsedElements());
+            user->inventory.GetItem(randUint() % user->inventory.GetUsedElements());
         }
     }
 }
 
-void EAI::HealHappy(Enemy* user, Entity* target) {
+void EAI::healer(std::shared_ptr<Enemy> user, std::shared_ptr<EquippedEntity> target) {
     double weaponDmg = 1.0;
     if (user->currentWeapon != nullptr) {
         weaponDmg = user->currentWeapon->GetDamage();
     }
     int64_t healChance = randUint() % 3;
     if (healChance < 2) {
-        for (int i = 0; i < user->Inven.GetUsedElements(); i++) {
-            if (user->Inven.GetItem(i)->GetType() == "HEAL") {
-                user->Inven.GetItem(i)->Use(user, std::vector<Entity*>{target});
+        for (int i = 0; i < user->inventory.GetUsedElements(); i++) {
+            if (user->inventory.GetItem(i)->GetType() == "HEAL") {
+                user->inventory.GetItem(i)->Use(user, { target });
                 return;
             }
         }
@@ -131,14 +127,14 @@ void EAI::HealHappy(Enemy* user, Entity* target) {
     }
 }
 
-void EAI::ItemHappy(Enemy* user, Entity* target) {
+void EAI::itemHappy(std::shared_ptr<Enemy> user, std::shared_ptr<EquippedEntity> target) {
     double weaponDmg = 1.0;
     if (user->currentWeapon != nullptr) {
         weaponDmg = user->currentWeapon->GetDamage();
     }
-    int64_t invenSize = user->Inven.GetUsedElements();
+    int64_t invenSize = user->inventory.GetUsedElements();
     if (invenSize > 0) {
-        user->Inven.GetItem(randUint() % invenSize);
+        user->inventory.GetItem(randUint() % invenSize);
     } else {
         target->changeHP(-1 * user->getAttack() * weaponDmg);
     }

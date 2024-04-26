@@ -10,7 +10,7 @@ includes = [
 game_src = [
   'DebugMenu.cpp',
   'entity/Enemy.cpp',
-  'entity/enemyai.cpp',
+  'entity/EnemyAI.cpp',
   'entity/Entity.cpp',
   'entity/EquippedEntity.cpp',
   'entity/Player.cpp',

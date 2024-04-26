@@ -5,7 +5,7 @@
 
 
 EquippedEntity::EquippedEntity(std::string name, double hp, double attk, double percDef, double staticDef, int64_t spd, const Inventory& inv)
-    : Entity(std::move(name), hp, attk, percDef, staticDef, spd), Inven(inv), armor(ITiers::noArmor) { }
+    : Entity(std::move(name), hp, attk, percDef, staticDef, spd), inventory(inv), armor(ITiers::noArmor) { }
 
 void EquippedEntity::takeDamage(double amnt) {
     amnt -= this->staticDef;

@@ -10,7 +10,7 @@
 Enemy::Enemy(const std::string& name, double hp, double attk, double percDef, double staticDef, int64_t spd, std::array<std::string, 5> sprite, std::vector<std::shared_ptr<Item>> extraLoot, std::function<Inventory(void)> invFactory, std::function<std::shared_ptr<Weapon>(void)> weaponFactory, std::function<ArmorSet(void)> armorFactory)
     : EquippedEntity(name, hp, attk, percDef, staticDef, spd, {}), invFactory(std::move(invFactory)), weaponFactory(std::move(weaponFactory)), armorFactory(std::move(armorFactory)), enemySprite(std::move(sprite)), extraLoot(std::move(extraLoot)) { }
 Enemy::Enemy(const Enemy& e) : EquippedEntity(e), behaviorFunction(e.behaviorFunction), invFactory(e.invFactory), weaponFactory(e.weaponFactory), armorFactory(e.armorFactory), enemySprite(e.enemySprite), extraLoot(e.extraLoot) {
-    Inven = invFactory();
+    inventory = invFactory();
     currentWeapon = weaponFactory();
     armor = armorFactory();
 }
@@ -21,8 +21,8 @@ std::vector<std::shared_ptr<Item>> Enemy::getExtraLoot() const { return extraLoo
 std::vector<std::shared_ptr<Item>> Enemy::dropLoot() {
     std::vector<std::shared_ptr<Item>> lootVector;
 
-    for (size_t i = 0; i < this->Inven.GetUsedElements(); i++) {
-        lootVector.emplace_back(this->Inven.GetItem(i));
+    for (size_t i = 0; i < this->inventory.GetUsedElements(); i++) {
+        lootVector.emplace_back(this->inventory.GetItem(i));
     }
 
     for (const auto& loot : this->extraLoot) {

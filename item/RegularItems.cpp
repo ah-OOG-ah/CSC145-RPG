@@ -8,20 +8,19 @@
 
 RegularItem::RegularItem(std::string itemName, int64_t price, std::string desc, int64_t amnt)
         : Item(std::move(itemName), price, amnt, std::move(desc)) {}
-RegularItem::RegularItem(const RegularItem* src) : Item(src) {}
 
 std::string RegularItem::GetAmntText() {
     return "x";
 }
 
 std::unique_ptr<Item> RegularItem::copy() {
-    return std::make_unique<RegularItem>(this);
+    return std::make_unique<RegularItem>(*this);
 }
 
 
 AttackItem::AttackItem(std::string itemName, int64_t dmg, int64_t price, std::string desc, bool spread, int64_t amnt, const std::shared_ptr<Status>& effect, int64_t chance)
     : RegularItem(std::move(itemName), price, std::move(desc)), damage(dmg), status(std::make_shared<Status>(effect)), effectChance(chance), spreadDamage(spread) {
-    type = "ATTACK";
+    type.group = spread;
 }
 
 void AttackItem::SetDamage(int64_t dmg) { damage = dmg; }
@@ -49,12 +48,12 @@ void AttackItem::display() {
     std::getline(std::cin, choice);
 }
 
-void AttackItem::Use(Entity* user, std::vector<Entity*> opponents) {
+void AttackItem::Use(std::shared_ptr<Entity> user, std::vector<std::shared_ptr<Entity>> opponents) {
     if (this->amount <= 0) return;
 
     if (this->spreadDamage) {
         std::cout << user->getName() << " used " << this->GetName() << std::endl;
-        for (Entity* target : opponents) {
+        for (auto target : opponents) {
 
             target->changeHP(-1 * this->GetDamage());
             std::cout << target->getName() << " took " << this->GetDamage() << " damage " << std::endl;
@@ -96,7 +95,7 @@ std::unique_ptr<Item> AttackItem::copy() {
 
 HealItem::HealItem(std::string itemName, int64_t hp, int64_t price, std::string desc, int64_t amnt, const std::shared_ptr<Status>& effect)
     : RegularItem(std::move(itemName), price, std::move(desc), amnt), hpAmnt(hp), healedStatus(std::make_shared<Status>(effect)) {
-    type = "HEAL";
+    type.good = hp > 0;
 }
 HealItem::HealItem(const HealItem* ht) : HealItem(ht->name, ht->hpAmnt, ht->price, ht->description, ht->amount, ht->healedStatus) { }
 
@@ -121,7 +120,7 @@ void HealItem::display() {
     while (choice != "EXIT") {
         std::getline(std::cin, choice);
         if (choice == "HEAL") {
-            this->Use(getPlayer().get(), std::vector<Entity*>{nullptr});
+            this->Use(getPlayer(), { });
             if (this->GetAmount() <= 0) {
                 return;
             }
@@ -131,7 +130,7 @@ void HealItem::display() {
     }
 }
 
-void HealItem::Use(Entity* user, std::vector<Entity*> opponents) {
+void HealItem::Use(std::shared_ptr<Entity> user, std::vector<std::shared_ptr<Entity>> opponents) {
     if (this->amount <= 0) return;
 
     int64_t healedAmnt = this->hpAmnt;
@@ -160,13 +159,8 @@ std::unique_ptr<Item> HealItem::copy() {
 
 
 StatusItem::StatusItem(std::string itemName, int64_t price, int64_t boost, statBoost stat, std::string desc, int64_t chance, const std::shared_ptr<Status>& effect, int64_t amnt)
-    : RegularItem(std::move(itemName), price, std::move(desc), amnt), boost(boost), stat(stat) {
-    this->status = std::make_shared<Status>(effect);
-    type = "STATUS";
-}
-
-StatusItem::StatusItem(StatusItem* st) : RegularItem(st), boost(st->boost), stat(st->stat), status(std::make_shared<Status>(st->status)) {
-    type = "STATUS";
+    : RegularItem(std::move(itemName), price, std::move(desc), amnt), boost(boost), stat(stat), status(std::make_shared<Status>(effect)) {
+    type.good = status->isGood();
 }
 
 void StatusItem::SetBoost(int64_t val) { boost = val; }
@@ -193,7 +187,7 @@ void StatusItem::display() {
     while (choice != "EXIT") {
         std::getline(std::cin, choice);
         if (choice == "USE") {
-            this->Use(getPlayer().get(), std::vector<Entity*>{nullptr});
+            this->Use(getPlayer(), { });
             if (this->GetAmount() <= 0) {
                 return;
             }
@@ -203,7 +197,7 @@ void StatusItem::display() {
     }
 }
 
-void StatusItem::Use(Entity* user, std::vector<Entity*> opponents) {
+void StatusItem::Use(std::shared_ptr<Entity> user, std::vector<std::shared_ptr<Entity>> opponents) {
     if (this->amount <= 0) return;
 
     if (this->stat == attack) {
@@ -238,5 +232,5 @@ void StatusItem::Use(Entity* user, std::vector<Entity*> opponents) {
 }
 
 std::unique_ptr<Item> StatusItem::copy() {
-    return std::make_unique<StatusItem>(this);
+    return std::make_unique<StatusItem>(*this);
 }

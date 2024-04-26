@@ -11,9 +11,9 @@ namespace stypes {
 
     void sleepEffect(Entity *victim, Status *ailment);
 
-    static const auto none = std::make_shared<Status>("None", INT64_MAX, [](Entity*, Status*){});
-    static const auto poison = std::make_shared<Status>("Poison", 4, poisonEffect);
-    static const auto longPoison = std::make_shared<Status>("Long-Lasting Poison", 8, poisonEffect);
-    static const auto paralysis = std::make_shared<Status>("Paralysis", 5, paralyzeEffect);
-    static const auto sleep = std::make_shared<Status>("Sleep", 3, sleepEffect);
+    static const auto none = std::make_shared<Status>("None", INT64_MAX, [](Entity*, Status*){}, true);
+    static const auto poison = std::make_shared<Status>("Poison", 4, poisonEffect, false);
+    static const auto longPoison = std::make_shared<Status>("Long-Lasting Poison", 8, poisonEffect, false);
+    static const auto paralysis = std::make_shared<Status>("Paralysis", 5, paralyzeEffect, false);
+    static const auto sleep = std::make_shared<Status>("Sleep", 3, sleepEffect, false);
 }

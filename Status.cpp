@@ -3,7 +3,7 @@
 #include <cstdint>
 #include <utility>
 
-Status::Status(std::string n, int64_t turns, std::function<void(Entity*, Status*)> func) {
+Status::Status(std::string n, int64_t turns, std::function<void(Entity*, Status*)> func, bool good) : good(good) {
     name = std::move(n);
     maxTurns = turns;
     this->statusFunction = std::move(func);
@@ -26,4 +26,8 @@ void Status::effect(Entity* victim) {
 
 std::function<void(Entity*, Status*)> Status::getFunc() {
     return statusFunction;
+}
+
+bool Status::isGood() {
+    return good;
 }

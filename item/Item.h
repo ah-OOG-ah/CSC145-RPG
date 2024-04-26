@@ -53,5 +53,5 @@ class Item : public Menu {
 
     void display() override;
 
-    virtual void Use(Entity* user , std::vector< Entity* > opponents);
+    virtual void Use(std::shared_ptr<Entity> user, std::vector<std::shared_ptr<Entity>> opponents);
 };

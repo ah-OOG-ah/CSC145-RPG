@@ -5,12 +5,15 @@
 #include "Item.h"
 #include "Status.h"
 #include "statustypes.h"
+#include "ItemTypes.h"
 
 
 class RegularItem : public Item {
+  protected:
+    ItemType type;
+
   public:
     RegularItem(std::string itemName, int64_t price, std::string desc, int64_t amnt = 1);
-    explicit RegularItem(const RegularItem *);
 
     std::unique_ptr<Item> copy() override;
 
@@ -39,7 +42,7 @@ class AttackItem : public RegularItem {
     [[nodiscard]] int64_t GetChance() const;
     [[nodiscard]] bool canSpread() const;
     void display() override;
-    void Use(Entity* user , std::vector<Entity* > opponents) override;
+    void Use(std::shared_ptr<Entity> user, std::vector<std::shared_ptr<Entity>> opponents) override;
 };
 
 class HealItem : public RegularItem {
@@ -62,7 +65,7 @@ class HealItem : public RegularItem {
 
     void display() override;
 
-    void Use(Entity* user , std::vector< Entity* > opponents) override;
+    void Use(std::shared_ptr<Entity> user, std::vector<std::shared_ptr<Entity>> opponents) override;
 };
 
 enum statBoost {attack, percdef, staticdef, speed };
@@ -76,7 +79,6 @@ class StatusItem : public RegularItem {
 
   public:
     StatusItem(std::string itemName, int64_t price, int64_t boost, statBoost stat, std::string desc, int64_t amnt = 1, const std::shared_ptr<Status>& effect = stypes::none, int64_t chance = 0);
-    explicit StatusItem(StatusItem* st);
 
     std::unique_ptr<Item> copy() override;
 
@@ -90,5 +92,5 @@ class StatusItem : public RegularItem {
     std::shared_ptr<Status> GetStatus();
     [[nodiscard]] int64_t GetChance() const;
     void display() override;
-    void Use(Entity* user , std::vector< Entity* > opponents) override;
+    void Use(std::shared_ptr<Entity> user, std::vector<std::shared_ptr<Entity>> opponents) override;
 };

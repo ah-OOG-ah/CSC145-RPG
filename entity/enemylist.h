@@ -3,7 +3,7 @@
 #include "Enemy.h"
 #include "itemtiers.h"
 #include <string>
-#include "enemyai.h"
+#include "EnemyAI.h"
 #include "Util.h"
 
 
