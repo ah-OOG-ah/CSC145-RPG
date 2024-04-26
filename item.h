@@ -3,17 +3,19 @@
 #include <cstdint>
 #include <string>
 
-class Item {
-  protected:
+class Item
+{
+    protected:
     std::string name;
-    int64_t amount = 1;
-    int64_t price = 10;
+    int64_t amount = 0;
+    int64_t price = 0;
     bool stackable = true;
     bool equipable = false;
     std::string description;
 
-  public:
+    public:
     //Constructor
+    Item() { }
     Item(std::string itemName,int64_t price, int64_t amnt, std::string desc);
     Item(std::string itemName, int64_t price, std::string desc);
 
@@ -21,11 +23,10 @@ class Item {
     std::string GetName();
     virtual std::string GetAmntText() = 0;
     std::string GetDesc();
-    [[nodiscard]] int64_t GetAmount() const;
-    [[nodiscard]] int64_t GetPrice() const;
-    [[nodiscard]] bool isStackable() const;
-    [[nodiscard]] bool isEquipment() const;
-
+    int64_t GetAmount() const;
+    int64_t GetPrice() const;
+    bool isStackable();
+    bool isEquipment();
     //Setters
     virtual void ChangeAmount(int64_t addAmnt);
 

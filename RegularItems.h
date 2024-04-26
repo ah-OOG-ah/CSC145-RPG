@@ -5,8 +5,9 @@
 #include "item.h"
 #include "Status.h"
 
-class RegularItem : public Item {
-  public:
+class RegularItem : public Item
+{
+    public:
     RegularItem(std::string itemName, int64_t price, int64_t amnt);
     RegularItem(std::string itemName, int64_t price);
     std::string GetAmntText() override;

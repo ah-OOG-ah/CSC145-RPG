@@ -4,22 +4,18 @@
 #include <string>
 #include <utility>
 
-Item::Item(std::string itemName, int64_t price, std::string desc)
-        : Item(std::move(itemName), price, 1, std::move(desc)) { }
-Item::Item(std::string itemName, int64_t price, int64_t amnt, std::string desc)
-: name(std::move(itemName)), amount(amnt), price(price), description(std::move(desc)) { }
+Item::Item() { }
+Item::Item(std::string itemName, int64_t price, int64_t amnt, std::string desc) : name(std::move(itemName)), amount(amnt), price(price), description(std::move(desc)) { }
+Item::Item(std::string itemName, int64_t price, std::string desc) : name(std::move(itemName)), price(price), description(std::move(desc)){ }
 
 std::string Item::GetName() { return name; }
 std::string Item::GetDesc() { return description; }
 int64_t Item::GetAmount() const { return amount; }
 int64_t Item::GetPrice() const { return price; }
-bool Item::isStackable() const { return stackable; }
-bool Item::isEquipment() const { return equipable; }
+bool Item::isStackable() { return stackable; }
+bool Item::isEquipment() { return equipable; }
 
 
-void Item::ChangeAmount(int64_t addAmnt) {
-    amount += addAmnt;
-    if (!stackable) amount = amount > 0 ? 1 : 0;
-}
+void Item::ChangeAmount(int64_t addAmnt) { amount += addAmnt; }
 
 void Item::SetName(std::string newName) { name = std::move(newName); }
