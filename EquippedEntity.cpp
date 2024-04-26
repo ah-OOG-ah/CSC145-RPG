@@ -22,6 +22,6 @@ void EquippedEntity::attackEntity(const std::shared_ptr<Entity>& enemy) {
     enemy->takeDamage(this->attack * this->currentWeapon->GetDamage());
 }
 
-double EquippedEntity::getAttack() {
+double EquippedEntity::getAttack() const {
     return attack * armor.offenseMult() * currentWeapon->GetDamage();
 }

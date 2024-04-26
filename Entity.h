@@ -31,7 +31,6 @@ class Entity {
     [[nodiscard]] std::string getName() const;
     [[nodiscard]] double getMaxHp() const;
     [[nodiscard]] double getCurrentHp() const;
-    [[nodiscard]] double getAttack() const;
     [[nodiscard]] double getStaticDef() const;
     [[nodiscard]] double getPercDef() const;
     [[nodiscard]] int64_t getSpd() const;
@@ -40,10 +39,12 @@ class Entity {
     [[nodiscard]] bool getCanAct() const;
     [[nodiscard]] bool getAlive() const;
 
+    [[nodiscard]] virtual double getAttack() const;
+
     void setFleeing(bool);
     void setCanAct(bool);
 
-    // Applies this entitiy's attack to the passed entity
+    // Applies this entity's attack to the passed entity
     virtual void attackEntity(const std::shared_ptr<Entity>& enemy);
 
     void changeHP(double); //For item based attacks

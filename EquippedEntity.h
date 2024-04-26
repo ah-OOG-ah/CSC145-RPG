@@ -22,5 +22,5 @@ class EquippedEntity : public Entity {
     void takeDamage(double amnt) override;
     void attackEntity(const std::shared_ptr<Entity>& enemy) override;
 
-    double getAttack() override;
+    double getAttack() const override;
 };
