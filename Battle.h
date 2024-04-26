@@ -20,9 +20,9 @@ class Battle : public Scene, public Menu {
     void escape();
 
   protected:
-    void dispatch(int64_t i) override;
+    virtual void dispatch(int64_t i) override;
 
   public:
-    explicit Battle(std::string);
-    void run() override;
+    Battle(std::string);
+    virtual void run() override;
 };

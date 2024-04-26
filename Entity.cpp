@@ -6,30 +6,28 @@ Entity::Entity(int64_t hp) {
     this->hp = hp;
 }
 
-int64_t Entity::getHp() const { return hp; }
+int64_t Entity::getHp() { return hp; }
 
-int64_t Entity::getAttk() const { return attk; }
+int64_t Entity::getAttk() { return attk; }
 
-int64_t Entity::getStaticDef() const { return staticDef; }
+int64_t Entity::getStaticDef() { return staticDef; }
 
-int64_t Entity::getPercDef() const { return percDef; }
+int64_t Entity::getPercDef() { return percDef; }
 
-int64_t Entity::getSpd() const { return spd; }
+int64_t Entity::getSpd() { return spd; }
 
-int64_t Entity::getMp() const { return mp; }
+int64_t Entity::getMp() { return mp; }
 
-bool Entity::getFleeing() const { return this->isFleeing; }
+bool Entity::getFleeing() { return this->isFleeing; }
 
-bool Entity::getAlive() const { return this->hp > 0; }
+bool Entity::getAlive() { return this->hp > 0; }
 
 void Entity::setFleeing(bool val) { this->isFleeing = val; }
 
-void Entity::attackEntity(Entity* enemy) const {
+void Entity::attackEntity(Entity* enemy) {
     enemy->hp -= this->getAttk();
 }
 
-std::string Entity::toString() const {
-    if (this->hp > 0)
-        return "{hp: " + std::to_string(this->hp) + ", atk: " + std::to_string(this->attk) + "}";
-    return "{DEAD, atk: " + std::to_string(this->attk) + "}";
+std::string Entity::toString() {
+    return "{hp: " + std::to_string(this->hp) + ", atk: " + std::to_string(this->attk) + "}";
 }
