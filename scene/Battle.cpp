@@ -15,7 +15,7 @@ Battle::Battle(std::string name, int64_t nice) : Scene(std::move(name)), Menu(st
     "Attack",
     "Escape"
 })) {
-    auto numEnemy = randUint() % nice + 3;
+    auto numEnemy = randUint() % nice + 5;
     auto src = ETiers::get(nice);
 
     for (uint64_t i = 0; i < numEnemy; ++i) {

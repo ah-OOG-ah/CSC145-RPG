@@ -7,13 +7,13 @@
 #include <utility>
 
 
-Enemy::Enemy(const std::string& name, double hp, double attk, double percDef, double staticDef, int64_t spd, const Inventory& inv, const std::shared_ptr<Weapon>& weapon, const ArmorSet& armor, std::array<std::string, 5> sprite, std::vector<std::shared_ptr<Item>> extraLoot, const std::function<void(Enemy*, EquippedEntity*)>& behavior)
-    : EquippedEntity(name, hp, attk, percDef, staticDef, spd, inv), extraLoot(std::move(extraLoot)) {
+Enemy::Enemy(const std::string& name, double hp, double attk, double percDef, double staticDef, int64_t spd, std::array<std::string, 5> sprite, std::vector<std::shared_ptr<Item>> extraLoot, const std::function<void(Enemy*, EquippedEntity*)>& behavior)
+    : EquippedEntity(name, hp, attk, percDef, staticDef, spd, {}), extraLoot(std::move(extraLoot)) {
+    // , const Inventory& inv, const std::shared_ptr<Weapon>& weapon, const ArmorSet& armor
     this->enemySprite = std::move(sprite);
-    this->currentWeapon.reset(weapon.get());
+    this->currentWeapon.reset();
     this->armor = armor;
 }
-Enemy::Enemy(const Enemy& en) = default;
 
 std::array<std::string, 5> Enemy::getSprite() const { return enemySprite; }
 std::vector<std::shared_ptr<Item>> Enemy::getExtraLoot() const { return extraLoot; }
