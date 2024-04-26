@@ -12,7 +12,7 @@
 class EquippedEntity : public Entity {
 
   public:
-    EquippedEntity(std::string name, int64_t hp, int64_t attk, double percDef, int64_t staticDef, int64_t spd);
+    EquippedEntity(std::string name, int64_t hp, int64_t attk, double percDef, int64_t staticDef, int64_t spd, Inventory inv = { });
     explicit EquippedEntity(Entity* e);
 
     Inventory Inven;

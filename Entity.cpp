@@ -78,9 +78,14 @@ void Entity::attackEntity(std::shared_ptr<Entity> enemy) {
 }
 
 std::string Entity::toString() const {
-    if (this->hp > 0)
-        return "{hp: " + std::to_string(this->hp) + ", atk: " + std::to_string(this->attk) + "}";
-    return "{DEAD, atk: " + std::to_string(this->attk) + "}";
+
+    std::string ret = "HP: xx.xx, ATK: xx.xx";
+    if (this->hp > 0) {
+        std::snprintf(ret.data(), 24, "HP: %5.2lf, ATK: %5.2lf", (double) hp, (double) attk);
+    } else {
+        std::snprintf(ret.data(), 24, "HP: DEAD, ATK: %5.2lf", (double) hp, (double) attk);
+    }
+    return ret;
 }
 
 void Entity::takeDamage(double amnt) {
