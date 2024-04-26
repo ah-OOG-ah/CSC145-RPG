@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Enemy.h"
-#include "Entity.h"
+#include "entity/Enemy.h"
+#include "entity/Entity.h"
 #include "Menu.h"
-#include "Player.h"
+#include "entity/Player.h"
 #include "scene/Scene.h"
 #include <memory>
 #include <vector>

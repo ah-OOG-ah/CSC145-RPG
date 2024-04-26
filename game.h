@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Entity.h"
-#include "Player.h"
+#include "entity/Entity.h"
+#include "entity/Player.h"
 #include "scene/Scene.h"
 #include <memory>
 

@@ -1,6 +1,6 @@
 #include "DebugMenu.h"
-#include "Entity.h"
-#include "Player.h"
+#include "entity/Entity.h"
+#include "entity/Player.h"
 #include <memory>
 #include <random>
 #include <iostream>

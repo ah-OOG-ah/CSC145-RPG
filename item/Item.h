@@ -3,7 +3,7 @@
 #include <cstdint>
 #include <string>
 #include "Menu.h"
-#include "Entity.h"
+#include "entity/Entity.h"
 #include <vector>
 #include <memory>
 

@@ -1,8 +1,8 @@
 #include "Battle.h"
-#include "Enemy.h"
+#include "entity/Enemy.h"
 #include "scene/Scene.h"
 #include "game.h"
-#include "enemytiers.h"
+#include "entity/enemytiers.h"
 #include "PU.h"
 #include <string>
 #include <utility>
