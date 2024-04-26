@@ -68,16 +68,16 @@ void Battle::listEnemies() {
     // On POSIX-compliant terminals, resets the position to the top-left corner
     std::cout << "\x1B[2J\x1B[H";
 
-    // Enemies should fit in a 23x7 box
+    // Enemies should fit in a 29x7 box
     // Then we add a line on each side
     // Calculate the length of everything
-    uint64_t len = enemy.size() * 24 + 1;
+    uint64_t len = enemy.size() * 30 + 1;
 
     // Print the headers
     std::cout << std::string(len, '-') << std::endl;
     for (const auto& e : enemy) {
         std::cout << '|';
-        PU::print(CENTER, e->getName(), 23);
+        PU::print(CENTER, e->getName(), 29);
     }
     std::cout << '|' << std::endl;
 
@@ -85,7 +85,7 @@ void Battle::listEnemies() {
     for (int i = 0; i < 5; ++i) {
         for (const auto& e : enemy) {
             std::cout << '|';
-            PU::print(CENTER, e->getSprite()[i], 23);
+            PU::print(CENTER, e->getSprite()[i], 29);
         }
         std::cout << '|' << std::endl;
     }
@@ -93,7 +93,7 @@ void Battle::listEnemies() {
     // Print the status
     for (const auto& e : enemy) {
         std::cout << '|';
-        PU::print(CENTER, e->toString(), 23);
+        PU::print(CENTER, e->toString(), 29);
     }
     std::cout << '|' << std::endl;
 

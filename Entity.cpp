@@ -3,6 +3,7 @@
 #include <string>
 #include <utility>
 #include <memory>
+#include <cmath>
 
 Entity::Entity(double hp) : maxHp(hp), hp(hp) { }
 Entity::Entity(std::string name, double hp, double attk, double percDef, double staticDef, int64_t spd)
@@ -36,11 +37,11 @@ void Entity::attackEntity(const std::shared_ptr<Entity>& enemy) { enemy->takeDam
 
 std::string Entity::toString() const {
 
-    std::string ret = "HP: xx.xx, ATK: xx.xx";
+    std::string ret = "HP xx.xx ATK xx.xx DEF xx|xx";
     if (hp > 0) {
-        std::snprintf(ret.data(), 24, "HP: %5.2lf, ATK: %5.2lf", (double) hp, getAttack());
+        std::snprintf(ret.data(), 29, "HP %5.2lf ATK %5.2lf DEF %2d|%2d", (double) hp, getAttack(), std::min((int) std::round(getStaticDef()), 99), std::min((int) std::round(100.0 * (1.0 - getPercDef())), 99));
     } else {
-        std::snprintf(ret.data(), 24, "HP: DEAD, ATK: %5.2lf", getAttack());
+        std::snprintf(ret.data(), 29, "HP DEAD  ATK %5.2lf DEF %2d|%2d", getAttack(), std::min((int) std::round(getStaticDef()), 99), std::min((int) std::round(100.0 * (1.0 - getPercDef())), 99));
     }
     return ret;
 }

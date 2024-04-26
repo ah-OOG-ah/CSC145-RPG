@@ -17,7 +17,7 @@ class Entity {
     double percDef = 0; // Reduces a specified percentage of damage from an attack after staticDef removes its amount
     double staticDef = 0; // Subtracts a set amount of damage from a hit
     int64_t spd = 10; // Used to determine turn order
-    double mp = 0; // Used to have a magic points system if we want include that
+    double mp = 0; // Used to have a magic points system if we want to include that
     bool isFleeing = false;
     bool canAct = true;
 
