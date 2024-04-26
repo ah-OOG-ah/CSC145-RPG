@@ -8,7 +8,7 @@ Entity::Entity(double hp) : maxHp(hp), hp(hp) { }
 Entity::Entity(std::string name, double hp, double attk, double percDef, double staticDef, int64_t spd)
     : name(std::move(name)), maxHp(hp), hp(hp), percDef(percDef), staticDef(staticDef), spd(spd) { }
 Entity::Entity(Entity* e)
-    : name(std::move(e->name)), maxHp(e->maxHp), hp(e->hp), percDef(e->percDef), staticDef(e->staticDef), spd(e->spd) { }
+    : name(e->name), maxHp(e->maxHp), hp(e->hp), percDef(e->percDef), staticDef(e->staticDef), spd(e->spd) { }
 
 std::string Entity::getName() const { return name; }
 

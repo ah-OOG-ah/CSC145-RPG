@@ -13,25 +13,10 @@ Enemy::Enemy(const std::string& name, double hp, double attk, double percDef, do
     this->currentWeapon.reset(weapon.get());
     this->armor = armor;
 }
-
-Enemy::Enemy(Enemy* en) : EquippedEntity(en) {
-    this->enemySprite = en->getSprite();
-    this->currentWeapon = en->currentWeapon;
-    this->armor = en->armor;
-    this->Inven = en->Inven;
-    this->extraLoot = en->getExtraLoot();
-}
-
-Enemy::Enemy(const std::shared_ptr<Enemy>& en) : EquippedEntity(en.get()) {
-    this->enemySprite = en->getSprite();
-    this->currentWeapon = en->currentWeapon;
-    this->armor = en->armor;
-    this->Inven = en->Inven;
-    this->extraLoot = en->getExtraLoot();
-}
+Enemy::Enemy(const Enemy& en) = default;
 
 std::array<std::string, 5> Enemy::getSprite() const { return enemySprite; }
-std::vector<std::shared_ptr<Item>> Enemy::getExtraLoot() { return extraLoot; }
+std::vector<std::shared_ptr<Item>> Enemy::getExtraLoot() const { return extraLoot; }
 
 std::vector<std::shared_ptr<Item>> Enemy::dropLoot() {
     std::vector<std::shared_ptr<Item>> lootVector;

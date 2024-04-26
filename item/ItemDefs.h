@@ -83,11 +83,12 @@ namespace IDefs {
     static const auto nothing = std::make_shared<Weapon>("None", INT64_MAX, 1.0, 0, "Literally nothing. What were you expecting?");
     static const auto sword = std::make_shared<Weapon>("Sword", 20, 1.25, 20, swordDesc);
     static const auto spear = std::make_shared<Weapon>("Spear", 10, 1.20, 15, spearDesc);
-    static const auto hammer = std::make_shared<Weapon>("Gorilla Hammer", 30, 1.50, 45, hammerDesc);
+    static const auto whip = std::make_shared<Weapon>("Orphan Whip", 40, 1.2, 20, whipDesc);
     static const auto staff = std::make_shared<Weapon>("Staff", 10, 1.10, 8, staffDesc);
+
+    static const auto hammer = std::make_shared<Weapon>("Gorilla Hammer", 30, 1.50, 45, hammerDesc);
     static const auto bottle = std::make_shared<Weapon>("Broken Bottle", 3, 1.70, 4, bottleDesc);
     static const auto goldSword = std::make_shared<Weapon>("Gold Sword", 5, 1.2, 100, goldSwordDesc);
-    static const auto whip = std::make_shared<Weapon>("Orphan Whip", 40, 1.2, 20, whipDesc);
     static const auto undeadBlade = std::make_shared<Weapon>("Undead Blade", 30, 1.30, 70, undeadBladeDesc);
     static const auto bone = std::make_shared<Weapon>("Bone", 10, 1.20, 10, boneDesc);
     static const auto katana = std::make_shared<Weapon>("Katana", 18, 1.4, 30, katanaDesc);
