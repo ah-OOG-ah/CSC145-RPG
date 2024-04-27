@@ -25,5 +25,6 @@ class Enemy : public EquippedEntity {
 
     [[nodiscard]] std::array<std::string, 5> getSprite() const;
     [[nodiscard]] std::vector<std::shared_ptr<Item>> getExtraLoot() const;
+    [[nodiscard]] EnumAI getAI() const;
     std::vector<std::shared_ptr<Item>> dropLoot();
 };

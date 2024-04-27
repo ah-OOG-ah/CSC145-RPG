@@ -45,7 +45,9 @@ void Battle::run() {
         display();
 
         for (auto& e : enemy) {
-            e->attackEntity(getPlayer());
+
+            // Run the enemy's AI
+            EAI::get(e->getAI())(e, enemy);
         }
 
         if (getPFlee() || getPHP() < 1) {
