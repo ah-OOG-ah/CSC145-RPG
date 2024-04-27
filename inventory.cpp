@@ -77,13 +77,14 @@ bool Inventory::ReplaceItem(const std::shared_ptr<Item>& newItem) {
     std::cout << "Your INVENTORY is full. Please select item to replace" << std::endl << std::endl;
     std::cout << "Please input the number for the item you want to replace with the "<< newItem->GetName() << std::endl;
     std::cout << "Input a number outside of the range if you do not wish to replace any items" << std::endl;
-    PrintItems(1); //Used to print items with numbers by them
-    int64_t choice = 0;
-    std::cin >> choice; //Choice will substracted by one to account for the fact that array starts as zero but inventory numbers at 1
+    PrintItems(1); // print items with numbers by them
+    size_t choice = 0;
+    std::cin >> choice;
+    --choice;// account for zero-indexed backing vs 1-indexed presentation
 
-    if (choice > 0 && choice <= curSlots) {
-        std::cout << backing[choice - 1]->GetName() << " was replaced by " << newItem->GetName() << std::endl;
-        backing[choice - 1] = newItem;
+    if (choice < curSlots) {
+        std::cout << backing[choice]->GetName() << " was replaced by " << newItem->GetName() << std::endl;
+        backing[choice] = newItem;
         return true;
     } else {
         std::cout << newItem->GetName() <<" was not added to inventory" << std::endl;
