@@ -15,9 +15,10 @@ Item::Item(const Item* i)
     name(i->name), type(i->type), amount(i->amount), price(i->price), stackable(i->stackable), equipable(i->equipable), offense(i->offense), description(i->description) { }
 
 std::string Item::GetName() const { return name; }
-std::string Item::GetType() const { return type; }
+ItemType Item::GetType() const { return type; }
 std::string Item::GetDesc() const { return description; }
 int64_t Item::GetAmount() const { return amount; }
+int64_t Item::getWeight() const { return weightPer * amount; }
 int64_t Item::GetPrice() const { return price; }
 bool Item::isStackable() const { return stackable; }
 bool Item::isEquipment() const { return equipable; }

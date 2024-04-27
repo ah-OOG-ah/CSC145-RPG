@@ -18,6 +18,7 @@ class Item : public Menu {
     bool stackable = true;
     bool equipable = false;
     bool offense = true;
+    int64_t weightPer = 1;
     std::string description;
 
     void dispatch(int64_t i) override;
@@ -33,10 +34,11 @@ class Item : public Menu {
 
     //Getters
     [[nodiscard]] std::string GetName() const;
-    [[nodiscard]] std::string GetType() const;
+    [[nodiscard]] ItemType GetType() const;
     virtual std::string GetAmntText() = 0;
     [[nodiscard]] std::string GetDesc() const;
     [[nodiscard]] int64_t GetAmount() const;
+    [[nodiscard]] int64_t getWeight() const;
     [[nodiscard]] int64_t GetPrice() const;
     [[nodiscard]] bool isStackable() const;
     [[nodiscard]] bool isEquipment() const;

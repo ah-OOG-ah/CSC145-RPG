@@ -3,67 +3,73 @@
 #include <string>
 #include <iostream>
 
-Inventory::Inventory() = default;
-Inventory::Inventory(size_t itemCap) : maxItems(itemCap) { }
-Inventory::Inventory(const Inventory& inv) : maxItems(inv.maxItems), numItems(inv.numItems) {
-    for (size_t i = 0; i < numItems; ++i) {
+
+Inventory::Inventory(size_t max) : maxSlots(max) { }
+Inventory::Inventory(const Inventory& inv) : maxSlots(inv.maxSlots), curSlots(inv.curSlots), maxWeight(inv.maxWeight), curWeight(inv.curWeight) {
+    for (size_t i = 0; i < curSlots; ++i) {
         backing.emplace_back(inv.backing[i]->copy());
     }
 }
-Inventory::Inventory(const std::vector<std::shared_ptr<Item>>& items) : maxItems(items.size()), numItems(maxItems) {
-    for (size_t i = 0; i < maxItems; ++i) {
+Inventory::Inventory(const std::vector<std::shared_ptr<Item>>& items) : maxSlots(items.size()), curSlots(maxSlots) {
+    for (size_t i = 0; i < maxSlots; ++i) {
         backing.emplace_back(items[i]->copy());
     }
 }
-Inventory::Inventory(std::initializer_list<const std::shared_ptr<Item>> il) : maxItems(il.size()), numItems(maxItems) {
+Inventory::Inventory(std::initializer_list<const std::shared_ptr<Item>> il) : maxSlots(il.size()), curSlots(maxSlots) {
     for (const auto& i : il) {
         backing.emplace_back(i->copy());
     }
 }
 
 size_t Inventory::GetPos(const std::shared_ptr<Item>& checkItem) {
-    for (size_t i = 0; i < maxItems; i++) {
+    for (size_t i = 0; i < maxSlots; i++) {
         if (backing[i]->GetName() == checkItem->GetName()) {
             return i;
         }
     }
-    return -1;
+    return SIZE_MAX;
 }
 
 std::shared_ptr<Item> Inventory::GetItem(size_t pos) {
+    if (pos >= curSlots) return nullptr;
     return backing[pos];
-}
-
-std::shared_ptr<Item> Inventory::GetItem(const std::string& name) {
-    for (size_t i = 0; i < maxItems; i++) {
-        if (backing[i]->GetName() == name) {
-            return backing[i];
-        }
-    }
-    return nullptr;
 }
 
 int64_t Inventory::GetGold() const { return gold; }
 
 bool Inventory::AddItem(const std::shared_ptr<Item>& newItem) {
     if (newItem == nullptr) return false;
+    if (curWeight + newItem->getWeight() > maxWeight) return false;
 
-    if (numItems == maxItems) {
-        return ReplaceItem(newItem);
-    }
-    
-    for (size_t i = 0; i < maxItems; i++) {
+    // Checks if we can add it to an existing slot first
+    for (size_t i = 0; i < curSlots; i++) {
         if (backing[i]->GetName() == newItem->GetName() && backing[i]->isStackable()) {
             backing[i]->ChangeAmount(newItem->GetAmount());
-            numItems++;
-            return true;
-        } else if (backing[i] == nullptr) {
-            backing[i] = newItem;
-            numItems++;
+            curWeight += newItem->getWeight();
             return true;
         }
     }
-    return false; //Should never be called
+
+    // If the inventory is full, we need to swap something
+    if (curSlots == maxSlots) {
+        return ReplaceItem(newItem);
+    }
+
+    // Add it
+    ++curSlots;
+    backing.push_back(newItem);
+
+    // Track it for fast access later
+    switch (newItem->GetType()) {
+        case NONE:
+        case WEAPON:
+        case ARMOR: break;
+        case ATTACK: firstAttack = std::min(firstAttack, curSlots); break;
+        case HEAL: firstHeal = std::min(firstHeal, curSlots); break;
+        case STATUS: firstStatus = std::min(firstStatus, curSlots); break;
+    }
+
+    return true;
 }
 
 bool Inventory::ReplaceItem(const std::shared_ptr<Item>& newItem) {
@@ -75,7 +81,7 @@ bool Inventory::ReplaceItem(const std::shared_ptr<Item>& newItem) {
     int64_t choice = 0;
     std::cin >> choice; //Choice will substracted by one to account for the fact that array starts as zero but inventory numbers at 1
 
-    if (choice > 0 && choice <= numItems) {
+    if (choice > 0 && choice <= curSlots) {
         std::cout << backing[choice - 1]->GetName() << " was replaced by " << newItem->GetName() << std::endl;
         backing[choice - 1] = newItem;
         return true;
@@ -87,14 +93,14 @@ bool Inventory::ReplaceItem(const std::shared_ptr<Item>& newItem) {
 
 void Inventory::RemoveItem(const std::shared_ptr<Item>& thing, int64_t amnt) {
     size_t pos = this->GetPos(thing);
-    if (pos >= maxItems) {
+    if (pos >= maxSlots) {
         return;
     }
     backing[pos]->ChangeAmount(-1 * amnt);
     if (backing[pos]->GetAmount() <= 0) {
         backing[pos].reset();
-        numItems--;
-        for (size_t i = pos; i < maxItems - 1; i++) {
+        curSlots--;
+        for (size_t i = pos; i < maxSlots - 1; i++) {
             backing[i] = backing[i + 1];
         }
     }
@@ -104,8 +110,8 @@ void Inventory::RemoveItem(int64_t pos, int64_t amnt) {
     backing[pos]->ChangeAmount(-1 * amnt);
     if (backing[pos]->GetAmount() <= 0) {
         backing[pos].reset();
-        numItems--;
-        for (size_t i = pos; i < maxItems - 1; i++) {
+        curSlots--;
+        for (size_t i = pos; i < maxSlots - 1; i++) {
             backing[i] = backing[i + 1];
         }
     }
@@ -113,12 +119,12 @@ void Inventory::RemoveItem(int64_t pos, int64_t amnt) {
 
 void Inventory::AddGold(int64_t amnt) { gold += amnt; }
 
-size_t Inventory::GetNumElements() const { return maxItems; }
-size_t Inventory::GetUsedElements() const { return numItems; }
+size_t Inventory::GetNumElements() const { return maxSlots; }
+size_t Inventory::GetUsedElements() const { return curSlots; }
 
 void Inventory::PrintItems() {
     std::cout << "ITEMS" << std::endl;
-    for (size_t i = 0; i < maxItems; i++) {
+    for (size_t i = 0; i < maxSlots; i++) {
         if (backing[i] != nullptr) {
             std::cout << backing[i]->GetName() << backing[i]->GetAmntText() << backing[i]->GetAmount() << "  ";
             std::cout << "Price " << backing[i]->GetPrice() << std::endl;
@@ -128,7 +134,7 @@ void Inventory::PrintItems() {
 
 void Inventory::PrintItems(int dummy) {
     std::cout << "ITEMS" << std::endl;
-    for (size_t i = 0; i < maxItems; i++) {
+    for (size_t i = 0; i < maxSlots; i++) {
         if (backing[i] != nullptr) {
             std::cout<< i + 1 <<". ";
             std::cout << backing[i]->GetName() << backing[i]->GetAmntText() << backing[i]->GetAmount() << "  ";
@@ -162,7 +168,7 @@ void Inventory::SelectItem() {
     int64_t choice = 0;
     std::cin>>choice;
     if (choice == -1) { return; }
-    if (choice > maxItems) {
+    if (choice > maxSlots) {
         std::cout << "Please input a valid number" << std::endl;
         this->PrintInven(0);
     } else if (choice != -1) {
@@ -173,18 +179,18 @@ void Inventory::SelectItem() {
 
 void Inventory::GarbageCollection() {
 int64_t removedItems = 0;
-for (size_t i = 0; i < numItems; i++) {
+for (size_t i = 0; i < curSlots; i++) {
     if (backing[i]->GetAmount() <= 0) {
         backing[i] = nullptr;
         removedItems++;
     }
 }
-for (size_t j = 0; j < numItems; j++) {
+for (size_t j = 0; j < curSlots; j++) {
     if (backing[j] == nullptr) {
-        for (size_t i = j; i < maxItems - 1; i++) {
+        for (size_t i = j; i < maxSlots - 1; i++) {
             backing[i] = backing[i + 1];
         }
     }
 }
-    numItems -= removedItems;
+    curSlots -= removedItems;
 }
