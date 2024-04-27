@@ -1,9 +1,10 @@
 #include "EnemyAI.h"
 #include "game.h"
 #include <iostream>
+#include <utility>
 
 
-void EAI::idiot(std::shared_ptr<Enemy> user, std::shared_ptr<EquippedEntity> target) {
+void EAI::idiot(std::shared_ptr<Enemy> user, std::vector<std::shared_ptr<Enemy>> allies) {
     if (randBool()) {
         user->attackEntity(target);
     } else {
@@ -11,7 +12,7 @@ void EAI::idiot(std::shared_ptr<Enemy> user, std::shared_ptr<EquippedEntity> tar
     }
 }
 
-void EAI::berserker(std::shared_ptr<Enemy> user, std::shared_ptr<EquippedEntity> target) {
+void EAI::berserker(std::shared_ptr<Enemy> user, std::vector<std::shared_ptr<Enemy>> allies) {
     double weaponDmg = 1.0;
     if (user->currentWeapon != nullptr) {
         weaponDmg = user->currentWeapon->GetDamage();
@@ -19,7 +20,7 @@ void EAI::berserker(std::shared_ptr<Enemy> user, std::shared_ptr<EquippedEntity>
     target->changeHP(-1 * user->getAttack() * weaponDmg);
 }
 
-void EAI::amateur(std::shared_ptr<Enemy> user, std::shared_ptr<EquippedEntity> target) {
+void EAI::amateur(std::shared_ptr<Enemy> user, std::vector<std::shared_ptr<Enemy>> allies) {
     double weaponDmg = 1.0;
     if (user->currentWeapon != nullptr) {
         weaponDmg = user->currentWeapon->GetDamage();
@@ -60,7 +61,7 @@ void EAI::amateur(std::shared_ptr<Enemy> user, std::shared_ptr<EquippedEntity> t
     }
 }
 
-void EAI::expert(std::shared_ptr<Enemy> user, std::shared_ptr<EquippedEntity> target) {
+void EAI::expert(std::shared_ptr<Enemy> user, std::vector<std::shared_ptr<Enemy>> allies) {
     double weaponDmg = 1.0;
     if (user->currentWeapon != nullptr) {
         weaponDmg = user->currentWeapon->GetDamage();
@@ -108,7 +109,7 @@ void EAI::expert(std::shared_ptr<Enemy> user, std::shared_ptr<EquippedEntity> ta
     }
 }
 
-void EAI::healer(std::shared_ptr<Enemy> user, std::shared_ptr<EquippedEntity> target) {
+void EAI::healer(std::shared_ptr<Enemy> user, std::vector<std::shared_ptr<Enemy>> allies) {
     double weaponDmg = 1.0;
     if (user->currentWeapon != nullptr) {
         weaponDmg = user->currentWeapon->GetDamage();
@@ -127,7 +128,7 @@ void EAI::healer(std::shared_ptr<Enemy> user, std::shared_ptr<EquippedEntity> ta
     }
 }
 
-void EAI::itemHappy(std::shared_ptr<Enemy> user, std::shared_ptr<EquippedEntity> target) {
+void EAI::itemHappy(std::shared_ptr<Enemy> user, std::vector<std::shared_ptr<Enemy>> allies) {
     double weaponDmg = 1.0;
     if (user->currentWeapon != nullptr) {
         weaponDmg = user->currentWeapon->GetDamage();
@@ -137,5 +138,16 @@ void EAI::itemHappy(std::shared_ptr<Enemy> user, std::shared_ptr<EquippedEntity>
         user->inventory.GetItem(randUint() % invenSize);
     } else {
         target->changeHP(-1 * user->getAttack() * weaponDmg);
+    }
+}
+
+std::function<void(std::shared_ptr<Enemy>, std::vector<std::shared_ptr<Enemy>>)> EAI::get(EnumAI which) {
+    switch (which) {
+        case IDIOT:      return [](auto e, auto a) { idiot(std::move(e), std::move(a)); };
+        case BERSERKER:  return [](auto e, auto a) { berserker(std::move(e), std::move(a)); };
+        case AMATEUR:    return [](auto e, auto a) { amateur(std::move(e), std::move(a)); };
+        case EXPERT:     return [](auto e, auto a) { expert(std::move(e), std::move(a)); };
+        case HEALER:     return [](auto e, auto a) { healer(std::move(e), std::move(a)); };
+        case ITEM_HAPPY: return [](auto e, auto a) { itemHappy(std::move(e), std::move(a)); };
     }
 }

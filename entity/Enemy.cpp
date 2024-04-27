@@ -47,3 +47,7 @@ std::vector<std::shared_ptr<Item>> Enemy::dropLoot() {
 
     return lootVector;
 }
+
+EnumAI Enemy::getAI() const {
+    return ai;
+}
