@@ -31,18 +31,18 @@ std::unique_ptr<Item> Equipment::copy() {
 
 Weapon::Weapon(std::string itemName, int64_t durab, double dmg, int64_t price) : Equipment(std::move(itemName), durab, price) {
     dmgMultiplier = dmg;
-    type = "WEAPON";
+    type = WEAPON;
 }
 //Constructor with description
 Weapon::Weapon(std::string itemName, int64_t durab, double dmg, int64_t price, std::string desc) : Equipment(std::move(itemName), durab, price, std::move(desc)) {
     dmgMultiplier = dmg;
-    type = "WEAPON";
+    type = WEAPON;
 }
 
 Weapon::Weapon(Weapon* w) : Equipment(w)
 {
     this->dmgMultiplier = w->GetDamage();
-    type = "WEAPON";
+    type = WEAPON;
 }
 
 double Weapon::GetDamage() const { return dmgMultiplier; }
@@ -102,7 +102,7 @@ Armor::Armor(std::string itemName, int64_t durab, double pDef, double sDef, int6
     staticDef = sDef;
     dmgMultiplier = dmg;
     cast = mold;
-    type = "ARMOR";
+    type = ARMOR;
 }
 Armor::Armor(Armor* a) : Equipment(a), percDef(a->percDef), staticDef(a->staticDef), dmgMultiplier(a->dmgMultiplier), cast(a->cast) { }
 

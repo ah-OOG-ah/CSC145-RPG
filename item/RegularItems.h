@@ -9,9 +9,6 @@
 
 
 class RegularItem : public Item {
-  protected:
-    ItemType type;
-
   public:
     RegularItem(std::string itemName, int64_t price, std::string desc, int64_t amnt = 1);
 

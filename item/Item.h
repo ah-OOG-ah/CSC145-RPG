@@ -4,6 +4,7 @@
 #include <string>
 #include "Menu.h"
 #include "entity/Entity.h"
+#include "ItemTypes.h"
 #include <vector>
 #include <memory>
 
@@ -11,19 +12,20 @@
 class Item : public Menu {
   protected:
     std::string name;
-    std::string type = "NONE";
+    ItemType type = NONE;
     int64_t amount = 1;
     int64_t price = 10;
     bool stackable = true;
     bool equipable = false;
     bool offense = true;
     std::string description;
+
     void dispatch(int64_t i) override;
 
   public:
     //Constructor
     Item(std::string itemName, int64_t price, int64_t amnt, std::string desc);
-    Item(std::string itemName, int64_t price, std::string desc);
+    Item(std::string itemName, int64_t price,               std::string desc);
     explicit Item(const Item* i);
 
     // C++ doesn't have virtual constructors, but I don't care

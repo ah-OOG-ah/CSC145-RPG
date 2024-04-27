@@ -20,7 +20,7 @@ std::unique_ptr<Item> RegularItem::copy() {
 
 AttackItem::AttackItem(std::string itemName, int64_t dmg, int64_t price, std::string desc, bool spread, int64_t amnt, const std::shared_ptr<Status>& effect, int64_t chance)
     : RegularItem(std::move(itemName), price, std::move(desc)), damage(dmg), status(std::make_shared<Status>(effect)), effectChance(chance), spreadDamage(spread) {
-    type.group = spread;
+    type = ATTACK;
 }
 
 void AttackItem::SetDamage(int64_t dmg) { damage = dmg; }
@@ -95,7 +95,7 @@ std::unique_ptr<Item> AttackItem::copy() {
 
 HealItem::HealItem(std::string itemName, int64_t hp, int64_t price, std::string desc, int64_t amnt, const std::shared_ptr<Status>& effect)
     : RegularItem(std::move(itemName), price, std::move(desc), amnt), hpAmnt(hp), healedStatus(std::make_shared<Status>(effect)) {
-    type.good = hp > 0;
+    type = HEAL;
 }
 HealItem::HealItem(const HealItem* ht) : HealItem(ht->name, ht->hpAmnt, ht->price, ht->description, ht->amount, ht->healedStatus) { }
 
@@ -160,7 +160,7 @@ std::unique_ptr<Item> HealItem::copy() {
 
 StatusItem::StatusItem(std::string itemName, int64_t price, int64_t boost, statBoost stat, std::string desc, int64_t chance, const std::shared_ptr<Status>& effect, int64_t amnt)
     : RegularItem(std::move(itemName), price, std::move(desc), amnt), boost(boost), stat(stat), status(std::make_shared<Status>(effect)) {
-    type.good = status->isGood();
+    type = STATUS;
 }
 
 void StatusItem::SetBoost(int64_t val) { boost = val; }
