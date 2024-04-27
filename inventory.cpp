@@ -4,26 +4,26 @@
 #include <iostream>
 
 Inventory::Inventory() = default;
-Inventory::Inventory(size_t itemCap) : numElements(itemCap) { }
-Inventory::Inventory(const Inventory& inv) : numElements(inv.numElements), usedElements(inv.usedElements) {
-    for (size_t i = 0; i < usedElements; ++i) {
-        start.emplace_back(inv.start[i]->copy());
+Inventory::Inventory(size_t itemCap) : maxItems(itemCap) { }
+Inventory::Inventory(const Inventory& inv) : maxItems(inv.maxItems), numItems(inv.numItems) {
+    for (size_t i = 0; i < numItems; ++i) {
+        backing.emplace_back(inv.backing[i]->copy());
     }
 }
-Inventory::Inventory(const std::vector<std::shared_ptr<Item>>& items) : numElements(items.size()), usedElements(numElements) {
-    for (size_t i = 0; i < numElements; ++i) {
-        start.emplace_back(items[i]->copy());
+Inventory::Inventory(const std::vector<std::shared_ptr<Item>>& items) : maxItems(items.size()), numItems(maxItems) {
+    for (size_t i = 0; i < maxItems; ++i) {
+        backing.emplace_back(items[i]->copy());
     }
 }
-Inventory::Inventory(std::initializer_list<const std::shared_ptr<Item>> il) : numElements(il.size()), usedElements(numElements) {
+Inventory::Inventory(std::initializer_list<const std::shared_ptr<Item>> il) : maxItems(il.size()), numItems(maxItems) {
     for (const auto& i : il) {
-        start.emplace_back(i->copy());
+        backing.emplace_back(i->copy());
     }
 }
 
 size_t Inventory::GetPos(const std::shared_ptr<Item>& checkItem) {
-    for (size_t i = 0; i < numElements; i++) {
-        if (start[i]->GetName() == checkItem->GetName()) {
+    for (size_t i = 0; i < maxItems; i++) {
+        if (backing[i]->GetName() == checkItem->GetName()) {
             return i;
         }
     }
@@ -31,13 +31,13 @@ size_t Inventory::GetPos(const std::shared_ptr<Item>& checkItem) {
 }
 
 std::shared_ptr<Item> Inventory::GetItem(size_t pos) {
-    return start[pos];
+    return backing[pos];
 }
 
 std::shared_ptr<Item> Inventory::GetItem(const std::string& name) {
-    for (size_t i = 0; i < numElements; i++) {
-        if (start[i]->GetName() == name) {
-            return start[i];
+    for (size_t i = 0; i < maxItems; i++) {
+        if (backing[i]->GetName() == name) {
+            return backing[i];
         }
     }
     return nullptr;
@@ -48,17 +48,18 @@ int64_t Inventory::GetGold() const { return gold; }
 bool Inventory::AddItem(const std::shared_ptr<Item>& newItem) {
     if (newItem == nullptr) return false;
 
-    if (usedElements == numElements) {
+    if (numItems == maxItems) {
         return ReplaceItem(newItem);
     }
-    for (size_t i = 0; i < numElements; i++) {
-        if (start[i]->GetName() == newItem->GetName() && start[i]->isStackable()) {
-            start[i]->ChangeAmount(newItem->GetAmount());
-            usedElements++;
+    
+    for (size_t i = 0; i < maxItems; i++) {
+        if (backing[i]->GetName() == newItem->GetName() && backing[i]->isStackable()) {
+            backing[i]->ChangeAmount(newItem->GetAmount());
+            numItems++;
             return true;
-        } else if (start[i] == nullptr) {
-            start[i] = newItem;
-            usedElements++;
+        } else if (backing[i] == nullptr) {
+            backing[i] = newItem;
+            numItems++;
             return true;
         }
     }
@@ -74,9 +75,9 @@ bool Inventory::ReplaceItem(const std::shared_ptr<Item>& newItem) {
     int64_t choice = 0;
     std::cin >> choice; //Choice will substracted by one to account for the fact that array starts as zero but inventory numbers at 1
 
-    if (choice > 0 && choice <= usedElements) {
-        std::cout << start[choice - 1]->GetName() << " was replaced by " << newItem->GetName() << std::endl;
-        start[choice - 1] = newItem;
+    if (choice > 0 && choice <= numItems) {
+        std::cout << backing[choice - 1]->GetName() << " was replaced by " << newItem->GetName() << std::endl;
+        backing[choice - 1] = newItem;
         return true;
     } else {
         std::cout << newItem->GetName() <<" was not added to inventory" << std::endl;
@@ -86,52 +87,52 @@ bool Inventory::ReplaceItem(const std::shared_ptr<Item>& newItem) {
 
 void Inventory::RemoveItem(const std::shared_ptr<Item>& thing, int64_t amnt) {
     size_t pos = this->GetPos(thing);
-    if (pos >= numElements) {
+    if (pos >= maxItems) {
         return;
     }
-    start[pos]->ChangeAmount(-1 * amnt);
-    if (start[pos]->GetAmount() <= 0) {
-        start[pos].reset();
-        usedElements--;
-        for (size_t i = pos; i < numElements - 1; i++) {
-            start[i] = start[i + 1];
+    backing[pos]->ChangeAmount(-1 * amnt);
+    if (backing[pos]->GetAmount() <= 0) {
+        backing[pos].reset();
+        numItems--;
+        for (size_t i = pos; i < maxItems - 1; i++) {
+            backing[i] = backing[i + 1];
         }
     }
 }
 
 void Inventory::RemoveItem(int64_t pos, int64_t amnt) {
-    start[pos]->ChangeAmount(-1 * amnt);
-    if (start[pos]->GetAmount() <= 0) {
-        start[pos].reset();
-        usedElements--;
-        for (size_t i = pos; i < numElements - 1; i++) {
-            start[i] = start[i + 1];
+    backing[pos]->ChangeAmount(-1 * amnt);
+    if (backing[pos]->GetAmount() <= 0) {
+        backing[pos].reset();
+        numItems--;
+        for (size_t i = pos; i < maxItems - 1; i++) {
+            backing[i] = backing[i + 1];
         }
     }
 }
 
 void Inventory::AddGold(int64_t amnt) { gold += amnt; }
 
-size_t Inventory::GetNumElements() const { return numElements; }
-size_t Inventory::GetUsedElements() const { return usedElements; }
+size_t Inventory::GetNumElements() const { return maxItems; }
+size_t Inventory::GetUsedElements() const { return numItems; }
 
 void Inventory::PrintItems() {
     std::cout << "ITEMS" << std::endl;
-    for (size_t i = 0; i < numElements; i++) {
-        if (start[i] != nullptr) {
-            std::cout << start[i]->GetName() << start[i]->GetAmntText() << start[i]->GetAmount() << "  ";
-            std::cout <<"Price "<< start[i]->GetPrice() << std::endl;
+    for (size_t i = 0; i < maxItems; i++) {
+        if (backing[i] != nullptr) {
+            std::cout << backing[i]->GetName() << backing[i]->GetAmntText() << backing[i]->GetAmount() << "  ";
+            std::cout << "Price " << backing[i]->GetPrice() << std::endl;
         }
     }
 }
 
 void Inventory::PrintItems(int dummy) {
     std::cout << "ITEMS" << std::endl;
-    for (size_t i = 0; i < numElements; i++) {
-        if (start[i] != nullptr) {
+    for (size_t i = 0; i < maxItems; i++) {
+        if (backing[i] != nullptr) {
             std::cout<< i + 1 <<". ";
-            std::cout << start[i]->GetName() << start[i]->GetAmntText() << start[i]->GetAmount() << "  ";
-            std::cout <<"Price "<< start[i]->GetPrice();
+            std::cout << backing[i]->GetName() << backing[i]->GetAmntText() << backing[i]->GetAmount() << "  ";
+            std::cout << "Price " << backing[i]->GetPrice();
             /*if(start[i]->isEquipment())
             {
                 std::cout << start[i]->GetDurab();
@@ -161,29 +162,29 @@ void Inventory::SelectItem() {
     int64_t choice = 0;
     std::cin>>choice;
     if (choice == -1) { return; }
-    if (choice > numElements) {
+    if (choice > maxItems) {
         std::cout << "Please input a valid number" << std::endl;
         this->PrintInven(0);
     } else if (choice != -1) {
-        start[choice]->display();
+        backing[choice]->display();
         this->PrintInven(0);
     }
 }
 
 void Inventory::GarbageCollection() {
 int64_t removedItems = 0;
-for (size_t i = 0; i < usedElements; i++) {
-    if (start[i]->GetAmount() <= 0) {
-        start[i] = nullptr;
+for (size_t i = 0; i < numItems; i++) {
+    if (backing[i]->GetAmount() <= 0) {
+        backing[i] = nullptr;
         removedItems++;
     }
 }
-for (size_t j = 0; j < usedElements; j++) {
-    if (start[j] == nullptr) {
-        for (size_t i = j; i < numElements - 1; i++) {
-            start[i] = start[i + 1];
+for (size_t j = 0; j < numItems; j++) {
+    if (backing[j] == nullptr) {
+        for (size_t i = j; i < maxItems - 1; i++) {
+            backing[i] = backing[i + 1];
         }
     }
 }
-usedElements -= removedItems;
+    numItems -= removedItems;
 }

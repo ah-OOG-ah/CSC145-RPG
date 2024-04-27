@@ -10,9 +10,9 @@
 
 class Inventory {
   protected:
-    size_t numElements = 30;
-    size_t usedElements = 0;
-    std::vector<std::shared_ptr<Item>> start;
+    size_t maxItems = 30;
+    size_t numItems = 0;
+    std::vector<std::shared_ptr<Item>> backing;
 
     int64_t gold = 0;
 
