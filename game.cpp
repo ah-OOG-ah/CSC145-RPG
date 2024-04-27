@@ -34,7 +34,7 @@ std::shared_ptr<Scene> getScene() {
 std::shared_ptr<Player> getPlayer() {
     return player;
 }
-int64_t getPHP() { return player->getCurrentHp(); }
+double getPHP() { return player->getCurrentHp(); }
 bool getPFlee() { return player->getFleeing(); }
 
 void setPFlee(bool b) { player->setFleeing(b); }

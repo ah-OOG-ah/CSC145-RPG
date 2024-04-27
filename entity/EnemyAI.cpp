@@ -4,27 +4,48 @@
 #include <utility>
 
 
-void EAI::idiot(std::shared_ptr<Enemy> user, std::vector<std::shared_ptr<Enemy>> allies) {
+/**
+ * Berserker always attacks.
+ */
+void EAI::berserker(const std::shared_ptr<Enemy>& user, const std::vector<std::shared_ptr<Enemy>>& allies) {
+    auto before = getPHP();
+    user->attackEntity(getPlayer());
+    std::cout << user->getName() << " attacked for " << before - getPHP() << " damage!" << std::endl;
+}
+
+/**
+ * Idiot has a 50/50 chance of attacking or using a random item. If it tries to use an item but doesn't have one, it
+ * just does nothing. What else did you expect? It's an idiot.
+ */
+void EAI::idiot(const std::shared_ptr<Enemy>& user, const std::vector<std::shared_ptr<Enemy>>& allies) {
     if (randBool()) {
-        user->attackEntity(target);
+        berserker(user, allies);
     } else {
         //user->inventory.GetItem(randUint() % user->inventory.GetUsedElements());
+        std::cout << user->getName() << " did nothing." << std::endl;
     }
 }
 
-void EAI::berserker(std::shared_ptr<Enemy> user, std::vector<std::shared_ptr<Enemy>> allies) {
+/**
+ * Amateur is a middling quality strategist, but it at least attempts to be smart.
+ * It follows the following algorithm:
+ * If the inventory is empty, it reverts to berserker.
+ * Else, it starts evaluating its items, and will use them (if present) in order:
+ *  - Healing if less than half health.
+ *  - Status if weaker than opponent
+ * If none succeed, it attacks normally. Amateur can't use attack items.
+ */
+void EAI::amateur(const std::shared_ptr<Enemy>& user, const std::vector<std::shared_ptr<Enemy>>& allies) {
+
+    if (user->inventory.GetUsedElements() == 0) {
+        berserker(user, allies);
+    }
+
     double weaponDmg = 1.0;
     if (user->currentWeapon != nullptr) {
         weaponDmg = user->currentWeapon->GetDamage();
     }
-    target->changeHP(-1 * user->getAttack() * weaponDmg);
-}
 
-void EAI::amateur(std::shared_ptr<Enemy> user, std::vector<std::shared_ptr<Enemy>> allies) {
-    double weaponDmg = 1.0;
-    if (user->currentWeapon != nullptr) {
-        weaponDmg = user->currentWeapon->GetDamage();
-    }
     if (user->getCurrentHp() < (user->getMaxHp() / 2.0)) {
         int64_t healOrDef = randUint() % 3;
         if (healOrDef < 2) {

@@ -45,7 +45,6 @@ void Battle::run() {
         display();
 
         for (auto& e : enemy) {
-
             // Run the enemy's AI
             EAI::get(e->getAI())(e, enemy);
         }
