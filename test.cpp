@@ -1,8 +1,8 @@
 #include "Item.h"
 #include "RegularItems.h"
 
-int maxItems = 30;
-Item** backing = new Item*[maxItems];
+int maxSlots = 30;
+Item** backing = new Item*[maxSlots];
 
 
 int main (){
