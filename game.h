@@ -7,7 +7,7 @@
 
 
 std::shared_ptr<Player> getPlayer();
-int64_t getPHP();
+double getPHP();
 bool getPFlee();
 
 void setPFlee(bool);
