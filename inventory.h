@@ -16,11 +16,15 @@ class Inventory {
 
     int64_t gold = 0;
 
+    size_t firstHeal = SIZE_MAX;
+    size_t firstStatus = SIZE_MAX;
+    size_t firstAttack = SIZE_MAX;
+
   public:
     //Constructors
     Inventory();
     explicit Inventory(size_t);
-    explicit Inventory(const Inventory&);
+    Inventory(const Inventory&);
     explicit Inventory(const std::vector<std::shared_ptr<Item>>&);
     Inventory(std::initializer_list<const std::shared_ptr<Item>>);
 
