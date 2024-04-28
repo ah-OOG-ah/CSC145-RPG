@@ -14,9 +14,7 @@ void doOptimalAttack(EAI::UseInfo info, const std::shared_ptr<Enemy>& self, cons
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunused-parameter"
-/**
- * Berserker always attacks.
- */
+
 void EAI::berserker(const std::shared_ptr<Enemy>& user, const std::vector<std::shared_ptr<Enemy>>& allies) {
     auto before = getPHP();
     user->attackEntity(getPlayer());
@@ -24,10 +22,6 @@ void EAI::berserker(const std::shared_ptr<Enemy>& user, const std::vector<std::s
 }
 #pragma clang diagnostic pop
 
-/**
- * Idiot has a 50/50 chance of attacking or using a random item. If it tries to use an item but doesn't have one, it
- * just does nothing. What else did you expect? It's an idiot.
- */
 void EAI::idiot(const std::shared_ptr<Enemy>& user, const std::vector<std::shared_ptr<Enemy>>& allies) {
     if (randBool()) {
         berserker(user, allies);
@@ -37,18 +31,7 @@ void EAI::idiot(const std::shared_ptr<Enemy>& user, const std::vector<std::share
     }
 }
 
-/**
- * Amateur is a middling quality strategist, but it at least attempts to be smart.
- * It follows the following algorithm:
- * If the inventory is empty, it reverts to berserker.
- * Else, it starts evaluating its items, and will use them (if present) in order:
- *  - Healing if less than half health.
- *  - Status if more than 15 STR weaker than opponent
- * If none succeed, it attacks normally. Amateur can't use attack items.
- */
 void EAI::amateur(const std::shared_ptr<Enemy>& user, const std::vector<std::shared_ptr<Enemy>>& allies) {
-    if (user->inventory.getUsedSlots() == 0) { berserker(user, allies); }
-
     auto item = user->inventory.getFirst(HEAL);
 
     if (item < SIZE_MAX && user->getCurrentHp() < (user->getMaxHp() / 2.0)) {
@@ -66,22 +49,6 @@ void EAI::amateur(const std::shared_ptr<Enemy>& user, const std::vector<std::sha
     berserker(user, allies);
 }
 
-/**
- * Expert attempts to play optimally.
- * It follows the following algorithm:
- * First, determine it's highest-power attack, heal, and status items.
- * If it can kill, attack (may be with item).
- * If not, it checks if it can be killed
- *  - if it can heal or status out of this, do so (prefer status)
- *  - if not, do the most damage possible
- * If it won't be killed, choose the highest "getValue" action - heal if the heal can be fully exploited, status if that
- * boosts it by more than half its best damage, optimal attack otherwise.
- *
- * Expert isn't a *perfect* strategist - it doesn't account for group effects or damage over time, and can't predict
- * more than one move in the future. But it's more capable than amateur.
- *
- * TODO: account for simple poison/regen case, and maybe paralysis too
- */
 void EAI::expert(const std::shared_ptr<Enemy>& user, const std::vector<std::shared_ptr<Enemy>>& allies) {
     // Determine the highest attack item, and whether it's better than the weapon
     auto aInfo = EAI::getInfo<AttackItem>(user);
@@ -142,12 +109,6 @@ void EAI::expert(const std::shared_ptr<Enemy>& user, const std::vector<std::shar
     }
 }
 
-/**
- * Prioritizes healing above everything else. Not particularly useful if it's the only enemy...
- * It follows the following algorithm:
- * If it has a healing item, it uses the healing item. Otherwise, does nothing.
- * What did you think it'd do?
- */
 void EAI::healer(const std::shared_ptr<Enemy>& user, const std::vector<std::shared_ptr<Enemy>>& allies) {
     auto item = user->inventory.getFirst(HEAL);
 
@@ -159,22 +120,19 @@ void EAI::healer(const std::shared_ptr<Enemy>& user, const std::vector<std::shar
     std::cout << user->getName() << " did nothing." << std::endl;
 }
 
-void EAI::itemHappy(std::shared_ptr<Enemy> user, std::vector<std::shared_ptr<Enemy>> allies) {
-    double weaponDmg = 1.0;
-    if (user->currentWeapon != nullptr) {
-        weaponDmg = user->currentWeapon->GetDamage();
+void EAI::itemHappy(const std::shared_ptr<Enemy>& user, const std::vector<std::shared_ptr<Enemy>>& allies) {
+
+    if (user->inventory.getUsedSlots() > 0) {
+        user->inventory[0]->use(user, (const std::vector<std::shared_ptr<Entity>> &) allies, { getPlayer() });
+        return;
     }
-    int64_t invenSize = user->inventory.getUsedSlots();
-    if (invenSize > 0) {
-        user->inventory.GetItem(randUint() % invenSize);
-    } else {
-        target->changeHP(-1 * user->getAttack() * weaponDmg);
-    }
+
+    berserker(user, allies);
 }
 
-std::function<void(std::shared_ptr<Enemy>, std::vector<std::shared_ptr<Enemy>>)> EAI::get(EnumAI which) {
+std::function<void(const std::shared_ptr<Enemy>&, const std::vector<std::shared_ptr<Enemy>>&)> EAI::get(EnumAI which) {
     switch (which) {
-        case IDIOT:      return [](auto e, auto a) { idiot(std::move(e), std::move(a)); };
+            case IDIOT:      return [](auto e, auto a) { idiot(std::move(e), std::move(a)); };
         case BERSERKER:  return [](auto e, auto a) { berserker(std::move(e), std::move(a)); };
         case AMATEUR:    return [](auto e, auto a) { amateur(std::move(e), std::move(a)); };
         case EXPERT:     return [](auto e, auto a) { expert(std::move(e), std::move(a)); };
