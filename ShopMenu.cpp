@@ -39,7 +39,7 @@ void ShopMenu::Buy() {
     int64_t itemChoice = 0;
     do {
         std::cout << merchantName << ": " <<entries[2]<<std::endl;
-        std::cout << "GOLD" << getPlayer()->inventory.GetGold() << std::endl;
+        std::cout << "GOLD" << getPlayer()->inventory.getGold() << std::endl;
         for (int i = 1; i <= 3; i++) {
             std::cout<< i << ". " << GetPurchase(i)->GetName() << "x" << GetPurchase(i)->GetAmount();
             if (GetPurchase(i)->isEquipment()) {
@@ -59,7 +59,7 @@ void ShopMenu::Sell() {
     getPlayer()->inventory.print(true); //Used to print items with numbers by them
     int64_t choice = 0;
     std::cin>>choice; //Choice will substracted by one to account for the fact that array starts as zero but inventory numbers at 1
-    if (choice > 0 && choice <= getPlayer()->inventory.GetUsedElements()) {
+    if (choice > 0 && choice <= getPlayer()->inventory.getUsedSlots()) {
         int64_t sellAmnt = 1;
         if (getPlayer()->inventory.GetItem(choice)->isStackable()) {
             std::cout << merchantName<< ": " << entries[15] << " ";
@@ -95,7 +95,7 @@ void ShopMenu::display() {
     int64_t choice = 0;
     while (choice != 3) {
         std::cout << merchantName<< ": " << entries[1] <<std::endl;
-        std::cout << "GOLD" << getPlayer()->inventory.GetGold() << std::endl;
+        std::cout << "GOLD" << getPlayer()->inventory.getGold() << std::endl;
         std::cout<<"1. I want to buy"<<std::endl;
         std::cout<<"2. I want to sell"<<std::endl;
         std::cout<<"3. I was just leaving"<<std::endl;
@@ -119,7 +119,7 @@ void ShopMenu::display() {
 void ShopMenu::dispatch(int64_t choice) {
     switch (choice) {
         case 1:
-            if (getPlayer()->inventory.GetGold() < purchase1->GetPrice()) {
+            if (getPlayer()->inventory.getGold() < purchase1->GetPrice()) {
                 std::cout << merchantName<< ": " << entries[7] <<std::endl;
                 return;
             }
@@ -134,7 +134,7 @@ void ShopMenu::dispatch(int64_t choice) {
             }
             break;
         case 2:
-            if (getPlayer()->inventory.GetGold() < purchase2->GetPrice()) {
+            if (getPlayer()->inventory.getGold() < purchase2->GetPrice()) {
                 std::cout << merchantName<< ": " << entries[7] <<std::endl;
                 return;
             }
@@ -149,7 +149,7 @@ void ShopMenu::dispatch(int64_t choice) {
             }
             break;
         case 3:
-            if (getPlayer()->inventory.GetGold() < purchase1->GetPrice()) {
+            if (getPlayer()->inventory.getGold() < purchase1->GetPrice()) {
                 std::cout << merchantName<< ": " << entries[7] <<std::endl;
                 return;
             }

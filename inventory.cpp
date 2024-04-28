@@ -21,9 +21,9 @@ Inventory::Inventory(std::initializer_list<const std::shared_ptr<Item>> il) : ma
     }
 }
 
-int64_t Inventory::GetGold() const { return gold; }
-size_t Inventory::GetNumElements() const { return maxSlots; }
-size_t Inventory::GetUsedElements() const { return curSlots; }
+int64_t Inventory::getGold() const { return gold; }
+size_t Inventory::getMaxSlots() const { return maxSlots; }
+size_t Inventory::getUsedSlots() const { return curSlots; }
 
 size_t Inventory::GetPos(const std::shared_ptr<Item>& checkItem) {
     for (size_t i = 0; i < maxSlots; i++) {
@@ -153,4 +153,19 @@ void Inventory::findFirstItems(ItemType type) {
         if (backing[i]->GetType() == type) { *val = i; return; }
     }
     *val = SIZE_MAX;
+}
+
+size_t Inventory::getFirst(ItemType t) const {
+    switch (t) {
+        case NONE:
+        case WEAPON:
+        case ARMOR: return SIZE_MAX;
+        case ATTACK: return firstAttack;
+        case HEAL: return firstHeal;
+        case STATUS: return firstStatus;
+    }
+}
+
+std::shared_ptr<Item> Inventory::operator[](size_t i) {
+    return GetItem(i);
 }

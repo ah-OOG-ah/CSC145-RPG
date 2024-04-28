@@ -44,4 +44,4 @@ void Item::display() {
 
 void Item::dispatch(int64_t i) { }
 
-void Item::Use(std::shared_ptr<Entity> user, std::vector<std::shared_ptr<Entity>> opponents) { }
+void Item::use(const std::shared_ptr<Entity>& user, const std::vector<std::shared_ptr<Entity>>& allies, const std::vector<std::shared_ptr<Entity>>& opponents) { }
