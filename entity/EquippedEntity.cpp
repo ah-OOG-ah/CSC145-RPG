@@ -8,17 +8,11 @@ EquippedEntity::EquippedEntity(std::string name, double hp, double attk, double 
     : Entity(std::move(name), hp, attk, percDef, staticDef, spd), inventory(inv), armor(ITiers::noArmor) { }
 
 void EquippedEntity::takeDamage(double amnt) {
-    amnt -= this->staticDef;
-    amnt *= this->percDef;
-    for (int i = 0; i < 4; i++) {
-        amnt -= armor[i]->GetStaticDef();
-        amnt *= armor[i]->GetPercDef();
-    }
-    this->hp -= amnt;
-}
+    amnt -= staticDef + armor.defenseStatic();
+    if (amnt < 0) return;
 
-void EquippedEntity::attackEntity(const std::shared_ptr<Entity>& enemy) {
-    enemy->takeDamage(this->attack * this->currentWeapon->GetDamage());
+    amnt *= this->percDef * armor.defenseMult();
+    this->hp -= amnt;
 }
 
 double EquippedEntity::getAttack() const {
