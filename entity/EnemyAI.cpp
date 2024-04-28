@@ -37,7 +37,7 @@ void EAI::idiot(const std::shared_ptr<Enemy>& user, const std::vector<std::share
  */
 void EAI::amateur(const std::shared_ptr<Enemy>& user, const std::vector<std::shared_ptr<Enemy>>& allies) {
 
-    if (user->inventory.GetUsedElements() == 0) {
+    if (user->inventory.getUsedSlots() == 0) {
         berserker(user, allies);
     }
 
@@ -46,29 +46,16 @@ void EAI::amateur(const std::shared_ptr<Enemy>& user, const std::vector<std::sha
         weaponDmg = user->currentWeapon->GetDamage();
     }
 
-    if (user->getCurrentHp() < (user->getMaxHp() / 2.0)) {
-        int64_t healOrDef = randUint() % 3;
-        if (healOrDef < 2) {
-            for (int i = 0; i < user->inventory.GetUsedElements(); i++) {
-                if (user->inventory.GetItem(i)->GetType() == "HEAL") {
-                    user->inventory.GetItem(i)->Use(user, { target });
-                    return;
-                }
-            }
-            target->changeHP(-1 * user->getAttack() * weaponDmg);
-        } else {
-            for (int i = 0; i < user->inventory.GetUsedElements(); i++) {
-                if (user->inventory.GetItem(i)->GetType() == "STATUS") {
-                    user->inventory.GetItem(i)->Use(user, { target });
-                    return;
-                }
-            }
-            target->changeHP(-1 * user->getAttack() * weaponDmg);
-        }
+    auto item = user->inventory.getFirst(HEAL);
+
+    if (item < SIZE_MAX && user->getCurrentHp() < (user->getMaxHp() / 2.0)) {
+
+        std::cout << user->getName() << " used " << user->inventory[item]->GetName() << std::endl;
+        user->inventory[item]->use(user, (const std::vector<std::shared_ptr<Entity>> &) allies, { getPlayer() });
     } else if (user->getAttack() < (target->getAttack() - 15)) {
-        for (int i = 0; i < user->inventory.GetUsedElements(); i++) {
+        for (int i = 0; i < user->inventory.getUsedSlots(); i++) {
             if (user->inventory.GetItem(i)->GetType() == "STATUS") {
-                user->inventory.GetItem(i)->Use(user, { target });
+                user->inventory.GetItem(i)->use(user, {target}, <#initializer#>);
                 return;
             }
         }
@@ -77,7 +64,7 @@ void EAI::amateur(const std::shared_ptr<Enemy>& user, const std::vector<std::sha
         if (randBool()) {
             target->changeHP(-1 * user->getAttack() * weaponDmg);
         } else {
-            user->inventory.GetItem(randUint() % user->inventory.GetUsedElements());
+            user->inventory.GetItem(randUint() % user->inventory.getUsedSlots());
         }
     }
 }
@@ -88,9 +75,9 @@ void EAI::expert(std::shared_ptr<Enemy> user, std::vector<std::shared_ptr<Enemy>
         weaponDmg = user->currentWeapon->GetDamage();
     }
     if (user->getCurrentHp() < (user->getMaxHp() / 2.0)) {
-        for (int i = 0; i < user->inventory.GetUsedElements(); i++) {
+        for (int i = 0; i < user->inventory.getUsedSlots(); i++) {
             if (user->inventory.GetItem(i)->GetType() == "HEAL") {
-                user->inventory.GetItem(i)->Use(user, { target });
+                user->inventory.GetItem(i)->use(user, {target}, <#initializer#>);
                 return;
             }
         }
@@ -114,9 +101,9 @@ void EAI::expert(std::shared_ptr<Enemy> user, std::vector<std::shared_ptr<Enemy>
         if (user->armor[armorChoice]->GetPercDef() < user->armor[armorChoice]->GetPercDef()
          || user->armor[armorChoice]->GetStaticDef() < user->armor[armorChoice]->GetStaticDef()
          || user->armor[armorChoice]->GetDurab() < 14) {
-            for (int i = 0; i < user->inventory.GetUsedElements(); i++) {
+            for (int i = 0; i < user->inventory.getUsedSlots(); i++) {
                 if (user->inventory.GetItem(i)->GetType() == "ARMOR") {
-                    user->inventory.GetItem(i)->Use(user, { target });
+                    user->inventory.GetItem(i)->use(user, {target}, <#initializer#>);
                     return;
                 } 
             }
@@ -125,7 +112,7 @@ void EAI::expert(std::shared_ptr<Enemy> user, std::vector<std::shared_ptr<Enemy>
         if (attkOrItem > 0) {
             target->changeHP(-1 * user->getAttack() * weaponDmg);
         } else {
-            user->inventory.GetItem(randUint() % user->inventory.GetUsedElements());
+            user->inventory.GetItem(randUint() % user->inventory.getUsedSlots());
         }
     }
 }
@@ -137,9 +124,9 @@ void EAI::healer(std::shared_ptr<Enemy> user, std::vector<std::shared_ptr<Enemy>
     }
     int64_t healChance = randUint() % 3;
     if (healChance < 2) {
-        for (int i = 0; i < user->inventory.GetUsedElements(); i++) {
+        for (int i = 0; i < user->inventory.getUsedSlots(); i++) {
             if (user->inventory.GetItem(i)->GetType() == "HEAL") {
-                user->inventory.GetItem(i)->Use(user, { target });
+                user->inventory.GetItem(i)->use(user, {target}, <#initializer#>);
                 return;
             }
         }
@@ -154,7 +141,7 @@ void EAI::itemHappy(std::shared_ptr<Enemy> user, std::vector<std::shared_ptr<Ene
     if (user->currentWeapon != nullptr) {
         weaponDmg = user->currentWeapon->GetDamage();
     }
-    int64_t invenSize = user->inventory.GetUsedElements();
+    int64_t invenSize = user->inventory.getUsedSlots();
     if (invenSize > 0) {
         user->inventory.GetItem(randUint() % invenSize);
     } else {

@@ -21,7 +21,7 @@ std::vector<std::shared_ptr<Item>> Enemy::getExtraLoot() const { return extraLoo
 std::vector<std::shared_ptr<Item>> Enemy::dropLoot() {
     std::vector<std::shared_ptr<Item>> lootVector;
 
-    for (size_t i = 0; i < this->inventory.GetUsedElements(); i++) {
+    for (size_t i = 0; i < this->inventory.getUsedSlots(); i++) {
         lootVector.emplace_back(this->inventory.GetItem(i));
     }
 

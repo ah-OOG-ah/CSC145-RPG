@@ -49,7 +49,8 @@ double Weapon::GetDamage() const { return dmgMultiplier; }
 
 void Weapon::SetDamage(double dmg) { dmgMultiplier = dmg; }
 
-void Weapon::Use(std::shared_ptr<Entity> user, std::vector<std::shared_ptr<Entity>> opponents) {
+void Weapon::use(const std::shared_ptr<Entity> &user, const std::vector<std::shared_ptr<Entity>> &opponents,
+                 const std::vector<std::shared_ptr<Entity>> &allies) {
 
     /*
     Weapon* oldWeapon = user->currentWeapon;
@@ -80,7 +81,7 @@ void Weapon::display() {
     while (choice != "EXIT") {
         std::getline(std::cin, choice);
         if (choice == "EQUIP") {
-            this->Use(getPlayer(), { });
+            this->use(getPlayer(), {}, <#initializer#>);
             if (this->GetAmount() <= 0) {
                 return;
             }
@@ -115,38 +116,6 @@ void Armor::SetStaticDef(double val) { staticDef = val; }
 void Armor::SetDmgMult(double dmg) { dmgMultiplier = dmg; }
 void Armor::SetArmorType(ArmorType mold) { cast = mold; }
 
-void Armor::Use(std::shared_ptr<Entity> user, std::vector<std::shared_ptr<Entity>> opponents) {
-    /*
-    Armor* oldArmor = nullptr;
-    if(this->cast == Helmet)
-    {
-        oldArmor = user->armorArray[0];
-        user->armorArray[0] = this;
-    }
-    else if(this->cast == Chestplate)
-    {
-        oldArmor = user->armorArray[1];
-        user->armorArray[1] = this;
-    }
-    else if(this->cast == Leggings)
-    {
-        oldArmor = user->armorArray[2];
-        user->armorArray[2] = this;
-    }
-    else if(this->cast == Boots)
-    {
-        oldArmor = user->armorArray[3];
-        user->armorArray[3] = this;
-    }
-    if(oldArmor != nullptr)
-    {
-        std::cout << oldArmor->GetName() << " was unequipped "  << std::endl;
-    }
-    std::cout << user->getName() << " equipped " << this->GetName() << std::endl;
-    user->Inven.RemoveItem(this);
-    user->Inven.AddItem(oldArmor);*/
-}
-
 void Armor::display() {
     std::cout << entries[0] << std::endl;
     switch (cast) {
@@ -177,7 +146,7 @@ void Armor::display() {
     while (choice != "EXIT") {
         std::getline(std::cin, choice);
         if (choice == "EQUIP") {
-            this->Use(getPlayer(), { });
+            this->use(getPlayer(), {}, <#initializer#>);
             if (this->GetAmount() <= 0) {
                 return;
             }

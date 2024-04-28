@@ -36,12 +36,15 @@ class Inventory {
     explicit Inventory(const std::vector<std::shared_ptr<Item>>&);
     Inventory(std::initializer_list<const std::shared_ptr<Item>>);
 
-    [[nodiscard]] int64_t GetGold() const;
-    [[nodiscard]] size_t GetNumElements() const;
-    [[nodiscard]] size_t GetUsedElements() const;
+    [[nodiscard]] int64_t getGold() const;
+    [[nodiscard]] size_t getMaxSlots() const;
+    [[nodiscard]] size_t getUsedSlots() const;
+
+    [[nodiscard]] size_t getFirst(ItemType) const;
 
     size_t GetPos(const std::shared_ptr<Item>&);
     std::shared_ptr<Item> GetItem(size_t);
+    std::shared_ptr<Item> operator[] (size_t);
     bool ReplaceItem(const std::shared_ptr<Item>&); // function called by AddItem when inventory is full. True if item is replaced, else false
     void RemoveItem(size_t pos, int64_t amnt = 0); // Used instead of ChangeAmount amount is to be removed. 0 in second integer removes all amount of the item
     void AddGold(int64_t);
