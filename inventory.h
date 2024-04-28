@@ -9,6 +9,12 @@
 
 
 class Inventory {
+  private:
+    /**
+     * Scans the inventory for the first item of the given type. If it is NONE, ARMOR, or WEAPON, it does not scan.
+     */
+    void findFirstItems(ItemType type);
+
   protected:
     size_t maxSlots = 30;
     size_t curSlots = 0;
