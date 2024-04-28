@@ -44,6 +44,12 @@ class Item : public Menu {
     [[nodiscard]] bool isEquipment() const;
     [[nodiscard]] bool isOffense() const;
 
+    /**
+     * This is some arbitrary value that can be used to sort items. For example, healing items would want to override
+     * this to return the HP healed. Armor might return the total defense, or no override if sorting isn't needed.
+     */
+    [[nodiscard]] virtual double getValue() const;
+
     //Setters
     virtual void ChangeAmount(int64_t addAmnt);
 
