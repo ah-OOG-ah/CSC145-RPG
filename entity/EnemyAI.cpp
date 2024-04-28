@@ -4,47 +4,6 @@
 #include <utility>
 
 
-/**
- * Determine the highest attack item, and whether it's better than the weapon.
- */
-EAI::UseInfo getAttackInfo(const std::shared_ptr<EquippedEntity>& e) {
-    double attack = 0;
-    size_t index = SIZE_MAX;
-    for (size_t i = 0; i < e->inventory.getUsedSlots(); ++i) {
-        if (e->inventory[i]->GetType() == ATTACK) {
-            auto a = dynamic_cast<AttackItem&>(*e->inventory[i]);
-
-            if (attack < a.GetDamage()) {
-                attack = a.GetDamage();
-                index = i;
-            }
-        }
-    }
-    bool isItem = e->getAttack() < attack;
-
-    return { attack, index, isItem };
-}
-
-/**
- * Determine the highest heal item
- */
-EAI::UseInfo getHealInfo(const std::shared_ptr<EquippedEntity>& e) {
-    double healing = 0;
-    size_t index = SIZE_MAX;
-    for (size_t i = 0; i < e->inventory.getUsedSlots(); ++i) {
-        if (e->inventory[i]->GetType() == HEAL) {
-            auto a = dynamic_cast<HealItem&>(*e->inventory[i]);
-
-            if (healing < a.GetHpAmnt()) {
-                healing = a.GetHpAmnt();
-                index = i;
-            }
-        }
-    }
-
-    return { healing, index, true };
-}
-
 void doOptimalAttack(EAI::UseInfo info, const std::shared_ptr<Enemy>& self, const std::vector<std::shared_ptr<Enemy>>& allies) {
     if (info.isItem) {
         self->inventory[info.index]->use(self, (const std::vector<std::shared_ptr<Entity>> &) allies, { getPlayer() });
@@ -53,6 +12,8 @@ void doOptimalAttack(EAI::UseInfo info, const std::shared_ptr<Enemy>& self, cons
     }
 }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-parameter"
 /**
  * Berserker always attacks.
  */
@@ -61,6 +22,7 @@ void EAI::berserker(const std::shared_ptr<Enemy>& user, const std::vector<std::s
     user->attackEntity(getPlayer());
     std::cout << user->getName() << " attacked for " << before - getPHP() << " damage!" << std::endl;
 }
+#pragma clang diagnostic pop
 
 /**
  * Idiot has a 50/50 chance of attacking or using a random item. If it tries to use an item but doesn't have one, it
@@ -112,7 +74,7 @@ void EAI::amateur(const std::shared_ptr<Enemy>& user, const std::vector<std::sha
  * If not, it checks if it can be killed
  *  - if it can heal or status out of this, do so (prefer status)
  *  - if not, do the most damage possible
- * If it won't be killed, choose the highest "value" action - heal if the heal can be fully exploited, status if that
+ * If it won't be killed, choose the highest "getValue" action - heal if the heal can be fully exploited, status if that
  * boosts it by more than half its best damage, optimal attack otherwise.
  *
  * Expert isn't a *perfect* strategist - it doesn't account for group effects or damage over time, and can't predict
@@ -121,51 +83,63 @@ void EAI::amateur(const std::shared_ptr<Enemy>& user, const std::vector<std::sha
  * TODO: account for simple poison/regen case, and maybe paralysis too
  */
 void EAI::expert(const std::shared_ptr<Enemy>& user, const std::vector<std::shared_ptr<Enemy>>& allies) {
-    double weaponDmg = 1.0;
-    if (user->currentWeapon != nullptr) {
-        weaponDmg = user->currentWeapon->GetDamage();
-    }
-
     // Determine the highest attack item, and whether it's better than the weapon
-    auto info = getAttackInfo(user);
+    auto aInfo = EAI::getInfo<AttackItem>(user);
 
     // Copy the player for use as a test dummy
     auto theirDummy = std::make_unique<EquippedEntity>(*getPlayer());
 
     // Try to kill
-    if (info.isItem) {
-        theirDummy->takeDamage(info.value);
+    if (aInfo.isItem) {
+        theirDummy->takeDamage(aInfo.value);
     } else {
         theirDummy->takeDamage(user->getAttack());
     }
 
     // If it worked, do it for real
     if (!theirDummy->getAlive()) {
-        doOptimalAttack(info, user, allies);
+        doOptimalAttack(aInfo, user, allies);
         return;
     }
 
     // We can't one-shot, it's time for hard decisions.
 
     // Are we vulnerable?
-    auto pInfo = getAttackInfo(getPlayer());
+    auto pAInfo = EAI::getInfo<AttackItem>(getPlayer());
     auto ourDummy = std::make_unique<Enemy>(*user);
 
-    if (info.isItem) {
-        ourDummy->takeDamage(pInfo.value);
+    if (aInfo.isItem) {
+        ourDummy->takeDamage(pAInfo.value);
     } else {
         ourDummy->takeDamage(getPlayer()->getAttack());
     }
 
     // If it worked, there's nothing to lose - go out in a blaze of glory!
     if (!ourDummy->getAlive()) {
-        doOptimalAttack(info, user, allies);
+        doOptimalAttack(aInfo, user, allies);
         return;
     }
 
     // We live another round - check heals and status items
 
+    // Use a heal if it's worth it
+    auto hInfo = EAI::getInfo<HealItem>(user);
+    if (user->getMaxHp() - user->getCurrentHp() >= hInfo.value) {
+        user->inventory[hInfo.index]->use(user, (const std::vector<std::shared_ptr<Entity>>&) allies, { getPlayer() });
+        return;
+    }
 
+    // Compare status vs attack
+    auto sInfo = EAI::getInfo<StatusItem>(user);
+    if (sInfo.value > aInfo.value / 2) {
+        user->inventory[sInfo.index]->use(user, (const std::vector<std::shared_ptr<Entity>>&) allies, { getPlayer() });
+        return;
+    } else {
+
+        // Just punch it already
+        doOptimalAttack(aInfo, user, allies);
+        return;
+    }
 }
 
 void EAI::healer(std::shared_ptr<Enemy> user, std::vector<std::shared_ptr<Enemy>> allies) {
@@ -177,7 +151,7 @@ void EAI::healer(std::shared_ptr<Enemy> user, std::vector<std::shared_ptr<Enemy>
     if (healChance < 2) {
         for (int i = 0; i < user->inventory.getUsedSlots(); i++) {
             if (user->inventory.GetItem(i)->GetType() == "HEAL") {
-                user->inventory.GetItem(i)->use(user, {target}, <#initializer#>);
+                user->inventory.GetItem(i)->use(user, {target}, );
                 return;
             }
         }
