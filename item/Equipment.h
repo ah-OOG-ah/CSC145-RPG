@@ -19,7 +19,7 @@ class Equipment : public Item {
 
     [[nodiscard]] int64_t GetDurab() const;
     void ChangeDurab(int64_t);
-    std::string GetAmntText() override;
+    [[nodiscard]] std::string GetAmntText() const override;
 };
 
 class Weapon : public Equipment {

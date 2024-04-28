@@ -9,7 +9,7 @@
 RegularItem::RegularItem(std::string itemName, int64_t price, std::string desc, int64_t amnt)
         : Item(std::move(itemName), price, amnt, std::move(desc)) {}
 
-std::string RegularItem::GetAmntText() {
+std::string RegularItem::GetAmntText() const {
     return "x";
 }
 

@@ -14,7 +14,7 @@ class RegularItem : public Item {
 
     std::unique_ptr<Item> copy() override;
 
-    std::string GetAmntText() override;
+    [[nodiscard]] std::string GetAmntText() const override;
 };
 
 class AttackItem : public RegularItem {
