@@ -55,7 +55,7 @@ void Weapon::display() {
     std::cout << "Price: " << this->GetPrice() << std::endl;
     std::cout << "Strength: " << this->GetDamage() << std::endl;
     std::cout << "Durability: " << this->GetDurab() << std::endl;
-    if(getPlayer()->currentWeapon.get() == this) {
+    if (getPlayer()->currentWeapon.get() == this) {
         std::cout<< "EQUIPPED" << std::endl;
     } else {
         std::cout << "EQUIPPABLE" << std::endl;
@@ -66,7 +66,8 @@ void Weapon::display() {
     while (choice != "EXIT") {
         std::getline(std::cin, choice);
         if (choice == "EQUIP") {
-            this->use(getPlayer(), {}, <#initializer#>);
+            //this->use(getPlayer(), {}, <#initializer#>);
+            // TODO: add equip function
             if (this->GetAmount() <= 0) {
                 return;
             }
@@ -118,12 +119,12 @@ void Armor::display() {
     std::cout << "Static Defense: " << this->GetStaticDef() << std::endl;
     std::cout << "Durability: " << this->GetDurab() << std::endl;
     for (int i = 0; i < 4; ++i) {
-        auto it = getPlayer()->armor.get(i).get();
+        auto it = getPlayer()->armor[i].get();
         if (it == this) {
             std::cout<< "EQUIPPED" << std::endl;
-        } /*else if (it == getPlayer()->armor.get(3)) {
+        } else {
             std::cout << "EQUIPABLE" << std::endl;
-        }*/
+        }
     }
     std::cout << entries[1] << std::endl;
     std::cout << "Enter EXIT to exit or EQUIP to equip this item" << std::endl;
@@ -131,7 +132,8 @@ void Armor::display() {
     while (choice != "EXIT") {
         std::getline(std::cin, choice);
         if (choice == "EQUIP") {
-            this->use(getPlayer(), {}, <#initializer#>);
+            //this->use(getPlayer(), {}, <#initializer#>);
+            // TODO: add equip function
             if (this->GetAmount() <= 0) {
                 return;
             }
