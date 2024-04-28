@@ -35,8 +35,6 @@ class Weapon : public Equipment {
 
     [[nodiscard]] double GetDamage() const;
     void SetDamage(double dmg);
-    void use(const std::shared_ptr<Entity> &user, const std::vector<std::shared_ptr<Entity>> &opponents,
-             const std::vector<std::shared_ptr<Entity>> &allies) override;
     void display() override;
 };
 

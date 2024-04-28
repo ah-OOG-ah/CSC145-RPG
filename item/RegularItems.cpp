@@ -48,8 +48,7 @@ void AttackItem::display() {
     std::getline(std::cin, choice);
 }
 
-void AttackItem::use(const std::shared_ptr<Entity> &user, const std::vector<std::shared_ptr<Entity>> &opponents,
-                     const std::vector<std::shared_ptr<Entity>> &allies) {
+void AttackItem::use(const std::shared_ptr<Entity>& user, const std::vector<std::shared_ptr<Entity>>& allies, const std::vector<std::shared_ptr<Entity>>& opponents) {
     if (this->amount <= 0) return;
 
     if (this->spreadDamage) {
@@ -131,8 +130,7 @@ void HealItem::display() {
     }
 }
 
-void HealItem::use(const std::shared_ptr<Entity> &user, const std::vector<std::shared_ptr<Entity>> &opponents,
-                   const std::vector<std::shared_ptr<Entity>> &allies) {
+void HealItem::use(const std::shared_ptr<Entity>& user, const std::vector<std::shared_ptr<Entity>>& allies, const std::vector<std::shared_ptr<Entity>>& opponents) {
     if (this->amount <= 0) return;
 
     int64_t healedAmnt = this->hpAmnt;
@@ -199,8 +197,7 @@ void StatusItem::display() {
     }
 }
 
-void StatusItem::use(const std::shared_ptr<Entity> &user, const std::vector<std::shared_ptr<Entity>> &opponents,
-                     const std::vector<std::shared_ptr<Entity>> &allies) {
+void StatusItem::use(const std::shared_ptr<Entity>& user, const std::vector<std::shared_ptr<Entity>>& allies, const std::vector<std::shared_ptr<Entity>>& opponents) {
     if (this->amount <= 0) return;
 
     if (this->stat == attack) {
