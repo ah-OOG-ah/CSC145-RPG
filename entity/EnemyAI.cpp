@@ -5,6 +5,27 @@
 
 
 /**
+ * Determine the highest attack item, and whether it's better than the weapon.
+ */
+EAI::AttackInfo EAI::getAttackInfo(const std::shared_ptr<EquippedEntity>& e) {
+    double attack = 0;
+    size_t index = SIZE_MAX;
+    for (size_t i = 0; i < e->inventory.getUsedSlots(); ++i) {
+        if (e->inventory[i]->GetType() == ATTACK) {
+            auto a = dynamic_cast<AttackItem&>(*e->inventory[i]);
+
+            if (attack < a.GetDamage()) {
+                attack = a.GetDamage();
+                index = i;
+            }
+        }
+    }
+    bool isItem = e->getAttack() < attack;
+
+    return { attack, index, isItem };
+}
+
+/**
  * Berserker always attacks.
  */
 void EAI::berserker(const std::shared_ptr<Enemy>& user, const std::vector<std::shared_ptr<Enemy>>& allies) {
@@ -21,7 +42,7 @@ void EAI::idiot(const std::shared_ptr<Enemy>& user, const std::vector<std::share
     if (randBool()) {
         berserker(user, allies);
     } else {
-        //user->inventory.GetItem(randUint() % user->inventory.GetUsedElements());
+        // TODO: use items
         std::cout << user->getName() << " did nothing." << std::endl;
     }
 }
@@ -41,8 +62,6 @@ void EAI::amateur(const std::shared_ptr<Enemy>& user, const std::vector<std::sha
     auto item = user->inventory.getFirst(HEAL);
 
     if (item < SIZE_MAX && user->getCurrentHp() < (user->getMaxHp() / 2.0)) {
-
-        std::cout << user->getName() << " used " << user->inventory[item]->GetName() << std::endl;
         user->inventory[item]->use(user, (const std::vector<std::shared_ptr<Entity>> &) allies, { getPlayer() });
         return;
     }
@@ -50,8 +69,6 @@ void EAI::amateur(const std::shared_ptr<Enemy>& user, const std::vector<std::sha
     item = user->inventory.getFirst(STATUS);
 
     if (item < SIZE_MAX && user->getAttack() < (getPlayer()->getAttack() - 15)) {
-
-        std::cout << user->getName() << " used " << user->inventory[item]->GetName() << std::endl;
         user->inventory[item]->use(user, (const std::vector<std::shared_ptr<Entity>> &) allies, { getPlayer() });
         return;
     }
@@ -80,69 +97,36 @@ void EAI::expert(const std::shared_ptr<Enemy>& user, const std::vector<std::shar
     }
 
     // Determine the highest attack item, and whether it's better than the weapon
-    double highestItem = 0;
-    size_t highestItemI = SIZE_MAX;
-    for (size_t i = 0; i < user->inventory.getUsedSlots(); ++i) {
-        if (user->inventory[i]->GetType() == ATTACK) {
-            auto a = dynamic_cast<AttackItem&>(*user->inventory[i]);
-
-            if (highestItem < a.GetDamage()) {
-                highestItem = a.GetDamage();
-                highestItemI = i;
-            }
-        }
-    }
-    bool isAttackItem = user->getAttack() < highestItem;
+    auto info = getAttackInfo(user);
 
     // Copy the player for use as a test dummy
-    auto dummy = std::make_unique<EquippedEntity>(*getPlayer());
+    auto theirDummy = std::make_unique<EquippedEntity>(*getPlayer());
 
     // Try to kill
-    if (isAttackItem) {
-        dummy
+    if (info.isItem) {
+        theirDummy->takeDamage(info.attack);
+    } else {
+        theirDummy->takeDamage(user->getAttack());
     }
 
-    if (user->getCurrentHp() < (user->getMaxHp() / 2.0)) {
-        for (int i = 0; i < user->inventory.getUsedSlots(); i++) {
-            if (user->inventory.GetItem(i)->GetType() == "HEAL") {
-                user->inventory.GetItem(i)->use(user, {target}, <#initializer#>);
-                return;
-            }
-        }
-        target->changeHP(-1 * user->getAttack() * weaponDmg);
-    } /*else if (user->currentWeapon->GetDamage() < (target->currentWeapon->GetDamage())) {
-        for (int i = 0; i < user->Inven.GetUsedElements(); i++) {
-            if (user->Inven.GetItem(i)->GetType() == "WEAPON") {
-                user->Inven.GetItem(i)->Use(user, std::vector<Entity*>{target});
-                return;
-            } 
-        }
-        for (int i = 0; i < user->Inven.GetUsedElements(); i++) {
-            if(user->Inven.GetItem(i)->GetType() == "Status") {
-                user->Inven.GetItem(i)->Use(user, std::vector<Entity*>{target});
-                return;
-            } 
-        }
-        target->changeHP(-1 * user->getAttk() * weaponDmg);
-}*/ else {
-        uint64_t armorChoice = randUint() % 4;
-        if (user->armor[armorChoice]->GetPercDef() < user->armor[armorChoice]->GetPercDef()
-         || user->armor[armorChoice]->GetStaticDef() < user->armor[armorChoice]->GetStaticDef()
-         || user->armor[armorChoice]->GetDurab() < 14) {
-            for (int i = 0; i < user->inventory.getUsedSlots(); i++) {
-                if (user->inventory.GetItem(i)->GetType() == "ARMOR") {
-                    user->inventory.GetItem(i)->use(user, {target}, <#initializer#>);
-                    return;
-                } 
-            }
-        }
-        int64_t attkOrItem = randUint() % 5;
-        if (attkOrItem > 0) {
-            target->changeHP(-1 * user->getAttack() * weaponDmg);
+    // If it worked, do it for real
+    if (!theirDummy->getAlive()) {
+        if (info.isItem) {
+            user->inventory[info.index]->use(user, (const std::vector<std::shared_ptr<Entity>> &) allies, { getPlayer() });
         } else {
-            user->inventory.GetItem(randUint() % user->inventory.getUsedSlots());
+            berserker(user, allies);
         }
+        return;
     }
+
+    // We can't one-shot, it's time for hard decisions.
+
+    // Are we vulnerable?
+    auto pInfo = getAttackInfo(getPlayer());
+    auto ourDummy = std::make_unique<Enemy>(*user);
+
+    
+
 }
 
 void EAI::healer(std::shared_ptr<Enemy> user, std::vector<std::shared_ptr<Enemy>> allies) {
