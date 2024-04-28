@@ -44,20 +44,20 @@ class AttackItem : public RegularItem {
 
 class HealItem : public RegularItem {
   protected:
-    int64_t hpAmnt;
+    double hpAmnt;
     std::shared_ptr<Status> healedStatus = nullptr;
     //void dispatch(int64_t i) override;
 
   public:
-    HealItem(std::string itemName, int64_t hp, int64_t price, std::string desc, int64_t amnt = 1, const std::shared_ptr<Status>& effect = stypes::none);
+    HealItem(std::string itemName, double hp, int64_t price, std::string desc, int64_t amnt = 1, const std::shared_ptr<Status>& effect = stypes::none);
     explicit HealItem(const HealItem*);
 
     std::unique_ptr<Item> copy() override;
 
-    void SetHpAmnt(int64_t hp);
+    void SetHpAmnt(double hp);
     void SetHealedStatus(std::shared_ptr<Status> status);
 
-    [[nodiscard]] int64_t GetHpAmnt() const;
+    [[nodiscard]] double GetHpAmnt() const;
     [[nodiscard]] std::shared_ptr<Status> GetHealedStatus() const;
 
     void display() override;
@@ -65,7 +65,7 @@ class HealItem : public RegularItem {
     void use(const std::shared_ptr<Entity>& user, const std::vector<std::shared_ptr<Entity>>& allies, const std::vector<std::shared_ptr<Entity>>& opponents) override;
 };
 
-enum statBoost {attack, percdef, staticdef, speed };
+enum statBoost { attack, percdef, staticdef, speed };
 
 class StatusItem : public RegularItem {
   protected:

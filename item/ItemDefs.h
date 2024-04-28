@@ -18,7 +18,7 @@ namespace IDefs {
     static const std::string oilDrumSludgeDesc = "A entire oil drum of sludge. How does it do no damage\?";
     static const std::string fluteDesc = "A lovely wooden flute. Makes even the most hardcore beast fall asleep";
     static const std::string toasterDesc = "A NAV-116 model toaster by ReynoldsTech. Good for throwing and making toast. Can paralyze opponents.";
-    static const std::string lightningBottleDesc = "Release a powerful lighting bolt to strike an enemy. A very effective attack and can cause paralysis. It\'s lightning in a bottle!";
+    static const std::string lightningBottleDesc = "Release a powerful lighting bolt to strike an enemy. A very effective value and can cause paralysis. It\'s lightning in a bottle!";
     static const auto rock = std::make_shared<AttackItem>("Rock", 10, 2, rockDesc);
     static const auto dart = std::make_shared<AttackItem>("Dart", 15, 5, dartDesc, false, 1, stypes::poison, 2);
     static const auto throwingAxe = std::make_shared<AttackItem>("Throwing Axe", 20, 15, throwingAxeDesc);
