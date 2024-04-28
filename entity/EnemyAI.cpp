@@ -142,23 +142,21 @@ void EAI::expert(const std::shared_ptr<Enemy>& user, const std::vector<std::shar
     }
 }
 
-void EAI::healer(std::shared_ptr<Enemy> user, std::vector<std::shared_ptr<Enemy>> allies) {
-    double weaponDmg = 1.0;
-    if (user->currentWeapon != nullptr) {
-        weaponDmg = user->currentWeapon->GetDamage();
+/**
+ * Prioritizes healing above everything else. Not particularly useful if it's the only enemy...
+ * It follows the following algorithm:
+ * If it has a healing item, it uses the healing item. Otherwise, does nothing.
+ * What did you think it'd do?
+ */
+void EAI::healer(const std::shared_ptr<Enemy>& user, const std::vector<std::shared_ptr<Enemy>>& allies) {
+    auto item = user->inventory.getFirst(HEAL);
+
+    if (item < SIZE_MAX) {
+        user->inventory[item]->use(user, (const std::vector<std::shared_ptr<Entity>> &) allies, { getPlayer() });
+        return;
     }
-    int64_t healChance = randUint() % 3;
-    if (healChance < 2) {
-        for (int i = 0; i < user->inventory.getUsedSlots(); i++) {
-            if (user->inventory.GetItem(i)->GetType() == "HEAL") {
-                user->inventory.GetItem(i)->use(user, {target}, );
-                return;
-            }
-        }
-        target->changeHP(-1 * user->getAttack() * weaponDmg);
-    } else {
-        target->changeHP(-1 * user->getAttack() * weaponDmg);
-    }
+
+    std::cout << user->getName() << " did nothing." << std::endl;
 }
 
 void EAI::itemHappy(std::shared_ptr<Enemy> user, std::vector<std::shared_ptr<Enemy>> allies) {
