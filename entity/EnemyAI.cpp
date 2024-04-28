@@ -79,6 +79,29 @@ void EAI::expert(const std::shared_ptr<Enemy>& user, const std::vector<std::shar
         weaponDmg = user->currentWeapon->GetDamage();
     }
 
+    // Determine the highest attack item, and whether it's better than the weapon
+    double highestItem = 0;
+    size_t highestItemI = SIZE_MAX;
+    for (size_t i = 0; i < user->inventory.getUsedSlots(); ++i) {
+        if (user->inventory[i]->GetType() == ATTACK) {
+            auto a = dynamic_cast<AttackItem&>(*user->inventory[i]);
+
+            if (highestItem < a.GetDamage()) {
+                highestItem = a.GetDamage();
+                highestItemI = i;
+            }
+        }
+    }
+    bool isAttackItem = user->getAttack() < highestItem;
+
+    // Copy the player for use as a test dummy
+    auto dummy = std::make_unique<EquippedEntity>(*getPlayer());
+
+    // Try to kill
+    if (isAttackItem) {
+        dummy
+    }
+
     if (user->getCurrentHp() < (user->getMaxHp() / 2.0)) {
         for (int i = 0; i < user->inventory.getUsedSlots(); i++) {
             if (user->inventory.GetItem(i)->GetType() == "HEAL") {

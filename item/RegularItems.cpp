@@ -28,7 +28,7 @@ void AttackItem::SetStatus(std::shared_ptr<Status> effect) { status = std::move(
 void AttackItem::SetChance(int64_t chance) { effectChance = chance; }
 void AttackItem::SetSpread(bool spread) { spreadDamage = spread; }
 
-int64_t AttackItem::GetDamage() const { return damage; }
+double AttackItem::GetDamage() const { return damage; }
 std::shared_ptr<Status> AttackItem::GetStatus() { return status; }
 int64_t AttackItem::GetChance() const { return effectChance; }
 bool AttackItem::canSpread() const { return spreadDamage; }
