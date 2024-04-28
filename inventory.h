@@ -36,24 +36,22 @@ class Inventory {
     explicit Inventory(const std::vector<std::shared_ptr<Item>>&);
     Inventory(std::initializer_list<const std::shared_ptr<Item>>);
 
+    [[nodiscard]] int64_t GetGold() const;
+    [[nodiscard]] size_t GetNumElements() const;
+    [[nodiscard]] size_t GetUsedElements() const;
+
     size_t GetPos(const std::shared_ptr<Item>&);
     std::shared_ptr<Item> GetItem(size_t);
-    [[nodiscard]] int64_t GetGold() const;
-    bool ReplaceItem(const std::shared_ptr<Item>&); //function called by AddItem when inventory is full. True if item is replaced, else false
-    void RemoveItem(int64_t pos, int64_t amnt = 0); //Used instead of ChangeAmount amount is to be removed. 0 in second integer removes all amount of the item
-    void RemoveItem(const std::shared_ptr<Item>& thing, int64_t amnt = 0); //Used instead of ChangeAmount amount is to be removed. 0 in second integer removes all amount of the item
+    bool ReplaceItem(const std::shared_ptr<Item>&); // function called by AddItem when inventory is full. True if item is replaced, else false
+    void RemoveItem(int64_t pos, int64_t amnt = 0); // Used instead of ChangeAmount amount is to be removed. 0 in second integer removes all amount of the item
     void AddGold(int64_t);
 
     /**
      * Attempts to add the item to the inventory. Does not copy it, be careful!
-     * TODO: check weight limits
      *
      * @return True if the item was added.
      */
     bool AddItem(const std::shared_ptr<Item>&);
-
-    [[nodiscard]] size_t GetNumElements() const;
-    [[nodiscard]] size_t GetUsedElements() const;
 
     void PrintItems(); //Called by PrintInven
     void PrintItems(int); //Called by functions that need inventory to print with numbers. Integer value is meaningless.
