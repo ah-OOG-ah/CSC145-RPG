@@ -7,7 +7,7 @@
 /**
  * Determine the highest attack item, and whether it's better than the weapon.
  */
-EAI::AttackInfo EAI::getAttackInfo(const std::shared_ptr<EquippedEntity>& e) {
+EAI::UseInfo getAttackInfo(const std::shared_ptr<EquippedEntity>& e) {
     double attack = 0;
     size_t index = SIZE_MAX;
     for (size_t i = 0; i < e->inventory.getUsedSlots(); ++i) {
@@ -23,6 +23,34 @@ EAI::AttackInfo EAI::getAttackInfo(const std::shared_ptr<EquippedEntity>& e) {
     bool isItem = e->getAttack() < attack;
 
     return { attack, index, isItem };
+}
+
+/**
+ * Determine the highest heal item
+ */
+EAI::UseInfo getHealInfo(const std::shared_ptr<EquippedEntity>& e) {
+    double healing = 0;
+    size_t index = SIZE_MAX;
+    for (size_t i = 0; i < e->inventory.getUsedSlots(); ++i) {
+        if (e->inventory[i]->GetType() == HEAL) {
+            auto a = dynamic_cast<HealItem&>(*e->inventory[i]);
+
+            if (healing < a.GetHpAmnt()) {
+                healing = a.GetHpAmnt();
+                index = i;
+            }
+        }
+    }
+
+    return { healing, index, true };
+}
+
+void doOptimalAttack(EAI::UseInfo info, const std::shared_ptr<Enemy>& self, const std::vector<std::shared_ptr<Enemy>>& allies) {
+    if (info.isItem) {
+        self->inventory[info.index]->use(self, (const std::vector<std::shared_ptr<Entity>> &) allies, { getPlayer() });
+    } else {
+        EAI::berserker(self, allies);
+    }
 }
 
 /**
@@ -85,10 +113,12 @@ void EAI::amateur(const std::shared_ptr<Enemy>& user, const std::vector<std::sha
  *  - if it can heal or status out of this, do so (prefer status)
  *  - if not, do the most damage possible
  * If it won't be killed, choose the highest "value" action - heal if the heal can be fully exploited, status if that
- * brings it's attack over it's attack item, attack item otherwise.
+ * boosts it by more than half its best damage, optimal attack otherwise.
  *
- * Expert isn't a *perfect* strategist - it doesn't account for group effects, and can't predict more than one move in
- * the future. But it's more capable than amateur.
+ * Expert isn't a *perfect* strategist - it doesn't account for group effects or damage over time, and can't predict
+ * more than one move in the future. But it's more capable than amateur.
+ *
+ * TODO: account for simple poison/regen case, and maybe paralysis too
  */
 void EAI::expert(const std::shared_ptr<Enemy>& user, const std::vector<std::shared_ptr<Enemy>>& allies) {
     double weaponDmg = 1.0;
@@ -104,18 +134,14 @@ void EAI::expert(const std::shared_ptr<Enemy>& user, const std::vector<std::shar
 
     // Try to kill
     if (info.isItem) {
-        theirDummy->takeDamage(info.attack);
+        theirDummy->takeDamage(info.value);
     } else {
         theirDummy->takeDamage(user->getAttack());
     }
 
     // If it worked, do it for real
     if (!theirDummy->getAlive()) {
-        if (info.isItem) {
-            user->inventory[info.index]->use(user, (const std::vector<std::shared_ptr<Entity>> &) allies, { getPlayer() });
-        } else {
-            berserker(user, allies);
-        }
+        doOptimalAttack(info, user, allies);
         return;
     }
 
@@ -125,7 +151,20 @@ void EAI::expert(const std::shared_ptr<Enemy>& user, const std::vector<std::shar
     auto pInfo = getAttackInfo(getPlayer());
     auto ourDummy = std::make_unique<Enemy>(*user);
 
-    
+    if (info.isItem) {
+        ourDummy->takeDamage(pInfo.value);
+    } else {
+        ourDummy->takeDamage(getPlayer()->getAttack());
+    }
+
+    // If it worked, there's nothing to lose - go out in a blaze of glory!
+    if (!ourDummy->getAlive()) {
+        doOptimalAttack(info, user, allies);
+        return;
+    }
+
+    // We live another round - check heals and status items
+
 
 }
 

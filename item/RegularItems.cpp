@@ -93,16 +93,16 @@ std::unique_ptr<Item> AttackItem::copy() {
 }
 
 
-HealItem::HealItem(std::string itemName, int64_t hp, int64_t price, std::string desc, int64_t amnt, const std::shared_ptr<Status>& effect)
+HealItem::HealItem(std::string itemName, double hp, int64_t price, std::string desc, int64_t amnt, const std::shared_ptr<Status>& effect)
     : RegularItem(std::move(itemName), price, std::move(desc), amnt), hpAmnt(hp), healedStatus(std::make_shared<Status>(effect)) {
     type = HEAL;
 }
 HealItem::HealItem(const HealItem* ht) : HealItem(ht->name, ht->hpAmnt, ht->price, ht->description, ht->amount, ht->healedStatus) { }
 
-void HealItem::SetHpAmnt(int64_t hp) { hpAmnt = hp; }
-void HealItem::SetHealedStatus(std::shared_ptr<Status> status) { healedStatus = status; }
+void HealItem::SetHpAmnt(double hp) { hpAmnt = hp; }
+void HealItem::SetHealedStatus(std::shared_ptr<Status> status) { healedStatus = std::move(status); }
 
-int64_t HealItem::GetHpAmnt() const { return hpAmnt; }
+double HealItem::GetHpAmnt() const { return hpAmnt; }
 std::shared_ptr<Status> HealItem::GetHealedStatus() const { return healedStatus; }
 
 void HealItem::display() {
