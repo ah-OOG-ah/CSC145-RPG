@@ -14,7 +14,6 @@ void doOptimalAttack(EAI::UseInfo info, const std::shared_ptr<Enemy>& self, cons
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunused-parameter"
-
 void EAI::berserker(const std::shared_ptr<Enemy>& user, const std::vector<std::shared_ptr<Enemy>>& allies) {
     auto before = getPHP();
     user->attackEntity(getPlayer());
