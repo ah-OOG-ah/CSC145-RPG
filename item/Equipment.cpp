@@ -21,7 +21,7 @@ Equipment::Equipment(Equipment* e) : Item(e), durability(e->durability) { }
 int64_t Equipment::GetDurab() const { return durability; }
 void Equipment::ChangeDurab(int64_t durab) { durability += durab; }
 
-std::string Equipment::GetAmntText() {
+std::string Equipment::GetAmntText() const {
     return "";
 }
 

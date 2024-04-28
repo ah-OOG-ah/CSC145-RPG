@@ -35,7 +35,7 @@ class Item : public Menu {
     //Getters
     [[nodiscard]] std::string GetName() const;
     [[nodiscard]] ItemType GetType() const;
-    virtual std::string GetAmntText() = 0;
+    [[nodiscard]] virtual std::string GetAmntText() const = 0;
     [[nodiscard]] std::string GetDesc() const;
     [[nodiscard]] int64_t GetAmount() const;
     [[nodiscard]] int64_t getWeight() const;
