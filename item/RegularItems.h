@@ -39,8 +39,7 @@ class AttackItem : public RegularItem {
     [[nodiscard]] int64_t GetChance() const;
     [[nodiscard]] bool canSpread() const;
     void display() override;
-    void use(const std::shared_ptr<Entity> &user, const std::vector<std::shared_ptr<Entity>> &opponents,
-             const std::vector<std::shared_ptr<Entity>> &allies) override;
+    void use(const std::shared_ptr<Entity>& user, const std::vector<std::shared_ptr<Entity>>& allies, const std::vector<std::shared_ptr<Entity>>& opponents) override;
 };
 
 class HealItem : public RegularItem {
@@ -63,8 +62,7 @@ class HealItem : public RegularItem {
 
     void display() override;
 
-    void use(const std::shared_ptr<Entity> &user, const std::vector<std::shared_ptr<Entity>> &opponents,
-             const std::vector<std::shared_ptr<Entity>> &allies) override;
+    void use(const std::shared_ptr<Entity>& user, const std::vector<std::shared_ptr<Entity>>& allies, const std::vector<std::shared_ptr<Entity>>& opponents) override;
 };
 
 enum statBoost {attack, percdef, staticdef, speed };
@@ -91,6 +89,5 @@ class StatusItem : public RegularItem {
     std::shared_ptr<Status> GetStatus();
     [[nodiscard]] int64_t GetChance() const;
     void display() override;
-    void use(const std::shared_ptr<Entity> &user, const std::vector<std::shared_ptr<Entity>> &opponents,
-             const std::vector<std::shared_ptr<Entity>> &allies) override;
+    void use(const std::shared_ptr<Entity>& user, const std::vector<std::shared_ptr<Entity>>& allies, const std::vector<std::shared_ptr<Entity>>& opponents) override;
 };

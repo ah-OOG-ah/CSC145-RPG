@@ -49,21 +49,6 @@ double Weapon::GetDamage() const { return dmgMultiplier; }
 
 void Weapon::SetDamage(double dmg) { dmgMultiplier = dmg; }
 
-void Weapon::use(const std::shared_ptr<Entity> &user, const std::vector<std::shared_ptr<Entity>> &opponents,
-                 const std::vector<std::shared_ptr<Entity>> &allies) {
-
-    /*
-    Weapon* oldWeapon = user->currentWeapon;
-    user->currentWeapon = this;
-    if(oldWeapon != nullptr)
-    {
-        std::cout << oldWeapon->GetName() << " was unequipped "  << std::endl;
-    }
-    std::cout << user->getName() << " equipped " << this->GetName() << std::endl;
-    user->Inven.RemoveItem(this);
-    user->Inven.AddItem(oldWeapon);*/
-}
-
 void Weapon::display() {
     std::cout << entries[0] << std::endl;
     std::cout << "WEAPON" << std::endl;
