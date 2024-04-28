@@ -19,7 +19,7 @@ class RegularItem : public Item {
 
 class AttackItem : public RegularItem {
   protected:
-    int64_t damage;
+    double damage;
     std::shared_ptr<Status> status = nullptr;
     int64_t effectChance = 0;
     bool spreadDamage = false;
@@ -34,7 +34,7 @@ class AttackItem : public RegularItem {
     void SetChance(int64_t chance);
     void SetSpread(bool spread);
 
-    [[nodiscard]] int64_t GetDamage() const;
+    [[nodiscard]] double GetDamage() const;
     std::shared_ptr<Status> GetStatus();
     [[nodiscard]] int64_t GetChance() const;
     [[nodiscard]] bool canSpread() const;
