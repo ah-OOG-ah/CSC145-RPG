@@ -134,15 +134,8 @@ void Inventory::GarbageCollection() {
     int64_t removedItems = 0;
     for (size_t i = 0; i < curSlots; i++) {
         if (backing[i]->GetAmount() <= 0) {
-            backing[i] = nullptr;
+            backing.erase(std::next(backing.begin(), i));
             removedItems++;
-        }
-    }
-    for (size_t j = 0; j < curSlots; j++) {
-        if (backing[j] == nullptr) {
-            for (size_t i = j; i < maxSlots - 1; i++) {
-                backing[i] = backing[i + 1];
-            }
         }
     }
     curSlots -= removedItems;
