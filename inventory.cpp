@@ -79,7 +79,7 @@ bool Inventory::ReplaceItem(const std::shared_ptr<Item>& newItem) {
     std::cout << "Your INVENTORY is full. Please select item to replace" << std::endl << std::endl;
     std::cout << "Please input the number for the item you want to replace with the "<< newItem->GetName() << std::endl;
     std::cout << "Input a number outside of the range if you do not wish to replace any items" << std::endl;
-    PrintItems(1); // print items with numbers by them
+    print(true); // print items with numbers by them
     size_t choice = 0;
     std::cin >> choice;
     --choice;// account for zero-indexed backing vs 1-indexed presentation
@@ -89,6 +89,7 @@ bool Inventory::ReplaceItem(const std::shared_ptr<Item>& newItem) {
 
         ItemType one = backing[choice]->GetType();
         ItemType two = newItem->GetType();
+        curWeight += newItem->getWeight() - backing[choice]->getWeight();
         backing[choice] = newItem;
 
         // If the slot's type has been changed, we need to find the first of that type again
@@ -104,72 +105,29 @@ bool Inventory::ReplaceItem(const std::shared_ptr<Item>& newItem) {
     }
 }
 
-void Inventory::RemoveItem(int64_t pos, int64_t amnt) {
+void Inventory::RemoveItem(size_t pos, int64_t amnt) {
+    if (pos >= curSlots) return;
+
     backing[pos]->ChangeAmount(-1 * amnt);
+
     if (backing[pos]->GetAmount() <= 0) {
-        backing[pos].reset();
-        curSlots--;
-        for (size_t i = pos; i < maxSlots - 1; i++) {
-            backing[i] = backing[i + 1];
-        }
+        --curSlots;
+        curWeight -= backing[pos]->getWeight();
+        backing.erase(std::next(backing.begin(), pos));
     }
 }
 
 void Inventory::AddGold(int64_t amnt) { gold += amnt; }
 
-void Inventory::PrintItems() {
+void Inventory::print(bool numbered) {
     std::cout << "ITEMS" << std::endl;
-    for (size_t i = 0; i < maxSlots; i++) {
-        if (backing[i] != nullptr) {
-            std::cout << backing[i]->GetName() << backing[i]->GetAmntText() << backing[i]->GetAmount() << "  ";
-            std::cout << "Price " << backing[i]->GetPrice() << std::endl;
-        }
+    for (size_t i = 0; i < curSlots; i++) {
+        if (numbered) std::cout << i + 1 << ". ";
+        std::cout << backing[i]->GetName() << backing[i]->GetAmntText() << backing[i]->GetAmount() << "  ";
+        std::cout << "Price " << backing[i]->GetPrice() << std::endl;
     }
-}
 
-void Inventory::PrintItems(int dummy) {
-    std::cout << "ITEMS" << std::endl;
-    for (size_t i = 0; i < maxSlots; i++) {
-        if (backing[i] != nullptr) {
-            std::cout<< i + 1 <<". ";
-            std::cout << backing[i]->GetName() << backing[i]->GetAmntText() << backing[i]->GetAmount() << "  ";
-            std::cout << "Price " << backing[i]->GetPrice();
-            /*if(start[i]->isEquipment())
-            {
-                std::cout << start[i]->GetDurab();
-            }*/
-            std::cout << std::endl;
-        }
-    }
-}
-
-void Inventory::PrintInven() {
-    std::cout << "INVENTORY" << std::endl;
-    std::cout << "GOLD" << std::to_string(gold) << std::endl;
-    PrintItems();
-}
-
-void Inventory::PrintInven(int dummy) {
-    std::cout << "INVENTORY" << std::endl;
-    std::cout << "GOLD" << std::to_string(gold) << std::endl;
-    PrintItems(1);
-    if (dummy == 0) {
-        SelectItem();
-    }
-}
-
-void Inventory::SelectItem() {
-    std::cout << "Input number for item you want selected. Enter -1 to exit." << std::endl;
-    int64_t choice = 0;
-    std::cin>>choice;
-    if (choice == -1) { return; }
-    if (choice > maxSlots) {
-        std::cout << "Please input a valid number" << std::endl;
-        this->PrintInven(0);
-    } else if (choice != -1) {
-        backing[choice]->display();
-        this->PrintInven(0);
-    }
+    if (curSlots < maxSlots) std::cout << maxSlots - curSlots << " empty slots." << std::endl;
 }
 
 void Inventory::GarbageCollection() {
