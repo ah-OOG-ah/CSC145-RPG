@@ -32,7 +32,7 @@ void EAI::idiot(const std::shared_ptr<Enemy>& user, const std::vector<std::share
  * If the inventory is empty, it reverts to berserker.
  * Else, it starts evaluating its items, and will use them (if present) in order:
  *  - Healing if less than half health.
- *  - Status if weaker than opponent
+ *  - Status if more than 15 STR weaker than opponent
  * If none succeed, it attacks normally. Amateur can't use attack items.
  */
 void EAI::amateur(const std::shared_ptr<Enemy>& user, const std::vector<std::shared_ptr<Enemy>>& allies) {
@@ -52,24 +52,22 @@ void EAI::amateur(const std::shared_ptr<Enemy>& user, const std::vector<std::sha
 
         std::cout << user->getName() << " used " << user->inventory[item]->GetName() << std::endl;
         user->inventory[item]->use(user, (const std::vector<std::shared_ptr<Entity>> &) allies, { getPlayer() });
-    } else if (user->getAttack() < (target->getAttack() - 15)) {
-        for (int i = 0; i < user->inventory.getUsedSlots(); i++) {
-            if (user->inventory.GetItem(i)->GetType() == "STATUS") {
-                user->inventory.GetItem(i)->use(user, {target}, <#initializer#>);
-                return;
-            }
-        }
-        target->changeHP(-1 * user->getAttack() * weaponDmg);
-    } else {
-        if (randBool()) {
-            target->changeHP(-1 * user->getAttack() * weaponDmg);
-        } else {
-            user->inventory.GetItem(randUint() % user->inventory.getUsedSlots());
-        }
+        return;
     }
+
+    item = user->inventory.getFirst(STATUS);
+
+    if (item < SIZE_MAX && user->getAttack() < (getPlayer()->getAttack() - 15)) {
+
+        std::cout << user->getName() << " used " << user->inventory[item]->GetName() << std::endl;
+        user->inventory[item]->use(user, (const std::vector<std::shared_ptr<Entity>> &) allies, { getPlayer() });
+        return;
+    }
+
+    berserker(user, allies);
 }
 
-void EAI::expert(std::shared_ptr<Enemy> user, std::vector<std::shared_ptr<Enemy>> allies) {
+void EAI::expert(const std::shared_ptr<Enemy>& user, const std::vector<std::shared_ptr<Enemy>>& allies) {
     double weaponDmg = 1.0;
     if (user->currentWeapon != nullptr) {
         weaponDmg = user->currentWeapon->GetDamage();
