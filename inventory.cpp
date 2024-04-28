@@ -131,14 +131,18 @@ void Inventory::print(bool numbered) {
 }
 
 void Inventory::GarbageCollection() {
-    int64_t removedItems = 0;
     for (size_t i = 0; i < curSlots; i++) {
         if (backing[i]->GetAmount() <= 0) {
             backing.erase(std::next(backing.begin(), i));
-            removedItems++;
+            --curSlots;
         }
     }
-    curSlots -= removedItems;
+
+    // Technically we could try only checking types removed
+    // However, this function is meant to catch cases where we missed something anyways, so force a find on everything.
+    findFirstItems(HEAL);
+    findFirstItems(ATTACK);
+    findFirstItems(STATUS);
 }
 
 void Inventory::findFirstItems(ItemType type) {
