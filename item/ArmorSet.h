@@ -30,6 +30,12 @@ struct ArmorSet {
     [[nodiscard]] double offenseMult() const {
         return (head->GetDmgMult() + chest->GetDmgMult() + legs->GetDmgMult() + feet->GetDmgMult()) / 4.0;
     }
+    [[nodiscard]] double defenseMult() const {
+        return (head->GetPercDef() + chest->GetPercDef() + legs->GetPercDef() + feet->GetPercDef()) / 4.0;
+    }
+    [[nodiscard]] double defenseStatic() const {
+        return (head->GetStaticDef() + chest->GetStaticDef() + legs->GetStaticDef() + feet->GetStaticDef()) / 4.0;
+    }
 
     [[nodiscard]] std::shared_ptr<Armor> get(size_t i) const {
         switch (i) {
