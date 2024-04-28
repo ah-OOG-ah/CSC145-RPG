@@ -36,15 +36,7 @@ void EAI::idiot(const std::shared_ptr<Enemy>& user, const std::vector<std::share
  * If none succeed, it attacks normally. Amateur can't use attack items.
  */
 void EAI::amateur(const std::shared_ptr<Enemy>& user, const std::vector<std::shared_ptr<Enemy>>& allies) {
-
-    if (user->inventory.getUsedSlots() == 0) {
-        berserker(user, allies);
-    }
-
-    double weaponDmg = 1.0;
-    if (user->currentWeapon != nullptr) {
-        weaponDmg = user->currentWeapon->GetDamage();
-    }
+    if (user->inventory.getUsedSlots() == 0) { berserker(user, allies); }
 
     auto item = user->inventory.getFirst(HEAL);
 
@@ -67,11 +59,26 @@ void EAI::amateur(const std::shared_ptr<Enemy>& user, const std::vector<std::sha
     berserker(user, allies);
 }
 
+/**
+ * Expert attempts to play optimally.
+ * It follows the following algorithm:
+ * First, determine it's highest-power attack, heal, and status items.
+ * If it can kill, attack (may be with item).
+ * If not, it checks if it can be killed
+ *  - if it can heal or status out of this, do so (prefer status)
+ *  - if not, do the most damage possible
+ * If it won't be killed, choose the highest "value" action - heal if the heal can be fully exploited, status if that
+ * brings it's attack over it's attack item, attack item otherwise.
+ *
+ * Expert isn't a *perfect* strategist - it doesn't account for group effects, and can't predict more than one move in
+ * the future. But it's more capable than amateur.
+ */
 void EAI::expert(const std::shared_ptr<Enemy>& user, const std::vector<std::shared_ptr<Enemy>>& allies) {
     double weaponDmg = 1.0;
     if (user->currentWeapon != nullptr) {
         weaponDmg = user->currentWeapon->GetDamage();
     }
+
     if (user->getCurrentHp() < (user->getMaxHp() / 2.0)) {
         for (int i = 0; i < user->inventory.getUsedSlots(); i++) {
             if (user->inventory.GetItem(i)->GetType() == "HEAL") {
