@@ -56,7 +56,7 @@ void ShopMenu::Buy() {
 void ShopMenu::Sell() {
     std::cout << merchantName<< ": " << entries[3] << std::endl;
     std::cout << "Please input the number for the item you want to sell. Enter 0 to exit" << std::endl;
-    getPlayer()->inventory.PrintItems(1); //Used to print items with numbers by them
+    getPlayer()->inventory.print(true); //Used to print items with numbers by them
     int64_t choice = 0;
     std::cin>>choice; //Choice will substracted by one to account for the fact that array starts as zero but inventory numbers at 1
     if (choice > 0 && choice <= getPlayer()->inventory.GetUsedElements()) {
