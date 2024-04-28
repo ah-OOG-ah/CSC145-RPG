@@ -84,7 +84,17 @@ bool Inventory::ReplaceItem(const std::shared_ptr<Item>& newItem) {
 
     if (choice < curSlots) {
         std::cout << backing[choice]->GetName() << " was replaced by " << newItem->GetName() << std::endl;
+
+        ItemType one = backing[choice]->GetType();
+        ItemType two = newItem->GetType();
         backing[choice] = newItem;
+
+        // If the slot's type has been changed, we need to find the first of that type again
+        if (one != two) {
+            findFirstItems(backing[choice]->GetType());
+            findFirstItems(newItem->GetType());
+        }
+
         return true;
     } else {
         std::cout << newItem->GetName() <<" was not added to inventory" << std::endl;
@@ -179,19 +189,29 @@ void Inventory::SelectItem() {
 }
 
 void Inventory::GarbageCollection() {
-int64_t removedItems = 0;
-for (size_t i = 0; i < curSlots; i++) {
-    if (backing[i]->GetAmount() <= 0) {
-        backing[i] = nullptr;
-        removedItems++;
-    }
-}
-for (size_t j = 0; j < curSlots; j++) {
-    if (backing[j] == nullptr) {
-        for (size_t i = j; i < maxSlots - 1; i++) {
-            backing[i] = backing[i + 1];
+    int64_t removedItems = 0;
+    for (size_t i = 0; i < curSlots; i++) {
+        if (backing[i]->GetAmount() <= 0) {
+            backing[i] = nullptr;
+            removedItems++;
         }
     }
-}
+    for (size_t j = 0; j < curSlots; j++) {
+        if (backing[j] == nullptr) {
+            for (size_t i = j; i < maxSlots - 1; i++) {
+                backing[i] = backing[i + 1];
+            }
+        }
+    }
     curSlots -= removedItems;
+}
+
+void Inventory::findFirstItems(ItemType type) {
+    if (type == NONE || type == ARMOR || type == WEAPON) return;
+
+    auto val = type == HEAL ? &firstHeal : type == STATUS ? &firstStatus : &firstAttack;
+    for (size_t i = 0; i < curSlots; ++i) {
+        if (backing[i]->GetType() == type) { *val = i; return; }
+    }
+    *val = SIZE_MAX;
 }
