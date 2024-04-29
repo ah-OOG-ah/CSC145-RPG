@@ -22,7 +22,7 @@ void Floor::run() {
     // Generate rooms
     // First one is safe
     //rooms.push_back(std::make_shared<SafeRoom>(movement, 0b0101, level));
-    // sike
+    // sike TODO: revert this
     rooms.push_back(std::make_shared<BattleRoom>(movement, 0b0101, level));
 
     // For now, every other room is a battle

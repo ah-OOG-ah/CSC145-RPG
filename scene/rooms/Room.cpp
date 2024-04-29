@@ -18,8 +18,8 @@ Room::Room(std::string name, std::string description, std::shared_ptr<Movement> 
     : Menu(std::vector<std::string>()), roomName(std::move(name)), description(std::move(description)), nice(nice), movement(std::move(m)) {
 
     // The first option is always accessing the inventory
-    entries.emplace_back("Inventory");
-    funcs.emplace_back([](){  });
+    entries.emplace_back("Open Inventory");
+    funcs.emplace_back([](){ getPlayer()->inventory.print(false); });
 
     // A mask of 0bx0x0 means we're in the last room - proceeding is impossible
     // The only movement option should be next floor or save, there is no turning back
