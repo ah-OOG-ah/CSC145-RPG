@@ -57,7 +57,7 @@ class ShopRoom : public Room {
     Name: GetPurchase
     Return type: string
     Arguments: An int64_t integer from 1-8
-    Use: Takes in an integer and gives the correspong dialogue members based on the number given
+    Use: Takes in an integer and gives the corresponding dialogue members based on the number given
     */
     std::string GetDialogue(int64_t);
     void GoToShop();

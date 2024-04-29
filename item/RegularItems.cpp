@@ -51,37 +51,11 @@ void AttackItem::display() {
 void AttackItem::use(const std::shared_ptr<Entity>& user, const std::vector<std::shared_ptr<Entity>>& allies, const std::vector<std::shared_ptr<Entity>>& opponents) {
     if (this->amount <= 0) return;
 
-    if (this->spreadDamage) {
-        std::cout << user->getName() << " used " << this->GetName() << std::endl;
-        for (auto target : opponents) {
-
-            target->changeHP(-1 * this->GetDamage());
-            std::cout << target->getName() << " took " << this->GetDamage() << " damage " << std::endl;
-            if (this->status != nullptr) {
-
-                int64_t chance = randUint() % 10;
-                if (chance <= this->effectChance) {
-                    Status* ailment = new Status(this->status);
-                    //target->setStatus(ailment);
-                    std::cout << target->getName() << " was afflicted by " << this->status->GetName() << std::endl;
-                }
-            }
-        }
-        this->amount -1;
-    } else {
-
-        opponents[0]->changeHP(-1 * this->GetDamage());
-        std::cout << user->getName() << " used " << this->GetName() << std::endl;
-        std::cout << opponents[0]->getName() << " took " << this->GetDamage() << " damage " << std::endl;
-        if (this->status != nullptr) {
-            int64_t chance = randUint() % 10;
-            if(chance <= this->effectChance) {
-                Status* ailment = new Status(this->status);
-                //opponents[0]->setStatus(ailment);
-                std::cout << opponents[0]->getName() << " was afflicted by " << this->status->GetName() << std::endl;
-            }
-        }
-        this->amount -1;
+    for (const auto& e : opponents) {
+        double before = e->getCurrentHp();
+        e->takeDamage(damage);
+        std::cout << user->getName() << " used " << name << " on " << e->getName() << " dealing " << before - e->getCurrentHp() << " damage." << std::endl;
+        if (!spreadDamage) break;
     }
 }
 
