@@ -14,15 +14,15 @@ class RegularItem : public Item {
 
     std::unique_ptr<Item> copy() override;
 
-    [[nodiscard]] std::string GetAmntText() const override; //Returns "x" for when item amount is displayed
+    [[nodiscard]] std::string GetAmntText() const override;
 };
 
 class AttackItem : public RegularItem {
   protected:
-    double damage; //Damage dealt
-    std::shared_ptr<Status> status = nullptr; //Status to inflict on targets
-    int64_t effectChance = 0; //Chance to inflict status
-    bool spreadDamage = false; //Whether it hits all targets or not
+    double damage;
+    std::shared_ptr<Status> status = nullptr;
+    int64_t effectChance = 0;
+    bool spreadDamage = false;
 
   public:
     AttackItem(std::string itemName, int64_t dmg, int64_t price, std::string desc, bool spread = false, int64_t amnt = 1, const std::shared_ptr<Status>& effect = stypes::none, int64_t chance = 0);
@@ -38,14 +38,18 @@ class AttackItem : public RegularItem {
     std::shared_ptr<Status> GetStatus();
     [[nodiscard]] int64_t GetChance() const;
     [[nodiscard]] bool canSpread() const;
-    void display() override; //Displays item menu
+    void display() override;
+
+    /**
+     * Applies this item's damage to the first enemy, or to all enemies if spread
+     */
     void use(const std::shared_ptr<Entity>& user, const std::vector<std::shared_ptr<Entity>>& allies, const std::vector<std::shared_ptr<Entity>>& opponents) override;
 };
 
 class HealItem : public RegularItem {
   protected:
-    double hpAmnt; //Amount of hp restored
-    std::shared_ptr<Status> healedStatus = nullptr; //Status that it heals
+    double hpAmnt;
+    std::shared_ptr<Status> healedStatus = nullptr;
     //void dispatch(int64_t i) override;
 
   public:
@@ -60,7 +64,7 @@ class HealItem : public RegularItem {
     [[nodiscard]] double GetHpAmnt() const;
     [[nodiscard]] std::shared_ptr<Status> GetHealedStatus() const;
 
-    void display() override; //Displays item menu
+    void display() override;
 
     void use(const std::shared_ptr<Entity>& user, const std::vector<std::shared_ptr<Entity>>& allies, const std::vector<std::shared_ptr<Entity>>& opponents) override;
 };
@@ -69,10 +73,10 @@ enum statBoost { attack, percdef, staticdef, speed };
 
 class StatusItem : public RegularItem {
   protected:
-    int64_t boost; //Amount stat will be boosted by
-    statBoost stat; //Stat to boost
-    std::shared_ptr<Status> status = nullptr; //Status that it inflicts on user
-    int64_t effectChance = 0; //Chance to inflict status
+    int64_t boost;
+    statBoost stat;
+    std::shared_ptr<Status> status = nullptr;
+    int64_t effectChance = 0;
 
   public:
     StatusItem(std::string itemName, int64_t price, int64_t boost, statBoost stat, std::string desc, int64_t amnt = 1, const std::shared_ptr<Status>& effect = stypes::none, int64_t chance = 0);
@@ -87,7 +91,7 @@ class StatusItem : public RegularItem {
     [[nodiscard]] int64_t GetBoost() const;
     [[nodiscard]] statBoost GetStat() const;
     std::shared_ptr<Status> GetStatus();
-    [[nodiscard]] int64_t GetChance() const; 
-    void display() override; //Displays item menu
+    [[nodiscard]] int64_t GetChance() const;
+    void display() override;
     void use(const std::shared_ptr<Entity>& user, const std::vector<std::shared_ptr<Entity>>& allies, const std::vector<std::shared_ptr<Entity>>& opponents) override;
 };
