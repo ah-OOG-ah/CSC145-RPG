@@ -39,6 +39,10 @@ class AttackItem : public RegularItem {
     [[nodiscard]] int64_t GetChance() const;
     [[nodiscard]] bool canSpread() const;
     void display() override;
+
+    /**
+     * Applies this item's damage to the first enemy, or to all enemies if spread
+     */
     void use(const std::shared_ptr<Entity>& user, const std::vector<std::shared_ptr<Entity>>& allies, const std::vector<std::shared_ptr<Entity>>& opponents) override;
 };
 
