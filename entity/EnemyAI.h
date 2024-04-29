@@ -16,44 +16,14 @@ namespace EAI {
     };
 
     /**
-     * Determine the highest value item.
+     * Determine the highest value item in an entity's inventory.
      */
-    template<class T> UseInfo getInfo(const std::shared_ptr<EquippedEntity>& e) {
-        double value = 0;
-        size_t index = SIZE_MAX;
-        for (size_t i = 0; i < e->inventory.getUsedSlots(); ++i) {
-            auto a = dynamic_cast<T*>(e->inventory[i].get());
-            if (a == nullptr) continue;
-
-            if (value < a->getValue()) {
-                value = a->getValue();
-                index = i;
-            }
-        }
-
-        return { value, index, true };
-    }
+    template<class T> UseInfo getInfo(const std::shared_ptr<EquippedEntity>& e);
 
     /**
      * A specialization that also compares with the user's weapon.
      */
-    template<> UseInfo getInfo<AttackItem>(const std::shared_ptr<EquippedEntity>& e) {
-        double value = 0;
-        size_t index = SIZE_MAX;
-        for (size_t i = 0; i < e->inventory.getUsedSlots(); ++i) {
-            if (e->inventory[i]->GetType() == ATTACK) {
-                auto a = dynamic_cast<AttackItem*>(e->inventory[i].get());
-
-                if (value < a->GetDamage()) {
-                    value = a->GetDamage();
-                    index = i;
-                }
-            }
-        }
-        bool isItem = e->getAttack() < value;
-
-        return { value, index, isItem };
-    }
+    template<> UseInfo getInfo<AttackItem>(const std::shared_ptr<EquippedEntity>& e);
 
     /**
      * Berserker always attacks.
