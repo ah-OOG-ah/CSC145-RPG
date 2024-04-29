@@ -15,7 +15,7 @@ game_src = [
   'entity/EquippedEntity.cpp',
   'entity/Player.cpp',
   'game.cpp',
-  'inventory.cpp',
+  'Inventory.cpp',
   'item/Equipment.cpp',
   'item/Item.cpp',
   'item/RegularItems.cpp',
