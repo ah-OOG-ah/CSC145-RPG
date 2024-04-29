@@ -4,6 +4,40 @@
 #include <utility>
 
 
+template<class T> EAI::UseInfo EAI::getInfo(const std::shared_ptr<EquippedEntity>& e) {
+    double value = 0;
+    size_t index = SIZE_MAX;
+    for (size_t i = 0; i < e->inventory.getUsedSlots(); ++i) {
+        auto a = dynamic_cast<T*>(e->inventory[i].get());
+        if (a == nullptr) continue;
+
+        if (value < a->getValue()) {
+            value = a->getValue();
+            index = i;
+        }
+    }
+
+    return { value, index, true };
+}
+
+template<> EAI::UseInfo EAI::getInfo<AttackItem>(const std::shared_ptr<EquippedEntity>& e) {
+    double value = 0;
+    size_t index = SIZE_MAX;
+    for (size_t i = 0; i < e->inventory.getUsedSlots(); ++i) {
+        if (e->inventory[i]->GetType() == ATTACK) {
+            auto a = dynamic_cast<AttackItem*>(e->inventory[i].get());
+
+            if (value < a->GetDamage()) {
+                value = a->GetDamage();
+                index = i;
+            }
+        }
+    }
+    bool isItem = e->getAttack() < value;
+
+    return { value, index, isItem };
+}
+
 void doOptimalAttack(EAI::UseInfo info, const std::shared_ptr<Enemy>& self, const std::vector<std::shared_ptr<Enemy>>& allies) {
     if (info.isItem) {
         self->inventory[info.index]->use(self, (const std::vector<std::shared_ptr<Entity>> &) allies, { getPlayer() });
