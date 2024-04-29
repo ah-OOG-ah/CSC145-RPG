@@ -120,6 +120,7 @@ void Inventory::RemoveItem(size_t pos, int64_t amnt) {
 void Inventory::AddGold(int64_t amnt) { gold += amnt; }
 
 void Inventory::print(bool numbered) {
+    std::cout << gold << " gold, " << curWeight << '/' << maxWeight << " kg" << std::endl;
     std::cout << "ITEMS" << std::endl;
     for (size_t i = 0; i < curSlots; i++) {
         if (numbered) std::cout << i + 1 << ". ";
