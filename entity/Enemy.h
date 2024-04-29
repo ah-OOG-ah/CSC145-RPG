@@ -8,7 +8,6 @@
 
 class Enemy : public EquippedEntity {
   protected:
-    std::function<void(std::shared_ptr<Enemy>, std::shared_ptr<EquippedEntity>)> behaviorFunction;
     std::function<Inventory(void)> invFactory;
     std::function<std::shared_ptr<Weapon>(void)> weaponFactory;
     std::function<ArmorSet(void)> armorFactory;
