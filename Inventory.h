@@ -56,7 +56,9 @@ class Inventory {
      */
     bool AddItem(const std::shared_ptr<Item>&);
 
-    // Print the items in the inventory
+    /**
+     * Prints the inventory.
+     */
     void print(bool numbered);
 
     void GarbageCollection();
