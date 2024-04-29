@@ -3,7 +3,7 @@
 #include "Entity.h"
 #include <utility>
 #include "Equipment.h"
-#include "inventory.h"
+#include "Inventory.h"
 #include "ArmorSet.h"
 #include "ItemDefs.h"
 #include "itemtiers.h"

@@ -1,4 +1,4 @@
-#include "inventory.h"
+#include "Inventory.h"
 #include <cstdint>
 #include <string>
 #include <iostream>

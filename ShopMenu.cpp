@@ -5,7 +5,7 @@
 #include <ostream>
 #include <utility>
 #include <vector>
-#include "inventory.h"
+#include "Inventory.h"
 #include "game.h"
 
 
