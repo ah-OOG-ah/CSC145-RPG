@@ -108,7 +108,13 @@ bool Inventory::ReplaceItem(const std::shared_ptr<Item>& newItem) {
 void Inventory::RemoveItem(size_t pos, int64_t amnt) {
     if (pos >= curSlots) return;
 
-    backing[pos]->ChangeAmount(-1 * amnt);
+    auto ret = backing[pos];
+
+    if (amnt > 0)
+        backing[pos]->ChangeAmount(-1 * amnt);
+    else
+        backing[pos]->setAmount(0);
+
 
     if (backing[pos]->GetAmount() <= 0) {
         --curSlots;
