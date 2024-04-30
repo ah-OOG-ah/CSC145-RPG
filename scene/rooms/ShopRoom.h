@@ -13,11 +13,12 @@ class ShopRoom : public Room {
   protected:
     std::string mapDisplay = "S";
     std::string merchantName;
-    std::shared_ptr<Item> purchase1 = nullptr;
-    std::shared_ptr<Item> purchase2 = nullptr;
-    std::shared_ptr<Item> purchase3 = nullptr;
+    std::shared_ptr<Item> purchase1;
+    std::shared_ptr<Item> purchase2;
+    std::shared_ptr<Item> purchase3;
 
     Dialogue dialogue;
+    std::unique_ptr<ShopMenu> shopMenu;
 
   public:
     ShopRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t nice);
@@ -43,5 +44,4 @@ class ShopRoom : public Room {
     Use: Takes in an integer and gives the corresponding dialogue members based on the number given
     */
     std::string GetDialogue(int64_t);
-    void GoToShop();
 };
