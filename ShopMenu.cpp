@@ -58,20 +58,20 @@ void ShopMenu::Sell() {
     std::cout << "Please input the number for the item you want to sell. Enter 0 to exit" << std::endl;
     getPlayer()->inventory.print(true); //Used to print items with numbers by them
     int64_t choice = 0;
-    std::cin>>choice; //Choice will substracted by one to account for the fact that array starts as zero but inventory numbers at 1
+    std::cin >> choice; // Choice will subtracted by one to account for the fact that array starts as zero but inventory numbers at 1
     if (choice > 0 && choice <= getPlayer()->inventory.getUsedSlots()) {
         int64_t sellAmnt = 1;
-        if (getPlayer()->inventory.GetItem(choice)->isStackable()) {
+        if (getPlayer()->inventory[choice]->isStackable()) {
             std::cout << merchantName<< ": " << entries[15] << " ";
-            std::cin>>sellAmnt;
+            std::cin >> sellAmnt;
         }
         std::cout << merchantName<< ": " << entries[4] << " ";
-        std::cout << ((getPlayer()->inventory.GetItem(choice)->GetPrice()) * sellAmnt) / (.8) << std::endl;
+        std::cout << ((getPlayer()->inventory[choice]->GetPrice()) * sellAmnt) / (.8) << std::endl;
         std::cout<< "Sell\?" << std::endl;
         std::string sellChoice;
         std::getline(std::cin, sellChoice);
         if (sellChoice == "Yes" || sellChoice == "yes"  || sellChoice == "YES" || sellChoice == "Y" || sellChoice == "Y") {
-            getPlayer()->inventory.AddGold(getPlayer()->inventory.GetItem(choice)->GetPrice() * sellAmnt * .8);
+            getPlayer()->inventory.AddGold(getPlayer()->inventory[choice]->GetPrice() * sellAmnt * .8);
             getPlayer()->inventory.RemoveItem(choice, -1 * sellAmnt);
             std::cout << merchantName<< ": " << entries[6] << std::endl;
         } else {
