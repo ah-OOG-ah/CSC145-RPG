@@ -52,6 +52,7 @@ class Item : public Menu {
 
     //Setters
     virtual void ChangeAmount(int64_t addAmnt);
+    virtual void setAmount(int64_t amnt);
 
     /**
      * @param times Multiplies the current amount by this much

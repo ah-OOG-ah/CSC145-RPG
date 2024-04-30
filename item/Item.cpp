@@ -49,3 +49,8 @@ void Item::use(const std::shared_ptr<Entity>& user, const std::vector<std::share
 double Item::getValue() const {
     return 0;
 }
+
+void Item::setAmount(int64_t amnt) {
+    amount = amnt;
+    if (!stackable) amount = amount > 0 ? 1 : 0;
+}
