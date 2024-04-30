@@ -83,7 +83,8 @@ ShopRoom::ShopRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t nice) : Ro
                     "How many items will you be selling today, sir\?",
                     "Have a blessed day, sire!",
                     "I am sorry for your lack of space, sir.",
-                    "If you ever need to part with your items in the future, sir, I will be right here."
+                    "If you ever need to part with your items in the future, sir, I will be right here.",
+                    "How many of your fine items will you be selling to me today\?"
             };
             switch (rand2) {
                 case 1:
