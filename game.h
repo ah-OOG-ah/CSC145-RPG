@@ -23,6 +23,6 @@ bool randBool();
  * Presents the player a management screen. If it returns true, the player has performed an action, usually using an
  * item.
  */
-bool manageInventory(const std::vector<std::shared_ptr<Entity>>& enemies);
+bool manageInventory(const std::vector<std::shared_ptr<Entity>>& enemies, bool& exit);
 
 void saveGame();

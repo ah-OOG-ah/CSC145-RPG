@@ -44,7 +44,8 @@ void saveGame() {
     std::cout << "Not imeplemented yet." << std::endl;
 }
 
-bool manageInventory(const std::vector<std::shared_ptr<Entity>>& enemies) {
+bool manageInventory(const std::vector<std::shared_ptr<Entity>>& enemies, bool& exit) {
+    std::cout << "Press 0 to exit." << std::endl;
     player->inventory.print(true);
 
     std::string choice;
@@ -64,6 +65,11 @@ bool manageInventory(const std::vector<std::shared_ptr<Entity>>& enemies) {
             continue;
         }
         break;
+    }
+
+    if (i == 0) {
+        exit = true;
+        return false;
     }
 
     auto item = player->inventory[i - 1];
