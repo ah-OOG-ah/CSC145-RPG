@@ -66,7 +66,7 @@ void Floor::run() {
     while (!exit) {
         std::cout << "You are at: " << p->x << ", " << p->y << std::endl;
         auto room = rooms[index(p->x, p->y)];
-        std::cout << room->GetDesc() << std::endl;
+        std::cout << "You enter " << room->GetDesc() << std::endl;
         room->specialAction();
         room->display();
 
