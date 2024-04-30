@@ -4,6 +4,7 @@
 #include "game.h"
 
 
+// TODO: add posters
 SafeRoom::SafeRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t nice) : Room("Safe", std::move(m), mask, nice) {
     switch (randUint() % 4) {
         case 0:
