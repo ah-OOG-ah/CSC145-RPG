@@ -32,7 +32,7 @@ ShopRoom::ShopRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t nice) : Ro
     //Multi switch statement to determine merchant's name
     auto rand1 = randUint() % 4;
     auto rand2 = randUint() % 4;
-    switch(rand1) {
+    switch (rand1) {
         case 1:
             text = {
                 "Hello me chum, welcome to me shop.",
@@ -120,7 +120,7 @@ ShopRoom::ShopRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t nice) : Ro
                 "Do you feel an overbearing need to waste my time or what\?",
                 "How many are you selling\?"
             };
-            switch(rand2) {
+            switch (rand2) {
                 case 1:
                     merchantName = "Sam";
                     break;
@@ -156,7 +156,13 @@ ShopRoom::ShopRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t nice) : Ro
             };
             merchantName = "Merchant Bob";
     }
-    entries = text;
+    dialogue = text;
+
+    // Add the menu to the list
+    entries.emplace_back("Enter Shop");
+    funcs.emplace_back([this](){
+        this->display();
+    });
 }
 
 std::string ShopRoom::GetMerchant() const { return merchantName; }
@@ -174,9 +180,9 @@ std::shared_ptr<Item> ShopRoom::GetPurchase(int64_t selection) {
     }
 }
 
-std::string ShopRoom::GetDialogue(int64_t i) { return entries[i]; }
+std::string ShopRoom::GetDialogue(int64_t i) { return dialogue[i]; }
 
 void ShopRoom::GoToShop() {
-    ShopMenu shopMenu(merchantName, entries, purchase1, purchase2, purchase3);
+    ShopMenu shopMenu(merchantName, dialogue, purchase1, purchase2, purchase3);
     shopMenu.display();
 }
