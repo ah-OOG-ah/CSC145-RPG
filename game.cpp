@@ -27,10 +27,6 @@ uint64_t randUint() { return udist(rng); }
 int64_t randInt() { return dist(rng); }
 bool randBool() { return randUint() % 2 == 0; }
 
-std::shared_ptr<Scene> getScene() {
-    return scene;
-}
-
 std::shared_ptr<Player> getPlayer() {
     return player;
 }
@@ -46,6 +42,40 @@ void pDisplay() {
 
 void saveGame() {
     std::cout << "Not imeplemented yet." << std::endl;
+}
+
+bool manageInventory(const std::vector<std::shared_ptr<Entity>>& enemies) {
+    player->inventory.print(true);
+
+    std::string choice;
+    size_t i = -1;
+    while (true) {
+        std::getline(std::cin, choice);
+
+        try {
+            i = std::stoi(choice);
+        } catch (std::invalid_argument&) {
+            std::cout << "Not a number" << std::endl;
+            continue;
+        }
+
+        if (i > player->inventory.getUsedSlots()) {
+            std::cout << "Invalid index" << std::endl;
+            continue;
+        }
+        break;
+    }
+
+    auto item = player->inventory[i - 1];
+    if (item->GetType() == ATTACK && enemies.empty()) {
+        std::cout << "No enemies to target!" << std::endl;
+        return false;
+    }
+
+    if (item->GetType() == WEAPON) {
+        auto tmp = player->currentWeapon;
+        //player->currentWeapon.reset(dynamic_cast<Weapon*>(player->inventory.RemoveItem(i - 1)));
+    }
 }
 
 int main() {
