@@ -100,15 +100,14 @@ bool Inventory::ReplaceItem(const std::shared_ptr<Item>& newItem) {
     }
 }
 
-void Inventory::RemoveItem(size_t pos, int64_t amnt) {
-    if (pos >= curSlots) return;
+std::unique_ptr<Item> Inventory::RemoveItem(size_t pos, int64_t amnt) {
+    if (pos >= curSlots) return nullptr;
 
-    auto ret = backing[pos];
-
+    std::unique_ptr<Item> ret;
     if (amnt > 0)
-        backing[pos]->ChangeAmount(-1 * amnt);
+        ret = backing[pos]->ChangeAmount(-1 * amnt);
     else
-        backing[pos]->setAmount(0);
+        ret = backing[pos]->setAmount(0);
 
 
     if (backing[pos]->GetAmount() <= 0) {
@@ -116,6 +115,8 @@ void Inventory::RemoveItem(size_t pos, int64_t amnt) {
         curWeight -= backing[pos]->getWeight();
         backing.erase(std::next(backing.begin(), pos));
     }
+
+    return ret;
 }
 
 void Inventory::AddGold(int64_t amnt) { gold += amnt; }
