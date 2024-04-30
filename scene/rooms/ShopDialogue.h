@@ -15,7 +15,7 @@ struct Dialogue {
     std::string takeThatFor;
     std::string youBought;
     std::string theyBought;
-    std::string notEnough;
+    std::string notEnoughGold;
     std::string invalid;
     std::string youHaveNotEnough;
     std::string merchantHaveNotEnough;
@@ -34,7 +34,7 @@ struct Dialogue {
             case 4: return takeThatFor;
             case 5: return youBought;
             case 6: return theyBought;
-            case 7: return notEnough;
+            case 7: return notEnoughGold;
             case 8: return invalid;
             case 9: return youHaveNotEnough;
             case 10: return merchantHaveNotEnough;
@@ -48,22 +48,22 @@ struct Dialogue {
 
     [[nodiscard]] std::vector<std::string> fmt() const {
         return {
-            enterString,
-            buyOrSell,
-            whatAreYouBuying,
-            merchantBuying,
-            takeThatFor,
-            youBought,
-            theyBought,
-            notEnough,
-            invalid,
-            youHaveNotEnough,
-            merchantHaveNotEnough,
-            amountSelling,
-            exitString,
-            giveBack,
-            failedSale,
-            howMany
+                enterString,
+                buyOrSell,
+                whatAreYouBuying,
+                merchantBuying,
+                takeThatFor,
+                youBought,
+                theyBought,
+                notEnoughGold,
+                invalid,
+                youHaveNotEnough,
+                merchantHaveNotEnough,
+                amountSelling,
+                exitString,
+                giveBack,
+                failedSale,
+                howMany
         };
     }
 };

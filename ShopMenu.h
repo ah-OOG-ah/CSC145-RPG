@@ -15,6 +15,9 @@ class ShopMenu : public Menu {
     void display() override;
 
   protected:
+    // Technically, this just duplicates the menu entries. But it's much easier to use.
+    Dialogue text;
+
     void dispatch(int64_t i) override;
 
   private:
