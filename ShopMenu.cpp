@@ -123,7 +123,7 @@ void ShopMenu::dispatch(int64_t choice) {
                 std::cout << merchantName<< ": " << entries[7] <<std::endl;
                 return;
             }
-            if (getPlayer()->inventory.AddItem(purchase1->copy())) {
+            if (getPlayer()->inventory.AddItem(purchase1->copy(0))) {
                 getPlayer()->inventory.AddGold(-1 * purchase1->GetPrice());
                 purchase1->ChangeAmount(-1);
                 std::cout << purchase1->GetName() << " Added to Inventory" << std::endl;
@@ -138,7 +138,7 @@ void ShopMenu::dispatch(int64_t choice) {
                 std::cout << merchantName<< ": " << entries[7] <<std::endl;
                 return;
             }
-            if (getPlayer()->inventory.AddItem(purchase2->copy())) {
+            if (getPlayer()->inventory.AddItem(purchase2->copy(0))) {
                 getPlayer()->inventory.AddGold(-1 * purchase1->GetPrice());
                 purchase1->ChangeAmount(-1);
                 std::cout << purchase2->GetName() << " Added to Inventory" << std::endl;
@@ -153,7 +153,7 @@ void ShopMenu::dispatch(int64_t choice) {
                 std::cout << merchantName<< ": " << entries[7] <<std::endl;
                 return;
             }
-            if (getPlayer()->inventory.AddItem(purchase3->copy())) {
+            if (getPlayer()->inventory.AddItem(purchase3->copy(0))) {
                 getPlayer()->inventory.AddGold(-1 * purchase3->GetPrice());
                 purchase3->ChangeAmount(-1);
                 std::cout << purchase3->GetName() << " Added to Inventory" << std::endl;

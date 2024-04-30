@@ -7,12 +7,10 @@
 
 
 Item::Item(std::string itemName, int64_t price, std::string desc)
-        : Item(std::move(itemName), price, 1, std::move(desc)) { }
+    : Item(std::move(itemName), price, 1, std::move(desc)) { }
 Item::Item(std::string itemName, int64_t price, int64_t amnt, std::string desc)
-: Menu(std::vector<std::string>({itemName,  desc})), name(std::move(itemName)), amount(amnt), price(price), description(std::move(desc)) { }
-Item::Item(const Item* i)
-    : Menu(std::vector<std::string>({i->GetName(), i->GetDesc()})),
-    name(i->name), type(i->type), amount(i->amount), price(i->price), stackable(i->stackable), equipable(i->equipable), offense(i->offense), description(i->description) { }
+    : name(std::move(itemName)), amount(amnt), price(price), description(std::move(desc)) { }
+
 
 std::string Item::GetName() const { return name; }
 ItemType Item::GetType() const { return type; }
@@ -31,26 +29,20 @@ void Item::ChangeAmount(int64_t addAmnt) {
 
 void Item::SetName(std::string newName) { name = std::move(newName); }
 
-void Item::copy(int64_t times) { amount *= times; }
-
-void Item::display() {
-    std::cout << entries[0] << std::endl;
-    std::cout << "Price: " << this->GetPrice() << std::endl;
-    std::cout << entries[1] << std::endl;
-    std::cout << "Enter any key to exit " << std::endl;
-    std::string choice;
-    std::getline(std::cin, choice);
-}
-
-void Item::dispatch(int64_t i) { }
-
-void Item::use(const std::shared_ptr<Entity>& user, const std::vector<std::shared_ptr<Entity>>& allies, const std::vector<std::shared_ptr<Entity>>& opponents) { }
+void Item::multiply(int64_t times) { amount *= times; }
 
 double Item::getValue() const {
     return 0;
 }
 
-void Item::setAmount(int64_t amnt) {
+std::unique_ptr<Item> Item::setAmount(int64_t amnt) {
+    auto delta = amnt;
+
     amount = amnt;
     if (!stackable) amount = amount > 0 ? 1 : 0;
+
+    // Return any excess
+    delta -= amount;
+    if (delta > 0) return copy(delta);
+    return nullptr;
 }
