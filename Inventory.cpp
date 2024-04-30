@@ -157,12 +157,10 @@ void Inventory::findFirstItems(ItemType type) {
 
 size_t Inventory::getFirst(ItemType t) const {
     switch (t) {
-        case NONE:
-        case WEAPON:
-        case ARMOR: return SIZE_MAX;
         case ATTACK: return firstAttack;
         case HEAL: return firstHeal;
         case STATUS: return firstStatus;
+        default: return SIZE_MAX;
     }
 }
 
