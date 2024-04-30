@@ -20,7 +20,8 @@ Room::Room(std::string name, std::string description, std::shared_ptr<Movement> 
     // The first option is always accessing the inventory
     entries.emplace_back("Open Inventory");
     funcs.emplace_back([](){
-        getPlayer()->inventory.print(false);
+        bool exit = false;
+        while (!manageInventory({}, exit)) { if (exit) break; }
     });
 
     // A mask of 0bx0x0 means we're in the last room - proceeding is impossible
