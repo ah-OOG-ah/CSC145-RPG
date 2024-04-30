@@ -11,7 +11,7 @@
 class ShopMenu : public Menu {
 
   public:
-    ShopMenu(std::string merchant, const Dialogue& text, std::shared_ptr<Item> stock1, std::shared_ptr<Item> stock2, std::shared_ptr<Item> stock3);
+    ShopMenu(std::string merchant, const Dialogue& text, const std::vector<std::shared_ptr<Item>>& wares);
     void display() override;
 
   protected:
@@ -22,9 +22,10 @@ class ShopMenu : public Menu {
 
   private:
     std::string merchantName;
-    std::shared_ptr<Item> purchase1 = nullptr;
-    std::shared_ptr<Item> purchase2 = nullptr;
-    std::shared_ptr<Item> purchase3 = nullptr;
+    std::vector<std::shared_ptr<Item>> wares;
+    std::shared_ptr<Item> purchase1;
+    std::shared_ptr<Item> purchase2;
+    std::shared_ptr<Item> purchase3;
     std::shared_ptr<Item> GetPurchase(int64_t);
 
     void Buy();

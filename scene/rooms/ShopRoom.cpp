@@ -11,23 +11,27 @@
 ShopRoom::ShopRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t nice)
     : Room("Shop", std::move(m), mask, nice) {
     Dialogue text;
+    std::vector<std::shared_ptr<Item>> wares;
+    std::string merchantName;
 
-    switch (randUint() % 4) {
-        case 0:
-            purchase1 = IDefs::dart->copy(0);
-            purchase1->multiply(3);
-            break;
-        case 1:
-            purchase1 = IDefs::cookie->copy(0);
-            purchase1->multiply(5);
-            break;
-        case 2:
-            purchase1 = IDefs::spear->copy(0);
-            purchase1->multiply(2);
-            break;
-        case 3:
-            purchase1 = IDefs::hammer->copy(0);
-            break;
+    for (int i = 0; i < 3; ++i) {
+        switch (randUint() % 4) {
+            case 0:
+                wares.emplace_back(IDefs::dart);
+                wares[i]->multiply(3);
+                break;
+            case 1:
+                wares.emplace_back(IDefs::cookie);
+                wares[i]->multiply(5);
+                break;
+            case 2:
+                wares.emplace_back(IDefs::spear);
+                wares[i]->multiply(2);
+                break;
+            case 3:
+                wares.emplace_back(IDefs::hammer);
+                break;
+        }
     }
 
     //Multi switch statement to determine merchant's name
@@ -162,9 +166,8 @@ ShopRoom::ShopRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t nice)
                           "You can't see where the screeches are coming from.";
             merchantName = "Merchant Bob";
     }
-    dialogue = text;
 
-    shopMenu = std::make_unique<ShopMenu>(merchantName, text, purchase1, purchase2, purchase3);
+    shopMenu = std::make_unique<ShopMenu>(merchantName, text, wares);
 
     // Add the menu to the list
     entries.emplace_back("Enter Shop");
@@ -172,20 +175,3 @@ ShopRoom::ShopRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t nice)
         shopMenu->display();
     });
 }
-
-std::string ShopRoom::GetMerchant() const { return merchantName; }
-
-std::shared_ptr<Item> ShopRoom::GetPurchase(int64_t selection) {
-    switch (selection) {
-        case 1:
-            return purchase1;
-        case 2:
-            return purchase2;
-        case 3:
-            return purchase3;
-        default:
-            return nullptr;
-    }
-}
-
-std::string ShopRoom::GetDialogue(int64_t i) { return dialogue[i]; }

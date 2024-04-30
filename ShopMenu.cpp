@@ -9,16 +9,16 @@
 #include "game.h"
 
 
-ShopMenu::ShopMenu(std::string merchant, const Dialogue& text, std::shared_ptr<Item> stock1, std::shared_ptr<Item> stock2, std::shared_ptr<Item> stock3)
-    : Menu(text.fmt()), text(text), merchantName(std::move(merchant)), purchase1(std::move(stock1)), purchase2(std::move(stock2)), purchase3(std::move(stock3)) { }
+ShopMenu::ShopMenu(std::string merchant, const Dialogue& text, const std::vector<std::shared_ptr<Item>>& wares)
+    : Menu(text.fmt()), text(text), merchantName(std::move(merchant)), wares(wares) { }
 
 void ShopMenu::Buy() {
     int64_t itemChoice = 0;
     do {
-        std::cout << merchantName << ": " <<entries[2]<<std::endl;
+        std::cout << merchantName << ": " << entries[2]<<std::endl;
         std::cout << "Gold: " << getPlayer()->inventory.getGold() << std::endl;
         for (int i = 1; i <= 3; i++) {
-            std::cout<< i << ". " << GetPurchase(i)->GetName() << "x" << GetPurchase(i)->GetAmount();
+            std::cout << i << ". " << GetPurchase(i)->GetName() << "x" << GetPurchase(i)->GetAmount();
             if (GetPurchase(i)->isEquipment()) {
                 std::cout<<" EQUIPMENT";
             }
