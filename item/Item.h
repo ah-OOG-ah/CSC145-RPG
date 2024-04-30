@@ -9,7 +9,7 @@
 #include <memory>
 
 
-class Item : public Menu {
+class Item {
   protected:
     std::string name;
     ItemType type = NONE;
@@ -21,16 +21,17 @@ class Item : public Menu {
     int64_t weightPer = 1;
     std::string description;
 
-    void dispatch(int64_t i) override;
-
   public:
     //Constructor
     Item(std::string itemName, int64_t price, int64_t amnt, std::string desc);
     Item(std::string itemName, int64_t price,               std::string desc);
-    explicit Item(const Item* i);
 
-    // C++ doesn't have virtual constructors, but I don't care
-    virtual std::unique_ptr<Item> copy() = 0;
+    /**
+     * C++ doesn't have virtual constructors, but I don't care. Simulate it.
+     *
+     * @param amount If nonzero, sets the result's amount to this instead of copying the original's
+     */
+    [[nodiscard]] virtual std::unique_ptr<Item> copy(int64_t amount) const = 0;
 
     //Getters
     [[nodiscard]] std::string GetName() const;
@@ -52,17 +53,19 @@ class Item : public Menu {
 
     //Setters
     virtual void ChangeAmount(int64_t addAmnt);
-    virtual void setAmount(int64_t amnt);
+    virtual std::unique_ptr<Item> setAmount(int64_t amnt);
 
     /**
      * @param times Multiplies the current amount by this much
      */
-    void copy(int64_t times);
+    void multiply(int64_t times);
 
     //Setters I do not think we need
     void SetName(std::string newName);
 
-    void display() override;
-
-    virtual void use(const std::shared_ptr<Entity>& user, const std::vector<std::shared_ptr<Entity>>& allies, const std::vector<std::shared_ptr<Entity>>& opponents);
+    /**
+     * Items usable in or out of combat should override this. Some items may not be able to implement it, and should
+     * inherit from a subclass which blanks it.
+     */
+    virtual void use(const std::shared_ptr<Entity>& user, const std::vector<std::shared_ptr<Entity>>& allies, const std::vector<std::shared_ptr<Entity>>& opponents) = 0;
 };

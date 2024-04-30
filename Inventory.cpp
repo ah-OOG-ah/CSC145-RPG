@@ -7,17 +7,17 @@
 Inventory::Inventory(size_t max) : maxSlots(max) { }
 Inventory::Inventory(const Inventory& inv) : maxSlots(inv.maxSlots), curSlots(inv.curSlots), maxWeight(inv.maxWeight), curWeight(inv.curWeight) {
     for (size_t i = 0; i < curSlots; ++i) {
-        backing.emplace_back(inv.backing[i]->copy());
+        backing.emplace_back(inv.backing[i]->copy(0));
     }
 }
 Inventory::Inventory(const std::vector<std::shared_ptr<Item>>& items) : maxSlots(items.size()), curSlots(maxSlots) {
     for (size_t i = 0; i < maxSlots; ++i) {
-        backing.emplace_back(items[i]->copy());
+        backing.emplace_back(items[i]->copy(0));
     }
 }
 Inventory::Inventory(std::initializer_list<const std::shared_ptr<Item>> il) : maxSlots(il.size()), curSlots(maxSlots) {
     for (const auto& i : il) {
-        backing.emplace_back(i->copy());
+        backing.emplace_back(i->copy(0));
     }
 }
 

@@ -11,15 +11,15 @@ class Equipment : public Item {
     int64_t durability;
     //stackable is set to false
   public:
-    Equipment(std::string itemName, int64_t durab, int64_t price);
-    Equipment(std::string itemName, int64_t durab, int64_t price, std::string desc);
-    explicit Equipment(Equipment* e);
+    Equipment(std::string itemName, int64_t durab, int64_t price, std::string desc = "");
 
-    std::unique_ptr<Item> copy() override;
+    [[nodiscard]] std::unique_ptr<Item> copy(int64_t amount) const override;
 
     [[nodiscard]] int64_t GetDurab() const;
     void ChangeDurab(int64_t);
     [[nodiscard]] std::string GetAmntText() const override;
+
+    void use(const std::shared_ptr<Entity>& user, const std::vector<std::shared_ptr<Entity>>& allies, const std::vector<std::shared_ptr<Entity>>& opponents) override { };
 };
 
 class Weapon : public Equipment {
@@ -27,15 +27,13 @@ class Weapon : public Equipment {
     double dmgMultiplier = 1.0;
 
   public:
-    Weapon(std::string itemName, int64_t durab, double dmg, int64_t price);
-    Weapon(std::string itemName, int64_t durab, double dmg, int64_t price, std::string desc);
-    explicit Weapon(Weapon* w);
+    Weapon(std::string itemName, int64_t durab, double dmg, int64_t price, std::string desc = "");
 
-    std::unique_ptr<Item> copy() override;
+    [[nodiscard]] std::unique_ptr<Item> copy(int64_t amount) const override;
 
     [[nodiscard]] double GetDamage() const;
+
     void SetDamage(double dmg);
-    void display() override;
 };
 
 enum ArmorType { Helmet, Chestplate, Leggings, Boots };
@@ -50,9 +48,8 @@ class Armor : public Equipment {
 
   public:
     Armor(std::string itemName, int64_t durab, double pDef, double sDef, int64_t price, ArmorType mold, std::string desc, double dmgMult = 1.0);
-    explicit Armor(Armor* a);
 
-    std::unique_ptr<Item> copy() override;
+    [[nodiscard]] std::unique_ptr<Item> copy(int64_t amount) const override;
 
     [[nodiscard]] double GetPercDef() const;
     [[nodiscard]] double GetStaticDef() const;
@@ -62,5 +59,4 @@ class Armor : public Equipment {
     void SetStaticDef(double);
     void SetDmgMult(double);
     void SetArmorType(ArmorType);
-    void display() override;
 };

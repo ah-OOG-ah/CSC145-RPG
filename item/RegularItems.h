@@ -12,8 +12,6 @@ class RegularItem : public Item {
   public:
     RegularItem(std::string itemName, int64_t price, std::string desc, int64_t amnt = 1);
 
-    std::unique_ptr<Item> copy() override;
-
     [[nodiscard]] std::string GetAmntText() const override;
 };
 
@@ -27,7 +25,7 @@ class AttackItem : public RegularItem {
   public:
     AttackItem(std::string itemName, int64_t dmg, int64_t price, std::string desc, bool spread = false, int64_t amnt = 1, const std::shared_ptr<Status>& effect = stypes::none, int64_t chance = 0);
 
-    std::unique_ptr<Item> copy() override;
+    [[nodiscard]] std::unique_ptr<Item> copy(int64_t amount) const override;
 
     void SetDamage(int64_t dmg);
     void SetStatus(std::shared_ptr<Status> effect);
@@ -38,7 +36,6 @@ class AttackItem : public RegularItem {
     std::shared_ptr<Status> GetStatus();
     [[nodiscard]] int64_t GetChance() const;
     [[nodiscard]] bool canSpread() const;
-    void display() override;
 
     /**
      * Applies this item's damage to the first enemy, or to all enemies if spread
@@ -56,15 +53,13 @@ class HealItem : public RegularItem {
     HealItem(std::string itemName, double hp, int64_t price, std::string desc, int64_t amnt = 1, const std::shared_ptr<Status>& effect = stypes::none);
     explicit HealItem(const HealItem*);
 
-    std::unique_ptr<Item> copy() override;
+    [[nodiscard]] std::unique_ptr<Item> copy(int64_t amount) const override;
 
     void SetHpAmnt(double hp);
     void SetHealedStatus(std::shared_ptr<Status> status);
 
     [[nodiscard]] double GetHpAmnt() const;
     [[nodiscard]] std::shared_ptr<Status> GetHealedStatus() const;
-
-    void display() override;
 
     void use(const std::shared_ptr<Entity>& user, const std::vector<std::shared_ptr<Entity>>& allies, const std::vector<std::shared_ptr<Entity>>& opponents) override;
 };
@@ -81,7 +76,7 @@ class StatusItem : public RegularItem {
   public:
     StatusItem(std::string itemName, int64_t price, int64_t boost, statBoost stat, std::string desc, int64_t amnt = 1, const std::shared_ptr<Status>& effect = stypes::none, int64_t chance = 0);
 
-    std::unique_ptr<Item> copy() override;
+    [[nodiscard]] std::unique_ptr<Item> copy(int64_t amount) const override;
 
     void SetBoost(int64_t boost);
     void SetStat(statBoost stat);
@@ -92,6 +87,5 @@ class StatusItem : public RegularItem {
     [[nodiscard]] statBoost GetStat() const;
     std::shared_ptr<Status> GetStatus();
     [[nodiscard]] int64_t GetChance() const;
-    void display() override;
     void use(const std::shared_ptr<Entity>& user, const std::vector<std::shared_ptr<Entity>>& allies, const std::vector<std::shared_ptr<Entity>>& opponents) override;
 };

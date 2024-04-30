@@ -13,10 +13,6 @@ std::string RegularItem::GetAmntText() const {
     return "x";
 }
 
-std::unique_ptr<Item> RegularItem::copy() {
-    return std::make_unique<RegularItem>(*this);
-}
-
 
 AttackItem::AttackItem(std::string itemName, int64_t dmg, int64_t price, std::string desc, bool spread, int64_t amnt, const std::shared_ptr<Status>& effect, int64_t chance)
     : RegularItem(std::move(itemName), price, std::move(desc)), damage(dmg), status(std::make_shared<Status>(effect)), effectChance(chance), spreadDamage(spread) {
@@ -33,21 +29,6 @@ std::shared_ptr<Status> AttackItem::GetStatus() { return status; }
 int64_t AttackItem::GetChance() const { return effectChance; }
 bool AttackItem::canSpread() const { return spreadDamage; }
 
-void AttackItem::display() {
-
-    std::cout << entries[0] << std::endl;
-    std::cout << "Price: " << this->GetPrice() << std::endl;
-    std::cout << "Damage: " << this->GetDamage() << std::endl;
-    if (this->status != nullptr) {
-        std::cout << "Causes: " << this->GetStatus()->GetName() << std::endl;
-    }
-    std::cout << (spreadDamage ? "Multi-Target" : "Single-Target") << std::endl;
-    std::cout << entries[1] << std::endl;
-    std::cout << "Enter any key to exit " << std::endl;
-    std::string choice;
-    std::getline(std::cin, choice);
-}
-
 void AttackItem::use(const std::shared_ptr<Entity>& user, const std::vector<std::shared_ptr<Entity>>& allies, const std::vector<std::shared_ptr<Entity>>& opponents) {
     if (this->amount <= 0) return;
 
@@ -59,10 +40,10 @@ void AttackItem::use(const std::shared_ptr<Entity>& user, const std::vector<std:
     }
 }
 
-std::unique_ptr<Item> AttackItem::copy() {
-    auto ret = std::make_unique<AttackItem>(name, damage, price, description, amount, spreadDamage);
-    ret->status = status;
-    ret->effectChance = effectChance;
+std::unique_ptr<Item> AttackItem::copy(int64_t amount) const {
+    auto ret = std::make_unique<AttackItem>(*this);
+    if (amount != 0)
+        ret->amount = amount;
     return ret;
 }
 
@@ -78,31 +59,6 @@ void HealItem::SetHealedStatus(std::shared_ptr<Status> status) { healedStatus = 
 
 double HealItem::GetHpAmnt() const { return hpAmnt; }
 std::shared_ptr<Status> HealItem::GetHealedStatus() const { return healedStatus; }
-
-void HealItem::display() {
-    std::cout << entries[0] << std::endl;
-    std::cout << "Price: " << this->GetPrice() << std::endl;
-    std::cout << "Heals: " << this->GetHpAmnt() << std::endl;
-    if (this->healedStatus != nullptr) {
-        std::cout << "Cures: " << this->GetHealedStatus()->GetName() << std::endl;
-    }
-
-    std::cout << "Amount: " << this->GetAmount() << this->GetAmntText() << std::endl;
-    std::cout << entries[1] << std::endl;
-    std::cout << "Enter EXIT to exit or HEAL to heal with this item" << std::endl;
-    std::string choice;
-    while (choice != "EXIT") {
-        std::getline(std::cin, choice);
-        if (choice == "HEAL") {
-            this->use(getPlayer(), {}, {});
-            if (this->GetAmount() <= 0) {
-                return;
-            }
-        } else if(choice != "EXIT") {
-            std::cout << "Invalid input. Please input again. " << std::endl;
-        }
-    }
-}
 
 void HealItem::use(const std::shared_ptr<Entity>& user, const std::vector<std::shared_ptr<Entity>>& allies, const std::vector<std::shared_ptr<Entity>>& opponents) {
     if (this->amount <= 0) return;
@@ -127,8 +83,11 @@ void HealItem::use(const std::shared_ptr<Entity>& user, const std::vector<std::s
     }
 }
 
-std::unique_ptr<Item> HealItem::copy() {
-    return std::make_unique<HealItem>(this);
+std::unique_ptr<Item> HealItem::copy(int64_t amount) const {
+    auto ret = std::make_unique<HealItem>(*this);
+    if (amount != 0)
+        ret->amount = amount;
+    return ret;
 }
 
 
@@ -146,30 +105,6 @@ int64_t StatusItem::GetBoost() const { return this->boost; }
 statBoost StatusItem::GetStat() const { return this->stat; }
 std::shared_ptr<Status> StatusItem::GetStatus() { return status; }
 int64_t StatusItem::GetChance() const { return this->effectChance; }
-
-void StatusItem::display() {
-    std::cout << entries[0] << std::endl;
-    std::cout << "Price: " << this->GetPrice() << std::endl;
-    std::cout << "Boosts: " << this->GetStat() << " by " << this->GetBoost() << " Points" << std::endl;
-    if (this->status != nullptr) {
-        std::cout <<"Causes: " << this->status << std::endl;
-    }
-    std::cout << "Amount: " << this->GetAmount() << this->GetAmntText() << std::endl;
-    std::cout << entries[1] << std::endl;
-    std::cout << "Enter EXIT to exit or USE to use this item" << std::endl;
-    std::string choice;
-    while (choice != "EXIT") {
-        std::getline(std::cin, choice);
-        if (choice == "USE") {
-            this->use(getPlayer(), {}, {});
-            if (this->GetAmount() <= 0) {
-                return;
-            }
-        } else if (choice != "EXIT") {
-            std::cout << "Invalid input. Please input again. " << std::endl;
-        }
-    }
-}
 
 void StatusItem::use(const std::shared_ptr<Entity>& user, const std::vector<std::shared_ptr<Entity>>& allies, const std::vector<std::shared_ptr<Entity>>& opponents) {
     if (this->amount <= 0) return;
@@ -205,6 +140,9 @@ void StatusItem::use(const std::shared_ptr<Entity>& user, const std::vector<std:
     this->amount -1;
 }
 
-std::unique_ptr<Item> StatusItem::copy() {
-    return std::make_unique<StatusItem>(*this);
+std::unique_ptr<Item> StatusItem::copy(int64_t amount) const {
+    auto ret = std::make_unique<StatusItem>(*this);
+    if (amount != 0)
+        ret->amount = amount;
+    return ret;
 }

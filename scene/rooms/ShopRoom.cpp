@@ -44,19 +44,19 @@ ShopRoom::ShopRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t nice) : Ro
 
     switch (randUint() % 4) {
         case 0:
-            purchase1 = IDefs::dart->copy();
-            purchase1->copy(3);
+            purchase1 = IDefs::dart->copy(0);
+            purchase1->multiply(3);
             break;
         case 1:
-            purchase1 = IDefs::cookie->copy();
-            purchase1->copy(5);
+            purchase1 = IDefs::cookie->copy(0);
+            purchase1->multiply(5);
             break;
         case 2:
-            purchase1 = IDefs::spear->copy();
-            purchase1->copy(2);
+            purchase1 = IDefs::spear->copy(0);
+            purchase1->multiply(2);
             break;
         case 3:
-            purchase1 = IDefs::hammer->copy();
+            purchase1 = IDefs::hammer->copy(0);
             break;
     }
 
