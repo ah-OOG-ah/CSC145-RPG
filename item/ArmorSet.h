@@ -12,17 +12,17 @@ struct ArmorSet {
     std::shared_ptr<Armor> feet;
 
     ArmorSet(const std::shared_ptr<Armor>& h, const std::shared_ptr<Armor>& c, const std::shared_ptr<Armor>& l, const std::shared_ptr<Armor>& f) {
-        head.reset(dynamic_cast<Armor*>(h->copy().release()));
-        chest.reset(dynamic_cast<Armor*>(c->copy().release()));
-        legs.reset(dynamic_cast<Armor*>(l->copy().release()));
-        feet.reset(dynamic_cast<Armor*>(f->copy().release()));
+        head.reset(dynamic_cast<Armor*>(h->copy(0).release()));
+        chest.reset(dynamic_cast<Armor*>(c->copy(0).release()));
+        legs.reset(dynamic_cast<Armor*>(l->copy(0).release()));
+        feet.reset(dynamic_cast<Armor*>(f->copy(0).release()));
     }
 
     ArmorSet(const ArmorSet& a) {
-        head.reset(dynamic_cast<Armor*>(a.head->copy().release()));
-        chest.reset(dynamic_cast<Armor*>(a.chest->copy().release()));
-        legs.reset(dynamic_cast<Armor*>(a.legs->copy().release()));
-        feet.reset(dynamic_cast<Armor*>(a.feet->copy().release()));
+        head.reset(dynamic_cast<Armor*>(a.head->copy(0).release()));
+        chest.reset(dynamic_cast<Armor*>(a.chest->copy(0).release()));
+        legs.reset(dynamic_cast<Armor*>(a.legs->copy(0).release()));
+        feet.reset(dynamic_cast<Armor*>(a.feet->copy(0).release()));
     }
 
     ArmorSet() = default;
