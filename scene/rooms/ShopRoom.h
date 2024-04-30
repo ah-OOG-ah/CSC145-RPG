@@ -17,7 +17,7 @@ class ShopRoom : public Room {
     std::shared_ptr<Item> purchase2 = nullptr;
     std::shared_ptr<Item> purchase3 = nullptr;
 
-    Dialogue entries;
+    Dialogue dialogue;
 
   public:
     ShopRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t nice);

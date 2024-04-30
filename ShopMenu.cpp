@@ -25,7 +25,7 @@ void ShopMenu::Buy() {
             std::cout<<"   Price: " << GetPurchase(i)->GetPrice() << std::endl;
         }
         std::cout << "4. None of it " << std::endl;
-        std::cin>>itemChoice;
+        std::cin >> itemChoice;
         dispatch(itemChoice);
     } while (itemChoice != 4); 
 }
@@ -33,8 +33,9 @@ void ShopMenu::Buy() {
 void ShopMenu::Sell() {
     std::cout << merchantName<< ": " << entries[3] << std::endl;
     std::cout << "Please input the number for the item you want to sell. Enter 0 to exit" << std::endl;
-    getPlayer()->inventory.print(true); //Used to print items with numbers by them
+    getPlayer()->inventory.print(true);
     int64_t choice = 0;
+
     std::cin >> choice; // Choice will subtracted by one to account for the fact that array starts as zero but inventory numbers at 1
     if (choice > 0 && choice <= getPlayer()->inventory.getUsedSlots()) {
         int64_t sellAmnt = 1;
@@ -73,10 +74,10 @@ void ShopMenu::display() {
     while (choice != 3) {
         std::cout << merchantName<< ": " << entries[1] <<std::endl;
         std::cout << "GOLD" << getPlayer()->inventory.getGold() << std::endl;
-        std::cout<<"1. I want to buy"<<std::endl;
-        std::cout<<"2. I want to sell"<<std::endl;
-        std::cout<<"3. I was just leaving"<<std::endl;
-        std::cin>>choice;
+        std::cout << "1. I want to buy"<<std::endl;
+        std::cout << "2. I want to sell"<<std::endl;
+        std::cout << "3. I was just leaving"<<std::endl;
+        std::cin >> choice;
         switch (choice) {
             case 1:
                 Buy();
