@@ -52,7 +52,7 @@ class Item {
     [[nodiscard]] virtual double getValue() const;
 
     //Setters
-    virtual void ChangeAmount(int64_t addAmnt);
+    virtual std::unique_ptr<Item> ChangeAmount(int64_t addAmnt);
     virtual std::unique_ptr<Item> setAmount(int64_t amnt);
 
     /**

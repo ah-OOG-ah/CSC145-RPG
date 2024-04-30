@@ -45,7 +45,7 @@ class Inventory {
     size_t GetPos(const std::shared_ptr<Item>&);
     std::shared_ptr<Item> operator[] (size_t);
     bool ReplaceItem(const std::shared_ptr<Item>&); // function called by AddItem when inventory is full. True if item is replaced, else false
-    void RemoveItem(size_t pos, int64_t amnt = 0); // Used instead of ChangeAmount amount is to be removed. 0 in second integer removes all amount of the item
+    std::unique_ptr<Item> RemoveItem(size_t pos, int64_t amnt = 0); // Used instead of ChangeAmount amount is to be removed. 0 in second integer removes all amount of the item
     void AddGold(int64_t);
 
     /**
