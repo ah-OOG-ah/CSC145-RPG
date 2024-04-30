@@ -15,10 +15,14 @@ void setPFlee(bool);
 void pAttack(const std::shared_ptr<Entity>&);
 void pDisplay();
 
-std::shared_ptr<Scene> getScene();
-
 uint64_t randUint();
 int64_t randInt();
 bool randBool();
+
+/**
+ * Presents the player a management screen. If it returns true, the player has performed an action, usually using an
+ * item.
+ */
+bool manageInventory(const std::vector<std::shared_ptr<Entity>>& enemies);
 
 void saveGame();
