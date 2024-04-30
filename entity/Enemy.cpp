@@ -21,11 +21,11 @@ std::vector<std::shared_ptr<Item>> Enemy::getExtraLoot() const { return extraLoo
 std::vector<std::shared_ptr<Item>> Enemy::dropLoot() {
     std::vector<std::shared_ptr<Item>> lootVector;
 
-    for (size_t i = 0; i < this->inventory.getUsedSlots(); i++) {
-        lootVector.emplace_back(this->inventory.GetItem(i));
+    for (size_t i = 0; i < inventory.getUsedSlots(); i++) {
+        lootVector.emplace_back(inventory[i]);
     }
 
-    for (const auto& loot : this->extraLoot) {
+    for (const auto& loot : extraLoot) {
         lootVector.emplace_back(loot);
     }
 
@@ -33,7 +33,7 @@ std::vector<std::shared_ptr<Item>> Enemy::dropLoot() {
         lootVector.push_back(armor.get(i));
     }
 
-    lootVector.push_back(this->currentWeapon);
+    lootVector.push_back(currentWeapon);
     size_t amntOfLoot = randUint() % 4 + 1; // Gives loot 1 to 4
     if (lootVector.size() > amntOfLoot)
         lootVector.erase(std::next(lootVector.begin(), amntOfLoot), lootVector.end());
