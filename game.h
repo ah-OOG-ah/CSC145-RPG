@@ -7,18 +7,22 @@
 
 
 std::shared_ptr<Player> getPlayer();
-double getPHP(); //Gets player HP
-bool getPFlee(); //Gets player isFleeing bool
+double getPHP();
+bool getPFlee();
 
-void setPFlee(bool); //Sets the player isFleeingBool
+void setPFlee(bool);
 
-void pAttack(const std::shared_ptr<Entity>&); //Gets player attack
-void pDisplay(); //Displays players stats and such
+void pAttack(const std::shared_ptr<Entity>&);
+void pDisplay();
 
-std::shared_ptr<Scene> getScene();
+uint64_t randUint();
+int64_t randInt();
+bool randBool();
 
-uint64_t randUint(); //Makes a random unsigned integet
-int64_t randInt(); //Makes a random integer
-bool randBool(); //Makes a random bool
+/**
+ * Presents the player a management screen. If it returns true, the player has performed an action, usually using an
+ * item.
+ */
+bool manageInventory(const std::vector<std::shared_ptr<Entity>>& enemies);
 
 void saveGame();
