@@ -66,6 +66,7 @@ ShopRoom::ShopRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t nice) : Ro
                     merchantName = "Hobo Gregor";
                     break;
             }
+            description = "a warm room with the faint smell of salt in the air and a weather beaten shack in the corner.";
             break;
         case 2:
             text = {
@@ -100,6 +101,7 @@ ShopRoom::ShopRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t nice) : Ro
                     merchantName = "Sir Michel";
                     break;
             }
+            description = "a polished room with a mahogany door on one wall.";
             break;
         case 3:
             text = {
@@ -112,7 +114,7 @@ ShopRoom::ShopRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t nice) : Ro
                 "This will make a fine addition to my collection",
                 "Hey, rat! You don\'t seem to have enough money to buy that",
                 "Speak up, kid, I can\'t hear you.",
-                "Enough jokes, kid. If you want to do buisness at least try to be serious",
+                "Enough jokes, kid. If you want to do business at least try to be serious",
                 "Can you please make a reasonable request\?",
                 "How many would you like me take off your hands\?",
                 "Be careful. You never know what could be lurking out there.",
@@ -134,6 +136,7 @@ ShopRoom::ShopRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t nice) : Ro
                     merchantName = "Scott";
                     break;
             }
+            description = "an undecorated room with metal flooring. A blast door is inset on one of the walls.";
             break;
         default:
             text = {
@@ -154,6 +157,8 @@ ShopRoom::ShopRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t nice) : Ro
                 "Your items will be Monkey Bob's in due time",
                 "How many of your items will you tribute to the Casear that is Monkey Bob\?"
             };
+            description = "a noisy room filled with screeching. A large money surrounded with knickknacks crouches in the corner.\n"
+                          "You can't see where the screeches are coming from.";
             merchantName = "Merchant Bob";
     }
     dialogue = text;

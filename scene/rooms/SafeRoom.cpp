@@ -22,7 +22,7 @@ SafeRoom::SafeRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t nice) : Ro
         case 4:
             description = "a room with ash and charred trash lying in the center";
             break;
-        case 5: 
+        case 5:
             description = "a forboding room. A monkey face is drawn in the dirt, with a wicked grin";
             break;
         case 6:

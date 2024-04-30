@@ -10,7 +10,7 @@ BattleRoom::BattleRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t nice)
 
     switch (rand) {
         case 0:
-            description = " a dark room with a broken chain dangling from the ceiling";
+            description = "a dark room with a broken chain dangling from the ceiling";
             break;
         case 1:
             description = "a damp room covered in moss. A crumbling heap of stone is in the center";
