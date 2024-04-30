@@ -3,6 +3,7 @@
 #include "Menu.h"
 #include "Item.h"
 #include "Equipment.h"
+#include "scene/rooms/ShopDialogue.h"
 #include <cstdint>
 #include <string>
 
@@ -10,7 +11,7 @@
 class ShopMenu : public Menu {
 
   public:
-    ShopMenu(std::string merchant, std::vector<std::string> entries, std::shared_ptr<Item> stock1, std::shared_ptr<Item> stock2, std::shared_ptr<Item> stock3);
+    ShopMenu(std::string merchant, const Dialogue& text, std::shared_ptr<Item> stock1, std::shared_ptr<Item> stock2, std::shared_ptr<Item> stock3);
    void display() override;
   protected:
     void dispatch(int64_t i) override;
