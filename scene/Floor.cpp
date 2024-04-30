@@ -23,7 +23,7 @@ void Floor::run() {
     // First one is safe
     //rooms.push_back(std::make_shared<SafeRoom>(movement, 0b0101, level));
     // sike TODO: revert this
-    rooms.push_back(std::make_shared<BattleRoom>(movement, 0b0101, level));
+    rooms.push_back(std::make_shared<ShopRoom>(movement, 0b0101, level));
 
     // For now, every other room is a battle
     for (int64_t i = 1; i < size * size; ++i) {

@@ -8,7 +8,8 @@
 #include "ShopDialogue.h"
 
 
-ShopRoom::ShopRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t nice) : Room("Shop", std::move(m), mask, nice) {
+ShopRoom::ShopRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t nice)
+    : Room("Shop", std::move(m), mask, nice) {
     Dialogue text;
 
     switch (randUint() % 4) {
@@ -163,17 +164,19 @@ ShopRoom::ShopRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t nice) : Ro
     }
     dialogue = text;
 
+    shopMenu = std::make_unique<ShopMenu>(merchantName, text, purchase1, purchase2, purchase3);
+
     // Add the menu to the list
     entries.emplace_back("Enter Shop");
     funcs.emplace_back([this](){
-        this->display();
+        shopMenu->display();
     });
 }
 
 std::string ShopRoom::GetMerchant() const { return merchantName; }
 
 std::shared_ptr<Item> ShopRoom::GetPurchase(int64_t selection) {
-    switch(selection) {
+    switch (selection) {
         case 1:
             return purchase1;
         case 2:
@@ -186,8 +189,3 @@ std::shared_ptr<Item> ShopRoom::GetPurchase(int64_t selection) {
 }
 
 std::string ShopRoom::GetDialogue(int64_t i) { return dialogue[i]; }
-
-void ShopRoom::GoToShop() {
-    ShopMenu shopMenu(merchantName, dialogue, purchase1, purchase2, purchase3);
-    shopMenu.display();
-}
