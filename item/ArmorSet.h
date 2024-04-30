@@ -48,15 +48,22 @@ struct ArmorSet {
 
     std::shared_ptr<Armor> operator[] (std::size_t idx) const { return get(idx); }
 
-    void set(const std::shared_ptr<Armor>& a) {
+    std::shared_ptr<Armor> set(const std::shared_ptr<Armor>& a) {
+        std::shared_ptr<Armor> ret;
+
         switch (a->GetArmorType()) {
-            case Helmet: head = a;
+            case Helmet: ret = head; head = a;
                 break;
-            case Chestplate: chest = a;
+            case Chestplate: ret = chest; chest = a;
                 break;
-            case Leggings: legs = a;
+            case Leggings: ret = legs; legs = a;
                 break;
-            case Boots: feet = a;
+            case Boots: ret = feet; feet = a;
         }
+
+        return ret;
     }
+
+    // Only pass new objects or released unique_ptrs here, or bad things may happen
+    std::shared_ptr<Armor> set(Armor* a) { return set(std::shared_ptr<Armor>(a)); }
 };

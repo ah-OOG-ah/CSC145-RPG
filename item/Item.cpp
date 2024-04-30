@@ -22,9 +22,8 @@ bool Item::isStackable() const { return stackable; }
 bool Item::isEquipment() const { return equipable; }
 bool Item::isOffense() const { return offense; }
 
-void Item::ChangeAmount(int64_t addAmnt) {
-    amount += addAmnt;
-    if (!stackable) amount = amount > 0 ? 1 : 0;
+std::unique_ptr<Item> Item::ChangeAmount(int64_t addAmnt) {
+    return setAmount(amount + addAmnt);
 }
 
 void Item::SetName(std::string newName) { name = std::move(newName); }
@@ -36,13 +35,14 @@ double Item::getValue() const {
 }
 
 std::unique_ptr<Item> Item::setAmount(int64_t amnt) {
-    auto delta = amnt;
+    amnt = std::max(0l, amnt);
+    auto delta = amount;
 
     amount = amnt;
     if (!stackable) amount = amount > 0 ? 1 : 0;
 
-    // Return any excess
+    // Return any removed items
     delta -= amount;
-    if (delta > 0) return copy(delta);
+    if (delta < 0) return copy(-delta);
     return nullptr;
 }
