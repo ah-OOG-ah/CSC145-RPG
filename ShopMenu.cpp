@@ -10,13 +10,13 @@
 
 
 ShopMenu::ShopMenu(std::string merchant, const Dialogue& text, std::shared_ptr<Item> stock1, std::shared_ptr<Item> stock2, std::shared_ptr<Item> stock3)
-    : Menu(text.fmt()), merchantName(std::move(merchant)), purchase1(std::move(stock1)), purchase2(std::move(stock2)), purchase3(std::move(stock3)) { }
+    : Menu(text.fmt()), text(text), merchantName(std::move(merchant)), purchase1(std::move(stock1)), purchase2(std::move(stock2)), purchase3(std::move(stock3)) { }
 
 void ShopMenu::Buy() {
     int64_t itemChoice = 0;
     do {
         std::cout << merchantName << ": " <<entries[2]<<std::endl;
-        std::cout << "GOLD" << getPlayer()->inventory.getGold() << std::endl;
+        std::cout << "Gold: " << getPlayer()->inventory.getGold() << std::endl;
         for (int i = 1; i <= 3; i++) {
             std::cout<< i << ". " << GetPurchase(i)->GetName() << "x" << GetPurchase(i)->GetAmount();
             if (GetPurchase(i)->isEquipment()) {
@@ -68,52 +68,46 @@ std::shared_ptr<Item> ShopMenu::GetPurchase(int64_t selection) {
 }
 
 void ShopMenu::display() {
-    std::cout << merchantName<< ": " << entries[0] <<std::endl;
+    std::cout << merchantName << ": " << text.enterString << std::endl;
     
     int64_t choice = 0;
     while (choice != 3) {
-        std::cout << merchantName<< ": " << entries[1] <<std::endl;
-        std::cout << "GOLD" << getPlayer()->inventory.getGold() << std::endl;
-        std::cout << "1. I want to buy"<<std::endl;
-        std::cout << "2. I want to sell"<<std::endl;
-        std::cout << "3. I was just leaving"<<std::endl;
+        std::cout << merchantName << ": " << text.buyOrSell <<std::endl;
+        std::cout << "Gold: " << getPlayer()->inventory.getGold() << std::endl;
+        std::cout << "1. I want to buy" << std::endl;
+        std::cout << "2. I want to sell" << std::endl;
+        std::cout << "3. I was just leaving" << std::endl;
         std::cin >> choice;
         switch (choice) {
-            case 1:
-                Buy();
-                break;
-            case 2:
-                Sell();
-                break;
-            case 3:
-                break;
-            default:
-                std::cout << merchantName<< ": " << entries[8] << std::endl;
+            case 1: Buy(); break;
+            case 2: Sell(); break;
+            case 3: break;
+            default: std::cout << merchantName << ": " << text.invalid << std::endl;
         }
     }
-    std::cout << merchantName<< ": " << entries[12] <<std::endl;
+    std::cout << merchantName << ": " << text.exitString << std::endl;
 }
 
 void ShopMenu::dispatch(int64_t choice) {
     switch (choice) {
         case 1:
             if (getPlayer()->inventory.getGold() < purchase1->GetPrice()) {
-                std::cout << merchantName<< ": " << entries[7] <<std::endl;
+                std::cout << merchantName << ": " << text.notEnoughGold << std::endl;
                 return;
             }
             if (getPlayer()->inventory.AddItem(purchase1->copy(0))) {
                 getPlayer()->inventory.AddGold(-1 * purchase1->GetPrice());
+                std::cout << purchase1->GetPrice() << " gold given to " << merchantName << std::endl;
+                std::cout << purchase1->GetName() << " was added to your Inventory" << std::endl;
                 purchase1->ChangeAmount(-1);
-                std::cout << purchase1->GetName() << " Added to Inventory" << std::endl;
-                std::cout << purchase1->GetPrice() << " Given to " << merchantName << std::endl;
-                std::cout << merchantName<< ": " << entries[5] << std::endl;
+                std::cout << merchantName<< ": " << text.youBought << std::endl;
             } else {
-                std::cout << merchantName<< ": " << entries[13] << std::endl;
+                std::cout << merchantName<< ": " << text.giveBack << std::endl;
             }
             break;
         case 2:
             if (getPlayer()->inventory.getGold() < purchase2->GetPrice()) {
-                std::cout << merchantName<< ": " << entries[7] <<std::endl;
+                std::cout << merchantName << ": " << text.notEnoughGold <<std::endl;
                 return;
             }
             if (getPlayer()->inventory.AddItem(purchase2->copy(0))) {
@@ -121,14 +115,14 @@ void ShopMenu::dispatch(int64_t choice) {
                 purchase1->ChangeAmount(-1);
                 std::cout << purchase2->GetName() << " Added to Inventory" << std::endl;
                 std::cout << purchase2->GetPrice() << " Given to " << merchantName << std::endl;
-                std::cout << merchantName<< ": " << entries[5] << std::endl;
+                std::cout << merchantName<< ": " << text.youBought << std::endl;
             } else { //Player replaced no item with purchased item when inventory full
-                std::cout << merchantName<< ": " << entries[13] << std::endl;
+                std::cout << merchantName<< ": " << text.giveBack << std::endl;
             }
             break;
         case 3:
             if (getPlayer()->inventory.getGold() < purchase1->GetPrice()) {
-                std::cout << merchantName<< ": " << entries[7] <<std::endl;
+                std::cout << merchantName<< ": " << text.notEnoughGold <<std::endl;
                 return;
             }
             if (getPlayer()->inventory.AddItem(purchase3->copy(0))) {
@@ -136,57 +130,15 @@ void ShopMenu::dispatch(int64_t choice) {
                 purchase3->ChangeAmount(-1);
                 std::cout << purchase3->GetName() << " Added to Inventory" << std::endl;
                 std::cout << purchase3->GetPrice() << " Given to " << merchantName << std::endl;
-                std::cout << merchantName<< ": " << entries[5] << std::endl;
+                std::cout << merchantName<< ": " << text.youBought << std::endl;
             } else { //Player replaced no item with purchased item when inventory full
-                std::cout << merchantName<< ": " << entries[13] << std::endl;
+                std::cout << merchantName<< ": " << text.giveBack << std::endl;
             }
             break;
         case 4:
             break;
         default:
-            std::cout << merchantName<< ": " << entries[8] << std::endl;
+            std::cout << merchantName<< ": " << text.youHaveNotEnough << std::endl;
             break;
     }
 }
-
-//OLD SELL FUNCTION
-/*
-std::string choice;
-    do
-    {
-    std::cout << merchantName<< ": " << entries[3] << std::endl;
-    std::cout << "Enter \"Nothing\" or \"Exit\" to exit this menu" << std::endl;
-    getPlayer()->Inven.PrintInven();
-    std::getline(std::cin, choice);
-    if(getPlayer()->playerInven.GetItem(choice) != nullptr)
-    {
-        int64_t amnt = 0;
-        do{
-        std::cout << merchantName<< ": " << entries[11] << std::endl;
-        std::cin>>amnt;
-        if(amnt > getPlayer()->Inven.GetItem(choice)->GetAmount() || amnt <= 0)
-        {
-            std::cout << merchantName<< ": " << entries[10] << std::endl;
-        }
-        }while(amnt <= getPlayer()->Inven.GetItem(choice)->GetAmount());
-        int64_t total = amnt * getPlayer()->Inven.GetItem(choice)->GetPrice();
-        //std::cout << merchantName<< ": " << entries[4] << (amnt * getPlayer()->Inven.GetElement(choice)->GetAmount()) << " Gold" << std::endl;
-        getPlayer()->Inven.AddGold(total);
-        getPlayer()->Inven.GetItem(choice)->ChangeAmount( -1 * amnt);
-        std::cout << total << "Gold added to Inventory" << std::endl;
-        std::cout << merchantName<< ": " << entries[6] << std::endl;
-    }
-    else
-    {
-        std::cout << merchantName<< ": " << entries[8] << std::endl;
-    }
-    } while(choice != "Nothing" || choice != "nothing" || choice != "NOTHING" || choice != "Exit" || choice != "exit" || choice != "EXIT");
-
-
-    int64_t amnt = 0;
-            while(amnt > 0)
-            {
-                std::cin>>amnt;
-                if(amnt < 0 || amnt > getPlayer()->Inven.GetEquip(choice -1))
-            }
-*/

@@ -15,7 +15,10 @@ class ShopMenu : public Menu {
     void display() override;
 
   protected:
-    void dispatch(int64_t i) override; //Called by buy to actually give player's the items
+    // Technically, this just duplicates the menu entries. But it's much easier to use.
+    Dialogue text;
+
+    void dispatch(int64_t i) override;
 
   private:
     std::string merchantName;
