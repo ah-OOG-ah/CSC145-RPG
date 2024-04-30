@@ -34,11 +34,6 @@ size_t Inventory::GetPos(const std::shared_ptr<Item>& checkItem) {
     return SIZE_MAX;
 }
 
-std::shared_ptr<Item> Inventory::GetItem(size_t pos) {
-    if (pos >= curSlots) return nullptr;
-    return backing[pos];
-}
-
 bool Inventory::AddItem(const std::shared_ptr<Item>& newItem) {
     if (newItem == nullptr) return false;
     if (curWeight + newItem->getWeight() > maxWeight) return false;
@@ -171,5 +166,6 @@ size_t Inventory::getFirst(ItemType t) const {
 }
 
 std::shared_ptr<Item> Inventory::operator[](size_t i) {
-    return GetItem(i);
+    if (i >= curSlots) return nullptr;
+    return backing[i];
 }
