@@ -8,12 +8,12 @@
 
 class Enemy : public EquippedEntity {
   protected:
-    std::function<Inventory(void)> invFactory;
-    std::function<std::shared_ptr<Weapon>(void)> weaponFactory;
-    std::function<ArmorSet(void)> armorFactory;
+    std::function<Inventory(void)> invFactory; //Assigns inventory items to enemies
+    std::function<std::shared_ptr<Weapon>(void)> weaponFactory; //Assigns weapon to enemies
+    std::function<ArmorSet(void)> armorFactory; //Assigns the armor to the enemy 
     std::array<std::string, 5> enemySprite;
-    std::vector<std::shared_ptr<Item>> extraLoot;
-    EnumAI ai;
+    std::vector<std::shared_ptr<Item>> extraLoot; //Loot that is not in the inventory. Looting not yet implemented. 
+    EnumAI ai; //The enum corresponds to the AI function the enemy uses
 
   public:
     Enemy(const std::string& name, double hp, double attk, double percDef, double staticDef, int64_t spd, std::array<std::string, 5> sprite = {
