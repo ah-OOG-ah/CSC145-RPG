@@ -104,10 +104,12 @@ std::shared_ptr<Status> StatusItem::GetStatus() { return status; }
 int64_t StatusItem::GetChance() const { return this->effectChance; }
 
 void StatusItem::use(const std::shared_ptr<Entity>& user, const std::vector<std::shared_ptr<Entity>>& allies, const std::vector<std::shared_ptr<Entity>>& opponents) {
-    if (this->amount <= 0) return;
+    if (amount <= 0) return;
 
-    if (this->stat == attack) {
-        user->changeAttack(this->boost);
+    --amount;
+
+    if (stat == attack) {
+        user->changeAttack(boost);
         std::cout << user->getName() << " used " << this->name << std::endl;
         std::cout << user->getName() <<"'s Attack was boosted " << this->boost << " points!" << std::endl;
     }

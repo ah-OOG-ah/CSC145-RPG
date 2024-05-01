@@ -65,7 +65,7 @@ void TreasureRoom::specialAction() {
             battle = std::make_unique<Battle>(entityName, 10);
             battle->run();
             std::cout << entityName << " died and left behind some treasure" << std::endl;
-            getPlayer()->inventory.AddItem(Util<Item>::draw(ITiers::amazingTreasure));
+            getPlayer()->inventory.AddItem(Util<Item>::draw(ITiers::amazingTreasure)->copy(0));
             break;
         case -1:
             if (randBool()) {
@@ -75,7 +75,7 @@ void TreasureRoom::specialAction() {
             } else {
                 std::cout << "Despite its posturing, " << entityName << " dies in just a few swings." << std::endl;
                 std::cout << "It left behind some treasure " << std::endl;
-                getPlayer()->inventory.AddItem(Util<Item>::draw(ITiers::greatTreasure));
+                getPlayer()->inventory.AddItem(Util<Item>::draw(ITiers::greatTreasure)->copy(0));
             }
             break;
         case 0:
@@ -87,7 +87,7 @@ void TreasureRoom::specialAction() {
             break;
             } else {
                 std::cout << entityName << " grants you a treasure!" << std::endl;
-                getPlayer()->inventory.AddItem(Util<Item>::draw(ITiers::basicTreasure));
+                getPlayer()->inventory.AddItem(Util<Item>::draw(ITiers::basicTreasure)->copy(0));
             }
             break;
         default:

@@ -69,7 +69,7 @@ namespace ITiers {
 
 
     //Treasure tiers
-    static const std::vector<std::shared_ptr<Item>> basicTreasure { bomb, throwingAxe, elixir, roids};
+    static const std::vector<std::shared_ptr<Item>> basicTreasure { bomb, throwingAxe, elixir, roids };
     static const std::vector<std::shared_ptr<Item>> greatTreasure { gorillaBomb, throwingAxe, magicShield, elixir, superRoids};
     static const std::vector<std::shared_ptr<Item>> amazingTreasure { gorillaBomb, lightningBottle, goldSword };
 }
