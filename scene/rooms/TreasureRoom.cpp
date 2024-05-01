@@ -1,11 +1,13 @@
 #include "TreasureRoom.h"
 #include "game.h"
 #include "scene/Battle.h"
+#include "itemtiers.h"
 
 
 TreasureRoom::TreasureRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t nice) : Room("Treasure", std::move(m), mask, nice) {
     std::shared_ptr<MenuNode> hostile;
 
+    //Switch to determine the dialogue tree and entity
     switch (randUint() % 2) {
         case 0:
             entityName = "The Tree";
@@ -61,6 +63,8 @@ void TreasureRoom::specialAction() {
             std::cout << entityName << " lashed at you with a most vicious rage!" << std::endl;
             battle = std::make_unique<Battle>(entityName, 10);
             battle->run();
+            std::cout << entityName << " died and left behind some treasure" << std::endl;
+            getPlayer()->inventory.AddItem(Util<Item>::draw(amazingTreasure));
             break;
         case -1:
             if (randBool()) {
@@ -69,6 +73,8 @@ void TreasureRoom::specialAction() {
                 battle->run();
             } else {
                 std::cout << "Despite its posturing, " << entityName << " dies in just a few swings." << std::endl;
+                std::cout << "It left behind some treasure " << std::endl;
+                getPlayer()->inventory.AddItem(Util<Item>::draw(greatTreasure));
             }
             break;
         case 0:
@@ -80,6 +86,7 @@ void TreasureRoom::specialAction() {
             break;
             } else {
                 std::cout << entityName << " grants you a treasure!" << std::endl;
+                getPlayer()->inventory.AddItem(Util<Item>::draw(basicTreasure));
             }
             break;
         default:

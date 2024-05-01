@@ -13,6 +13,7 @@ namespace ITiers {
      */
 
     // Attack items
+
     static const std::vector<std::shared_ptr<Item>> noAttk { };
     static const std::vector<std::shared_ptr<Item>> basicAttkItems { rock, rock, dart, dart };
     static const std::vector<std::shared_ptr<Item>> betterAttkItems { throwingAxe, bomb, throwingAxe, bomb, gorillaBomb, flute, bucketOfSludge };
@@ -66,4 +67,9 @@ namespace ITiers {
     static const std::vector<std::shared_ptr<Armor>> betterArmor { steelHelm, steelChest, steelLegg, steelBoots, goldChest, goldBoots, goldLegg, goldHelm, rockHelm, rockChest, rockLegg, rockBoots, toughVest, armyVest };
     static const std::vector<std::shared_ptr<Armor>> topTierArmor { steelHelm, armyVest, toughVest, steelChest, baboonArmor, steelLegg, steelBoots };
 
+
+    //Treasure tiers
+    static const std::vector<std::shared_ptr<Item>> basicTreasure { bomb, throwingAxe, elixir, roids};
+    static const std::vector<std::shared_ptr<Item>> greatTreasure { gorillaBomb, throwingAxe, magicShield, elixir, superRoids};
+    static const std::vector<std::shared_ptr<Item>> amazingTreasure { gorillaBomb, lightningBottle, goldSword };
 }
