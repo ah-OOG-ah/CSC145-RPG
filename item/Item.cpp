@@ -46,3 +46,7 @@ std::unique_ptr<Item> Item::setAmount(int64_t amnt) {
     if (delta < 0) return copy(-delta);
     return nullptr;
 }
+
+bool Item::isReal() const {
+    return name != "None";
+}
