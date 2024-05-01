@@ -23,6 +23,8 @@ struct MenuNode : public Menu {
         }
     }
 
+    int64_t flag = 0;
+
     bool isLeaf() { return children.empty(); }
     bool isRoot() {
         auto empty = std::weak_ptr<MenuNode>();
@@ -30,10 +32,14 @@ struct MenuNode : public Menu {
     }
 
     void setData(std::string val) { data = std::move(val); }
-    void addChild(const std::shared_ptr<MenuNode>& n, std::weak_ptr<MenuNode> thiz) {
+    std::shared_ptr<MenuNode> addChild(std::string n, std::weak_ptr<MenuNode> thiz) {
+        return addChild(std::make_shared<MenuNode>(n), std::move(thiz));
+    }
+    std::shared_ptr<MenuNode> addChild(const std::shared_ptr<MenuNode>& n, std::weak_ptr<MenuNode> thiz) {
         n->parent = std::move(thiz);
         children.push_back(n);
         entries.push_back(n->data);
+        return n;
     }
     void setChild(const std::string& val, const std::shared_ptr<MenuNode>& thiz, size_t which) {
         setChild(val, std::weak_ptr<MenuNode>(thiz), which);
@@ -44,7 +50,7 @@ struct MenuNode : public Menu {
     void setParent(std::weak_ptr<MenuNode> val) { parent = std::move(val); }
 
     std::string getData() { return data; }
-    std::shared_ptr<MenuNode> getChild(size_t which) { return children[which]; }
+    std::shared_ptr<MenuNode> operator[](size_t which) { return children[which]; }
     std::weak_ptr<MenuNode> getParent() { return parent; }
 
     void iterate(const std::function<void(const std::string)>& func) const {
@@ -57,7 +63,7 @@ struct MenuNode : public Menu {
     void generateFuncs(std::shared_ptr<MenuNode>& pNode) {
         for (const auto & i : children) {
             if (!i) continue;
-            funcs.emplace_back([&pNode](int64_t i){ pNode = pNode->getChild(i); });
+            funcs.emplace_back([&pNode](int64_t i){ pNode = (*pNode)[i]; });
         }
     }
 

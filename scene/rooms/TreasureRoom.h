@@ -13,6 +13,7 @@ class TreasureRoom : public Room {
     std::string mapDisplay = "T";
     std::shared_ptr<Item> treasure;
     std::shared_ptr<MenuNode> dialogueHead;
+    std::string entityName;
 
   public:
     TreasureRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t nice);
