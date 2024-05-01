@@ -16,6 +16,20 @@ TreasureRoom::TreasureRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t ni
             hostile->addChild("Strike again", hostile)->flag = -1;
             hostile->addChild("Insult mother", hostile)->flag = -2;
             break;
+        case 1:
+            entityName = "The Chest";
+            description = "an prison-like chamber. A metal chest sits in the center.";
+            dialogueHead = std::make_shared<MenuNode>("Hello there");
+            auto hostile = dialogueHead->addChild("Open chest", dialogueHead);
+            dialogueHead->addChild("Greet chest", dialogueHead);
+            hostile = hostile->addChild("Woah! Do not be so hasty!", hostile);
+            auto inquire = hostile->addChild("What are you\?", hostile);
+            hostile->addChild("Did not mean to cause trouble", hostile);
+            hostile->addChild("Open chest", hostile)->flag = -1;
+            inquire = inquire("A humble talking chest without a friend in the world. Will you be my friend\?");
+            inquire->addChild("Of course!", inquire)->flag = -2;
+            inquire->addChild("No!", inquire);
+            break;
     }
 }
 
@@ -35,7 +49,7 @@ void TreasureRoom::specialAction() {
      */
     switch (node->flag) {
         case -2:
-            std::cout << entityName << " defends his mother\'s honor with a most hateful rage!" << std::endl;
+            std::cout << entityName << " lashed at you with a most vicious rage!" << std::endl;
             Battle(entityName, 10).run();
             break;
         case -1:
@@ -47,7 +61,7 @@ void TreasureRoom::specialAction() {
             }
             break;
         case 0:
-            std::cout << entityName << ": \"I forgive you. Watch your rudeness or Monkey Bob will find you\"" << std::endl;
+            std::cout << entityName << ": \"Leave! Monkey Bob will find you eventually!\"" << std::endl;
             break;
         case 1:
             if (randBool()) {
