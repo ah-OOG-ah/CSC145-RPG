@@ -162,7 +162,7 @@ ShopRoom::ShopRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t nice)
                 "Your items will be Monkey Bob's in due time",
                 "How many of your items will you tribute to the Casear that is Monkey Bob\?"
             };
-            description = "a noisy room filled with screeching. A large money surrounded with knickknacks crouches in the corner.\n"
+            description = "a noisy room filled with screeching. A large monkey surrounded with knickknacks crouches in the corner.\n"
                           "You can't see where the screeches are coming from.";
             merchantName = "Merchant Bob";
     }
@@ -172,6 +172,6 @@ ShopRoom::ShopRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t nice)
     // Add the menu to the list
     entries.emplace_back("Enter Shop");
     funcs.emplace_back([this](){
-        shopMenu->display();
+        shopMenu->displayOnce();
     });
 }
