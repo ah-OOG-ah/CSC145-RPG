@@ -3,6 +3,7 @@
 #include "Item.h"
 #include "Room.h"
 #include "MenuNode.h"
+#include "scene/Battle.h"
 
 
 /**
@@ -14,6 +15,8 @@ class TreasureRoom : public Room {
     std::shared_ptr<Item> treasure;
     std::shared_ptr<MenuNode> dialogueHead;
     std::string entityName;
+    std::unique_ptr<Battle> battle;
+    bool skip = false;
 
   public:
     TreasureRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t nice);

@@ -37,11 +37,7 @@ BattleRoom::BattleRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t nice)
             description = "a room with a mop. Not much to look at";
             break;
     }
-
-    //Switch statement for treasure
 }
-
-Item* BattleRoom::GetTreasure() { return treasure; }
 
 void BattleRoom::specialAction() {
     b.run();

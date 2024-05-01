@@ -36,6 +36,13 @@ TreasureRoom::TreasureRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t ni
 }
 
 void TreasureRoom::specialAction() {
+    if (battle != nullptr) {
+        battle->run();
+        return;
+    }
+
+    if (skip) return;
+
     auto node = dialogueHead;
     std::cout << node->getData() << std::endl;
     while (!node->isLeaf()) {
@@ -52,12 +59,14 @@ void TreasureRoom::specialAction() {
     switch (node->flag) {
         case -2:
             std::cout << entityName << " lashed at you with a most vicious rage!" << std::endl;
-            Battle(entityName, 10).run();
+            battle = std::make_unique<Battle>(entityName, 10);
+            battle->run();
             break;
         case -1:
             if (randBool()) {
                 std::cout << entityName << " won't go down without a fight!" << std::endl;
-                Battle(entityName, 7).run();
+                battle = std::make_unique<Battle>(entityName, 7);
+                battle->run();
             } else {
                 std::cout << "Despite its posturing, " << entityName << " dies in just a few swings." << std::endl;
             }
@@ -76,4 +85,6 @@ void TreasureRoom::specialAction() {
         default:
             break;
     }
+
+    skip = true;
 }
