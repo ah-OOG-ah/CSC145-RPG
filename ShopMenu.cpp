@@ -5,92 +5,36 @@
 #include <ostream>
 #include <utility>
 #include <vector>
+#include <cmath>
 #include "Inventory.h"
 #include "game.h"
 
 
 ShopMenu::ShopMenu(std::string merchant, Dialogue text, std::vector<std::shared_ptr<Item>> wares)
-    : Menu({ "" }), text(std::move(text)), merchantName(std::move(merchant)), wares(std::move(wares)) { }
+    : text(std::move(text)), merchantName(std::move(merchant)), wares(std::move(wares)) { }
 
 void ShopMenu::Buy() {
-    int64_t itemChoice = 0;
-    do {
-        std::cout << merchantName << ": " << text.whatAreYouBuying << std::endl;
-        std::cout << "Gold: " << getPlayer()->inventory.getGold() << std::endl;
+    // Present the wares
+    std::cout << merchantName << ": " << text.whatAreYouBuying << std::endl;
+    std::cout << "Gold: " << getPlayer()->inventory.getGold() << std::endl;
 
-        for (int i = 0; i < wares.size(); i++) {
-            std::cout << i << ". " << wares[i]->GetName() << "x" << wares[i]->GetAmount();
-            if (wares[i]->isEquipment()) {
-                std::cout << " EQUIPMENT";
-            }
-            std::cout<<"   Price: " << wares[i]->GetPrice() << std::endl;
-        }
-
-        std::cout << "4. None of it " << std::endl;
-        std::cin >> itemChoice;
-        dispatch(itemChoice);
-    } while (itemChoice != 4); 
-}
-
-void ShopMenu::Sell() {
-    std::cout << merchantName << ": " << entries[3] << std::endl;
-    std::cout << "Please input the number for the item you want to sell. Enter 0 to exit" << std::endl;
-    getPlayer()->inventory.print(true);
-    int64_t choice = 0;
-
-    std::cin >> choice; // Choice will subtracted by one to account for the fact that array starts as zero but inventory numbers at 1
-    if (choice > 0 && choice <= getPlayer()->inventory.getUsedSlots()) {
-        int64_t sellAmnt = 1;
-        if (getPlayer()->inventory[choice]->isStackable()) {
-            std::cout << merchantName<< ": " << entries[15] << " ";
-            std::cin >> sellAmnt;
-        }
-        std::cout << merchantName<< ": " << entries[4] << " ";
-        std::cout << ((getPlayer()->inventory[choice]->GetPrice()) * sellAmnt) / (.8) << std::endl;
-        std::cout<< "Sell\?" << std::endl;
-        std::string sellChoice;
-        std::getline(std::cin, sellChoice);
-        if (sellChoice == "Yes" || sellChoice == "yes"  || sellChoice == "YES" || sellChoice == "Y" || sellChoice == "Y") {
-            getPlayer()->inventory.AddGold(getPlayer()->inventory[choice]->GetPrice() * sellAmnt * .8);
-            getPlayer()->inventory.RemoveItem(choice, -1 * sellAmnt);
-            std::cout << merchantName<< ": " << entries[6] << std::endl;
-        } else {
-            std::cout << merchantName<< ": " << entries[14] << std::endl;
-        }
+    std::cout << "0. Nothing " << std::endl;
+    for (size_t i = 0; i < wares.size(); i++) {
+        std::cout << i + 1 << ". " << wares[i]->GetName() << " x " << wares[i]->GetAmount();
+        std::cout << "   Price: " << wares[i]->GetPrice() << std::endl;
     }
-}
 
-void ShopMenu::display() {
-    std::cout << merchantName << ": " << text.enterString << std::endl;
-    
-    int64_t choice = 0;
-    while (choice != 3) {
-        std::cout << merchantName << ": " << text.buyOrSell <<std::endl;
-        std::cout << "Gold: " << getPlayer()->inventory.getGold() << std::endl;
-        std::cout << "1. I want to buy" << std::endl;
-        std::cout << "2. I want to sell" << std::endl;
-        std::cout << "3. I was just leaving" << std::endl;
-        std::cin >> choice;
-        switch (choice) {
-            case 1: Buy(); break;
-            case 2: Sell(); break;
-            case 3: break;
-            default: std::cout << merchantName << ": " << text.invalid << std::endl;
-        }
-    }
-    std::cout << merchantName << ": " << text.exitString << std::endl;
-}
+    int64_t choice;
+    std::cin >> choice;
 
-void ShopMenu::dispatch(int64_t choice) {
-    --choice;
-
-    if (choice == wares.size())
-        return;
+    if (choice == 0) return;
 
     if (choice > wares.size()) {
         std::cout << merchantName << ": " << text.invalid << std::endl;
         return;
     }
+
+    --choice;
 
     if (getPlayer()->inventory.getGold() < wares[choice]->GetPrice()) {
         std::cout << merchantName << ": " << text.notEnoughGold << std::endl;
@@ -106,4 +50,63 @@ void ShopMenu::dispatch(int64_t choice) {
     } else {
         std::cout << merchantName<< ": " << text.giveBack << std::endl;
     }
+}
+
+void ShopMenu::Sell() {
+    std::cout << merchantName << ": " << text.merchantBuying << std::endl;
+    std::cout << "Please input the number for the item you want to sell. Enter 0 to exit" << std::endl;
+    getPlayer()->inventory.print(true);
+    int64_t choice = 0;
+
+    std::cin >> choice;
+    if (choice > 0 && choice <= getPlayer()->inventory.getUsedSlots()) {
+
+        // Get the sale amount
+        int64_t sellAmnt = 1;
+        if (getPlayer()->inventory[choice]->isStackable()) {
+            std::cout << merchantName << ": " << text.howMany << " ";
+            std::cin >> sellAmnt;
+        }
+
+        const int64_t gold = std::floor(getPlayer()->inventory[choice]->GetPrice() * sellAmnt * 0.8l);
+        std::cout << merchantName << ": " << text.takeThatFor << " " << gold << std::endl;
+        std::cout << "Sell\? (y/N)" << std::endl;
+        std::string shouldSell;
+        std::getline(std::cin, shouldSell);
+
+        // Handle the sale
+        if (shouldSell == "Y" || shouldSell == "y") {
+            getPlayer()->inventory.AddGold(gold);
+            getPlayer()->inventory.RemoveItem(choice, -sellAmnt);
+            std::cout << merchantName << ": " << text.theyBought << std::endl;
+        } else {
+            std::cout << merchantName << ": " << text.failedSale << std::endl;
+        }
+    }
+}
+
+void ShopMenu::displayMany(int64_t& i, bool& exit) {
+    std::cout << merchantName << ": " << text.buyOrSell <<std::endl;
+    std::cout << "Gold: " << getPlayer()->inventory.getGold() << std::endl;
+    std::cout << "1. I want to buy" << std::endl;
+    std::cout << "2. I want to sell" << std::endl;
+    std::cout << "3. I was just leaving" << std::endl;
+    std::cin >> i;
+    switch (i) {
+        case 1: Buy(); displayMany(i, exit); exit = true; break;
+        case 2: Sell(); displayMany(i, exit); exit = true; break;
+        case 3: exit = true; break;
+        default: std::cout << merchantName << ": " << text.invalid << std::endl; break;
+    }
+}
+
+void ShopMenu::displayOnce() {
+    std::cout << merchantName << ": " << text.enterString << std::endl;
+    
+    int64_t choice = 0;
+    auto exit = false;
+    while (!exit) {
+        displayMany(choice, exit);
+    }
+    std::cout << merchantName << ": " << text.exitString << std::endl << std::endl;
 }
