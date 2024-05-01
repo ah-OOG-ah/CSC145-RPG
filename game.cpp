@@ -86,12 +86,14 @@ bool manageInventory(const std::vector<std::shared_ptr<Entity>>& enemies, bool& 
     if (item->GetType() == WEAPON) {
         auto tmp = player->currentWeapon;
         player->currentWeapon.reset(dynamic_cast<Weapon*>(player->inventory.RemoveItem(i - 1).release()));
-        if (tmp != nullptr) player->inventory.AddItem(tmp);
+        if (tmp->isReal()) player->inventory.AddItem(tmp);
+        return true;
     }
 
     if (item->GetType() == ARMOR) {
         auto tmp = player->armor.set(dynamic_cast<Armor*>(player->inventory.RemoveItem(i - 1).release()));
-        if (tmp != nullptr) player->inventory.AddItem(tmp);
+        if (tmp->isReal()) player->inventory.AddItem(tmp);
+        return true;
     }
 
     // Heals or statuses get applied unconditionally
@@ -103,12 +105,12 @@ bool manageInventory(const std::vector<std::shared_ptr<Entity>>& enemies, bool& 
     // Whar?
     std::cout << "Unexpected item type ";
     switch (item->GetType()) {
-        case NONE: std::cout << "NONE";
-        case ATTACK: std::cout << "ATTACK";
-        case HEAL: std::cout << "HEAL";
-        case STATUS: std::cout << "STATUS";
-        case WEAPON: std::cout << "WEAPON";
-        case ARMOR: std::cout << "ARMOR";
+        case NONE: std::cout << "NONE"; break;
+        case ATTACK: std::cout << "ATTACK"; break;
+        case HEAL: std::cout << "HEAL"; break;
+        case STATUS: std::cout << "STATUS"; break;
+        case WEAPON: std::cout << "WEAPON"; break;
+        case ARMOR: std::cout << "ARMOR"; break;
     }
     std::cout << ", doing nothing" << std::endl;
     return false;
