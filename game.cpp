@@ -10,7 +10,7 @@
 
 
 DebugMenu debugMenu = DebugMenu();
-auto player = std::make_shared<Player>(10);
+auto player = std::make_shared<Player>(100000);
 std::shared_ptr<Scene> scene;
 
 typedef std::mt19937 RNG;
@@ -125,8 +125,6 @@ int main() {
     initRng();
 
     player->inventory.AddGold(1000);
-    player->x = 4;
-    player->y = 3;
 
     Tower tower("The Tower of Ycauiw Ccc");
     tower.run();
