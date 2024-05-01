@@ -20,7 +20,14 @@ void ShopMenu::Buy() {
 
     std::cout << "0. Nothing " << std::endl;
     for (size_t i = 0; i < wares.size(); i++) {
-        std::cout << i + 1 << ". " << wares[i]->GetName() << " x " << wares[i]->GetAmount();
+        std::cout << i + 1;
+
+        if (wares[i]->GetAmount() < 1) {
+            std::cout << " Out of stock!" << std::endl;
+            continue;
+        }
+
+        std::cout << ". " << wares[i]->GetName() << " x " << wares[i]->GetAmount();
         std::cout << "   Price: " << wares[i]->GetPrice() << std::endl;
     }
 
@@ -36,19 +43,24 @@ void ShopMenu::Buy() {
 
     --choice;
 
+    if (wares[choice]->GetAmount() < 1) {
+        std::cout << merchantName << ": " << text.merchantHaveNotEnough << std::endl;
+        return;
+    }
+
     if (getPlayer()->inventory.getGold() < wares[choice]->GetPrice()) {
         std::cout << merchantName << ": " << text.notEnoughGold << std::endl;
         return;
     }
 
-    if (getPlayer()->inventory.AddItem(wares[choice]->copy(0))) {
+    if (getPlayer()->inventory.AddItem(wares[choice]->copy(1))) {
         getPlayer()->inventory.AddGold(-1 * wares[choice]->GetPrice());
         std::cout << wares[choice]->GetPrice() << " gold given to " << merchantName << std::endl;
         std::cout << wares[choice]->GetName() << " was added to your Inventory" << std::endl;
         wares[choice]->ChangeAmount(-1);
-        std::cout << merchantName<< ": " << text.youBought << std::endl;
+        std::cout << merchantName << ": " << text.youBought << std::endl;
     } else {
-        std::cout << merchantName<< ": " << text.giveBack << std::endl;
+        std::cout << merchantName << ": " << text.giveBack << std::endl;
     }
 }
 

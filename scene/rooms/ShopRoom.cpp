@@ -29,7 +29,7 @@ ShopRoom::ShopRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t nice)
                 wares[i]->multiply(2);
                 break;
             case 3:
-                wares.emplace_back(IDefs::hammer);
+                wares.emplace_back(IDefs::hammer->copy(0));
                 break;
         }
     }
