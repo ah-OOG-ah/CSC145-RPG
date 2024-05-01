@@ -13,7 +13,7 @@ class ShopMenu : public Menu {
     ShopMenu(std::string merchant, std::vector<std::string> entries, std::shared_ptr<Item> stock1, std::shared_ptr<Item> stock2, std::shared_ptr<Item> stock3);
    void display() override;
   protected:
-    void dispatch(int64_t i) override;
+    void dispatch(int64_t i) override; //Called by buy to actually give player's the items
 
   private:
     std::string merchantName;

@@ -11,7 +11,7 @@ class Entity {
 
   protected:
     std::string name;
-    double maxHp;
+    double maxHp; //Hp threshold
     double hp;
     double attack = 10;
     double percDef = 0; // Reduces a specified percentage of damage from an attack after staticDef removes its amount

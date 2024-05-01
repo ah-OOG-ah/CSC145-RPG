@@ -5,11 +5,11 @@
 
 namespace stypes {
 
-    void poisonEffect(Entity *victim, Status *ailment);
+    void poisonEffect(Entity *victim, Status *ailment); //Reduces health by 10 each turn
 
-    void paralyzeEffect(Entity *victim, Status *ailment);
+    void paralyzeEffect(Entity *victim, Status *ailment); //Reduces speed by 10 each turn and has 1/3 chance to make victim unable to act
 
-    void sleepEffect(Entity *victim, Status *ailment);
+    void sleepEffect(Entity *victim, Status *ailment); //Makes victim unable to act until cured
 
     static const auto none = std::make_shared<Status>("None", INT64_MAX, [](Entity*, Status*){}, true);
     static const auto poison = std::make_shared<Status>("Poison", 4, poisonEffect, false);

@@ -12,7 +12,7 @@
 class Item : public Menu {
   protected:
     std::string name;
-    ItemType type = NONE;
+    ItemType type = NONE; //Used by functions to understand what type of item the current is
     int64_t amount = 1;
     int64_t price = 10;
     bool stackable = true;
@@ -61,7 +61,7 @@ class Item : public Menu {
     //Setters I do not think we need
     void SetName(std::string newName);
 
-    void display() override;
+    void display() override; //Displays item menu
 
     virtual void use(const std::shared_ptr<Entity>& user, const std::vector<std::shared_ptr<Entity>>& allies, const std::vector<std::shared_ptr<Entity>>& opponents);
 };

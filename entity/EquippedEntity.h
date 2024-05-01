@@ -15,7 +15,7 @@ class EquippedEntity : public Entity {
     EquippedEntity(std::string name, double hp, double attk, double percDef, double staticDef, int64_t spd, const Inventory& inv = Inventory());
 
     Inventory inventory;
-    std::shared_ptr<Weapon> currentWeapon = IDefs::nothing;
+    std::shared_ptr<Weapon> currentWeapon = IDefs::nothing; //The weapon is set to a "nothing" weapon
     ArmorSet armor;
 
     void takeDamage(double amnt) override;

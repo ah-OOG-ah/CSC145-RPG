@@ -8,7 +8,7 @@
 
 class Equipment : public Item {
   protected:
-    int64_t durability;
+    int64_t durability; //Durabality of the item
     //stackable is set to false
   public:
     Equipment(std::string itemName, int64_t durab, int64_t price);
@@ -35,7 +35,7 @@ class Weapon : public Equipment {
 
     [[nodiscard]] double GetDamage() const;
     void SetDamage(double dmg);
-    void display() override;
+    void display() override; //Displays item menu
 };
 
 enum ArmorType { Helmet, Chestplate, Leggings, Boots };
@@ -45,7 +45,7 @@ class Armor : public Equipment {
     double percDef = 1.00; //Defense stats work like those with the player
     double staticDef;
     double dmgMultiplier = 1.0; //Increases damage dealt when worn
-    ArmorType cast;
+    ArmorType cast; //Type of armor
     //Status placeholder
 
   public:
@@ -62,5 +62,5 @@ class Armor : public Equipment {
     void SetStaticDef(double);
     void SetDmgMult(double);
     void SetArmorType(ArmorType);
-    void display() override;
+    void display() override; //Displays item menu
 };
