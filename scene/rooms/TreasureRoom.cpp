@@ -4,12 +4,14 @@
 
 
 TreasureRoom::TreasureRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t nice) : Room("Treasure", std::move(m), mask, nice) {
-    switch (randUint() % 1) {
+    std::shared_ptr<MenuNode> hostile;
+
+    switch (randUint() % 2) {
         case 0:
             entityName = "The Tree";
             description = "an earthy room with a large tree filling the center";
             dialogueHead = std::make_shared<MenuNode>(entityName + ": Welcome to my grove.");
-            auto hostile = dialogueHead->addChild("Strike the tree", dialogueHead);
+            hostile = dialogueHead->addChild("Strike the tree", dialogueHead);
             dialogueHead->addChild("Hug the tree", dialogueHead)->flag = 1;
             hostile = hostile->addChild(entityName + ": You dare savage my bark!?!", hostile);
             hostile->addChild("Say sorry", hostile);
@@ -17,18 +19,18 @@ TreasureRoom::TreasureRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t ni
             hostile->addChild("Insult mother", hostile)->flag = -2;
             break;
         case 1:
-            entityName = "The Chest";
-            description = "an prison-like chamber. A metal chest sits in the center.";
-            dialogueHead = std::make_shared<MenuNode>("Hello there");
-            auto hostile = dialogueHead->addChild("Open chest", dialogueHead);
+            entityName = "Sus Chest";
+            description = "a prison-like chamber. A metal chest sits in the center.";
+            dialogueHead = std::make_shared<MenuNode>(entityName + ": Hello there");
+            hostile = dialogueHead->addChild("Open chest", dialogueHead);
             dialogueHead->addChild("Greet chest", dialogueHead);
-            hostile = hostile->addChild("Woah! Do not be so hasty!", hostile);
+            hostile = hostile->addChild(entityName + ": Woah! Don't be so hasty!", hostile);
             auto inquire = hostile->addChild("What are you\?", hostile);
             hostile->addChild("Did not mean to cause trouble", hostile);
             hostile->addChild("Open chest", hostile)->flag = -1;
-            inquire = inquire("A humble talking chest without a friend in the world. Will you be my friend\?");
-            inquire->addChild("Of course!", inquire)->flag = -2;
-            inquire->addChild("No!", inquire);
+            inquire = inquire->addChild(entityName + ": A humble talking chest without a friend in the world. Will you be my friend\?", inquire);
+            inquire->addChild("Of course!", inquire)->flag = -1;
+            inquire->addChild("No!", inquire)->flag = -2;
             break;
     }
 }
