@@ -10,9 +10,9 @@ TreasureRoom::TreasureRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t ni
             description = "an earthy room with a large tree filling the center";
             dialogueHead = std::make_shared<MenuNode>("Welcome to my grove.");
             auto hostile = dialogueHead->addChild("Strike the tree", dialogueHead);
-            auto friendly = dialogueHead->addChild("Hug the tree", dialogueHead)->flag = 1;
+            dialogueHead->addChild("Hug the tree", dialogueHead)->flag = 1;
             hostile = hostile->addChild("You dare savage my bark!?!", hostile);
-            hostile->addChild("Say sorry", hostile)->flag = 0;
+            hostile->addChild("Say sorry", hostile);
             hostile->addChild("Strike again", hostile)->flag = -1;
             hostile->addChild("Insult mother", hostile)->flag = -2;
             break;
