@@ -117,6 +117,8 @@ bool manageInventory(const std::vector<std::shared_ptr<Entity>>& enemies, bool& 
 int main() {
     initRng();
 
+    player->inventory.AddGold(1000);
+
     Tower tower("The Tower of Ycauiw Ccc");
     tower.run();
 
