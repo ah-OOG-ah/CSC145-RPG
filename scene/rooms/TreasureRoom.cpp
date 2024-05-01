@@ -8,10 +8,10 @@ TreasureRoom::TreasureRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t ni
         case 0:
             entityName = "The Tree";
             description = "an earthy room with a large tree filling the center";
-            dialogueHead = std::make_shared<MenuNode>("Welcome to my grove.");
+            dialogueHead = std::make_shared<MenuNode>(entityName + ": Welcome to my grove.");
             auto hostile = dialogueHead->addChild("Strike the tree", dialogueHead);
             dialogueHead->addChild("Hug the tree", dialogueHead)->flag = 1;
-            hostile = hostile->addChild("You dare savage my bark!?!", hostile);
+            hostile = hostile->addChild(entityName + ": You dare savage my bark!?!", hostile);
             hostile->addChild("Say sorry", hostile);
             hostile->addChild("Strike again", hostile)->flag = -1;
             hostile->addChild("Insult mother", hostile)->flag = -2;
@@ -21,6 +21,7 @@ TreasureRoom::TreasureRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t ni
 
 void TreasureRoom::specialAction() {
     auto node = dialogueHead;
+    std::cout << node->getData() << std::endl;
     while (!node->isLeaf()) {
         node->generateFuncs(node);
         node->display();

@@ -55,6 +55,7 @@ bool Inventory::AddItem(const std::shared_ptr<Item>& newItem) {
     // Add it
     ++curSlots;
     backing.push_back(newItem);
+    curWeight += newItem->getWeight();
 
     // Track it for fast access later
     switch (newItem->GetType()) {
@@ -103,16 +104,18 @@ bool Inventory::ReplaceItem(const std::shared_ptr<Item>& newItem) {
 std::unique_ptr<Item> Inventory::RemoveItem(size_t pos, int64_t amnt) {
     if (pos >= curSlots) return nullptr;
 
+    auto weight = backing[pos]->getWeight();
     std::unique_ptr<Item> ret;
     if (amnt > 0)
         ret = backing[pos]->ChangeAmount(-1 * amnt);
     else
         ret = backing[pos]->setAmount(0);
+    weight -= backing[pos]->getWeight();
 
 
     if (backing[pos]->GetAmount() <= 0) {
         --curSlots;
-        curWeight -= backing[pos]->getWeight();
+        curWeight -= weight;
         backing.erase(std::next(backing.begin(), pos));
     }
 
