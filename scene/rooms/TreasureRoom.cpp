@@ -46,9 +46,12 @@ void TreasureRoom::specialAction() {
             }
             break;
         case 0:
+            std::cout << entityName << ": \"I forgive you. Watch your rudeness or Monkey Bob will find you\"" << std::endl;
             break;
         case 1:
             if (randBool()) {
+                std::cout << entityName << " wished you a good day" << std::endl;
+            break;
             } else {
                 std::cout << entityName << " grants you a treasure!" << std::endl;
             }
