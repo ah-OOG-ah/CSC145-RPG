@@ -61,6 +61,14 @@ struct MenuNode : public Menu {
         }
     }
 
+    void display() override {
+        if (entries.size() > 1) return Menu::display();
+        if (entries.empty()) return;
+
+        std::cout << entries[0] << std::endl;
+        dispatch(0);
+    }
+
     void dispatch(int64_t i) override {
         if (funcs.empty()) std::cout << "Dispatch not initialized!" << std::endl;
         funcs[i](i);
