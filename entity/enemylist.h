@@ -122,7 +122,7 @@ namespace EList {
     };
 
     std::array<std::string, 5> MonkeyBobSprite = {
-        "HAIL PUTIN",
+        "HAIL [REDACTED]",
         "{(|)..(|)}",
         "    --    ",
         "          ",

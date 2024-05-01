@@ -14,5 +14,6 @@ void Tower::run() {
 
         std::cout << "You enter Floor " << level << std::endl;
         floors[level - 1].run();
+        break;
     }
 }

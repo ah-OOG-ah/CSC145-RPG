@@ -6,6 +6,7 @@
 #include <iostream>
 #include "game.h"
 #include "scene/Tower.h"
+#include "PU.h"
 
 
 DebugMenu debugMenu = DebugMenu();
@@ -124,9 +125,22 @@ int main() {
     initRng();
 
     player->inventory.AddGold(1000);
+    player->x = 4;
+    player->y = 3;
 
     Tower tower("The Tower of Ycauiw Ccc");
     tower.run();
 
-    debugMenu.display();
+    std::cout << "You leave the tower, although you'll never be able to leave the nightmares..." << std::endl;
+    std::array<std::string, 5> face = {
+            "HAIL [REDACTED]",
+            "{(|)..(|)}",
+            "    --    ",
+            "          ",
+            "          "
+    };
+    for (const auto& line : face) {
+        PU::print(CENTER, line, 30);
+        std::cout << std::endl;
+    }
 }
