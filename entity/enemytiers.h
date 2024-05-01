@@ -9,7 +9,7 @@ namespace ETiers {
     using namespace EList;
 
     // Mixed enemy lists
-    static const std::vector<std::shared_ptr<Enemy>> basicEnemies { wideSpider, wideSpider, baboon, basedBat, baboon, angryBaboon };
+    static const std::vector<std::shared_ptr<Enemy>> basicEnemies { rockMonster, wideSpider, wideSpider, baboon, basedBat, baboon, angryBaboon };
     static const std::vector<std::shared_ptr<Enemy>> harderEnemies { rockMonster, veryBasedBat, tradBasedBat, sentry, sentry, steelSentry, angryBaboon, zombie, ghoul, cryptogriph };
     static const std::vector<std::shared_ptr<Enemy>> hardEnemies { steelSentry, cryptogriph, mummy, zombie };
 
