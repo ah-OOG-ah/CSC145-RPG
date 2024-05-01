@@ -29,7 +29,7 @@ TreasureRoom::TreasureRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t ni
             hostile->addChild("Did not mean to cause trouble", hostile);
             hostile->addChild("Open chest", hostile)->flag = -1;
             inquire = inquire->addChild(entityName + ": A humble talking chest without a friend in the world. Will you be my friend\?", inquire);
-            inquire->addChild("Of course!", inquire)->flag = -1;
+            inquire->addChild("Strike chest", inquire)->flag = -1;
             inquire->addChild("No!", inquire)->flag = -2;
             break;
     }
