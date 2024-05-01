@@ -173,3 +173,5 @@ std::shared_ptr<Item> Inventory::operator[](size_t i) {
     if (i >= curSlots) return nullptr;
     return backing[i];
 }
+
+void Inventory::changeWeight(int64_t amnt) { curWeight += amnt; }

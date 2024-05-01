@@ -47,7 +47,7 @@ class Entity {
     // Applies this entity's attack to the passed entity
     virtual void attackEntity(const std::shared_ptr<Entity>& enemy);
 
-    void changeHP(double); //For item based attacks
+    double changeHP(double); //For item based attacks
     void changeAttack(double);
     void changePercDef(double);
     void changeStaticDef(double);

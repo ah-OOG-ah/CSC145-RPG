@@ -27,7 +27,7 @@ bool Entity::getAlive() const { return hp > 0; }
 void Entity::setFleeing(bool val) { isFleeing = val; }
 void Entity::setCanAct(bool val) { canAct = val; }
 
-void Entity::changeHP(double val) { hp += val; }
+double Entity::changeHP(double val) { auto delta = hp; hp += val; hp = std::min(hp, maxHp); return hp - delta; }
 void Entity::changeAttack(double amnt) { attack += amnt; }
 void Entity::changePercDef(double amnt) { percDef += amnt; }
 void Entity::changeStaticDef(double amnt) { staticDef += amnt; }

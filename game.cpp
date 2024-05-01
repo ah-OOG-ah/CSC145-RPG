@@ -78,7 +78,9 @@ bool manageInventory(const std::vector<std::shared_ptr<Entity>>& enemies, bool& 
             return false;
         }
 
+        player->inventory.changeWeight(-player->inventory[i - 1]->getWeight());
         player->inventory[i - 1]->use(player, { player }, enemies);
+        player->inventory.changeWeight(player->inventory[i - 1]->getWeight());
         return true;
     }
 
@@ -98,7 +100,9 @@ bool manageInventory(const std::vector<std::shared_ptr<Entity>>& enemies, bool& 
 
     // Heals or statuses get applied unconditionally
     if (item->GetType() == HEAL || item->GetType() == STATUS) {
+        player->inventory.changeWeight(-player->inventory[i - 1]->getWeight());
         player->inventory[i - 1]->use(player, { player }, enemies);
+        player->inventory.changeWeight(player->inventory[i - 1]->getWeight());
         return true;
     }
 

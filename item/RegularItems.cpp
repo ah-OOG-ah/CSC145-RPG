@@ -61,25 +61,13 @@ double HealItem::GetHpAmnt() const { return hpAmnt; }
 std::shared_ptr<Status> HealItem::GetHealedStatus() const { return healedStatus; }
 
 void HealItem::use(const std::shared_ptr<Entity>& user, const std::vector<std::shared_ptr<Entity>>& allies, const std::vector<std::shared_ptr<Entity>>& opponents) {
-    if (this->amount <= 0) return;
+    if (amount <= 0) return;
 
-    int64_t healedAmnt = this->hpAmnt;
-    if ((healedAmnt + user->getCurrentHp()) > user->getMaxHp()) {
-        healedAmnt = user->getMaxHp() - user->getCurrentHp();
-    }
-
-    user->changeHP(healedAmnt);
-    this->amount -1;
+    --amount;
+    auto actualHeal = user->changeHP(hpAmnt);
     std::cout << user->getName() << " used " << this->GetName() << std::endl;
-    if(hpAmnt != 0) {
-        std::cout << user->getName() << " HP was restored by " << healedAmnt << "HP" << std::endl;
-    }
-
-    if(this->healedStatus != nullptr) {
-        /*if(this->healedStatus->GetName() == user->getStatus()->GetName()) {
-            user->setStatus(nullptr);
-            std::cout << user->getName() << " was cured of " << this->healedStatus->GetName() << std::endl;
-        }*/
+    if (hpAmnt != 0) {
+        std::cout << user->getName() << " HP was restored by " << actualHeal << " HP" << std::endl;
     }
 }
 

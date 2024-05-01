@@ -47,6 +47,7 @@ class Inventory {
     bool ReplaceItem(const std::shared_ptr<Item>&); // function called by AddItem when inventory is full. True if item is replaced, else false
     std::unique_ptr<Item> RemoveItem(size_t pos, int64_t amnt = 0); // Used instead of ChangeAmount amount is to be removed. 0 in second integer removes all amount of the item
     void AddGold(int64_t);
+    void changeWeight(int64_t);
 
     /**
      * Attempts to add the item to the inventory. Does not copy it, be careful!
