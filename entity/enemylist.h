@@ -158,6 +158,7 @@ namespace EList {
     static const auto monkeyGhoul = std::make_shared<Enemy>("Monkey Ghoul", 65, 25, .82, 15, 15, monkeyGhoulSprite, noLoot, UtilI::drawI({ betterAttkItems, noHeal, shieldOnly }, 3), Util<Weapon>::drawFactory(undeadWeapons), UtilI::drawAFactory(basicArmor), AMATEUR);
 
     static const auto cryptogriph = std::make_shared<Enemy>("Cryptogriph", 50, 10, .60, 16, 40, cryptogriphSprite, cryptoLoot, UtilI::drawI({ powerfulAttkItems, betterHealItems, sleepingPillsOnly }, 3), Util<Weapon>::drawFactory(swordsOnly), [](){ return steelSet; }, EXPERT);
+    static const auto heartstopper = std::make_shared<Enemy>("Heartstopper", 50, 5, .50, 20, 40, cryptogriphSprite, cryptoLoot, UtilI::drawI({ otherHealItems }, 10), noWeapon, [](){ return steelSet; }, HEALER);
 
     static const auto MonkeyBob = std::make_shared<Enemy>("Monkey Bob", 200, 40, .50, 35, 50, MonkeyBobSprite, noLoot, UtilI::drawI({ powerfulAttkItems, betterHealItems, { superRoids } }, 10), Util<Weapon>::drawFactory(rareWeapons), UtilI::drawAFactory(topTierArmor), EXPERT);
 }

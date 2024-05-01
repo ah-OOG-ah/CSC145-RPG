@@ -124,14 +124,14 @@ void EAI::expert(const std::shared_ptr<Enemy>& user, const std::vector<std::shar
 
     // Use a heal if it's worth it
     auto hInfo = EAI::getInfo<HealItem>(user);
-    if (user->getMaxHp() - user->getCurrentHp() >= hInfo.value) {
+    if (hInfo.index < user->inventory.getUsedSlots() && user->getMaxHp() - user->getCurrentHp() >= hInfo.value) {
         user->inventory[hInfo.index]->use(user, (const std::vector<std::shared_ptr<Entity>>&) allies, { getPlayer() });
         return;
     }
 
     // Compare status vs attack
     auto sInfo = EAI::getInfo<StatusItem>(user);
-    if (sInfo.value > aInfo.value / 2) {
+    if (sInfo.index < user->inventory.getUsedSlots() && sInfo.value > aInfo.value / 2) {
         user->inventory[sInfo.index]->use(user, (const std::vector<std::shared_ptr<Entity>>&) allies, { getPlayer() });
         return;
     } else {
@@ -165,7 +165,7 @@ void EAI::itemHappy(const std::shared_ptr<Enemy>& user, const std::vector<std::s
 
 std::function<void(const std::shared_ptr<Enemy>&, const std::vector<std::shared_ptr<Enemy>>&)> EAI::get(EnumAI which) {
     switch (which) {
-            case IDIOT:      return [](auto e, auto a) { idiot(std::move(e), std::move(a)); };
+        case IDIOT:      return [](auto e, auto a) { idiot(std::move(e), std::move(a)); };
         case BERSERKER:  return [](auto e, auto a) { berserker(std::move(e), std::move(a)); };
         case AMATEUR:    return [](auto e, auto a) { amateur(std::move(e), std::move(a)); };
         case EXPERT:     return [](auto e, auto a) { expert(std::move(e), std::move(a)); };

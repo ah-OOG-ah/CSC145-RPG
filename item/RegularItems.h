@@ -46,20 +46,16 @@ class AttackItem : public RegularItem {
 class HealItem : public RegularItem {
   protected:
     double hpAmnt;
-    std::shared_ptr<Status> healedStatus = nullptr;
-    //void dispatch(int64_t i) override;
+    bool splash;
 
   public:
-    HealItem(std::string itemName, double hp, int64_t price, std::string desc, int64_t amnt = 1, const std::shared_ptr<Status>& effect = stypes::none);
-    explicit HealItem(const HealItem*);
+    HealItem(std::string itemName, double hp, int64_t price, std::string desc, int64_t amnt = 1, bool splash = false);
 
     [[nodiscard]] std::unique_ptr<Item> copy(int64_t amount) const override;
 
-    void SetHpAmnt(double hp);
-    void SetHealedStatus(std::shared_ptr<Status> status);
+    [[nodiscard]] double getHpAmnt() const;
 
-    [[nodiscard]] double GetHpAmnt() const;
-    [[nodiscard]] std::shared_ptr<Status> GetHealedStatus() const;
+    void SetHpAmnt(double hp);
 
     void use(const std::shared_ptr<Entity>& user, const std::vector<std::shared_ptr<Entity>>& allies, const std::vector<std::shared_ptr<Entity>>& opponents) override;
 };

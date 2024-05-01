@@ -48,26 +48,35 @@ std::unique_ptr<Item> AttackItem::copy(int64_t amount) const {
 }
 
 
-HealItem::HealItem(std::string itemName, double hp, int64_t price, std::string desc, int64_t amnt, const std::shared_ptr<Status>& effect)
-    : RegularItem(std::move(itemName), price, std::move(desc), amnt), hpAmnt(hp), healedStatus(std::make_shared<Status>(effect)) {
+HealItem::HealItem(std::string itemName, double hp, int64_t price, std::string desc, int64_t amnt, bool splash)
+    : RegularItem(std::move(itemName), price, std::move(desc), amnt), hpAmnt(hp), splash(splash) {
     type = HEAL;
 }
-HealItem::HealItem(const HealItem* ht) : HealItem(ht->name, ht->hpAmnt, ht->price, ht->description, ht->amount, ht->healedStatus) { }
+
+double HealItem::getHpAmnt() const { return hpAmnt; }
 
 void HealItem::SetHpAmnt(double hp) { hpAmnt = hp; }
-void HealItem::SetHealedStatus(std::shared_ptr<Status> status) { healedStatus = std::move(status); }
-
-double HealItem::GetHpAmnt() const { return hpAmnt; }
-std::shared_ptr<Status> HealItem::GetHealedStatus() const { return healedStatus; }
 
 void HealItem::use(const std::shared_ptr<Entity>& user, const std::vector<std::shared_ptr<Entity>>& allies, const std::vector<std::shared_ptr<Entity>>& opponents) {
     if (amount <= 0) return;
 
     --amount;
+
+    if (splash) {
+        std::cout << user->getName() << " used " << this->GetName() << " on all allies!" << std::endl;
+        for (const auto& e : allies) {
+            auto actualHeal = e->changeHP(hpAmnt);
+            if (hpAmnt != 0) {
+                std::cout << e->getName() << " was restored by " << actualHeal << " HP" << std::endl;
+            }
+        }
+        return;
+    }
+
     auto actualHeal = user->changeHP(hpAmnt);
     std::cout << user->getName() << " used " << this->GetName() << std::endl;
     if (hpAmnt != 0) {
-        std::cout << user->getName() << " HP was restored by " << actualHeal << " HP" << std::endl;
+        std::cout << user->getName() << " was restored by " << actualHeal << " HP" << std::endl;
     }
 }
 

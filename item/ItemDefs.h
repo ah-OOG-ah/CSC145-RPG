@@ -39,13 +39,14 @@ namespace IDefs {
     static const std::string zombieBloodDesc = "Blood from a decaying corpse. 0/10, would not recommend";
     static const std::string cookieDesc = "A delicous cookie. Not too good for health but healps";
     static const std::string rubberFruitDesc = "Fruit with rubber-like flesh. Eating it cures paralysis.";
-    static const auto pureWater = std::make_shared<HealItem>("Pure Water", 20, 9, waterDesc, 1, stypes::poison);
+    static const auto pureWater = std::make_shared<HealItem>("Pure Water", 20, 9, waterDesc, 1);
     static const auto banana = std::make_shared<HealItem>("Banana", 10, 5, bananaDesc);
-    static const auto ectoplasm = std::make_shared<HealItem>("Ectoplasm", 25, 50, ectoplasmDesc, 1, stypes::paralysis);
+    static const auto ectoplasm = std::make_shared<HealItem>("Ectoplasm", 25, 50, ectoplasmDesc, 1);
     static const auto zombieBlood = std::make_shared<HealItem>("Zombie Blood", -10, 5, zombieBloodDesc);
-    static const auto elixir = std::make_shared<HealItem>("Elixir", 40, 25, elixirDesc, 1, stypes::poison);
+    static const auto elixir = std::make_shared<HealItem>("Elixir", 40, 25, elixirDesc, 1);
+    static const auto splashHealII = std::make_shared<HealItem>("Splash Potion of Healing II", 40, 25, elixirDesc, 1, true);
     static const auto cookie = std::make_shared<HealItem>("Cookie", 5, 3, cookieDesc);
-    static const auto rubberFruit = std::make_shared<HealItem>("Rubber Fruit", 0, 15, rubberFruitDesc, 1, stypes::paralysis);
+    static const auto rubberFruit = std::make_shared<HealItem>("Rubber Fruit", 0, 15, rubberFruitDesc, 1);
 
     //StatusItem(name, boost, stat, price, description)
     //StatusItem(name, boost, stat, price, Status, chance, description)

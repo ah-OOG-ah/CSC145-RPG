@@ -27,7 +27,8 @@ namespace ITiers {
     // Healing
     static const std::vector<std::shared_ptr<Item>> noHeal { };
     static const std::vector<std::shared_ptr<Item>> basicHealItems { pureWater, cookie, cookie, cookie, banana, banana };
-    static const std::vector<std::shared_ptr<Item>> betterHealItems {elixir, elixir, pureWater, pureWater, rubberFruit};
+    static const std::vector<std::shared_ptr<Item>> betterHealItems { splashHealII, elixir, pureWater, pureWater, rubberFruit };
+    static const std::vector<std::shared_ptr<Item>> otherHealItems { splashHealII };
 
     // Status items
     static const std::vector<std::shared_ptr<Item>> noStatusItems { };

@@ -18,6 +18,7 @@ namespace ETiers {
     static const std::vector<std::shared_ptr<Enemy>> monkeysOnly { baboon, baboon, angryBaboon, angryBaboon, monkeyGhoul };
     static const std::vector<std::shared_ptr<Enemy>> undeadOnly { zombie, mummy, ghoul, monkeyGhoul, zombie, mummy, ghoul, monkeyGhoul, cryptogriph };
     static const std::vector<std::shared_ptr<Enemy>> batsOnly { basedBat, basedBat, basedBat, veryBasedBat, veryBasedBat, tradBasedBat };
+    static const std::vector<std::shared_ptr<Enemy>> impossible { cryptogriph, cryptogriph, heartstopper };
 
     std::vector<std::shared_ptr<Enemy>> get(int64_t i) {
         switch (std::min(std::max(static_cast<int64_t>(0), i - 1), static_cast<int64_t>(6))) {
@@ -27,7 +28,7 @@ namespace ETiers {
             case 3: return undeadOnly;
             case 4: return batsOnly;
             case 5: return harderEnemies;
-            default: return hardEnemies;
+            default: return impossible;
         }
     }
 }

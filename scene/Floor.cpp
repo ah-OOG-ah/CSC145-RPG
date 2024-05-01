@@ -28,6 +28,7 @@ void Floor::run() {
     rooms.push_back(std::make_shared<EmptyRoom>(movement, 0b0101, level));
     rooms.push_back(std::make_shared<TreasureRoom>(movement, 0b0101, level));
     rooms.push_back(std::make_shared<BattleRoom>(movement, 0b0101, level));
+    rooms.push_back(std::make_shared<BattleRoom>(movement, 0b0101, 20));
 
     // For now, every other room is a battle
     for (int64_t i = rooms.size(); i < size * size; ++i) {
