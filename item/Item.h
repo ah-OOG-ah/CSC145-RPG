@@ -34,6 +34,7 @@ class Item {
     [[nodiscard]] virtual std::unique_ptr<Item> copy(int64_t amount) const = 0;
 
     //Getters
+    [[nodiscard]] bool isReal() const;
     [[nodiscard]] std::string GetName() const;
     [[nodiscard]] ItemType GetType() const;
     [[nodiscard]] virtual std::string GetAmntText() const = 0;
