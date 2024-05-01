@@ -17,15 +17,15 @@ ShopRoom::ShopRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t nice)
     for (int i = 0; i < 3; ++i) {
         switch (randUint() % 4) {
             case 0:
-                wares.emplace_back(IDefs::dart);
+                wares.emplace_back(IDefs::dart->copy(0));
                 wares[i]->multiply(3);
                 break;
             case 1:
-                wares.emplace_back(IDefs::cookie);
+                wares.emplace_back(IDefs::cookie->copy(0));
                 wares[i]->multiply(5);
                 break;
             case 2:
-                wares.emplace_back(IDefs::spear);
+                wares.emplace_back(IDefs::spear->copy(0));
                 wares[i]->multiply(2);
                 break;
             case 3:
