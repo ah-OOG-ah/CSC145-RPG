@@ -72,6 +72,7 @@ void ShopMenu::Sell() {
 
     std::cin >> choice;
     if (choice > 0 && choice <= getPlayer()->inventory.getUsedSlots()) {
+        --choice;
 
         // Get the sale amount
         int64_t sellAmnt = 1;
@@ -84,12 +85,12 @@ void ShopMenu::Sell() {
         std::cout << merchantName << ": " << text.takeThatFor << " " << gold << std::endl;
         std::cout << "Sell\? (y/N)" << std::endl;
         std::string shouldSell;
-        std::getline(std::cin, shouldSell);
+        std::cin >> shouldSell;
 
         // Handle the sale
         if (shouldSell == "Y" || shouldSell == "y") {
             getPlayer()->inventory.AddGold(gold);
-            getPlayer()->inventory.RemoveItem(choice, -sellAmnt);
+            getPlayer()->inventory.RemoveItem(choice, sellAmnt);
             std::cout << merchantName << ": " << text.theyBought << std::endl;
         } else {
             std::cout << merchantName << ": " << text.failedSale << std::endl;
