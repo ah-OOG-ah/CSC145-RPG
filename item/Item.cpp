@@ -43,7 +43,7 @@ std::unique_ptr<Item> Item::setAmount(int64_t amnt) {
 
     // Return any removed items
     delta -= amount;
-    if (delta < 0) return copy(-delta);
+    if (delta > 0) return copy(delta);
     return nullptr;
 }
 

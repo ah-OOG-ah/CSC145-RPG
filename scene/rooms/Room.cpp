@@ -21,7 +21,7 @@ Room::Room(std::string name, std::string description, std::shared_ptr<Movement> 
     entries.emplace_back("Open Inventory");
     funcs.emplace_back([](){
         bool exit = false;
-        while (!manageInventory({}, exit)) { if (exit) break; }
+        while (true) { manageInventory({}, exit); if (exit) break; }
     });
 
     // A mask of 0bx0x0 means we're in the last room - proceeding is impossible
