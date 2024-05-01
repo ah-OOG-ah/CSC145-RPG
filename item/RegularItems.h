@@ -18,7 +18,7 @@ class RegularItem : public Item {
 class AttackItem : public RegularItem {
   protected:
     double damage;
-    std::shared_ptr<Status> status = nullptr;
+    std::shared_ptr<Status> status;
     int64_t effectChance = 0;
     bool spreadDamage = false;
 
