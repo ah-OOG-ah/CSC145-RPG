@@ -2,9 +2,6 @@
 #include "game.h"
 
 
-Item* TreasureRoom::GetTreasure() { return treasure; }
-Item* TreasureRoom::GetTreasure2() { return treasure2; }
-
 TreasureRoom::TreasureRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t nice) : Room("Treasure", std::move(m), mask, nice) {
     switch (randUint() % 7) {
         case 0:
@@ -29,9 +26,4 @@ TreasureRoom::TreasureRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t ni
             description = "a mundane room with a mop. Not much to look at";
             break;
     }
-    //Switch statement for spawn table
-
-    //Switch statement for treasure
-
-    //Switch statement for treasure2
 }

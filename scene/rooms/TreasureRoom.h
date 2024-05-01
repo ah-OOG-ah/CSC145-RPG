@@ -4,28 +4,14 @@
 #include "Room.h"
 
 
+/**
+ * Treasure rooms also contain a "wise entity". Speak well, and you'll be rewarded. Speak poorly... and eat lead.
+ */
 class TreasureRoom : public Room {
   protected:
-    //SpawnTable
     std::string mapDisplay = "T";
-    Item* treasure = nullptr;
-    Item* treasure2 = nullptr;
+    std::shared_ptr<Item> treasure;
 
   public:
     TreasureRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t nice);
-
-    /*
-    Name: GetTreasure
-    Return type: Item pointer
-    Arguments: None
-    Use: Returns the "treasure" Item pointer
-    */
-    Item* GetTreasure();
-    /*
-    Name: GetTreasure
-    Return type: Item pointer
-    Arguments: None
-    Use: Returns the "treasure2" Item pointer
-    */
-    Item* GetTreasure2();
 };
