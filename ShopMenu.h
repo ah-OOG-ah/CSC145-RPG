@@ -8,22 +8,25 @@
 #include <string>
 
 
-class ShopMenu : public Menu {
+/**
+ * This doesn't lend itself to the Menu class, so it gets it's own class.
+ */
+class ShopMenu  {
 
   public:
     ShopMenu(std::string merchant, Dialogue  text, std::vector<std::shared_ptr<Item>> wares);
-    void display() override;
+    void displayOnce();
 
   protected:
-    // Technically, this just duplicates the menu entries. But it's much easier to use.
     Dialogue text;
-
-    void dispatch(int64_t i) override;
-
-  private:
     std::string merchantName;
     std::vector<std::shared_ptr<Item>> wares;
 
+    /**
+     * These run the respective dialogues once, then return.
+     */
     void Buy();
     void Sell();
+
+    void displayMany(int64_t &i, bool &exit);
 };
