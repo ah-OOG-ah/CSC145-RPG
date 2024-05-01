@@ -2,6 +2,7 @@
 #include "game.h"
 #include "scene/Battle.h"
 #include "itemtiers.h"
+#include "Util.h"
 
 
 TreasureRoom::TreasureRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t nice) : Room("Treasure", std::move(m), mask, nice) {
@@ -64,7 +65,7 @@ void TreasureRoom::specialAction() {
             battle = std::make_unique<Battle>(entityName, 10);
             battle->run();
             std::cout << entityName << " died and left behind some treasure" << std::endl;
-            getPlayer()->inventory.AddItem(Util<Item>::draw(amazingTreasure));
+            getPlayer()->inventory.AddItem(Util<Item>::draw(ITiers::amazingTreasure));
             break;
         case -1:
             if (randBool()) {
@@ -74,7 +75,7 @@ void TreasureRoom::specialAction() {
             } else {
                 std::cout << "Despite its posturing, " << entityName << " dies in just a few swings." << std::endl;
                 std::cout << "It left behind some treasure " << std::endl;
-                getPlayer()->inventory.AddItem(Util<Item>::draw(greatTreasure));
+                getPlayer()->inventory.AddItem(Util<Item>::draw(ITiers::greatTreasure));
             }
             break;
         case 0:
@@ -86,7 +87,7 @@ void TreasureRoom::specialAction() {
             break;
             } else {
                 std::cout << entityName << " grants you a treasure!" << std::endl;
-                getPlayer()->inventory.AddItem(Util<Item>::draw(basicTreasure));
+                getPlayer()->inventory.AddItem(Util<Item>::draw(ITiers::basicTreasure));
             }
             break;
         default:
