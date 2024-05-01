@@ -19,6 +19,11 @@ EmptyRoom::EmptyRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t nice) : 
         case 5:
             description = " a long empty hallway. You think you see a monkey\'s eye stare at you at the end of the hallway";
             break;
+        case 6:
+            description = "a room with paintings lining the walls. Some seem to be from haunting folktales while others are some are monkeys with bloodshot eyes";
+            break;
+        case 7: 
+            description = "a room with only a record player. The song playing sounds like a sick 2000\'s rap song sung by a monkey";
         default:
             description = " a room with a mop. Not much to look at";
             break;

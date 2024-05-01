@@ -17,13 +17,13 @@ TreasureRoom::TreasureRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t ni
             description = " a room covered in cobwebs. No enemies seem to be near... nor anything alive";
             break;
         case 3:
-            description = " a room with a rickedy wooden chest";
+            description = " a room that smells of fresh pine. A rickedy wooden chest lies in the corner, covered in webs";
             break;
         case 4:
-            description = " a coldoom with a metal chest. A broken padlock with a monkey face is lying next to it";
+            description = " a cold room with a metal chest. A broken padlock with a monkey face is lying next to it";
             break;
         case 5:
-            description = " a strange room. The sense of thrill and fear fills you.";
+            description = " a room with strange gems all around. What could they be here for\?";
             break;
         default:
             description = " a mundane room with a mop. Not much to look at";
