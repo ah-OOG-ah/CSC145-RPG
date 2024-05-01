@@ -6,18 +6,27 @@ Item* TreasureRoom::GetTreasure() { return treasure; }
 Item* TreasureRoom::GetTreasure2() { return treasure2; }
 
 TreasureRoom::TreasureRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t nice) : Room("Treasure", std::move(m), mask, nice) {
-    switch (randUint() % 4) {
+    switch (randUint() % 7) {
         case 0:
-            description = "You enter a blank room with a small lantern hanging form the ceiling in the center";
+            description = " a blank room with a small lantern hanging form the ceiling in the center";
             break;
         case 1:
-            description = "You enter a peaceful room covered in moss. A small fountain is in the center";
+            description = " a peaceful room covered in moss. A small fountain is in the center";
             break;
         case 2:
-            description = "You enter a room covered in cobwebs. No enemies seem to be near... nor anything alive";
+            description = " a room covered in cobwebs. No enemies seem to be near... nor anything alive";
+            break;
+        case 3:
+            description = " a room with a rickedy wooden chest";
+            break;
+        case 4:
+            description = " a coldoom with a metal chest. A broken padlock with a monkey face is lying next to it";
+            break;
+        case 5:
+            description = " a strange room. The sense of thrill and fear fills you.";
             break;
         default:
-            description = "You enter a room with a mop. Not much to look at";
+            description = " a mundane room with a mop. Not much to look at";
             break;
     }
     //Switch statement for spawn table
