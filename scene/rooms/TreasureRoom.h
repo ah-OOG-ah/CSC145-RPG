@@ -2,6 +2,7 @@
 
 #include "Item.h"
 #include "Room.h"
+#include "MenuNode.h"
 
 
 /**
@@ -11,7 +12,9 @@ class TreasureRoom : public Room {
   protected:
     std::string mapDisplay = "T";
     std::shared_ptr<Item> treasure;
+    std::shared_ptr<MenuNode> dialogueHead;
 
   public:
     TreasureRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t nice);
+    void specialAction() override;
 };

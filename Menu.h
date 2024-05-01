@@ -9,7 +9,6 @@
  * dispatch() converts menu entry numbers to function calls.
  */
 class Menu {
-
   public:
     std::vector<std::string> entries;
 

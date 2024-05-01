@@ -26,4 +26,18 @@ TreasureRoom::TreasureRoom(std::shared_ptr<Movement> m, uint8_t mask, int64_t ni
             description = "a mundane room with a mop. Not much to look at";
             break;
     }
+
+    dialogueHead = std::make_shared<MenuNode>("Welcome to my grove.");
+    dialogueHead->addChild(std::make_shared<MenuNode>("You strike the tree"), dialogueHead);
+    dialogueHead->addChild(std::make_shared<MenuNode>("You hug the tree"), dialogueHead);
 }
+
+void TreasureRoom::specialAction() {
+    auto node = dialogueHead;
+    while (!node->isLeaf()) {
+        node->generateFuncs(node);
+        node->display();
+    }
+}
+
+
